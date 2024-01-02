@@ -1,6 +1,6 @@
-package day15.homework;
+package word;
 
-public interface Program_AJ {
+public interface Program {
 	void run();
 	void printMenu();
 	void runMenu(int menu);	

@@ -5,8 +5,6 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import day15.student.Student;
-
 public class HomeworkEx1Program implements HProgram {
 	
 	private Scanner scan = new Scanner(System.in);

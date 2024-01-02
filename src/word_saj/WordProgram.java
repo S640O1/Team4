@@ -1,10 +1,9 @@
-package day15.homework;
+package word_saj;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.Predicate;
 
 /*
 * - 한 단어에 뜻이 여러개 있을 수 있음
@@ -34,11 +33,12 @@ import java.util.function.Predicate;
  * 
  */
 
-public class WordProgram_AJ implements Program_AJ{
+public class WordProgram implements Program{
 	
 	private Scanner scan = new Scanner(System.in);
 	static final int EXIT = 5;
-	private List<Word_AJ> list = new ArrayList<Word_AJ>();
+	private List<Word> list = new ArrayList<Word>();
+	private List<String> mean = new ArrayList<String>();
 	
 	@Override
 	public void printMenu() {
@@ -59,7 +59,7 @@ public class WordProgram_AJ implements Program_AJ{
 	public void run() {
 
 		int menu = 0;
-		
+		String fileName = "src/word_saj/"
 		do {
 			// 메뉴 출력
 			System.out.println();
@@ -112,15 +112,33 @@ public class WordProgram_AJ implements Program_AJ{
 		System.out.print("등록할 단어를 입력하세요 : ");
 		String word = scan.next();
 		
-		System.out.print("등록할 뜻을 입력하세요 : ");
-		String mean = scan.next();
 		
 		System.out.print("등록할 품사를 입력하세요 : ");
 		String speechOfPart = scan.next();
 		
+		String tmp = "";
+	
+
+		do {
+			System.out.print("등록할 뜻을 입력하세요(추가 뜻이 없을 시 1) : ");
+			
+			//메뉴 입력
+			try {
+				tmp = scan.next();
+				if(!tmp.equals("1")) {
+					mean.add(tmp);					
+				}
+			} catch (InputMismatchException e){
+				System.out.println("잘못된 메뉴입니다.");
+				scan.nextLine();
+			}
+			
+		} while (!tmp.equals("1"));
 		
+		
+
 		// 입력받은 정보로 인스턴스를 생성 wds
-		Word_AJ wds = new Word_AJ(word, mean, speechOfPart);
+		Word wds = new Word(word, speechOfPart, mean);
 		
 		// wds가 리스트에 있는지 없는지 확인 후 없으면 추가 a.equals(b)를 이용
 		if (!list.contains(wds)) {			// 품사나 뜻은 같아도 되는데, 단어는 중복 등록 X  -> 코드가 안 먹음 해결 해야함
@@ -135,6 +153,24 @@ public class WordProgram_AJ implements Program_AJ{
 	
 	
 	private void updateManager() {
+		// 기존 단어 입력
+		System.out.print("단어를 입력하세요 : ");
+		String word = scan.next();
+		
+		String speechOfPart = "";
+		ArrayList<String> mean = new ArrayList<String>();
+		
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getWord().equals(word)) {
+				
+				System.out.println("단어 : " + list.get(i).getWord() + ", 뜻 : " + list.get(i).getMean() + ", 품사 : " + list.get(i).getSpeechOfPart());
+				speechOfPart=list.get(i).getSpeechOfPart();
+				mean = (ArrayList<String>) list.get(i).getMean();
+				mean.clear();
+				break;
+			}
+		}
+		
 		System.out.println("===== 수정 =====");
 		System.out.println("1. 단어 수정");
 		System.out.println("2. 뜻 수정");
@@ -145,17 +181,8 @@ public class WordProgram_AJ implements Program_AJ{
 		// 메뉴선택
 		int menu = scan.nextInt();
 					
-		// 기존 단어 입력
-		System.out.print("단어를 입력하세요 : ");
-		String word = scan.next();
 		
-		System.out.print("뜻을 입력하세요 : ");
-		String mean = scan.next();
-		
-		System.out.print("품사를 입력하세요 : ");
-		String speechOfPart = scan.next();
-		
-		Word_AJ wds = new Word_AJ(word, mean, speechOfPart);
+		Word wds = new Word(word,speechOfPart, mean);
 		// 기존 단어와 일치하는 단어 인스턴스를 가져옴
 		int index = list.indexOf(wds);
 		
@@ -174,8 +201,24 @@ public class WordProgram_AJ implements Program_AJ{
 			
 			break;
 		case 2 :
-			System.out.println("수정할 뜻 : ");
-			mean = scan.next();
+			String tmp = "";
+
+			do {
+				System.out.print("수정할 뜻을 입력하세요(추가 뜻이 없을 시 1) : ");
+				
+				//메뉴 입력
+				try {
+					tmp = scan.next();
+					if(!tmp.equals("1")) {
+						mean.add(tmp);					
+					}
+				} catch (InputMismatchException e){
+					System.out.println("잘못된 메뉴입니다.");
+					scan.nextLine();
+				}
+				
+			} while (!tmp.equals("1"));
+			
 			
 			list.get(index).setMean(mean);
 			
@@ -198,26 +241,26 @@ public class WordProgram_AJ implements Program_AJ{
 		System.out.print("단어를 입력하세요 : ");
 		String word = scan.next();
 		
-		System.out.print("뜻을 입력하세요 : ");
-		String mean = scan.next();
-		
-		System.out.print("품사를 입력하세요 : ");
-		String speechOfPart = scan.next();
-		
 		// 단어 인스턴스 생성
-		Word_AJ wds = new Word_AJ(word, mean, speechOfPart);
+		Word wds = new Word(word, "", mean);
 		
-		if (list.remove(wds)) {
-			System.out.println("단어가 삭제 되었습니다.");
-		} else {
-			System.out.println("등록되지 않은 단어입니다.");
+		for(int i=0; i<list.size(); i++) {
+			if(list.get(i).getWord().equals(word)) {
+				list.remove(i);
+				System.out.println("단어가 삭제 되었습니다.");
+				break;
+			}
 		}
+		
+
+		System.out.println("등록되지 않은 단어입니다.");
+
 		
 	}
 	
 	private void printManager() {
 		System.out.println("========== 등록된 단어 ==========");
-		for (Word_AJ wds : list) {
+		for (Word wds : list) {
 			System.out.println("단어 : " + wds.getWord() + ", 뜻 : " + wds.getMean() + ", 품사 : " + wds.getSpeechOfPart());
 		}
 	}

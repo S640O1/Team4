@@ -5,7 +5,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import day15.student.Program;
+import word_sgj.Homework;
 
 public class HomeworkEx1 {
 
