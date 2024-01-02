@@ -1,37 +1,17 @@
-package word_saj;
+package word;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-/*
-* - 한 단어에 뜻이 여러개 있을 수 있음
-* - 단어, 품사, 뜻을 관리
-* - 단어 추가
-* - 단어 수정
-* - 단어 삭제
-* - 뜻 추가
-* - 뜻 수정
-* - 뜻 삭제
-* - 단어 조회
-*/
-
-/*
- * == 1. 단어 등록 ==
- * 
- * == 2. 수정 관리 ==
- * 1. 단어 수정
- * 2. 품사 수정
- * 3. 뜻 수정
- * 
- *  == 3. 단어 삭제 ==
- * 
- * == 4. 단어 조회 ==
- * 
- * == 5. 종료 ==
- * 
- */
+import word_saj.Program;
+import word_saj.Word;
 
 public class WordProgram implements Program{
 	
@@ -59,7 +39,9 @@ public class WordProgram implements Program{
 	public void run() {
 
 		int menu = 0;
-		String fileName = "src/word_saj/"
+		String fileName = "src/word/wordList.txt";
+		load(fileName);
+		
 		do {
 			// 메뉴 출력
 			System.out.println();
@@ -78,9 +60,36 @@ public class WordProgram implements Program{
 			}
 			
 		} while (menu != EXIT);
+		
+		save(fileName);
+		
 	}
 
 	
+
+	private void load(String fileName) {
+		try(FileInputStream fis = new FileInputStream(fileName);
+				ObjectInputStream ois = new ObjectInputStream(fis)){
+			list = (List<Word>)ois.readObject();
+			System.out.println("단어장을 불러왔습니다.");
+
+		}catch (Exception e) {
+			System.out.println("불러오기에 실패했습니다.");
+		}
+		
+	}
+
+	private void save(String fileName) {
+		//게시글을 파일에 저장
+		try(FileOutputStream fos = new FileOutputStream(fileName);
+			ObjectOutputStream oos = new ObjectOutputStream(fos)){
+			oos.writeObject(list);
+		}
+			catch (IOException e) {
+				System.out.println("저장에 실패했습니다.");
+			}
+		
+	}
 
 	@Override
 	public void runMenu(int menu) {
@@ -264,7 +273,6 @@ public class WordProgram implements Program{
 			System.out.println("단어 : " + wds.getWord() + ", 뜻 : " + wds.getMean() + ", 품사 : " + wds.getSpeechOfPart());
 		}
 	}
-	
-	
-
 }
+	
+	
