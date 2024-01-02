@@ -1,10 +1,9 @@
-package day15.homework;
+package word_saj;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.Predicate;
 
 /*
 * - 한 단어에 뜻이 여러개 있을 수 있음
@@ -34,11 +33,11 @@ import java.util.function.Predicate;
  * 
  */
 
-public class WordProgram_AJ implements Program_AJ{
+public class WordProgram implements Program{
 	
 	private Scanner scan = new Scanner(System.in);
 	static final int EXIT = 5;
-	private List<Word_AJ> list = new ArrayList<Word_AJ>();
+	private List<Word> list = new ArrayList<Word>();
 	
 	@Override
 	public void printMenu() {
@@ -120,7 +119,7 @@ public class WordProgram_AJ implements Program_AJ{
 		
 		
 		// 입력받은 정보로 인스턴스를 생성 wds
-		Word_AJ wds = new Word_AJ(word, mean, speechOfPart);
+		Word wds = new Word(word, mean, speechOfPart);
 		
 		// wds가 리스트에 있는지 없는지 확인 후 없으면 추가 a.equals(b)를 이용
 		if (!list.contains(wds)) {			// 품사나 뜻은 같아도 되는데, 단어는 중복 등록 X  -> 코드가 안 먹음 해결 해야함
@@ -155,7 +154,7 @@ public class WordProgram_AJ implements Program_AJ{
 		System.out.print("품사를 입력하세요 : ");
 		String speechOfPart = scan.next();
 		
-		Word_AJ wds = new Word_AJ(word, mean, speechOfPart);
+		Word wds = new Word(word, mean, speechOfPart);
 		// 기존 단어와 일치하는 단어 인스턴스를 가져옴
 		int index = list.indexOf(wds);
 		
@@ -205,7 +204,7 @@ public class WordProgram_AJ implements Program_AJ{
 		String speechOfPart = scan.next();
 		
 		// 단어 인스턴스 생성
-		Word_AJ wds = new Word_AJ(word, mean, speechOfPart);
+		Word wds = new Word(word, mean, speechOfPart);
 		
 		if (list.remove(wds)) {
 			System.out.println("단어가 삭제 되었습니다.");
@@ -217,7 +216,7 @@ public class WordProgram_AJ implements Program_AJ{
 	
 	private void printManager() {
 		System.out.println("========== 등록된 단어 ==========");
-		for (Word_AJ wds : list) {
+		for (Word wds : list) {
 			System.out.println("단어 : " + wds.getWord() + ", 뜻 : " + wds.getMean() + ", 품사 : " + wds.getSpeechOfPart());
 		}
 	}

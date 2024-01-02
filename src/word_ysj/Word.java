@@ -1,4 +1,4 @@
-package day15.word_ysj;
+package word_ysj;
 
 import java.util.Objects;
 

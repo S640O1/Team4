@@ -1,6 +1,7 @@
-package day15.homework;
+package word_saj;
 
-public class HomeworkEx1_AJ {
+
+public class HomeworkEx1 {
 
 	/* 영어 단어장을 관리하는 프로그램을 작성하세요.
 	 * 기한은 1/5까지 github에 업로드 후 강사에게 공유(단톡방)
@@ -22,7 +23,7 @@ public class HomeworkEx1_AJ {
 	
 	public static void main(String[] args) {
 		
-		WordProgram_AJ w = new WordProgram_AJ();
+		WordProgram w = new WordProgram();
 		w.run();
 
 	}

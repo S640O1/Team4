@@ -1,4 +1,4 @@
-package day15.word_ysj;
+package word_ysj;
  
 public class HomeworkEx1 {
 	/* 영어 단어장을 관리하는 프로그램을 작성하세요. (day 10 word)

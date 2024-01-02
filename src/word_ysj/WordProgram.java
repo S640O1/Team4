@@ -1,12 +1,9 @@
-package day15.word_ysj;
+package word_ysj;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.function.Predicate;
-
-import day15.student.Student;
 
 public class WordProgram implements Program {
 

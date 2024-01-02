@@ -1,4 +1,4 @@
-package day15.homework;
+package word_saj;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 
-public class Word_AJ {
+public class Word {
 	
 	@NonNull
 	private String word;				// 세 개를 한 줄에 쓰면 Duplicate method in type 에러 발생
