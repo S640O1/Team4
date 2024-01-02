@@ -268,6 +268,10 @@ public class WordProgram implements Program{
 	}
 	
 	private void printManager() {
+		System.out.println("조회할 단어 : ");
+		String word= scan.next();
+		
+		
 		System.out.println("========== 등록된 단어 ==========");
 		for (Word wds : list) {
 			System.out.println("단어 : " + wds.getWord() + ", 뜻 : " + wds.getMean() + ", 품사 : " + wds.getSpeechOfPart());

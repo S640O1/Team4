@@ -17,8 +17,13 @@ public class HomeworkEx1 {
 	 * 
 	 * - 기타 추가 기능을 구현해도 됨
 	 * - 등록된 단어장에서 랜덤으로 문제가 나오고 맞추는 기능
+	 * .get(i).getWord();
+	 * 
+	 * 
 	 * - 오답 노트를 관리하는 기능 
+	 * 
 	 * - 많이 조회한 단어를 확인하는 기능
+	 * count
 	 */
 	
 	public static void main(String[] args) {
