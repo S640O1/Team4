@@ -10,9 +10,6 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import word_saj.Program;
-import word_saj.Word;
-
 public class WordProgram implements Program{
 	
 	private Scanner scan = new Scanner(System.in);
