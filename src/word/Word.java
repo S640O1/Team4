@@ -15,4 +15,5 @@ public class Word {
 	private String word;
 	private String speechOfPart;
 	private List<String> mean = new ArrayList<String>();
+	int count;
 }
