@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 sonsosnsonson
-=======
 GyeongZ
 mazxyni
 Tomi606
 sonnayoung
->>>>>>> main
+
