@@ -1,7 +1,7 @@
 package word_saj;
 
 
-public class WordMain {
+public class HomeworkEx1 {
 	/* 영어 단어장을 관리하는 프로그램을 작성하세요.
 	 * 기한은 1/5까지 github에 업로드 후 강사에게 공유(단톡방)
 	 * - 한 단어에 뜻이 여러개 있을 수 있음
