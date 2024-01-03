@@ -14,9 +14,41 @@ public class WordProgram implements Program{
 	
 	private Scanner scan = new Scanner(System.in);
 	static final int EXIT = 5;
+	static String fileName = "src/word/wordList.txt";
 	private List<Word> list = new ArrayList<Word>();
-	private List<String> mean = new ArrayList<String>();
 	
+	
+	/** 0. 메인 */
+	@Override
+	public void run() {
+		
+		int menu = 0;
+		
+		load(fileName);
+		
+		do {
+			// 메뉴 출력
+			printMenu();
+			
+			//메뉴 입력
+			try {
+				menu = scan.nextInt();
+
+				// 메뉴 실행
+				runMenu(menu);
+			} catch (InputMismatchException e){
+				System.out.println("잘못된 메뉴입니다.");
+				scan.nextLine();
+			}
+			
+		} while (menu != EXIT);
+		
+		save(fileName);
+		
+	}
+	
+	
+	/** 0. 메인 메뉴 출력 */
 	@Override
 	public void printMenu() {
 
@@ -32,38 +64,7 @@ public class WordProgram implements Program{
 		
 	}
 	
-	@Override
-	public void run() {
-
-		int menu = 0;
-		String fileName = "src/word/wordList.txt";
-		load(fileName);
-		
-		do {
-			// 메뉴 출력
-			System.out.println();
-			printMenu();
-			
-			//메뉴 입력
-			try {
-				menu = scan.nextInt();
-				System.out.println();
-				
-				// 메뉴 실행
-				runMenu(menu);
-			} catch (InputMismatchException e){
-				System.out.println("잘못된 메뉴입니다.");
-				scan.nextLine();
-			}
-			
-		} while (menu != EXIT);
-		
-		save(fileName);
-		
-	}
-
-	
-
+	/** 1. 불러오기 */
 	private void load(String fileName) {
 		try(FileInputStream fis = new FileInputStream(fileName);
 				ObjectInputStream ois = new ObjectInputStream(fis)){
@@ -75,19 +76,21 @@ public class WordProgram implements Program{
 		}
 		
 	}
-
+	/** 1. 저장하기 */
 	private void save(String fileName) {
 		//게시글을 파일에 저장
 		try(FileOutputStream fos = new FileOutputStream(fileName);
 			ObjectOutputStream oos = new ObjectOutputStream(fos)){
 			oos.writeObject(list);
+			System.out.println("저장을 성공했습니다.");
 		}
-			catch (IOException e) {
-				System.out.println("저장에 실패했습니다.");
-			}
+		catch (IOException e) {
+			System.out.println("저장에 실패했습니다.");
+		}
 		
 	}
 
+	/** 1. 메인 메뉴 실행 */
 	@Override
 	public void runMenu(int menu) {
 		switch(menu) {
@@ -110,30 +113,50 @@ public class WordProgram implements Program{
 		}
 	}
 
-	
-
+	/** 1-1. 단어 등록 */
 	private void insertManager() {
-		
+
 		// 등록할 단어, 품사, 뜻을 입력 받음
 		System.out.print("등록할 단어를 입력하세요 : ");
 		String word = scan.next();
 		
+		for(int i=0; i<list.size(); i++) {
+			//만약 동일한 단어가 있다면
+			if(list.get(i).getWord().equals(word)) {
+				//이미 있으면 있다고 알림
+				System.out.println("이미 등록된 단어입니다.");
+				return;
+				}
+		}
 		
+		// 없으면 품사와 뜻을 등록
 		System.out.print("등록할 품사를 입력하세요 : ");
 		String speechOfPart = scan.next();
 		
 		String tmp = "";
 	
+		List<String> mean = new ArrayList<String>();
+		
 
+		
 		do {
 			System.out.print("등록할 뜻을 입력하세요(추가 뜻이 없을 시 1) : ");
 			
 			//메뉴 입력
 			try {
 				tmp = scan.next();
-				if(!tmp.equals("1")) {
+				
+				//만약 동일한 뜻이 포함되어있다면
+				if(mean.contains(tmp)) {
+					//이미 있으면 있다고 알림
+					System.out.println("이미 등록된 뜻입니다.");
+				}
+				//동일 뜻이 포함되지 않고, "1"이 아니라면
+				else if(!tmp.equals("1")) {
+					//뜻을 mean에 추가
 					mean.add(tmp);					
 				}
+				
 			} catch (InputMismatchException e){
 				System.out.println("잘못된 메뉴입니다.");
 				scan.nextLine();
@@ -142,61 +165,55 @@ public class WordProgram implements Program{
 		} while (!tmp.equals("1"));
 		
 		
-
 		// 입력받은 정보로 인스턴스를 생성 wds
 		Word wds = new Word(word, speechOfPart, mean);
 		
-		// wds가 리스트에 있는지 없는지 확인 후 없으면 추가 a.equals(b)를 이용
-		if (!list.contains(wds)) {			// 품사나 뜻은 같아도 되는데, 단어는 중복 등록 X  -> 코드가 안 먹음 해결 해야함
-			list.add(wds);
-			System.out.println("단어를 등록했습니다."); 
-			return;
-		}
-		
-		//이미 있으면 있다고 알림
-		System.out.println("이미 등록된 단어입니다.");
+		//단어 등록
+		list.add(wds);
+		System.out.println("단어를 등록했습니다."); 
 	}
 	
-	
+	/** 1-2. 수정 */
 	private void updateManager() {
 		// 기존 단어 입력
 		System.out.print("단어를 입력하세요 : ");
 		String word = scan.next();
 		
-		String speechOfPart = "";
-		ArrayList<String> mean = new ArrayList<String>();
+		int index = -1;
 		
 		for(int i=0; i<list.size(); i++) {
+			//만약 동일한 단어가 있다면
 			if(list.get(i).getWord().equals(word)) {
-				
-				System.out.println("단어 : " + list.get(i).getWord() + ", 뜻 : " + list.get(i).getMean() + ", 품사 : " + list.get(i).getSpeechOfPart());
-				speechOfPart=list.get(i).getSpeechOfPart();
-				mean = (ArrayList<String>) list.get(i).getMean();
-				mean.clear();
+				//해당 인덱스 값을 저장
+				index = i;
 				break;
-			}
+				}
 		}
+		// 없으면 없다고 하고 종료
+		if(index == -1) {
+			System.out.println("등록되지 않은 단어입니다.");	
+			return;
+		}
+		
+
+		System.out.println("단어 : " + list.get(index).getWord() + ", 뜻 : " + list.get(index).getMean() + ", 품사 : " + list.get(index).getSpeechOfPart());
+		String speechOfPart=""; 
+		List<String> mean = new ArrayList<String>();
+		//의미 지우기
+		mean.clear();
+
 		
 		System.out.println("===== 수정 =====");
 		System.out.println("1. 단어 수정");
 		System.out.println("2. 뜻 수정");
 		System.out.println("3. 품사 수정");
+		System.out.println("4. 뒤로가기");
 		System.out.println("---------------");
 		System.out.print("메뉴 선택 : ");
 		
 		// 메뉴선택
 		int menu = scan.nextInt();
 					
-		
-		Word wds = new Word(word,speechOfPart, mean);
-		// 기존 단어와 일치하는 단어 인스턴스를 가져옴
-		int index = list.indexOf(wds);
-		
-		// 없으면 없다고 하고 종료
-		if (index == -1) {
-			System.out.println("등록되지 않은 단어입니다.");
-			return;
-		}
 					
 		switch(menu) {
 		case 1 :	
@@ -214,8 +231,14 @@ public class WordProgram implements Program{
 				
 				//메뉴 입력
 				try {
-					tmp = scan.next();
-					if(!tmp.equals("1")) {
+					//만약 동일한 뜻이 포함되어있다면
+					if(mean.contains(tmp)) {
+						//이미 있으면 있다고 알림
+						System.out.println("이미 등록된 뜻입니다.");
+					}
+					//동일 뜻이 포함되지 않고, "1"이 아니라면
+					else if(!tmp.equals("1")) {
+						//뜻을 mean에 추가
 						mean.add(tmp);					
 					}
 				} catch (InputMismatchException e){
@@ -235,6 +258,9 @@ public class WordProgram implements Program{
 			
 			list.get(index).setSpeechOfPart(speechOfPart);
 			break;
+		case 4:
+			updateManager();
+			break;
 		default :
 			throw new InputMismatchException();
 		}
@@ -242,13 +268,13 @@ public class WordProgram implements Program{
 
 	}
 
+	/** 1-3. 삭제 */
 	private void deleteManager() {
-		// 삭제할 단어, 뜻, 품사 입력
+		// 삭제할 단어 입력
 		System.out.print("단어를 입력하세요 : ");
 		String word = scan.next();
 		
-		// 단어 인스턴스 생성
-		Word wds = new Word(word, "", mean);
+		List<String> mean = new ArrayList<String>();
 		
 		for(int i=0; i<list.size(); i++) {
 			if(list.get(i).getWord().equals(word)) {
@@ -260,19 +286,50 @@ public class WordProgram implements Program{
 		
 
 		System.out.println("등록되지 않은 단어입니다.");
-
 		
 	}
 	
+	/** 1-4. 조회 */
 	private void printManager() {
-		System.out.println("조회할 단어 : ");
-		String word= scan.next();
+		System.out.println("===== 조회 =====");
+		System.out.println("1. 단어 조회");
+		System.out.println("2. 전체 조회");
+		System.out.println("3. 뒤로가기");
+		System.out.println("---------------");
+		System.out.print("메뉴 선택 : ");
 		
-		
-		System.out.println("========== 등록된 단어 ==========");
-		for (Word wds : list) {
-			System.out.println("단어 : " + wds.getWord() + ", 뜻 : " + wds.getMean() + ", 품사 : " + wds.getSpeechOfPart());
+		// 메뉴선택
+		int menu = scan.nextInt();
+					
+		switch(menu) {
+		case 1 :
+			System.out.print("조회할 단어 : ");
+			String word= scan.next();
+			
+			for(int i=0; i<list.size(); i++) {
+				//만약 조회할 단어와 같다면
+				if(list.get(i).getWord().equals(word)) {
+					//조회 출력
+					System.out.println("단어 : " +  list.get(i).getWord()+ ", 뜻 : " + list.get(i).getMean() + ", 품사 : " + list.get(i).getSpeechOfPart());
+					break;
+				}
+			}
+			break;
+		case 2 :
+			System.out.println("========== 등록된 단어 ==========");
+			for (Word wds : list) {
+				System.out.println("단어 : " + wds.getWord() + ", 뜻 : " + wds.getMean() + ", 품사 : " + wds.getSpeechOfPart());
+			}
+			break;
+		case 3 :
+			run();
+			break;
+		default :
+			throw new InputMismatchException();
 		}
+		
+		
+
 	}
 }
 	
