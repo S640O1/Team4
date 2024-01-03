@@ -1,4 +1,8 @@
+<<<<<<<< Updated upstream:src/word/WordMain.java
 package word;
+========
+package word_saj;
+>>>>>>>> Stashed changes:src/word_saj/HomeworkEx1.java
 
 
 public class WordMain {
