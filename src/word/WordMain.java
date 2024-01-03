@@ -1,9 +1,4 @@
-<<<<<<<< Updated upstream:src/word/WordMain.java
 package word;
-========
-package word_saj;
->>>>>>>> Stashed changes:src/word_saj/HomeworkEx1.java
-
 
 public class WordMain {
 	/* 영어 단어장을 관리하는 프로그램을 작성하세요.
