@@ -231,6 +231,7 @@ public class WordProgram implements Program{
 				
 				//메뉴 입력
 				try {
+					tmp = scan.next();
 					//만약 동일한 뜻이 포함되어있다면
 					if(mean.contains(tmp)) {
 						//이미 있으면 있다고 알림
@@ -314,6 +315,7 @@ public class WordProgram implements Program{
 					break;
 				}
 			}
+			System.out.println("없는 단어입니다.");
 			break;
 		case 2 :
 			System.out.println("========== 등록된 단어 ==========");
