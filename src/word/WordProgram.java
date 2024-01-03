@@ -154,7 +154,7 @@ public class WordProgram implements Program{
 				//동일 뜻이 포함되지 않고, "1"이 아니라면
 				else if(!tmp.equals("1")) {
 					//뜻을 mean에 추가
-					mean.add(tmp);					
+					mean.add(tmp);	
 				}
 				
 			} catch (InputMismatchException e){
@@ -231,6 +231,7 @@ public class WordProgram implements Program{
 				
 				//메뉴 입력
 				try {
+					tmp = scan.next();
 					//만약 동일한 뜻이 포함되어있다면
 					if(mean.contains(tmp)) {
 						//이미 있으면 있다고 알림
@@ -280,7 +281,7 @@ public class WordProgram implements Program{
 			if(list.get(i).getWord().equals(word)) {
 				list.remove(i);
 				System.out.println("단어가 삭제 되었습니다.");
-				break;
+				return;
 			}
 		}
 		
@@ -314,6 +315,7 @@ public class WordProgram implements Program{
 					break;
 				}
 			}
+			System.out.println("없는 단어입니다.");
 			break;
 		case 2 :
 			System.out.println("========== 등록된 단어 ==========");
