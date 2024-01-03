@@ -135,7 +135,7 @@ public class HomeworkEx1 {
 		//입력받은 정보로 인스턴스를 생성 std
 		Homework wd = new Homework(words, wordClass, meaning);
 		
-		if(!List.contains(wd)) {
+		if(!list.contains(wd)) {
 			list.add(wd);
 			System.out.println("단어를 등록했습니다.");
 			return;
