@@ -22,7 +22,7 @@ public class WordMain {
 	 * 
 	 * - 많이 조회한 단어를 확인하는 기능
 	 * count
-	 */
+	 */	
 	public static void main(String[] args) {
 		WordProgram p = new WordProgram();
 		p.run();
