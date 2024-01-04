@@ -267,6 +267,7 @@ public class WordProgram implements Program{
 			updateManager();
 			break;
 		default :
+			
 			throw new InputMismatchException();
 		}
 		System.out.println("수정이 완료되었습니다.");

@@ -1,5 +1,6 @@
 package word_saj;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +13,12 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 
-public class Word {
+public class Word implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4250255972094339729L;
 	@NonNull
 	private String word;				// 세 개를 한 줄에 쓰면 Duplicate method in type 에러 발생
 	private String speechOfPart;
