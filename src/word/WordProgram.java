@@ -338,8 +338,12 @@ public class WordProgram implements Program{
 						maxIndex = i;
 					}
 				}
-				System.out.println("가장 많이 조회된 단어 : " + list.get(maxIndex).getWord()
-						+ "\n조회수 : " + list.get(maxIndex).getCount() + "회");
+				if(list.get(maxIndex).getCount() == 0) {
+					System.out.println("아직 조회된 단어가 없습니다.");
+				} else {
+					System.out.println("가장 많이 조회된 단어 : " + list.get(maxIndex).getWord()
+							+ "\n조회수 : " + list.get(maxIndex).getCount() + "회");
+				}		
 			break;
 		case 4 :
 			run();
@@ -347,9 +351,6 @@ public class WordProgram implements Program{
 		default :
 			throw new InputMismatchException();
 		}
-		
-		
-
 	}
 
 	/** 1-5. 단어 게임 */
