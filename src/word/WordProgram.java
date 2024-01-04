@@ -354,11 +354,11 @@ public class WordProgram implements Program{
 
 	/** 1-5. 단어 게임 */
 	private void wordGame() {
-		int min =0, max = list.size();
+		int min =0, max = list.size()-1;
 		int win=0, lose=0;
 		String answer="";
-		//게임 반복 (-1 입력시 게임 종료)
-		System.out.println("-----단어게임시작-----\n(게임 종료를 원할 시 -1을 입력하세요.)");
+		//게임 반복 (1 입력시 게임 종료)
+		System.out.println("-----단어게임시작-----\n(게임 종료를 원할 시 1을 입력하세요.)");
 		do {
 			//랜덤 인덱스 생성
 			int r = (int)(Math.random() * (max - min + 1) + min);
@@ -374,13 +374,16 @@ public class WordProgram implements Program{
 				//승++
 				win++;
 			}else{
-				//일치하지 않을 경우 틀렸습니다 메세지 및 정답 공개
-				System.out.println("오답입니다. 정답은 " + list.get(r).getMean());
-				//패++
-				lose++;
+				if(!answer.equals("1")) {
+					//일치하지 않을 경우 틀렸습니다 메세지 및 정답 공개
+					System.out.println("오답입니다. 정답은 " + list.get(r).getMean());
+					//패++
+					lose++;
+				}
+					
 			}
 			
-		}while(answer != "-1");
+		}while(!answer.equals("1"));
 		
 		//게임종료후
 		System.out.println("정답횟수 : " + win + "회, 오답횟수 : " + lose +"회");
