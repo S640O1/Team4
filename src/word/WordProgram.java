@@ -339,8 +339,12 @@ public class WordProgram implements Program{
 						maxIndex = i;
 					}
 				}
-				System.out.println("가장 많이 조회된 단어 : " + list.get(maxIndex).getWord()
-						+ "\n조회수 : " + list.get(maxIndex).getCount() + "회");
+				if(list.get(maxIndex).getCount() == 0) {
+					System.out.println("아직 조회된 단어가 없습니다.");
+				} else {
+					System.out.println("가장 많이 조회된 단어 : " + list.get(maxIndex).getWord()
+							+ "\n조회수 : " + list.get(maxIndex).getCount() + "회");
+				}		
 			break;
 		case 4 :
 			run();
@@ -348,9 +352,6 @@ public class WordProgram implements Program{
 		default :
 			throw new InputMismatchException();
 		}
-		
-		
-
 	}
 
 	/** 1-5. 단어 게임 */
@@ -363,6 +364,7 @@ public class WordProgram implements Program{
 		do {
 			//랜덤 인덱스 생성
 			int r = (int)(Math.random() * (max - min + 1) + min);
+			
 			//랜덤 인덱스 단어 출력
 			System.out.print("단어" + list.get(r).getWord() + "의 뜻은?\n답 : ");
 			//뜻 입력받기
@@ -372,6 +374,7 @@ public class WordProgram implements Program{
 			if(list.get(r).getMean().contains(answer)) {
 				//일치할 경우 정답입니다 메세지 
 				System.out.println("정답입니다.");
+				System.out.println(list.get(r).getMean());
 				//승++
 				win++;
 			}else{
