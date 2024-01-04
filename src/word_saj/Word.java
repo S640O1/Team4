@@ -17,6 +17,5 @@ public class Word {
 	@NonNull
 	private String word;				// 세 개를 한 줄에 쓰면 Duplicate method in type 에러 발생
 	private String speechOfPart;
-	
 	private List<String> mean = new ArrayList<String>();
 }

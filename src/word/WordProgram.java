@@ -363,6 +363,7 @@ public class WordProgram implements Program{
 		do {
 			//랜덤 인덱스 생성
 			int r = (int)(Math.random() * (max - min + 1) + min);
+			
 			//랜덤 인덱스 단어 출력
 			System.out.print("단어" + list.get(r).getWord() + "의 뜻은?\n답 : ");
 			//뜻 입력받기
@@ -372,6 +373,7 @@ public class WordProgram implements Program{
 			if(list.get(r).getMean().contains(answer)) {
 				//일치할 경우 정답입니다 메세지 
 				System.out.println("정답입니다.");
+				System.out.println(list.get(r).getMean());
 				//승++
 				win++;
 			}else{
