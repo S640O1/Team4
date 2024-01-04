@@ -341,7 +341,7 @@ public class WordProgram implements Program{
 				}
 				if(list.get(maxIndex).getCount() == 0) {
 					System.out.println("아직 조회된 단어가 없습니다.");
-				} else if(list.size()==0){
+				} else if(list.size()==0){	//등록된 단어가 없을 경우
 					System.out.println("등록된 단어가 없습니다.");
 				}
 				else {
