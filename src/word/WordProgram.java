@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class WordProgram implements Program{
 	
 	private Scanner scan = new Scanner(System.in);
-	static final int EXIT = 5;
+	static final int EXIT = 6;
 	static String fileName = "src/word/wordList.txt";
 	private List<Word> list = new ArrayList<Word>();
 	
@@ -47,7 +47,6 @@ public class WordProgram implements Program{
 		
 	}
 	
-	
 	/** 0. 메인 메뉴 출력 */
 	@Override
 	public void printMenu() {
@@ -58,7 +57,8 @@ public class WordProgram implements Program{
 		System.out.println("2. 수정 관리");
 		System.out.println("3. 단어 삭제");
 		System.out.println("4. 단어 조회");
-		System.out.println("5. 종료");
+		System.out.println("5. 단어 게임");
+		System.out.println("6. 종료");
 		System.out.println("---------------");
 		System.out.print("메뉴 선택 : ");
 		
@@ -76,6 +76,7 @@ public class WordProgram implements Program{
 		}
 		
 	}
+	
 	/** 1. 저장하기 */
 	private void save(String fileName) {
 		//게시글을 파일에 저장
@@ -106,13 +107,16 @@ public class WordProgram implements Program{
 		case 4 :
 			printManager();			// 조회는 단어, 뜻, 품사가 한번에 보이도록 구현
 			break;
-		case 5 :
+		case 5 :					
+			wordGame();				//단어게임
+			break;
+		case 6 :					//프로그램 종료
 			break;
 		default :
 			throw new InputMismatchException();
 		}
 	}
-
+	
 	/** 1-1. 단어 등록 */
 	private void insertManager() {
 
@@ -166,7 +170,7 @@ public class WordProgram implements Program{
 		
 		
 		// 입력받은 정보로 인스턴스를 생성 wds
-		Word wds = new Word(word, speechOfPart, mean);
+		Word wds = new Word(word, speechOfPart, mean, 0);
 		
 		//단어 등록
 		list.add(wds);
@@ -196,7 +200,7 @@ public class WordProgram implements Program{
 		}
 		
 
-		System.out.println("단어 : " + list.get(index).getWord() + ", 뜻 : " + list.get(index).getMean() + ", 품사 : " + list.get(index).getSpeechOfPart());
+		System.out.println("단어 : " + list.get(index).getWord()  + ", 품사 : " + list.get(index).getSpeechOfPart() + ", 뜻 : " + list.get(index).getMean());
 		String speechOfPart=""; 
 		List<String> mean = new ArrayList<String>();
 		//의미 지우기
@@ -284,8 +288,6 @@ public class WordProgram implements Program{
 				return;
 			}
 		}
-		
-
 		System.out.println("등록되지 않은 단어입니다.");
 		
 	}
@@ -295,7 +297,8 @@ public class WordProgram implements Program{
 		System.out.println("===== 조회 =====");
 		System.out.println("1. 단어 조회");
 		System.out.println("2. 전체 조회");
-		System.out.println("3. 뒤로가기");
+		System.out.println("3. 가장 많이 조회된 단어");
+		System.out.println("4. 뒤로가기");
 		System.out.println("---------------");
 		System.out.print("메뉴 선택 : ");
 		
@@ -311,8 +314,11 @@ public class WordProgram implements Program{
 				//만약 조회할 단어와 같다면
 				if(list.get(i).getWord().equals(word)) {
 					//조회 출력
-					System.out.println("단어 : " +  list.get(i).getWord()+ ", 뜻 : " + list.get(i).getMean() + ", 품사 : " + list.get(i).getSpeechOfPart());
-					break;
+					System.out.println("단어 : " +  list.get(i).getWord()+ ", 품사 : " + list.get(i).getSpeechOfPart() + ", 뜻 : " + list.get(i).getMean());
+					//기존 조회수 + 1을 count에 저장
+					int count = list.get(i).getCount() +1 ;
+					list.get(i).setCount(count);
+					return;
 				}
 			}
 			System.out.println("없는 단어입니다.");
@@ -320,10 +326,22 @@ public class WordProgram implements Program{
 		case 2 :
 			System.out.println("========== 등록된 단어 ==========");
 			for (Word wds : list) {
-				System.out.println("단어 : " + wds.getWord() + ", 뜻 : " + wds.getMean() + ", 품사 : " + wds.getSpeechOfPart());
+				System.out.println("단어 : " + wds.getWord() + ", 품사 : " + wds.getSpeechOfPart() + ", 뜻 : " + wds.getMean());
 			}
 			break;
-		case 3 :
+			case 3 :
+				//가장 많이 조회된 단어 출력
+				int maxIndex = 0;
+				//전체 리스트 중 count가 가장 큰 리스트 인덱스 값을 저장
+				for(int i=0; i<list.size(); i++) {
+					if(list.get(maxIndex).getCount() < list.get(i).getCount()) {
+						maxIndex = i;
+					}
+				}
+				System.out.println("가장 많이 조회된 단어 : " + list.get(maxIndex).getWord()
+						+ "\n조회수 : " + list.get(maxIndex).getCount() + "회");
+			break;
+		case 4 :
 			run();
 			break;
 		default :
@@ -333,6 +351,45 @@ public class WordProgram implements Program{
 		
 
 	}
+
+	/** 1-5. 단어 게임 */
+	private void wordGame() {
+		int min =0, max = list.size()-1;
+		int win=0, lose=0;
+		String answer="";
+		//게임 반복 (1 입력시 게임 종료)
+		System.out.println("-----단어게임시작-----\n(게임 종료를 원할 시 1을 입력하세요.)");
+		do {
+			//랜덤 인덱스 생성
+			int r = (int)(Math.random() * (max - min + 1) + min);
+			//랜덤 인덱스 단어 출력
+			System.out.print("단어" + list.get(r).getWord() + "의 뜻은?\n답 : ");
+			//뜻 입력받기
+			answer = scan.next();
+			
+			//입력받은 뜻과 정답뜻이 일치하는지 확인
+			if(list.get(r).getMean().contains(answer)) {
+				//일치할 경우 정답입니다 메세지 
+				System.out.println("정답입니다.");
+				//승++
+				win++;
+			}else{
+				if(!answer.equals("1")) {
+					//일치하지 않을 경우 틀렸습니다 메세지 및 정답 공개
+					System.out.println("오답입니다. 정답은 " + list.get(r).getMean());
+					//패++
+					lose++;
+				}
+					
+			}
+			
+		}while(!answer.equals("1"));
+		
+		//게임종료후
+		System.out.println("정답횟수 : " + win + "회, 오답횟수 : " + lose +"회");
+	}
+
+
 }
 	
 	

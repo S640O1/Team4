@@ -20,5 +20,6 @@ public class Word implements Serializable{
 	private String word;
 	private String speechOfPart;
 	private List<String> mean = new ArrayList<String>();
+	private int count;
 //	int count;
 }
