@@ -341,7 +341,10 @@ public class WordProgram implements Program{
 				}
 				if(list.get(maxIndex).getCount() == 0) {
 					System.out.println("아직 조회된 단어가 없습니다.");
-				} else {
+				} else if(list.size()==0){	//등록된 단어가 없을 경우
+					System.out.println("등록된 단어가 없습니다.");
+				}
+				else {
 					System.out.println("가장 많이 조회된 단어 : " + list.get(maxIndex).getWord()
 							+ "\n조회수 : " + list.get(maxIndex).getCount() + "회");
 				}		
