@@ -9,7 +9,7 @@ import word.Word;
 
 public class ABProgram implements Program{
 	
-	Scanner scan = new Scanner(System.in);
+	Scanner sc = new Scanner(System.in);
 	static final int EXIT = 6;
 	static String fileName = "src/accountBook/accountBookList.txt";
 	private List<AccountBook> list = new ArrayList<AccountBook>();
@@ -22,11 +22,11 @@ public class ABProgram implements Program{
 		do {
 			printMenu();
 			try {
-				menu = scan.nextInt();
+				menu = sc.nextInt();
 				runMenu(menu);
 			} catch (InputMismatchException e){
 				System.out.println("잘못된 메뉴입니다.");
-				scan.nextLine();
+				sc.nextLine();
 			}
 		} while (menu != EXIT);
 //		save(fileName);
@@ -34,7 +34,7 @@ public class ABProgram implements Program{
 
 	@Override
 	public void printMenu() {
-		System.out.println("-------가계부--------");
+		System.out.println("------가계부------");
 		System.out.println("1. 가계부 입력");
 		System.out.println("2. 가계부 조회");
 		System.out.println("3. 가계부 수정");
@@ -63,35 +63,76 @@ public class ABProgram implements Program{
 		case 5 :					
 			currentMoney();	
 			break;
-		case 6 :					//프로그램 종료
+		case 6 : System.out.println("프로그램을 종료합니다.");
 			break;
 		default :
 			throw new InputMismatchException();
 		}
 	}
 
+	//1. 가계부 입력 - 수입, 지출 항목 입력
 	private void insertMoney() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("[가계부 입력]");
+		System.out.println("1. 수입");
+		System.out.println("2. 지출");
+		System.out.print("메뉴 선택 : ");
+		int menu = sc.nextInt();
+		switch(menu) {
+		case 1 : 
+			System.out.println("[수입]");
+			System.out.println("년도 : ");
+			int year = sc.nextInt();
+			System.out.println("월 : ");
+			int month = sc.nextInt();
+			System.out.println("일 : ");
+			int day = sc.nextInt();
+			System.out.println("입금 금액 : ");
+			int plusMoney = sc.nextInt();
+			System.out.println("내역 : ");
+			String memo = sc.nextLine();
+			
+			AccountBook plus = new AccountBook(null, plusMoney, memo);
+			
+			break;
+			
+		case 2 : 
+			System.out.println("[지출]");
+			System.out.println("년도 : ");
+			year = sc.nextInt();
+			System.out.println("월 : ");
+			month = sc.nextInt();
+			System.out.println("일 : ");
+			day = sc.nextInt();
+			System.out.println("지출 금액 : ");
+			int useMoney = sc.nextInt();
+			System.out.println("내역 : ");
+			memo = sc.nextLine();
+			
+			AccountBook use = new AccountBook(null, useMoney, memo);
+			
+			break;
+			
+		default : System.out.println("없는 메뉴입니다.");
+		}
 	}
 
+	//2. 가계부 조회 - 하루, 주간, 월간, 연간
 	private void printMoney() {
-		// TODO Auto-generated method stub
 		
 	}
 
+	//3. 가계부 수정 1)수입/지출 여부 2)년 월 일 3)사용금액 4)잔액 5)내역 6)전체수정
 	private void updateMoney() {
-		// TODO Auto-generated method stub
 		
 	}
 
+	//4. 가계부 삭제
 	private void deleteMoney() {
-		// TODO Auto-generated method stub
 		
 	}
 
+	//5. 현재 잔액 조회
 	private void currentMoney() {
-		// TODO Auto-generated method stub
 		
 	}
 	
