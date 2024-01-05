@@ -307,70 +307,58 @@ public class WordProgram implements Program{
 		int menu = scan.nextInt();
 					
 		switch(menu) {
-		case 1 :
-			System.out.print("조회할 단어 : ");
-			String word= scan.next();
-			
-			for(int i=0; i<list.size(); i++) {
-				//만약 조회할 단어와 같다면
-				if(list.get(i).getWord().equals(word)) {
-					//조회 출력
-					System.out.println("단어 : " +  list.get(i).getWord()+ ", 품사 : " + list.get(i).getSpeechOfPart() + ", 뜻 : " + list.get(i).getMean());
-					//기존 조회수 + 1을 count에 저장
-					int count = list.get(i).getCount() +1 ;
-					list.get(i).setCount(count);
-					return;
+			case 1 :
+				System.out.print("조회할 단어 : ");
+				String word= scan.next();
+				
+				for(int i=0; i<list.size(); i++) {
+					//만약 조회할 단어와 같다면
+					if(list.get(i).getWord().equals(word)) {
+						//조회 출력
+						System.out.println("단어 : " +  list.get(i).getWord()+ ", 품사 : " + list.get(i).getSpeechOfPart() + ", 뜻 : " + list.get(i).getMean());
+						//기존 조회수 + 1을 count에 저장
+						int count = list.get(i).getCount() +1 ;
+						list.get(i).setCount(count);
+						return;
+					}
 				}
-			}
-			System.out.println("없는 단어입니다.");
-			break;
-		case 2 :
-			System.out.println("========== 등록된 단어 ==========");
-			for (Word wds : list) {
-				System.out.println("단어 : " + wds.getWord() + ", 품사 : " + wds.getSpeechOfPart() + ", 뜻 : " + wds.getMean());
-			}
-			break;
+				System.out.println("없는 단어입니다.");
+				break;
+			case 2 :
+				System.out.println("========== 등록된 단어 ==========");
+				for (Word wds : list) {
+					System.out.println("단어 : " + wds.getWord() + ", 품사 : " + wds.getSpeechOfPart() + ", 뜻 : " + wds.getMean());
+				}
+				break;
 			case 3 :
 				//가장 많이 조회된 단어 출력
 				int maxIndex = 0;
 				//전체 리스트 중 count가 가장 큰 리스트 인덱스 값을 저장
-				for(int i=0; i<list.size(); i++) {
-					if(list.get(maxIndex).getCount() < list.get(i).getCount()) {
-						maxIndex = i;
+				if(list.size() > 0) {
+					for(int i=0; i<list.size(); i++) {
+						if(list.get(maxIndex).getCount() < list.get(i).getCount()) {
+							maxIndex = i;
+						}
 					}
 				}
-<<<<<<< HEAD
-=======
-
-			}
-			if(list.get(maxIndex).getCount() == 0) {
-				System.out.println("아직 조회된 단어가 없습니다.");
-			} else {
-				System.out.println("가장 많이 조회된 단어 : " + list.get(maxIndex).getWord()
-						+ "\n조회수 : " + list.get(maxIndex).getCount() + "회");
-			}		
-		break;
-			
->>>>>>> 15b7405f441525b2565a3c69502fbcce29e6f459
-				if(list.get(maxIndex).getCount() == 0) {
-					System.out.println("아직 조회된 단어가 없습니다.");
-				} else if(list.size()==0){	//등록된 단어가 없을 경우
+				
+				try {
+					if(list.get(maxIndex).getCount() == 0) {
+						System.out.println("아직 조회된 단어가 없습니다.");
+					} else {
+						System.out.println("가장 많이 조회된 단어 : " + list.get(maxIndex).getWord()
+								+ "\n조회수 : " + list.get(maxIndex).getCount() + "회");
+					}
+				}catch(IndexOutOfBoundsException e) {
 					System.out.println("등록된 단어가 없습니다.");
 				}
-				else {
-					System.out.println("가장 많이 조회된 단어 : " + list.get(maxIndex).getWord()
-							+ "\n조회수 : " + list.get(maxIndex).getCount() + "회");
-				}		
-			break;
-<<<<<<< HEAD
-=======
-        
->>>>>>> 15b7405f441525b2565a3c69502fbcce29e6f459
-		case 4 :
-			run();
-			break;
-		default :
-			throw new InputMismatchException();
+				
+				break;
+			case 4 :
+				run();
+				break;
+			default :
+				throw new InputMismatchException();
 		}
 	}
 
