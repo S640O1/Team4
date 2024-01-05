@@ -175,6 +175,7 @@ public class WordProgram implements Program{
 		//단어 등록
 		list.add(wds);
 		System.out.println("단어를 등록했습니다."); 
+		save(fileName);
 	}
 	
 	/** 1-2. 수정 */
@@ -264,13 +265,14 @@ public class WordProgram implements Program{
 			list.get(index).setSpeechOfPart(speechOfPart);
 			break;
 		case 4:
-			updateManager();
+			run();
 			break;
 		default :
 			
 			throw new InputMismatchException();
 		}
 		System.out.println("수정이 완료되었습니다.");
+		save(fileName);
 
 	}
 
@@ -286,6 +288,7 @@ public class WordProgram implements Program{
 			if(list.get(i).getWord().equals(word)) {
 				list.remove(i);
 				System.out.println("단어가 삭제 되었습니다.");
+				save(fileName);
 				return;
 			}
 		}
@@ -319,6 +322,7 @@ public class WordProgram implements Program{
 						//기존 조회수 + 1을 count에 저장
 						int count = list.get(i).getCount() +1 ;
 						list.get(i).setCount(count);
+						save(fileName);
 						return;
 					}
 				}
