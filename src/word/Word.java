@@ -4,22 +4,18 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Word implements Serializable{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -2016745280033829563L;
-	private String word;
-	private String speechOfPart;
-	private List<String> mean = new ArrayList<String>();
-	private int count;
-//	int count;
+	private String word;		//단어
+	private String speechOfPart;//품사
+	private List<String> mean = new ArrayList<String>();//뜻
+	private int count;	//단어 조회시 카운트 1 증가
 }
