@@ -324,12 +324,16 @@ public class WordProgram implements Program{
 				}
 				System.out.println("없는 단어입니다.");
 				break;
+				
 			case 2 :
 				System.out.println("========== 등록된 단어 ==========");
 				for (Word wds : list) {
 					System.out.println("단어 : " + wds.getWord() + ", 품사 : " + wds.getSpeechOfPart() + ", 뜻 : " + wds.getMean());
+					return;
 				}
+				System.out.println("등록된 단어가 없습니다.");
 				break;
+				
 			case 3 :
 				//가장 많이 조회된 단어 출력
 				int maxIndex = 0;
@@ -354,9 +358,11 @@ public class WordProgram implements Program{
 				}
 				
 				break;
+				
 			case 4 :
 				run();
 				break;
+				
 			default :
 				throw new InputMismatchException();
 		}
