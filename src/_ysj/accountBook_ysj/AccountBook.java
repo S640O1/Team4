@@ -2,9 +2,7 @@ package _ysj.accountBook_ysj;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Objects;
 
 import lombok.AllArgsConstructor;
@@ -17,13 +15,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @NoArgsConstructor
-<<<<<<< Updated upstream
-public class AccountBook {
-=======
+
 public class AccountBook implements Serializable {
 	private static final long serialVersionUID = 7943507860978054358L;
 	
->>>>>>> Stashed changes
 	//- (년, 월, 일), 사용금액, 수입(0)/지출(1), 잔액, 내역
 	Date date = new Date();
 	//년
@@ -77,22 +72,13 @@ public class AccountBook implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		AccountBook other = (AccountBook) obj;
-<<<<<<< Updated upstream
-		return Objects.equals(day, other.day) && Objects.equals(month, other.month) && Objects.equals(year, other.year);
-=======
 		return Objects.equals(day, other.day) && Objects.equals(week, other.week) && Objects.equals(month, other.month) && Objects.equals(year, other.year);
->>>>>>> Stashed changes
 	}
 
 	@Override
 	public int hashCode() {
-<<<<<<< Updated upstream
-		return Objects.hash(day, month, year);
-=======
-		return Objects.hash(day, week, month, year);
->>>>>>> Stashed changes
-	}
 
-	
-	
+		return Objects.hash(day, week, month, year);
+	}
+ 
 }

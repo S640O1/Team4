@@ -1,30 +1,22 @@
 package _ysj.accountBook_ysj;
 
-<<<<<<< Updated upstream
-=======
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
->>>>>>> Stashed changes
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 public class ABProgram implements Program{
 	
 	Scanner sc = new Scanner(System.in);
-<<<<<<< Updated upstream
-	static final int EXIT = 6;
-	static String fileName = "src/accountBook/accountBookList.txt";
-	ABManager ab = new ABManager();
-=======
 	private List<AccountBook> list = new ArrayList<AccountBook>();
 	ABManager ab = new ABManager();
 	static final int EXIT = 6;
 	static String fileName = "src/_ysj/accountBook_ysj/accountBookList.txt";
->>>>>>> Stashed changes
 
 	@Override
 	public void run() {
@@ -42,7 +34,7 @@ public class ABProgram implements Program{
 			}
 		} while (menu != EXIT);
 		save(fileName);
-	}
+		}
 
 	private void load(String fileName) {
 		try(FileInputStream fis = new FileInputStream(fileName);
@@ -84,21 +76,6 @@ public class ABProgram implements Program{
 	public void runMenu(int menu) {
 		switch(menu) {
 		case 1 :
-<<<<<<< Updated upstream
-			ab.insertMoney();
-			break;
-		case 2 :
-			ab.printMoney();	
-			break;
-		case 3 :
-			ab.updateMoney();		
-			break;
-		case 4 :
-			ab.deleteMoney();		
-			break;
-		case 5 :					
-			ab.currentMoney();	
-=======
 			ab.insertAccountBook();
 			break;
 		case 2 :
@@ -112,7 +89,6 @@ public class ABProgram implements Program{
 			break;
 		case 5 :					
 			ab.currentAccountBook();	
->>>>>>> Stashed changes
 			break;
 		case 6 : System.out.println("프로그램을 종료합니다.");
 			break;
