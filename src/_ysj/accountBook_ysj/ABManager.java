@@ -15,11 +15,7 @@ public class ABManager {
 	private static int num; //순서
 	
 		//1. 가계부 입력 - 수입, 지출 항목 입력
-<<<<<<< Updated upstream
-		void insertMoney() {
-=======
 		void insertAccountBook() {
->>>>>>> Stashed changes
 			System.out.println("[가계부 입력]");
 			System.out.println("1. 수입");
 			System.out.println("2. 지출");
@@ -69,19 +65,12 @@ public class ABManager {
 			default : System.out.println("없는 메뉴입니다.");
 			}
 		}
-<<<<<<< Updated upstream
-
-		//2. 가계부 조회 - 하루, 주간, 월간, 연간
-		//메뉴를 선택하면 수입, 지출, 전체 내역 다 보임.
-		void printMoney() {
-=======
 		//*1. 가계부 입력 - 1. - 금액 입력시 문자를 잘못 입력했을때, 다시 1.로 돌아갈 때 잘못된 메뉴라고만 뜸.
 		
 		
 		//2. 가계부 조회 - 하루, 주간, 월간, 연간
 		//메뉴를 선택하면 수입, 지출, 전체 내역 다 보임.
 		void printAccountBook() {
->>>>>>> Stashed changes
 			System.out.println("[가계부 조회]");
 			System.out.println("1. 하루");
 			System.out.println("2. 주간");
@@ -172,22 +161,6 @@ public class ABManager {
 			}
 			
 		}
-<<<<<<< Updated upstream
-
-		//3. 가계부 수정 1)수입/지출 여부 2)년 월 일 3)사용금액 4)잔액 5)내역 6)전체수정
-		void updateMoney() {
-			
-		}
-
-		//4. 가계부 삭제
-		void deleteMoney() {
-			
-		}
-
-		//5. 현재 잔액 조회
-		void currentMoney() {
-			
-=======
 		
 		
 
@@ -276,6 +249,6 @@ public class ABManager {
 			for(AccountBook tmp : list) {
 				ab.print();
 			}
->>>>>>> Stashed changes
+ 
 		}
 }
