@@ -23,6 +23,9 @@ public class AccountBook {
 	
 	//내역
 	private String memo;
+	
+	// 입금 금액, 지출 금액
+	private int inMoney, outMoney;
 
 
 }

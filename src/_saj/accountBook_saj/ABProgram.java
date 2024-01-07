@@ -1,9 +1,12 @@
 package _saj.accountBook_saj;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
+import java.text.*;
 
 import word.Word;
 
@@ -13,6 +16,7 @@ public class ABProgram implements Program{
 	static final int EXIT = 6;
 	static String fileName = "src/accountBook/accountBookList.txt";
 	private List<AccountBook> list = new ArrayList<AccountBook>();
+	private ABManager am = new ABManager();
 
 	@Override
 	public void run() {
@@ -71,27 +75,81 @@ public class ABProgram implements Program{
 	}
 
 	private void insertMoney() {
-		// TODO Auto-generated method stub
+		Date date = new Date();
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+		
+		// 수입 지출 항목 입력
+		System.out.println("-------가계부 입력 -------");
+		System.out.println("1. 수입");
+		System.out.println("2. 지출");
+		System.out.println("메뉴 선택 : ");
+		
+		try {
+			int menu = scan.nextInt();
+			scan.nextLine();
+			
+			switch (menu) {
+			case 1 :		// 수입을 선택했을 때 // 날짜 출력시 예쁘게 보이도록 format 해야함
+				System.out.println("날짜 (2024-01-01) : ");
+				while (scan.hasNextLine()) {
+					try {
+						date = format1.parse(scan.nextLine());
+						
+						System.out.println("입금 금액 : ");
+						int inMoney = scan.nextInt();
+						scan.nextLine();
+						
+						System.out.println("내역 : ");
+						String memo = scan.nextLine();
+						
+						System.out.println("날짜 : " + date + " 입금 금액 : " + inMoney + " 내역 : " + memo );
+						
+					} catch (Exception e) {
+						System.out.println("날짜를 yyyy-MM-dd의 형태로 다시 입력해주세요.");
+					}
+				}
+				
+				break;
+			case 2 :		// 지출을 선택했을 때  // 날짜 출력시 예쁘게 보이도록 format 해야함
+				System.out.println("날짜 (2024-01-01) : ");
+				while (scan.hasNextLine()) {
+					try {
+						date = format1.parse(scan.nextLine());
+						
+						System.out.println("지출 금액 : ");
+						int inMoney = scan.nextInt();
+						scan.nextLine();
+						
+						System.out.println("내역 : ");
+						String memo = scan.nextLine();
+						
+						System.out.println("날짜 : " + date + " 지출 금액 : " + inMoney + " 내역 : " + memo );
+						
+					} catch (Exception e) {
+						System.out.println("날짜를 yyyy-MM-dd의 형태로 다시 입력해주세요.");
+					}
+				}
+				break;
+			}
+		} catch (InputMismatchException e) {
+			System.out.println("잘못된 메뉴입니다.");
+		}
 		
 	}
 
 	private void printMoney() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	private void updateMoney() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	private void deleteMoney() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	private void currentMoney() {
-		// TODO Auto-generated method stub
 		
 	}
 	
