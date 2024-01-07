@@ -1,4 +1,4 @@
-package word_saj;
+package _ysj.word_ysj;
 
 public interface Program {
 	void run();

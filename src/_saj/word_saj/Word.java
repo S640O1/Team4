@@ -1,4 +1,4 @@
-package word_saj;
+package _saj.word_saj;
 
 import java.io.Serializable;
 import java.util.ArrayList;

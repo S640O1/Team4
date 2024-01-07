@@ -1,4 +1,4 @@
-package word_ysj;
+package _ysj.word_ysj;
 
 import java.util.Objects;
 

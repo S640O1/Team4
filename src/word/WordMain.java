@@ -27,5 +27,4 @@ public class WordMain {
 		WordProgram p = new WordProgram();
 		p.run();
 	}
-
 }

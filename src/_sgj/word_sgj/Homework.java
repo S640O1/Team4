@@ -1,4 +1,4 @@
-package word_sgj;
+package _sgj.word_sgj;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

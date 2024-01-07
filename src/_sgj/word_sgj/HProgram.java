@@ -1,4 +1,4 @@
-package word_sgj;
+package _sgj.word_sgj;
 
 public interface HProgram {
 	void run();
