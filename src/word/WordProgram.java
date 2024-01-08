@@ -121,7 +121,9 @@ public class WordProgram implements Program{
 		// 등록할 단어, 품사, 뜻을 입력 받음
 		System.out.print("등록할 단어를 입력하세요 : ");
 		String word = scan.next();
-		
+		/* 피드백
+		 * - Word 클래스에 equals를 오버라이딩 했다면 list.contains(new Word(word)) 형태로 처리 가능
+		 * */
 		for(int i=0; i<list.size(); i++) {
 			//만약 동일한 단어가 있다면
 			if(list.get(i).getWord().equals(word)) {
@@ -145,6 +147,10 @@ public class WordProgram implements Program{
 			System.out.print("등록할 뜻을 입력하세요(추가 뜻이 없을 시 1) : ");
 			
 			//메뉴 입력
+			/* 피드백 
+			 * - scan.next()는 InputMismatchException이 발생하지 않음
+			 * - NoSuchElementException 또는 IllegalStateException가 발생할 수 있다.
+			 * - 그래서 아래 예외처리는 의미가 없음*/
 			try {
 				tmp = scan.next();
 				
@@ -183,7 +189,10 @@ public class WordProgram implements Program{
 		String word = scan.next();
 		
 		int index = -1;
-		
+		/* 피드백
+		 * - 1-1에 있는 피드백과 비슷
+		 * - Word 클래스에 equals를 오버라이딩 했다면 list.indexOf(new Word(word)) 형태로 처리 가능
+		 * */
 		for(int i=0; i<list.size(); i++) {
 			//만약 동일한 단어가 있다면
 			if(list.get(i).getWord().equals(word)) {
@@ -197,11 +206,19 @@ public class WordProgram implements Program{
 			System.out.println("등록되지 않은 단어입니다.");	
 			return;
 		}
-		
-
+		/* 피드백
+		 * - 아래에서 list.get(index)를 많이 쓰는데, 다음처럼 수정하면 사용이 편함
+		 * - Word selectedWord = list.get(index); 를 선언한 후 이후 tmp를 이용하여 접근.
+		 * */
+		/* 피드백
+		 * - Word 클래스에 toString을 오버라이딩하면 아래 코드를 간결하게 수정 가능
+		 * */
 		System.out.println("단어 : " + list.get(index).getWord()  + ", 품사 : " + list.get(index).getSpeechOfPart() + ", 뜻 : " + list.get(index).getMean());
 		String speechOfPart=""; 
 		List<String> mean = new ArrayList<String>();
+		/* 피드백
+		 * - 위에서 mean을 바로 만들고, 추가를 안했는데 아래에서 clear()를 할 필요가 없음
+		 * */
 		//의미 지우기
 		mean.clear();
 
@@ -229,6 +246,11 @@ public class WordProgram implements Program{
 		case 2 :
 			String tmp = "";
 
+			/* 피드백
+			 * - 위에서 mean이 검색한 단어에서 뜻을 가져오는게 아니라 새로 빈 리스트를 만들어서 사용하기 때문에 뜻이 수정되는게 
+			 *   아니라 추가가 됨
+			 * - 수정하지 않으려는 뜻은 삭제 됨
+			 * */
 			do {
 				System.out.print("수정할 뜻을 입력하세요(추가 뜻이 없을 시 1) : ");
 				
@@ -263,6 +285,10 @@ public class WordProgram implements Program{
 			list.get(index).setSpeechOfPart(speechOfPart);
 			break;
 		case 4:
+			/* 피드백
+			 * - 뒤로가기에서 run()을 호출하면 run() 위에 run()이 호출된 상태이기 때문에 프로그램을 종료하려면 6을 두번 입력해야함
+			 * - 수정 관리 메서드가 반복문을 통해 여러번 실행되는게 아니기 때문에 break로 바쪄나가기만 해도 뒤로가기 효과가 나타남
+			 * */
 			run();
 			break;
 		default :
@@ -280,9 +306,16 @@ public class WordProgram implements Program{
 		System.out.print("단어를 입력하세요 : ");
 		String word = scan.next();
 		
+		/* 피드백
+		 * - 아래 mean은 사용하지 않기 때문에 삭제
+		 * */
 		List<String> mean = new ArrayList<String>();
 		
 		for(int i=0; i<list.size(); i++) {
+			/* 피드백
+			 * - Word 클래스에 equals를 오버라이딩 했다면 list.contains(new Word(word)) 형태로 처리 가능
+			 * - 1-1 피드백과 동일
+			 * */
 			if(list.get(i).getWord().equals(word)) {
 				list.remove(i);
 				System.out.println("단어가 삭제 되었습니다.");
@@ -314,8 +347,15 @@ public class WordProgram implements Program{
 				
 				for(int i=0; i<list.size(); i++) {
 					//만약 조회할 단어와 같다면
+					/* 피드백
+					 * - Word 클래스에 equals를 오버라이딩 했다면 list.contains(new Word(word)) 형태로 처리 가능
+					 * - 1-1 피드백과 동일
+					 * */
 					if(list.get(i).getWord().equals(word)) {
 						//조회 출력
+						/* 피드백
+						 * - toString 오버라이딩 추천(위에 피드백 동일)
+						 * */
 						System.out.println("단어 : " +  list.get(i).getWord()+ ", 품사 : " + list.get(i).getSpeechOfPart() + ", 뜻 : " + list.get(i).getMean());
 						//기존 조회수 + 1을 count에 저장
 						int count = list.get(i).getCount() +1 ;
@@ -330,6 +370,9 @@ public class WordProgram implements Program{
 			case 2 :
 				System.out.println("========== 등록된 단어 ==========");
 				for (Word wds : list) {
+					/* 피드백
+					 * - toString 오버라이딩 추천(위에 피드백 동일)
+					 * */
 					System.out.println("단어 : " + wds.getWord() + ", 품사 : " + wds.getSpeechOfPart() + ", 뜻 : " + wds.getMean());
 					return;
 				}
@@ -380,7 +423,9 @@ public class WordProgram implements Program{
 		do {
 			//랜덤 인덱스 생성
 			int r = (int)(Math.random() * (max - min + 1) + min);
-			
+			/* 피드백
+			 * - Word randomWord = list.get(r); 을 선언 후 randomWord를 이용하는 걸 추천. 편해서
+			 * */
 			//랜덤 인덱스 단어 출력
 			System.out.print("단어" + list.get(r).getWord() + "의 뜻은?\n답 : ");
 			//뜻 입력받기
