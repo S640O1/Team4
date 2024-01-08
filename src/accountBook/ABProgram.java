@@ -50,7 +50,7 @@ public class ABProgram implements Program{
 
 	@Override
 	public void printMenu() {
-	
+		printService.printMainMenu();
 	}
 
 	@Override
@@ -60,16 +60,16 @@ public class ABProgram implements Program{
 			insertMoney();
 			break;
 		case 2 :
-			printMoney();	
+			printMoney();
 			break;
 		case 3 :
-			updateMoney();		
+			updateMoney();
 			break;
 		case 4 :
-			deleteMoney();		
+			deleteMoney();
 			break;
 		case 5 :					
-			currentMoney();	
+			currentMoney();
 			break;
 		case 6 : System.out.println("프로그램을 종료합니다.");
 			break;

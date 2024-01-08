@@ -14,5 +14,6 @@ public class Item implements Serializable{
 	
 	//내역
 	private String memo;	
-
+	
+	
 }
