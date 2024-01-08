@@ -16,6 +16,7 @@ public class OutMoney implements Serializable {
 	//내역
 	private String memo;
 	
+	//지출 출력
 	@Override
 	public String toString() {
 		return num + ". " + date + " " + outMoney + " " + useMoney + " " + totalMoney + " " + memo;
