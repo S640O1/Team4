@@ -18,6 +18,7 @@ public class WordProgram implements Program{
 	private List<Word> list = new ArrayList<Word>();
 	
 	
+	
 	/** 0. 메인 */
 	@Override
 	public void run() {
@@ -50,18 +51,15 @@ public class WordProgram implements Program{
 	/** 0. 메인 메뉴 출력 */
 	@Override
 	public void printMenu() {
-
 		System.out.println("---------------");
 		System.out.println("메뉴");
-		System.out.println("1. 단어 등록");
-		System.out.println("2. 수정 관리");
-		System.out.println("3. 단어 삭제");
-		System.out.println("4. 단어 조회");
-		System.out.println("5. 단어 게임");
-		System.out.println("6. 종료");
+		System.out.println("1. 단어 관리");
+		System.out.println("2. 뜻 관리");
+		System.out.println("3. 게임");
+		System.out.println("4. 종료");
 		System.out.println("---------------");
 		System.out.print("메뉴 선택 : ");
-		
+
 	}
 	
 	/** 1. 불러오기 */

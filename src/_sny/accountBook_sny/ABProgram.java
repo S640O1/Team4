@@ -54,9 +54,7 @@ public class ABProgram implements Program{
 	
 	/** 2. 서버에서 가계부 정보를 불러옴*/
 	private void load() {
-		
 		abm.load();
-		
 	}
 	
 	/** 3. 메뉴 출력*/
@@ -248,7 +246,7 @@ public class ABProgram implements Program{
 
 	/** 4-2-1. 가계부 조회 : 메뉴 출력*/
 	private void printPrintMenu() {
-		System.out.println("----가계부 입력-----");
+		System.out.println("----가계부 조회-----");
 		System.out.println("1. 하루 조회");
 		System.out.println("2. 주간 조회");
 		System.out.println("3. 월간 조회");
@@ -262,12 +260,13 @@ public class ABProgram implements Program{
 	/** 4-3. 가계부 수정*/
 	private void updateMoney() {		
 		System.out.println("----가계부 수정-----");
+		if(abm.getList().size() <= 0) {
+			System.out.println("등록된 가계부가 없습니다.");
+			return;
+		}
 		abm.printAccountBook();		//전체 목록 보여줌
 		
 		
-		if(abm.getList().size() <= 0) {
-			return;
-		}
 		
 		System.out.print("어떤 항목을 수정하시겠습니까? : ");
 		int num = scan.nextInt();
@@ -463,12 +462,12 @@ public class ABProgram implements Program{
 	/** 4-4. 가계부 삭제*/
 	private void deleteMoney() {
 		System.out.println("----가계부 삭제-----");
-		abm.printAccountBook();		//전체 목록 보여줌
-		
-		
 		if(abm.getList().size() <= 0) {
+			System.out.println("등록된 가계부가 없습니다.");
 			return;
 		}
+		
+		abm.printAccountBook();		//전체 목록 보여줌
 		
 		System.out.println("어떤 항목을 삭제하시겠습니까? : ");
 		int num = scan.nextInt();
