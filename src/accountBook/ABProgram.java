@@ -5,14 +5,30 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import word.Word;
+import accountBook.service.AccountBookService;
+import accountBook.service.AccountBookServiceImp;
+import accountBook.service.FileService;
+import accountBook.service.FileServiceImp;
+import accountBook.service.PrintService;
+import accountBook.service.PrintServiceImp;
+import program.Program;
 
 public class ABProgram implements Program{
-	
-	Scanner scan = new Scanner(System.in);
-	static final int EXIT = 6;
 	static String fileName = "src/accountBook/accountBookList.txt";
-	private List<AccountBook> list = new ArrayList<AccountBook>();
+	private Scanner scan = new Scanner(System.in);
+	
+	//서비스 불러오기
+	private AccountBookService accountBookService = new AccountBookServiceImp();
+	private FileService fileService = new FileServiceImp();
+	private PrintService printService = new PrintServiceImp();
+
+	private List<AccountBook> list = new ArrayList<AccountBook>(); 	//수입 지출 내역
+	
+	
+	//반복종료 번호
+	static final int EXIT = 6;
+	
+
 
 	@Override
 	public void run() {
@@ -34,15 +50,7 @@ public class ABProgram implements Program{
 
 	@Override
 	public void printMenu() {
-		System.out.println("-------가계부--------");
-		System.out.println("1. 가계부 입력");
-		System.out.println("2. 가계부 조회");
-		System.out.println("3. 가계부 수정");
-		System.out.println("4. 가계부 삭제");
-		System.out.println("5. 현재 잔액 조회");
-		System.out.println("6. 종료");
-		System.out.println("---------------");
-		System.out.print("메뉴 선택 : ");
+	
 	}
 
 	@Override
@@ -63,35 +71,40 @@ public class ABProgram implements Program{
 		case 5 :					
 			currentMoney();	
 			break;
-		case 6 :					//프로그램 종료
+		case 6 : System.out.println("프로그램을 종료합니다.");
 			break;
-		default :
-			throw new InputMismatchException();
+		default : throw new InputMismatchException();
 		}
 	}
 
+	/** 가계부 입력 : 심아진 */
 	private void insertMoney() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/** 가계부 조회 :  */
 	private void printMoney() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/** 가계부 수정 :  */
 	private void updateMoney() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/** 가계부 삭제 : */
 	private void deleteMoney() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	
+	/** 현재 잔액 조회 :  */
 	private void currentMoney() {
-		// TODO Auto-generated method stub
+		accountBookService.printCurrentMoney();
 		
 	}
 	
