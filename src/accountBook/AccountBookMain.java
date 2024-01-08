@@ -8,22 +8,22 @@ public class AccountBookMain {
 	 * 	- (년, 월, 일), 사용금액, 수입(0)/지출(1), 잔액, 내역
 		 	- 기능
 		 		1. 수입, 지출 항목 입력
-		 			1. 수입
-		 				날짜 (yyyy-MM-dd) : 
-		 				입금금액 : 
-		 				내역 : 
-		 			2. 지출
-		 				날짜 (yyyy-MM-dd) : 
-		 				지출금액 : 
-		 				내역 : 
+	 				날짜 (yyyy-MM-dd) : 
+	 			    수입(1)/지출(2) : 
+	 				입금금액 : 
+	 				내역 : 
 					기록되었습니다.
 		 			//sort();
 		 		2. 조회
 		 			- 하루 조회
-		 				날짜 (yyyy-MM-dd) : 
+		 				날짜 (yyyyMMdd) : 
 			 				-수입
 			 				-지출
 			 				-전체
+		 			- 전체조회
+		 		
+			 		<추가기능>
+		 				
 		 			- 주간 조회 (난이도 있음)
 		 				날짜 (yyyy-MM-W) : 
 		 				-수입
@@ -39,6 +39,7 @@ public class AccountBookMain {
 			 				-수입
 			 				-지출
 			 				-전체
+			 				
 		 				
 		 		3. 데이터 수정	
 		 			(전체 목록 보여줌)
@@ -56,7 +57,7 @@ public class AccountBookMain {
 	 					}
 	 					
 		 			2. 년 월 일
-		 				날짜 (yyyy-MM-dd) : 
+		 				날짜 (yyyyMMdd) : 
 		 				"날짜가 변경되었습니다."
 		 			3. 사용금액
 		 				금액 : 
@@ -69,11 +70,11 @@ public class AccountBookMain {
 		 				"내역이 변경되었습니다."
 		 			6. 전체수정
 		 				1. 수입
-			 				날짜 (yyyy-MM-dd) : 
+			 				날짜 (yyyyMMdd) : 
 			 				입금금액 : 
 			 				내역 : 
 		 				2. 지출
-			 				날짜 (yyyy-MM-dd) : 
+			 				날짜 (yyyyMMdd) : 
 			 				지출금액 : 
 			 				내역 : 
 		 			( 어떤 내용을 수정하시겠습니까? : )
