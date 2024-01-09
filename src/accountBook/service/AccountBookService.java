@@ -4,8 +4,6 @@ import java.util.List;
 
 import accountBook.Item;
 
-
-
 public interface AccountBookService {
 	//기능을 정한 뒤 업무 분담
 	
