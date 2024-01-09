@@ -30,7 +30,18 @@ public class Item implements Serializable{
 		}else {
 			return num + "번, 일자 : " + date +", 지출 : " + money + "원, 총액 : " + totalMoney + "메모 : " + memo;
 		}
-	}	
+	}
+
+	public Item(int money, int totalMoney, int date, boolean inMoney, boolean outMoney, String memo) {
+		super();
+		this.money = money;
+		this.totalMoney = totalMoney;
+		this.date = date;
+		this.inMoney = inMoney;
+		this.outMoney = outMoney;
+		this.memo = memo;
+	}
+
 	
 	
 

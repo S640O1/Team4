@@ -28,17 +28,12 @@ public class ABProgram implements Program{
 	
 	//반복종료 번호
 	static final int EXIT = 6;
+	static final int UPDATE_EXIT = 7;
 	
-
 
 	@Override
 	public void run() {
 		int menu = 0;
-	
-		
-		
-		
-		
 		
 //		load(fileName);
 		do {
@@ -63,13 +58,13 @@ public class ABProgram implements Program{
 	public void runMenu(int menu) {
 		switch(menu) {
 		case 1 :
-			insertMoney();	//
+			insertMoney();	
 			break;
 		case 2 :
-			printMoney();	//
+			printMoney();	
 			break;
 		case 3 :
-			updateMoney();	//수정 : 나영	
+			updateMoney();	
 			break;
 		case 4 :	
 			deleteMoney();	
@@ -95,10 +90,187 @@ public class ABProgram implements Program{
 		
 	}
 
-	/** 가계부 수정 :  */
+	/** 가계부 수정 : 손나영 */
 	private void updateMoney() {
-		// TODO Auto-generated method stub
+		//list가 비어있으면 
+		if(!accountBookService.isList()) {
+			System.out.println("작성된 가계부가 없습니다.");
+			return;
+		}
 		
+		//전체목록 보여줌
+		for(int i=0; i<list.size(); i++) {
+			list.get(i).toString(i);
+		}
+		
+		int index=-1;
+		//수정할 항목 받아오기
+		try {
+			System.out.print("어떤 항목을 수정하시겠습니까? : "); 
+			index = scan.nextInt() -1;
+		}catch (InputMismatchException e){
+			System.out.println("잘못된 메뉴입니다.");
+			scan.nextLine();
+		}
+		
+		//index가 잘못된 경우
+		if(!accountBookService.indexError(index)) {
+			System.out.println("없는 항목입니다.");
+			return;			
+		}
+		
+		//메뉴 선택
+		int menu = 0;
+		do {
+			printUpdateMenu();
+			try {
+				menu = scan.nextInt();
+				runUpdateMenu(menu, index);
+			} catch (InputMismatchException e){
+				System.out.println("잘못된 메뉴입니다.");
+				scan.nextLine();
+			}
+		} while (menu != UPDATE_EXIT);
+		
+	}
+
+	/** 가계부 수정 : 메뉴출력*/
+	private void printUpdateMenu() {
+		printService.printUpdateMenu();
+	}
+
+	/** 가계부 수정 : 메뉴실행*/
+	private void runUpdateMenu(int menu, int index) {
+		switch(menu) {
+			case 1 :	//수입, 지출 여부 변경
+				runUpateInOut(index);
+				break;
+			case 2 :	//일자수정
+				runUpateInDate(index);
+				break;
+			case 3 :	//금액수정
+				runUpateInMoney(index);
+				break;
+			case 4 :	//잔액 수정
+				runUpateInTotalMoney(index);
+				break;
+			case 5 :	//내역수정				
+				runUpateInMemo(index);
+				break;
+			case 6 : //전체수정
+				runUpateInAll(index);	
+				break;
+			case 7 : System.out.println("뒤로가기");
+				break;
+			default : throw new InputMismatchException();
+		}
+		System.out.println("수정을 완료했습니다.");
+	}
+
+	/** 가계부 수정 6. 전체수정*/
+	private void runUpateInAll(int index) {
+		int money = 0, totalMoney = 0, date = 000000, classify;
+		boolean outMoney = false, inMoney = false;
+		String memo = null;
+		//전체 수정 항목 받아오기
+		try {
+			System.out.print("입금(1)/지출(2) : ");
+			classify = scan.nextInt();
+			if(classify == 1) {
+				inMoney = true;
+				outMoney = false;
+			}else if(classify == 2) {
+				inMoney = false;
+				outMoney = true;
+			}else {
+				System.out.println("잘못된 번호입니다.");
+			}
+			System.out.print("일자 : ");
+			date = scan.nextInt();
+			System.out.print("금액 : ");
+			money = scan.nextInt();
+			System.out.print("잔액 : ");
+			totalMoney = scan.nextInt();
+			System.out.print("내역");
+			scan.nextLine();
+			memo = scan.nextLine();	
+		}catch(InputMismatchException e) {
+			System.out.println("잘못된 입력입니다.");
+			scan.nextLine();
+		}
+		if(!accountBookService.setAB(index, money, totalMoney, date, inMoney, outMoney, memo)) {
+			System.out.println("수정에 실패했습니다."); 
+		}
+
+	}
+
+	/** 가계부 수정 5. 내역수정*/
+	private void runUpateInMemo(int index) {
+		String memo="";
+		
+		try {		
+		// 내역받기
+		System.out.print("내역");
+		scan.nextLine();
+		memo = scan.nextLine();	
+		}catch(InputMismatchException e) {
+			System.out.println("잘못된 입력입니다.");
+			scan.nextLine();
+		}
+		
+		list.get(index).setMemo(memo);
+	}
+
+	/** 가계부 수정 4. 잔액수정*/
+	private void runUpateInTotalMoney(int index) {
+		int totalMoney=0;
+		try {		
+			System.out.print("잔액 : ");
+			totalMoney = scan.nextInt();
+			}
+		catch(InputMismatchException e) {
+				System.out.println("잘못된 입력입니다.");
+				scan.nextLine();
+		}		
+		list.get(index).setTotalMoney(totalMoney);
+		
+	}
+
+	/** 가계부 수정 3. 금액수정*/
+	private void runUpateInMoney(int index) {
+		int money =0;
+		try {		
+			System.out.print("금액 : ");
+			money = scan.nextInt();
+		}catch(InputMismatchException e) {
+			System.out.println("잘못된 입력입니다.");
+			scan.nextLine();
+		}		
+		list.get(index).setMoney(money);
+	}
+
+	/** 가계부 수정 2. 일자수정*/
+	private void runUpateInDate(int index) {
+		int date= 000000;
+		try {		
+			System.out.print("일자 : ");
+			date = scan.nextInt();
+		}catch(InputMismatchException e) {
+			System.out.println("잘못된 입력입니다.");
+			scan.nextLine();
+		}	
+		list.get(index).setDate(date);
+	}
+
+	/** 가계부 수정 1. 입금/지출 항목수정*/
+	private void runUpateInOut(int index) {
+		if(list.get(index).isInMoney() && !list.get(index).isOutMoney()) {
+			list.get(index).setInMoney(false);
+			list.get(index).setOutMoney(true);
+		}else if(!list.get(index).isInMoney() && list.get(index).isOutMoney()) {
+			list.get(index).setInMoney(true);
+			list.get(index).setOutMoney(false);
+		}
 	}
 
 	/** 가계부 삭제 : */
