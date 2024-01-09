@@ -22,7 +22,8 @@ public class ABProgram implements Program{
 	private FileService fileService = new FileServiceImp();
 	private PrintService printService = new PrintServiceImp();
 
-	private List<AccountBook> list = new ArrayList<AccountBook>(); 	//수입 지출 내역
+	private List<Item> list = new ArrayList<Item>(); 	//수입 지출 내역
+	
 	
 	
 	//반복종료 번호
@@ -33,6 +34,8 @@ public class ABProgram implements Program{
 	@Override
 	public void run() {
 		int menu = 0;
+		
+		
 		
 //		load(fileName);
 		do {
@@ -57,19 +60,19 @@ public class ABProgram implements Program{
 	public void runMenu(int menu) {
 		switch(menu) {
 		case 1 :
-			insertMoney();
+			insertMoney();	//
 			break;
 		case 2 :
-			printMoney();
+			printMoney();	//
 			break;
 		case 3 :
-			updateMoney();
+			updateMoney();	//수정 : 나영	
 			break;
-		case 4 :
-			deleteMoney();
+		case 4 :	
+			deleteMoney();	
 			break;
 		case 5 :					
-			currentMoney();
+			currentMoney();	
 			break;
 		case 6 : System.out.println("프로그램을 종료합니다.");
 			break;
