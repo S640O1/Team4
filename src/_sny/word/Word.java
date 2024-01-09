@@ -1,4 +1,4 @@
-package word;
+package _sny.word;
 
 import java.io.Serializable;
 import java.util.ArrayList;
