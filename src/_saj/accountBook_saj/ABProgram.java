@@ -1,24 +1,42 @@
 package _saj.accountBook_saj;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import word.Word;
+import _saj.accountBook_saj.service.AccountBookService;
+import _saj.accountBook_saj.service.AccountBookServiceImp;
+import _saj.accountBook_saj.service.FileService;
+import _saj.accountBook_saj.service.FileServiceImp;
+import _saj.accountBook_saj.service.PrintService;
+import _saj.accountBook_saj.service.printServiceImp;
+import program.Program;
 
 public class ABProgram implements Program{
 	
-	Scanner scan = new Scanner(System.in);
-	static final int EXIT = 6;
 	static String fileName = "src/accountBook/accountBookList.txt";
-	private List<AccountBook> list = new ArrayList<AccountBook>();
+	private Scanner scan = new Scanner(System.in);
+	
+	//서비스 불러오기
+	private AccountBookService accountBookService = new AccountBookServiceImp();
+	private FileService fileService = new FileServiceImp();
+	private PrintService printService = new printServiceImp();
+
+	private List<Item> list = new ArrayList<Item>(); 	//수입 지출 내역
+	
+	//반복종료 번호
+	static final int EXIT = 6;
 
 	@Override
 	public void run() {
+		
 		int menu = 0;
 		
 //		load(fileName);
+		
 		do {
 			printMenu();
 			try {
@@ -34,15 +52,7 @@ public class ABProgram implements Program{
 
 	@Override
 	public void printMenu() {
-		System.out.println("-------가계부--------");
-		System.out.println("1. 가계부 입력");
-		System.out.println("2. 가계부 조회");
-		System.out.println("3. 가계부 수정");
-		System.out.println("4. 가계부 삭제");
-		System.out.println("5. 현재 잔액 조회");
-		System.out.println("6. 종료");
-		System.out.println("---------------");
-		System.out.print("메뉴 선택 : ");
+		printService.printMainMenu();
 	}
 
 	@Override
@@ -70,28 +80,93 @@ public class ABProgram implements Program{
 		}
 	}
 
+	/** 가계부 입력 : 심아진 */
 	private void insertMoney() {
-		// TODO Auto-generated method stub
+
+		Date date = new Date();
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+		
+		// 수입 지출 항목 입력
+		System.out.println("-------가계부 입력 -------");
+		System.out.println("1. 수입");
+		System.out.println("2. 지출");
+		System.out.println("메뉴 선택 : ");
+		
+		try {
+			int menu = scan.nextInt();
+			scan.nextLine();
+			
+			switch (menu) {
+			case 1 :		// 수입을 선택했을 때 // 날짜 출력시 예쁘게 보이도록 format 해야함
+				System.out.println("날짜 (2024-01-01) : ");
+				while (scan.hasNextLine()) {
+					try {
+						date = format1.parse(scan.nextLine());
+						
+						System.out.println("입금 금액 : ");
+						int inMoney = scan.nextInt();
+						scan.nextLine();
+						
+						System.out.println("내역 : ");
+						String memo = scan.nextLine();
+						
+						System.out.println("날짜 : " + date + " 입금 금액 : " + inMoney + " 내역 : " + memo );
+						
+					} catch (Exception e) {
+						System.out.println("날짜를 yyyy-MM-dd의 형태로 다시 입력해주세요.");
+					}
+				}
+				
+				break;
+			case 2 :		// 지출을 선택했을 때  // 날짜 출력시 예쁘게 보이도록 format 해야함
+				System.out.println("날짜 (2024-01-01) : ");
+				while (scan.hasNextLine()) {
+					try {
+						date = format1.parse(scan.nextLine());
+						
+						System.out.println("지출 금액 : ");
+						int inMoney = scan.nextInt();
+						scan.nextLine();
+						
+						System.out.println("내역 : ");
+						String memo = scan.nextLine();
+						
+						System.out.println("날짜 : " + date + " 지출 금액 : " + inMoney + " 내역 : " + memo );
+						
+					} catch (Exception e) {
+						System.out.println("날짜를 yyyy-MM-dd의 형태로 다시 입력해주세요.");
+					}
+				}
+				break;
+			}
+		} catch (InputMismatchException e) {
+			System.out.println("잘못된 메뉴입니다.");
+		}
 		
 	}
 
+	/** 가계부 조회 :  */
 	private void printMoney() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/** 가계부 수정 :  */
 	private void updateMoney() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/** 가계부 삭제 : */
 	private void deleteMoney() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	
+	/** 현재 잔액 조회 :  */
 	private void currentMoney() {
-		// TODO Auto-generated method stub
+		accountBookService.printCurrentMoney();
 		
 	}
 	
