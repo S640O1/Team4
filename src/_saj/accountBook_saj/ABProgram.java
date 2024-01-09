@@ -1,42 +1,28 @@
 package _saj.accountBook_saj;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Scanner;
+import java.text.*;
 
-import _saj.accountBook_saj.service.AccountBookService;
-import _saj.accountBook_saj.service.AccountBookServiceImp;
-import _saj.accountBook_saj.service.FileService;
-import _saj.accountBook_saj.service.FileServiceImp;
-import _saj.accountBook_saj.service.PrintService;
-import _saj.accountBook_saj.service.printServiceImp;
-import program.Program;
+import word.Word;
 
 public class ABProgram implements Program{
 	
-	static String fileName = "src/accountBook/accountBookList.txt";
-	private Scanner scan = new Scanner(System.in);
-	
-	//서비스 불러오기
-	private AccountBookService accountBookService = new AccountBookServiceImp();
-	private FileService fileService = new FileServiceImp();
-	private PrintService printService = new printServiceImp();
-
-	private List<Item> list = new ArrayList<Item>(); 	//수입 지출 내역
-	
-	//반복종료 번호
+	Scanner scan = new Scanner(System.in);
 	static final int EXIT = 6;
+	static String fileName = "src/accountBook/accountBookList.txt";
+	private List<AccountBook> list = new ArrayList<AccountBook>();
+	private ABManager am = new ABManager();
 
 	@Override
 	public void run() {
-		
 		int menu = 0;
 		
 //		load(fileName);
-		
 		do {
 			printMenu();
 			try {
@@ -52,7 +38,15 @@ public class ABProgram implements Program{
 
 	@Override
 	public void printMenu() {
-		printService.printMainMenu();
+		System.out.println("-------가계부--------");
+		System.out.println("1. 가계부 입력");
+		System.out.println("2. 가계부 조회");
+		System.out.println("3. 가계부 수정");
+		System.out.println("4. 가계부 삭제");
+		System.out.println("5. 현재 잔액 조회");
+		System.out.println("6. 종료");
+		System.out.println("---------------");
+		System.out.print("메뉴 선택 : ");
 	}
 
 	@Override
@@ -80,9 +74,7 @@ public class ABProgram implements Program{
 		}
 	}
 
-	/** 가계부 입력 : 심아진 */
 	private void insertMoney() {
-
 		Date date = new Date();
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 		
@@ -145,28 +137,19 @@ public class ABProgram implements Program{
 		
 	}
 
-	/** 가계부 조회 :  */
 	private void printMoney() {
-		// TODO Auto-generated method stub
 		
 	}
 
-	/** 가계부 수정 :  */
 	private void updateMoney() {
-		// TODO Auto-generated method stub
 		
 	}
 
-	/** 가계부 삭제 : */
 	private void deleteMoney() {
-		// TODO Auto-generated method stub
 		
 	}
 
-	
-	/** 현재 잔액 조회 :  */
 	private void currentMoney() {
-		accountBookService.printCurrentMoney();
 		
 	}
 	

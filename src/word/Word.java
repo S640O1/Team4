@@ -13,6 +13,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Word implements Serializable{
 	
+	/* 피드백
+	 * - 품사는 뜻마다 다름
+	 * - 단어에 품사가 고정이 아님
+	 * */
 	private static final long serialVersionUID = -2016745280033829563L;
 	private String word;		//단어
 	private String speechOfPart;//품사

@@ -1,4 +1,4 @@
-package accountBook;
+package _ysj.accountBook_ysj2;
 
 public class AccountBookMain {
 
