@@ -88,7 +88,7 @@ public class ABProgram implements Program{
 		Date date = new Date();
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 		
-		int money = 0, inMoney = 0, outMoney = 0, totalInMoney = 0, totalOutMoney = 0;
+		int money = 0, totalMoney;
 		
 		
 		System.out.println("날짜 (yyyy-MM-dd) : ");
@@ -107,26 +107,28 @@ public class ABProgram implements Program{
 		money = scan.nextInt();
 		scan.nextLine();
 		
+		if (list.size() <= 0) {
+			totalMoney = 0;
+		} else {
+			int index = list.size()-1;
+			totalMoney = list.get(index).getTotalMoney();
+		}
+		
 		System.out.println("수입(1)/지출(2) : ");
 		int classify = scan.nextInt();
 		
 		if (classify == 1) {
-			inMoney = money;
-			totalInMoney += inMoney;
-			// System.out.println(inMoney);
-			// System.out.println(totalInMoney);
+			totalMoney += money;
+			
 		} else if (classify == 2) {
-			outMoney = money;
-			totalOutMoney += outMoney;
-			// System.out.println(outMoney);
-			// System.out.println(totalOutMoney);
+			totalMoney -= money;
 		}
 			
 		System.out.println("내역 : ");
 		scan.nextLine();
 		String memo = scan.nextLine();
 		
-		System.out.println("날짜 : " + format1.format(date) + " 금액 : " + money + " 내역 : " + memo );
+		System.out.println("날짜 : " + format1.format(date) + " 금액 : " + money + " 내역 : " + memo + "잔액 : " + totalMoney);
 		System.out.println("등록이 완료되었습니다.");
 	}		
 	
