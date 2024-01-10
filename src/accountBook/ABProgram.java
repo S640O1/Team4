@@ -341,7 +341,9 @@ public class ABProgram implements Program{
 	
 	/** 현재 잔액 조회 : 경재*/
 	private void currentMoney() {
-		accountBookService.printCurrentMoney();
+		if(!accountBookService.printCurrentMoney(list)) {
+			System.out.println("조회에 실패했습니다.");
+		};
 		
 	}
 	
