@@ -32,7 +32,7 @@ public class AccountBookServiceImp implements AccountBookService{
 			boolean inMoney,boolean outMoney, String memo) {
 		//수정
 		list.set(index, new Item(money, totalMoney, date, inMoney, outMoney, memo));
-	
+
 		return false;
 	}
 
