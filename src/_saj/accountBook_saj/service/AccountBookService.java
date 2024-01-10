@@ -1,8 +1,8 @@
-package accountBook.service;
+package _saj.accountBook_saj.service;
 
 import java.util.List;
 
-import accountBook.Item;
+import _saj.accountBook_saj.Item;
 
 public interface AccountBookService {
 	//기능을 정한 뒤 업무 분담
@@ -21,5 +21,4 @@ public interface AccountBookService {
 	
 	//5. 현재 잔액을 출력하는 메소드 : 신경재
 	boolean printCurrentMoney();
-	
 }
