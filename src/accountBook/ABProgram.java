@@ -84,11 +84,12 @@ public class ABProgram implements Program{
 		
 	}
 
-	/** 가계부 조회 :  */
+	/** 가계부 조회 : 경재*/
 	private void printMoney() {
 		// TODO Auto-generated method stub
 		
 	}
+
 
 	/** 가계부 수정 : 손나영 */
 	private void updateMoney() {
@@ -270,17 +271,41 @@ public class ABProgram implements Program{
 		}else if(!list.get(index).isInMoney() && list.get(index).isOutMoney()) {
 			list.get(index).setInMoney(true);
 			list.get(index).setOutMoney(false);
+
 		}
 	}
 
-	/** 가계부 삭제 : */
+	/** 가계부 삭제 : 양선진*/
 	private void deleteMoney() {
-		// TODO Auto-generated method stub
+		//순서대로 배열 나열해서 보기
+		for(Item tmp : list) {
+			tmp.toString();
+		}
+		//삭제할 번호 받기
+		System.out.print("삭제할 번호 : ");
+		//받은 num의 -1을 해야 인덱스 번호
+		int index = scan.nextInt() - 1;
 		
+		//삭제할 번호가 없으면(인덱스가 0보다 작거나, 리스트 사이즈보다 클때)없다고 출력 후 return;
+		if(index < 0 || index >= list.size()) {
+			System.out.println("없는 번호입니다.");
+			return;
+		}
+		//있으면 정말로 삭제하겠습니까? 문구 출력 후 y/n
+		System.out.println("정말로 삭제하겠습니까?(y/n) : ");
+		char areYouSure = scan.next().charAt(0);
+		if(areYouSure == 'y') {
+			//리스트의 index 배열 삭제
+			list.remove(index);
+			return;
+		} else { //y외 다른 문자면 취소
+			System.out.println("취소되었습니다.");
+			
+		}
 	}
 
 	
-	/** 현재 잔액 조회 :  */
+	/** 현재 잔액 조회 : 경재*/
 	private void currentMoney() {
 		accountBookService.printCurrentMoney();
 		
