@@ -30,12 +30,19 @@ public class Item implements Serializable{
 	 */
 	public String toString(int num) {
 		num += 1;
+		System.out.println("----------------------------------------------------------------------");
+		System.out.println("  순번  수입/지출     일자         금액       잔액        내역");
+		System.out.println("----------------------------------------------------------------------");
+	
 		if(inMoney && !outMoney) {
-			return num + "번, 일자 : " +  format1.format(date) +", 수입 : " + money + "원, 총액 : " + totalMoney + "메모 : " + memo;
+			return "  " + num  + "       " + "수입" + "     " +format1.format(date) + "     " + money + "원     " + totalMoney+ "원       "  + memo;
+//			return num + "번, 일자 : " +  format1.format(date) +", 수입 : " + money + "원, 총액 : " + totalMoney + "메모 : " + memo;
 		}else {
-			return num + "번, 일자 : " +  format1.format(date)  +", 지출 : " + money + "원, 총액 : " + totalMoney + "메모 : " + memo;
+			return "  " + num  + "       " + "지출" + "     " +format1.format(date) + "     " + money + "원     " + totalMoney+ "원       "  + memo;
+//			return num + "번, 일자 : " +  format1.format(date)  +", 지출 : " + money + "원, 총액 : " + totalMoney + "메모 : " + memo;
 		}
 	}
+
 
 	public Item(int money, int totalMoney, Date date, boolean inMoney, boolean outMoney, String memo) {
 		super();

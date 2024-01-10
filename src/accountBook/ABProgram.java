@@ -114,11 +114,10 @@ public class ABProgram implements Program{
 	/** 가계부 수정 : 손나영 */
 	private void updateMoney() {
 		//list가 비어있으면 
-//		if(!accountBookService.isList()) {
-//			System.out.println("작성된 가계부가 없습니다.");
-//			return;
-//		}
-//		
+		if(!accountBookService.isList(list)) {
+			System.out.println("작성된 가계부가 없습니다.");
+			return;
+		}
 		//전체목록 보여줌
 		if(!accountBookService.printAB(list)) {
 			System.out.println("조회에 실패했습니다.");
@@ -135,10 +134,10 @@ public class ABProgram implements Program{
 		}
 		
 		//index가 잘못된 경우
-//		if(!accountBookService.indexError(index)) {
-//			System.out.println("없는 항목입니다.");
-//			return;			
-//		}
+		if(!accountBookService.indexError(index, list)) {
+			System.out.println("없는 항목입니다.");
+			return;			
+		}
 		
 		//메뉴 선택
 		int menu = 0;
@@ -147,6 +146,7 @@ public class ABProgram implements Program{
 			try {
 				menu = scan.nextInt();
 				runUpdateMenu(menu, index);
+				break;
 			} catch (InputMismatchException e){
 				System.out.println("잘못된 메뉴입니다.");
 				scan.nextLine();
@@ -226,7 +226,10 @@ public class ABProgram implements Program{
 			System.out.println("잘못된 입력입니다.");
 			scan.nextLine();
 		}
-		if(!accountBookService.setAB(index, money, totalMoney, date, inMoney, outMoney, memo)) {
+		
+		Item ab = new Item(money, totalMoney, date, inMoney, outMoney, memo);
+		
+		if(!accountBookService.setAB(index, ab, list)) {
 			System.out.println("수정에 실패했습니다."); 
 		}
 
@@ -297,13 +300,22 @@ public class ABProgram implements Program{
 	/** 가계부 수정 1. 입금/지출 항목수정*/
 	private void runUpateInOut(int index) {
 		//총액도 같이 변경
+		int totalMoney = list.get(index).getTotalMoney();
+		int money = list.get(index).getMoney();
+		//수입항목이라면
 		if(list.get(index).isInMoney() && !list.get(index).isOutMoney()) {
+			//지출항목으로
 			list.get(index).setInMoney(false);
 			list.get(index).setOutMoney(true);
+			//총액변경
+			totalMoney -= (money*2);
+			list.get(index).setTotalMoney(totalMoney);
 		}else if(!list.get(index).isInMoney() && list.get(index).isOutMoney()) {
 			list.get(index).setInMoney(true);
 			list.get(index).setOutMoney(false);
-
+			//총액변경
+			totalMoney += (money*2);
+			list.get(index).setTotalMoney(totalMoney);
 		}
 	}
 

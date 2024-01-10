@@ -11,7 +11,6 @@ import accountBook.Item;
 
 public class AccountBookServiceImp implements AccountBookService{
 	
-	private List<Item> list;
 	Scanner scan = new Scanner(System.in);
 
 	private FileService fileService = new FileServiceImp();
@@ -23,12 +22,11 @@ public class AccountBookServiceImp implements AccountBookService{
 	public boolean addAB(List<Item> list, String fileName) {
 		Date date = new Date();
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+		boolean inMoney=false, outMoney=false;
+		int totalMoney;
 		
-		int money = 0, totalMoney;
 		
-		
-		System.out.println("날짜 (yyyy-MM-dd) : ");
-		
+		System.out.print("날짜 (yyyy-MM-dd) : ");
 		while (scan.hasNextLine()) {
 			try {
 				date = format1.parse(scan.nextLine());
@@ -37,10 +35,13 @@ public class AccountBookServiceImp implements AccountBookService{
 				System.out.println("날짜를 yyyy-MM-dd의 형태로 다시 입력해주세요.");
 			}
 		}
-		
-		System.out.println("금액 : ");
-		money = scan.nextInt();
+		System.out.print("수입(1)/지출(2) : ");
+		int classify = scan.nextInt();
+		System.out.print("금액 : ");
+		int money = scan.nextInt(); 
+		System.out.print("내역 : ");
 		scan.nextLine();
+		String memo = scan.nextLine();
 		
 		if (list.size() <= 0) {
 			totalMoney = 0;
@@ -49,28 +50,21 @@ public class AccountBookServiceImp implements AccountBookService{
 			totalMoney = list.get(index).getTotalMoney();
 		}
 		
-		System.out.println("수입(1)/지출(2) : ");
-		int classify = scan.nextInt();
-		boolean inMoney=false, outMoney=false;
-		
 		if (classify == 1) {
 			inMoney=true;
 			outMoney=false;
 			totalMoney += money;
-			
 		} else if (classify == 2) {
 			inMoney=false;
 			outMoney=true;
 			totalMoney -= money;
 		}
 			
-		System.out.println("내역 : ");
-		scan.nextLine();
-		String memo = scan.nextLine();
+		Item item = new Item(money, totalMoney, date, inMoney, outMoney, memo);
+		list.add(item);
 		
-		list.add(new Item(money, totalMoney, date, inMoney, outMoney, memo));
-		
-		System.out.println("날짜 : " + format1.format(date) + " 금액 : " + money + " 내역 : " + memo + "잔액 : " + totalMoney);
+		 System.out.println(item.toString(list.indexOf(item)));
+//		System.out.println("날짜 : " + format1.format(date) + " 금액 : " + money + " 내역 : " + memo + "잔액 : " + totalMoney);
 		System.out.println("등록이 완료되었습니다.");
 		
 		if(fileService.save(fileName, list)) {
@@ -98,11 +92,9 @@ public class AccountBookServiceImp implements AccountBookService{
 
 	/**3. 가계부(리스트)의 내역을 수정하는 메소드 :  손나영*/
 	@Override
-	public boolean setAB(int index, int money, int totalMoney, Date date,
-			boolean inMoney,boolean outMoney, String memo) {
+	public boolean setAB(int index, Item item, List<Item> list) {
 		//수정
-		list.set(index, new Item(money, totalMoney, date, inMoney, outMoney, memo));
-
+		list.set(index, item);
 		return false;
 	}
 
@@ -126,7 +118,7 @@ public class AccountBookServiceImp implements AccountBookService{
 
 	/** 가계부 존재여부 확인 메소드*/
 	@Override
-	public boolean isList() {
+	public boolean isList(List<Item> list) {
 		//리스트가 비어있다면
 		if(list==null) {
 			return false;
@@ -136,7 +128,7 @@ public class AccountBookServiceImp implements AccountBookService{
 
 	/** index 오류여부 확인 메소드*/
 	@Override
-	public boolean indexError(int index) {
+	public boolean indexError(int index, List<Item> list) {
 		//index가 잘못된 경우
 		if(index < 0 || index >= list.size()) {
 			return false;			
