@@ -22,7 +22,7 @@ public interface AccountBookService {
 	boolean deleteAB(List<Item> list, String title);
 	
 	//5. 현재 잔액을 출력하는 메소드 : 신경재
-	boolean printCurrentMoney();
+	boolean printCurrentMoney(List<Item> list);
 	
 	/** 가계부 존재여부 확인 메소드*/
 	boolean isList();

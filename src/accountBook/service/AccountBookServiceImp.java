@@ -115,9 +115,12 @@ public class AccountBookServiceImp implements AccountBookService{
 
 	/**5. 현재 잔액을 출력하는 메소드 :  신경재*/
 	@Override
-	public boolean printCurrentMoney() {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean printCurrentMoney(List<Item> list) {
+		int index = list.size()-1;
+		
+		System.out.println("현재 잔액 : " + list.get(index).getTotalMoney());
+		
+		return true;
 	}
 
 
