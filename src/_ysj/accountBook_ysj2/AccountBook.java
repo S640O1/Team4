@@ -38,7 +38,7 @@ public class AccountBook {	//가계부(내역 리스트)
 			return false;
 		}
 		//삭제 후 삭제 여부를 리턴
-		//*오류 return list.remove(num);
+		//오류 return list.remove(num);
 		return true;
 	}
 	
