@@ -7,6 +7,8 @@ import accountBook.Item;
 
 
 public class AccountBookServiceImp implements AccountBookService{
+	
+	private List<Item> list;
 
 	/**1. 가계부(리스트)에 내역을 추가하는 메소드 :  심아진*/
 	@Override
@@ -22,11 +24,14 @@ public class AccountBookServiceImp implements AccountBookService{
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
 
 	/**3. 가계부(리스트)의 내역을 수정하는 메소드 :  손나영*/
 	@Override
-	public boolean setAB(List<Item> list, String title, int moeny) {
-		
+	public boolean setAB(int index, int money, int totalMoney, int date,
+			boolean inMoney,boolean outMoney, String memo) {
+		//수정
+		list.set(index, new Item(money, totalMoney, date, inMoney, outMoney, memo));
 
 		return false;
 	}
@@ -44,5 +49,28 @@ public class AccountBookServiceImp implements AccountBookService{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+
+	/** 가계부 존재여부 확인 메소드*/
+	@Override
+	public boolean isList() {
+		//리스트가 비어있다면
+		if(list==null) {
+			return false;
+		}
+		return true;
+	}
+
+	/** index 오류여부 확인 메소드*/
+	@Override
+	public boolean indexError(int index) {
+		//index가 잘못된 경우
+		if(index < 0 || index >= list.size()) {
+			return false;			
+		}
+		return true;
+	}
+	
+	
 
 }

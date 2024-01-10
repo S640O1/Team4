@@ -269,8 +269,8 @@ public class ABProgram implements Program{
 		
 		
 		System.out.print("어떤 항목을 수정하시겠습니까? : ");
-		int num = scan.nextInt();
-		
+		int num = scan.nextInt() -1 ; 
+
 		if(num<0 || num > (abm.getList().size()-1)) {
 			System.out.println("잘못된 순번입니다.");
 			return;

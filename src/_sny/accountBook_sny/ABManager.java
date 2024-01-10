@@ -45,7 +45,6 @@ public class ABManager {
 				}else if(ab.getClassify() ==1) {
 					ClassifyS = "지출";
 				}
-				
 				int index = list.indexOf(ab)+1;
 				
 				System.out.println("  " + index + "       "
