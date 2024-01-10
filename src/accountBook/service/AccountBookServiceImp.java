@@ -1,6 +1,9 @@
 package accountBook.service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 import accountBook.Item;
 
@@ -9,18 +12,77 @@ import accountBook.Item;
 public class AccountBookServiceImp implements AccountBookService{
 	
 	private List<Item> list;
+	Scanner scan = new Scanner(System.in);
 
+	private FileService fileService = new FileServiceImp();
+
+
+	
 	/**1. 가계부(리스트)에 내역을 추가하는 메소드 :  심아진*/
 	@Override
-	public boolean addAB(List<Item> list, Item ab) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addAB(List<Item> list, String fileName) {
+		Date date = new Date();
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+		
+		int money = 0, totalMoney;
+		
+		
+		System.out.println("날짜 (yyyy-MM-dd) : ");
+		
+		while (scan.hasNextLine()) {
+			try {
+				date = format1.parse(scan.nextLine());
+				break;
+			} catch (Exception e) {
+				System.out.println("날짜를 yyyy-MM-dd의 형태로 다시 입력해주세요.");
+			}
+		}
+		
+		System.out.println("금액 : ");
+		money = scan.nextInt();
+		scan.nextLine();
+		
+		if (list.size() <= 0) {
+			totalMoney = 0;
+		} else {
+			int index = list.size()-1;
+			totalMoney = list.get(index).getTotalMoney();
+		}
+		
+		System.out.println("수입(1)/지출(2) : ");
+		int classify = scan.nextInt();
+		boolean inMoney=false, outMoney=false;
+		
+		if (classify == 1) {
+			inMoney=true;
+			outMoney=false;
+			totalMoney += money;
+			
+		} else if (classify == 2) {
+			inMoney=false;
+			outMoney=true;
+			totalMoney -= money;
+		}
+			
+		System.out.println("내역 : ");
+		scan.nextLine();
+		String memo = scan.nextLine();
+		
+		list.add(new Item(money, totalMoney, date, inMoney, outMoney, memo));
+		
+		System.out.println("날짜 : " + format1.format(date) + " 금액 : " + money + " 내역 : " + memo + "잔액 : " + totalMoney);
+		System.out.println("등록이 완료되었습니다.");
+		
+		if(fileService.save(fileName, list)) {
+			System.out.println("저장"); 
+		};
+		return true;
 	}
 
 	
 	/**2. 가계부(리스트)에 내역을 조회하는 메소드 :  신경재*/
 	@Override
-	public boolean printAB(List<Item> list, String title) {
+	public boolean printAB(List<Item> list) {
 		if (list.isEmpty()) {
 	        System.out.println("가계부 기입 내역이 없습니다.");
 	        return false;
@@ -30,13 +92,13 @@ public class AccountBookServiceImp implements AccountBookService{
 	        Item item = list.get(i);
 	        System.out.println(item.toString(i));
 	    }
-	   return false;
+	    return true;
 	}
 	
 
 	/**3. 가계부(리스트)의 내역을 수정하는 메소드 :  손나영*/
 	@Override
-	public boolean setAB(int index, int money, int totalMoney, int date,
+	public boolean setAB(int index, int money, int totalMoney, Date date,
 			boolean inMoney,boolean outMoney, String memo) {
 		//수정
 		list.set(index, new Item(money, totalMoney, date, inMoney, outMoney, memo));
