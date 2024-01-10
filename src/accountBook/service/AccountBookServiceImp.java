@@ -21,8 +21,16 @@ public class AccountBookServiceImp implements AccountBookService{
 	/**2. 가계부(리스트)에 내역을 조회하는 메소드 :  신경재*/
 	@Override
 	public boolean printAB(List<Item> list, String title) {
-		// TODO Auto-generated method stub
-		return false;
+		if (list.isEmpty()) {
+	        System.out.println("가계부 기입 내역이 없습니다.");
+	        return false;
+		}
+		System.out.println("전체 내역:");
+	    for (int i = 0; i < list.size(); i++) {
+	        Item item = list.get(i);
+	        System.out.println(item.toString(i));
+	    }
+	   return false;
 	}
 	
 
