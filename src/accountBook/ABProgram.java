@@ -1,7 +1,5 @@
 package accountBook;
 
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,9 +60,6 @@ public class ABProgram implements Program{
 		
 
 	}
-	
-
-	
 
 	@Override
 	public void printMenu() {
