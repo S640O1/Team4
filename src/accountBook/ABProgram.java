@@ -86,13 +86,13 @@ public class ABProgram implements Program{
 		
 	}
 
-	/** 가계부 조회 :  */
+	/** 가계부 조회 : 경재*/
 	private void printMoney() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	/** 가계부 수정 :  */
+	/** 가계부 수정 : 나영*/
 	private void updateMoney() {
 		//순서대로 배열 나열해서 보기
 		for(Item tmp : list) {
@@ -127,7 +127,7 @@ public class ABProgram implements Program{
 	}
 
 	
-	/** 현재 잔액 조회 :  */
+	/** 현재 잔액 조회 : 경재*/
 	private void currentMoney() {
 		accountBookService.printCurrentMoney();
 		
