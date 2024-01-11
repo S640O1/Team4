@@ -30,12 +30,23 @@ public class Item implements Serializable{
 	 */
 	public String toString(int num) {
 		num += 1;
+		
+		String printNum = String.format("%4d번", num);
+		String printMoney = String.format(" %,10d원", money);
+		String printTotalMoney = String.format(" %,10d원", totalMoney);
+		
+		
 		if(inMoney && !outMoney) {
-			return num + "번, 일자 : " +  format1.format(date) +", 수입 : " + money + "원, 총액 : " + totalMoney + "메모 : " + memo;
+			return printNum + "    수입     " + format1.format(date)
+			+ printMoney + printTotalMoney + "     "+ memo;
+		}else if(!inMoney && outMoney){
+			return printNum + "    지출     " + format1.format(date)
+			+ printMoney + printTotalMoney + "     "+ memo;
 		}else {
-			return num + "번, 일자 : " +  format1.format(date)  +", 지출 : " + money + "원, 총액 : " + totalMoney + "메모 : " + memo;
+			return "파일이 잘못되었습니다.";
 		}
 	}
+
 
 	public Item(int money, int totalMoney, Date date, boolean inMoney, boolean outMoney, String memo) {
 		super();
@@ -46,6 +57,7 @@ public class Item implements Serializable{
 		this.outMoney = outMoney;
 		this.memo = memo;
 	}
+	
 
 	public void setDate(Date date) {
 		this.date = date;
