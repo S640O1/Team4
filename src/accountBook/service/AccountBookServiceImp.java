@@ -281,9 +281,16 @@ public class AccountBookServiceImp implements AccountBookService{
 			list.remove(index);
 			System.out.println("삭제되었습니다.");
 			return true;
-		} else { //y외 다른 문자면 취소
+		}
+			//n일시
+			else if(areYouSure == 'n') { 
 			System.out.println("취소되었습니다.");
 			return false;			
+		} 
+			//다른 문자일시
+			else {	
+			System.out.println("잘못된 문자입니다.");
+			return false;
 		}
 	}
 
