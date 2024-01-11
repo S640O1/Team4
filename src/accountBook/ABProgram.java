@@ -1,5 +1,6 @@
 package accountBook;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -188,7 +189,7 @@ public class ABProgram implements Program{
 
 	/** 4. 가계부 삭제 : 양선진*/
 	private void deleteMoney() {
-		if(!accountBookService.deleteAB(list)) {
+		if(!accountBookService.deleteAB(list, fileName)) {
 			System.out.println("삭제에 실패했습니다.");
 		}
 		fileService.save(fileName, list);
