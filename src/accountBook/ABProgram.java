@@ -23,7 +23,8 @@ public class ABProgram implements Program{
 	private FileService fileService = new FileServiceImp();
 	private PrintService printService = new PrintServiceImp();
 
-	private List<Item> list = new ArrayList<Item>(); 	//수입 지출 내역
+//	private List<Item> list = new ArrayList<Item>(); 	
+	List<Item> list = fileService.load(fileName); //수입 지출 내역
 	
 	//반복종료 번호
 	static final int EXIT = 6;
@@ -33,11 +34,9 @@ public class ABProgram implements Program{
 	public void run() {
 		int menu = 0;
 		
-		 list = fileService.load(fileName);
-		if(list==null) {
-			System.out.println("가계부를 등록해주세요.");
+		if(list == null) {
+			fileService.save(fileName, list);
 		}
-		
 		do {
 			printMenu();
 			try {
@@ -96,7 +95,7 @@ public class ABProgram implements Program{
 	/** 2. 가계부 조회 : 경재*/
 	private void printMoney() {
 		if(!accountBookService.printAB(list)) {
-			System.out.println("조회에 실패했습니다.");
+			System.out.println("가계부를 등록해주세요.");
 		}
 	}
 
@@ -105,7 +104,7 @@ public class ABProgram implements Program{
 		
 		//list가 비어있으면 
 		if(!accountBookService.isList(list)) {
-			System.out.println("작성된 가계부가 없습니다.");
+			System.out.println("가계부를 등록해주세요.");
 			return;
 		}
 		//전체목록 보여줌
@@ -201,7 +200,7 @@ public class ABProgram implements Program{
 	/** 5. 현재 잔액 조회 : 경재*/
 	private void currentMoney() {
 		if(!accountBookService.printCurrentMoney(list)) {
-			System.out.println("조회에 실패했습니다.");
+			System.out.println("가계부를 등록해주세요.");
 		};
 		
 	}

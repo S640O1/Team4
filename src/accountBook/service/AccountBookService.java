@@ -48,6 +48,9 @@ public interface AccountBookService {
 	
 	/** 정렬 메소드 */
 	void sort(List<Item> list);
+	
+	/** 잔액 계산 메소드 */
+	void recalculation(List<Item> list);
 
 
 

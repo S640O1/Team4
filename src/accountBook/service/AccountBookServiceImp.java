@@ -2,6 +2,7 @@ package accountBook.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -19,14 +20,14 @@ public class AccountBookServiceImp implements AccountBookService{
 
 	SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 
-	
+
 	/**1. 가계부(리스트)에 내역을 추가하는 메소드 :  심아진*/
 	@Override
 	public boolean addAB(List<Item> list, String fileName) {
 		Date date = new Date();
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 		boolean inMoney=false, outMoney=false;
-		int totalMoney;
+		int totalMoney=0;
 		
 		System.out.print("날짜 (yyyy-MM-dd) : ");
 		while (scan.hasNextLine()) {
@@ -47,10 +48,10 @@ public class AccountBookServiceImp implements AccountBookService{
 		String memo = scan.nextLine();
 		
 		if (list.size() <= 0) {
-			totalMoney = 0;
+			totalMoney=0;
 		} else {
 			int index = list.size()-1;
-			totalMoney = list.get(index).getTotalMoney();
+			totalMoney = list.get(index).getTotalMoney();			
 		}
 		
 		if (classify == 1) {
@@ -65,7 +66,7 @@ public class AccountBookServiceImp implements AccountBookService{
 			
 		Item item = new Item(money, totalMoney, date, inMoney, outMoney, memo);
 		list.add(item);
-		sort(list);
+		recalculation(list);
 		
 		System.out.println("----------------------------------------------------------------------");
 		System.out.println("  순번  수입/지출     일자         금액         잔액          내역");
@@ -74,17 +75,16 @@ public class AccountBookServiceImp implements AccountBookService{
 		System.out.println(item.toString(list.indexOf(item)));
 		System.out.println("등록이 완료되었습니다.");
 		
-//		if(fileService.save(fileName, list)) {
-//			System.out.println("저장"); 
-//		};
+		if(fileService.save(fileName, list)) {
+			System.out.println("저장"); 
+		};
 		return true;
 	}
 
 	/**2. 가계부(리스트)에 내역을 조회하는 메소드 :  신경재*/
 	@Override
 	public boolean printAB(List<Item> list) {
-		if (list.isEmpty()) {
-	        System.out.println("가계부 기입 내역이 없습니다.");
+		if (list==null) {
 	        return false;
 		}
 		System.out.println("----------------------------------------------------------------------");
@@ -103,7 +103,7 @@ public class AccountBookServiceImp implements AccountBookService{
 	public boolean setAB(int index, Item item, List<Item> list) {
 		//수정
 		list.set(index, item);
-		sort(list);
+		recalculation(list);
 		return true;
 	}
 	
@@ -151,7 +151,7 @@ public class AccountBookServiceImp implements AccountBookService{
 			scan.nextLine();
 		}	
 		list.get(index).setDate(date);
-		sort(list);
+		recalculation(list);
 		return true;
 	}
 
@@ -250,7 +250,7 @@ public class AccountBookServiceImp implements AccountBookService{
 		if(!setAB(index, ab, list)) {
 			System.out.println("수정에 실패했습니다."); 
 		}
-		sort(list);
+		recalculation(list);
 		return true;
 	}
 
@@ -260,7 +260,7 @@ public class AccountBookServiceImp implements AccountBookService{
 
 		//순서대로 배열 나열해서 보기
 		if(!printAB(list)) {
-			System.out.println("조회에 실패했습니다.");
+			System.out.println("가계부를 등록해주세요.");
 		}
 		
 		//삭제할 번호 받기
@@ -290,6 +290,9 @@ public class AccountBookServiceImp implements AccountBookService{
 	/**5. 현재 잔액을 출력하는 메소드 :  신경재*/
 	@Override
 	public boolean printCurrentMoney(List<Item> list) {
+		if (list==null) {
+	        return false;
+		}
 		int index = list.size()-1;
 		
 		System.out.println("현재 잔액 : " + list.get(index).getTotalMoney());
@@ -331,6 +334,28 @@ public class AccountBookServiceImp implements AccountBookService{
 			}
 			return s1.getDate().getDay() - s2.getDate().getDay();
 		});
+		
+	}
+
+	/** 잔액 계산 메소드 */
+	@Override
+	public void recalculation(List<Item> list) {
+		int totalMoney;
+		sort(list);
+		
+		if(list.size() <= 1) {
+			return;
+		}
+		
+		for(int i=1; i<list.size(); i++) {
+			if(list.get(i).isInMoney() && !list.get(i).isOutMoney()) {
+				totalMoney = list.get(i-1).getTotalMoney() + list.get(i).getMoney();
+			}else {
+				totalMoney = list.get(i-1).getTotalMoney() - list.get(i).getMoney();
+			}
+			list.get(i).setTotalMoney(totalMoney);
+		}
+			
 		
 	}
 
