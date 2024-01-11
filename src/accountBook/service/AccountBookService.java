@@ -35,7 +35,7 @@ public interface AccountBookService {
 	boolean runUpateInAll(int index, List<Item> list);
 	
 	//4. 가계부(리스트)에 내역을 삭제하는 메소드 : 양선진
-	List<Item> deleteAB(List<Item> list);
+	boolean deleteAB(List<Item> list, String fileName);
 	
 	//5. 현재 잔액을 출력하는 메소드 : 신경재
 	boolean printCurrentMoney(List<Item> list);

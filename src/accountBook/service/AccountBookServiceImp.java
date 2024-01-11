@@ -260,7 +260,7 @@ public class AccountBookServiceImp implements AccountBookService{
 
 	/**4. 가계부(리스트)에 내역을 삭제하는 메소드 :  양선진*/
 	@Override
-	public boolean deleteAB(List<Item> list) {
+	public boolean deleteAB(List<Item> list, String fileName) {
 
 		//순서대로 배열 나열해서 보기
 		if(!printAB(list)) {
@@ -283,6 +283,7 @@ public class AccountBookServiceImp implements AccountBookService{
 		if(areYouSure == 'y') {
 			//리스트의 index 배열 삭제
 			list.remove(index);
+			fileService.save(fileName, list);
 			System.out.println("삭제되었습니다.");
 			return true;
 		}
