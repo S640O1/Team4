@@ -16,6 +16,7 @@ public class FileServiceImp implements FileService {
 			new ObjectInputStream(new FileInputStream(fileName))){
 			return (List<Item>) ois.readObject();
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -25,6 +26,7 @@ public class FileServiceImp implements FileService {
 		try(ObjectOutputStream oos = 
 			new ObjectOutputStream(new FileOutputStream(fileName))){
 			oos.writeObject(list);
+//			oos.flush();
 			return true;
 		}catch(Exception e) {
 		}
