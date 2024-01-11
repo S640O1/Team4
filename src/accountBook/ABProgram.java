@@ -33,7 +33,10 @@ public class ABProgram implements Program{
 	public void run() {
 		int menu = 0;
 		
-		List<Item> list = fileService.load(fileName);
+		 list = fileService.load(fileName);
+		if(list==null) {
+			System.out.println("가계부를 등록해주세요.");
+		}
 		
 		do {
 			printMenu();
@@ -47,9 +50,9 @@ public class ABProgram implements Program{
 		} while (menu != EXIT);
 		
 		if(fileService.save(fileName, list)) {
-			System.out.println("저장"); 
+			System.out.println("가계부를 저장했습니다."); 
 		}else {
-			System.out.println("저장에 실패했습니다.");
+			System.out.println("가계부저장에 실패했습니다.");
 		}
 	}
 	
@@ -87,7 +90,7 @@ public class ABProgram implements Program{
 		if(!accountBookService.addAB(list, fileName)) {
 			System.out.println("입력에 실패했습니다.");
 		}
-		
+		fileService.save(fileName, list);
 	}
 
 	/** 2. 가계부 조회 : 경재*/
@@ -139,7 +142,6 @@ public class ABProgram implements Program{
 				scan.nextLine();
 			}
 		} while (menu != UPDATE_EXIT);
-		
 	}
 
 		/** (1) 가계부 수정 : 메뉴출력*/
@@ -185,6 +187,7 @@ public class ABProgram implements Program{
 			default : throw new InputMismatchException();
 		}
 		System.out.println("수정을 완료했습니다.");
+		fileService.save(fileName, list);
 	}
 
 	/** 4. 가계부 삭제 : 양선진*/
@@ -192,7 +195,7 @@ public class ABProgram implements Program{
 		if(!accountBookService.deleteAB(list)) {
 			System.out.println("삭제에 실패했습니다.");
 		}
-		
+		fileService.save(fileName, list);
 	}
 	
 	/** 5. 현재 잔액 조회 : 경재*/

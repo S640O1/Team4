@@ -28,7 +28,6 @@ public class AccountBookServiceImp implements AccountBookService{
 		boolean inMoney=false, outMoney=false;
 		int totalMoney;
 		
-		
 		System.out.print("날짜 (yyyy-MM-dd) : ");
 		while (scan.hasNextLine()) {
 			try {
@@ -36,7 +35,7 @@ public class AccountBookServiceImp implements AccountBookService{
 				break;
 			} catch (Exception e) {
 				System.out.println("날짜를 yyyy-MM-dd의 형태로 다시 입력해주세요.");
-				scan.nextLine();
+				System.out.print("날짜 (yyyy-MM-dd) : ");
 			}
 		}
 		System.out.print("수입(1)/지출(2) : ");
@@ -66,18 +65,18 @@ public class AccountBookServiceImp implements AccountBookService{
 			
 		Item item = new Item(money, totalMoney, date, inMoney, outMoney, memo);
 		list.add(item);
+		sort(list);
 		
 		System.out.println("----------------------------------------------------------------------");
 		System.out.println("  순번  수입/지출     일자         금액         잔액          내역");
 		System.out.println("----------------------------------------------------------------------");
 
-		 System.out.println(item.toString(list.indexOf(item)));
-//		System.out.println("날짜 : " + format1.format(date) + " 금액 : " + money + " 내역 : " + memo + "잔액 : " + totalMoney);
+		System.out.println(item.toString(list.indexOf(item)));
 		System.out.println("등록이 완료되었습니다.");
 		
-		if(fileService.save(fileName, list)) {
-			System.out.println("저장"); 
-		};
+//		if(fileService.save(fileName, list)) {
+//			System.out.println("저장"); 
+//		};
 		return true;
 	}
 
@@ -104,7 +103,8 @@ public class AccountBookServiceImp implements AccountBookService{
 	public boolean setAB(int index, Item item, List<Item> list) {
 		//수정
 		list.set(index, item);
-		return false;
+		sort(list);
+		return true;
 	}
 	
 		/** 가계부 수정 1. 입금/지출 항목수정*/
@@ -151,6 +151,7 @@ public class AccountBookServiceImp implements AccountBookService{
 			scan.nextLine();
 		}	
 		list.get(index).setDate(date);
+		sort(list);
 		return true;
 	}
 
@@ -249,7 +250,8 @@ public class AccountBookServiceImp implements AccountBookService{
 		if(!setAB(index, ab, list)) {
 			System.out.println("수정에 실패했습니다."); 
 		}
-		return false;
+		sort(list);
+		return true;
 	}
 
 	/**4. 가계부(리스트)에 내역을 삭제하는 메소드 :  양선진*/
@@ -272,7 +274,7 @@ public class AccountBookServiceImp implements AccountBookService{
 			return false;
 		}
 		//있으면 정말로 삭제하겠습니까? 문구 출력 후 y/n
-		System.out.println("정말로 삭제하겠습니까?(y/n) : ");
+		System.out.print("정말로 삭제하겠습니까?(y/n) : ");
 		char areYouSure = scan.next().charAt(0);
 		if(areYouSure == 'y') {
 			//리스트의 index 배열 삭제
@@ -313,6 +315,23 @@ public class AccountBookServiceImp implements AccountBookService{
 			return false;			
 		}
 		return true;
+	}
+
+	/** 정렬 메소드 */
+	@Override
+	public void sort(List<Item> list) {
+		list.sort((s1,s2)->{
+			//년도가 같으면
+			if (s1.getDate().getYear() != s2.getDate().getYear()){
+				return s1.getDate().getYear() - s2.getDate().getYear();
+			}
+			//월이 다르면
+			if(s1.getDate().getMonth() != s2.getDate().getMonth()) {
+				return s1.getDate().getMonth() - s2.getDate().getMonth();
+			}
+			return s1.getDate().getDay() - s2.getDate().getDay();
+		});
+		
 	}
 
 

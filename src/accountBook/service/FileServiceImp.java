@@ -16,7 +16,8 @@ public class FileServiceImp implements FileService {
 			new ObjectInputStream(new FileInputStream(fileName))){
 			return (List<Item>) ois.readObject();
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("파일을 찾을 수 없습니다.");
+//			e.printStackTrace();
 		}
 		return null;
 	}
@@ -29,6 +30,7 @@ public class FileServiceImp implements FileService {
 //			oos.flush();
 			return true;
 		}catch(Exception e) {
+			System.out.println("예외가 발생하였습니다.");
 		}
 		return false;
 	}

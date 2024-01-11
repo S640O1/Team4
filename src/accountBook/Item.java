@@ -39,9 +39,11 @@ public class Item implements Serializable{
 		if(inMoney && !outMoney) {
 			return printNum + "    수입     " + format1.format(date)
 			+ printMoney + printTotalMoney + "     "+ memo;
-		}else {
-			return printNum + "    수입     " + format1.format(date)
+		}else if(!inMoney && outMoney){
+			return printNum + "    지출     " + format1.format(date)
 			+ printMoney + printTotalMoney + "     "+ memo;
+		}else {
+			return "파일이 잘못되었습니다.";
 		}
 	}
 

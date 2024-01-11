@@ -45,7 +45,9 @@ public interface AccountBookService {
 	
 	/** index 오류여부 확인 메소드*/
 	boolean indexError(int index, List<Item> list);
-
+	
+	/** 정렬 메소드 */
+	void sort(List<Item> list);
 
 
 
