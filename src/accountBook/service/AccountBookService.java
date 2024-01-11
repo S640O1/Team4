@@ -8,7 +8,7 @@ public interface AccountBookService {
 	//기능을 정한 뒤 업무 분담
 	
 	//1. 가계부(리스트)에 내역을 추가하는 메소드 :  심아진
-	boolean addAB(List<Item> list, String fileName);
+	List<Item> addAB(List<Item> list, String fileName);
 	
 	//2. 가계부(리스트)에 내역을 조회하는 메소드 : 신경재
 	boolean printAB(List<Item> list);
@@ -35,7 +35,7 @@ public interface AccountBookService {
 	boolean runUpateInAll(int index, List<Item> list);
 	
 	//4. 가계부(리스트)에 내역을 삭제하는 메소드 : 양선진
-	boolean deleteAB(List<Item> list);
+	List<Item> deleteAB(List<Item> list);
 	
 	//5. 현재 잔액을 출력하는 메소드 : 신경재
 	boolean printCurrentMoney(List<Item> list);

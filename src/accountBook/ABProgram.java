@@ -23,8 +23,7 @@ public class ABProgram implements Program{
 	private FileService fileService = new FileServiceImp();
 	private PrintService printService = new PrintServiceImp();
 
-//	private List<Item> list = new ArrayList<Item>(); 	
-	List<Item> list = fileService.load(fileName); //수입 지출 내역
+	private List<Item> list = new ArrayList<Item>(); 	
 	
 	//반복종료 번호
 	static final int EXIT = 6;
@@ -33,6 +32,7 @@ public class ABProgram implements Program{
 	@Override
 	public void run() {
 		int menu = 0;
+		list = fileService.load(fileName); //수입 지출 내역
 		
 		if(list == null) {
 			fileService.save(fileName, list);
@@ -86,9 +86,7 @@ public class ABProgram implements Program{
 
 	/** 1. 가계부 입력 : 심아진 */
 	private void insertMoney() {
-		if(!accountBookService.addAB(list, fileName)) {
-			System.out.println("입력에 실패했습니다.");
-		}
+		list.addAll(accountBookService.addAB(list, fileName));
 		fileService.save(fileName, list);
 	}
 

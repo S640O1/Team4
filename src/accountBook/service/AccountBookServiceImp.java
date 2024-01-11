@@ -20,10 +20,10 @@ public class AccountBookServiceImp implements AccountBookService{
 
 	SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 
-
 	/**1. 가계부(리스트)에 내역을 추가하는 메소드 :  심아진*/
 	@Override
-	public boolean addAB(List<Item> list, String fileName) {
+	public List<Item> addAB(List<Item> list, String fileName) {
+		
 		Date date = new Date();
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 		boolean inMoney=false, outMoney=false;
@@ -47,7 +47,12 @@ public class AccountBookServiceImp implements AccountBookService{
 		scan.nextLine();
 		String memo = scan.nextLine();
 		
-		if (list.size() <= 0) {
+		
+		
+		if(list==null) {
+			totalMoney=0;
+		}
+		else if (list.size() <= 0) {
 			totalMoney=0;
 		} else {
 			int index = list.size()-1;
@@ -65,9 +70,8 @@ public class AccountBookServiceImp implements AccountBookService{
 		}
 			
 		Item item = new Item(money, totalMoney, date, inMoney, outMoney, memo);
-		list.add(item);
+		list.add(item);	//인스턴스가 생성되지 않은 상태/ 초기화없이 추가하려고 해서 문제발생?
 		recalculation(list);
-		
 		System.out.println("----------------------------------------------------------------------");
 		System.out.println("  순번  수입/지출     일자         금액         잔액          내역");
 		System.out.println("----------------------------------------------------------------------");
@@ -78,7 +82,7 @@ public class AccountBookServiceImp implements AccountBookService{
 		if(fileService.save(fileName, list)) {
 			System.out.println("저장"); 
 		};
-		return true;
+		return list;
 	}
 
 	/**2. 가계부(리스트)에 내역을 조회하는 메소드 :  신경재*/
