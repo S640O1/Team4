@@ -25,13 +25,10 @@ public interface AccountBookService {
 		/** 가계부 수정 3. 금액수정*/
 	boolean runUpateInMoney(int index, List<Item> list);
 	
-		/** 가계부 수정 4. 잔액수정*/
-	boolean runUpateInTotalMoney(int index, List<Item> list);
-	
-		/** 가계부 수정 5. 내역수정*/
+		/** 가계부 수정 4. 내역수정*/
 	boolean runUpateInMemo(int index, List<Item> list);
 	
-		/** 가계부 수정 6. 전체수정*/
+		/** 가계부 수정 5. 전체수정*/
 	boolean runUpateInAll(int index, List<Item> list);
 	
 	//4. 가계부(리스트)에 내역을 삭제하는 메소드 : 양선진
