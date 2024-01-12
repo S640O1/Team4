@@ -1,6 +1,8 @@
 package accountBook;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -23,7 +25,7 @@ public class ABProgram implements Program{
 	private FileService fileService = new FileServiceImp();
 	private PrintService printService = new PrintServiceImp();
 
-	private List<Item> list = new ArrayList<Item>(); 	
+	List<Item> list;
 	
 	//반복종료 번호
 	static final int EXIT = 6;
@@ -35,8 +37,9 @@ public class ABProgram implements Program{
 		list = fileService.load(fileName); //수입 지출 내역
 		
 		if(list == null) {
-			fileService.save(fileName, list);
+			list = new ArrayList<Item>();
 		}
+
 		do {
 			printMenu();
 			try {
@@ -86,8 +89,9 @@ public class ABProgram implements Program{
 
 	/** 1. 가계부 입력 : 심아진 */
 	private void insertMoney() {
-		list.addAll(accountBookService.addAB(list, fileName));
-		fileService.save(fileName, list);
+		if(accountBookService.addAB(list, fileName)){
+			System.out.println("가계부 등록이 완료되었습니다.");
+		}
 	}
 
 	/** 2. 가계부 조회 : 경재*/
@@ -99,15 +103,15 @@ public class ABProgram implements Program{
 
 	/** 3. 가계부 수정 : 손나영 */
 	private void updateMoney() {
-		
 		//list가 비어있으면 
-		if(!accountBookService.isList(list)) {
+		if(!list.isEmpty()) {
 			System.out.println("가계부를 등록해주세요.");
 			return;
 		}
 		//전체목록 보여줌
 		if(!accountBookService.printAB(list)) {
 			System.out.println("조회에 실패했습니다.");
+			return;
 		}
 		
 		int index=-1;

@@ -22,7 +22,7 @@ public class AccountBookServiceImp implements AccountBookService{
 
 	/**1. 가계부(리스트)에 내역을 추가하는 메소드 :  심아진*/
 	@Override
-	public List<Item> addAB(List<Item> list, String fileName) {
+	public boolean addAB(List<Item> list, String fileName) {
 		
 		Date date = new Date();
 		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -48,7 +48,7 @@ public class AccountBookServiceImp implements AccountBookService{
 		String memo = scan.nextLine();
 		
 		
-		
+		//만약 리스트가 비어있다면
 		if(list==null) {
 			totalMoney=0;
 		}
@@ -68,27 +68,26 @@ public class AccountBookServiceImp implements AccountBookService{
 			outMoney=true;
 			totalMoney -= money;
 		}
-			
+		
 		Item item = new Item(money, totalMoney, date, inMoney, outMoney, memo);
-		list.add(item);	//인스턴스가 생성되지 않은 상태/ 초기화없이 추가하려고 해서 문제발생?
+		list.add(item);
 		recalculation(list);
 		System.out.println("----------------------------------------------------------------------");
 		System.out.println("  순번  수입/지출     일자         금액         잔액          내역");
 		System.out.println("----------------------------------------------------------------------");
-
+		
 		System.out.println(item.toString(list.indexOf(item)));
-		System.out.println("등록이 완료되었습니다.");
 		
 		if(fileService.save(fileName, list)) {
-			System.out.println("저장"); 
+			System.out.println("가계부를 저장했습니다."); 
 		};
-		return list;
+		return true;
 	}
 
 	/**2. 가계부(리스트)에 내역을 조회하는 메소드 :  신경재*/
 	@Override
 	public boolean printAB(List<Item> list) {
-		if (list==null) {
+		if (list.isEmpty()) {
 	        return false;
 		}
 		System.out.println("----------------------------------------------------------------------");
@@ -265,6 +264,7 @@ public class AccountBookServiceImp implements AccountBookService{
 		//순서대로 배열 나열해서 보기
 		if(!printAB(list)) {
 			System.out.println("가계부를 등록해주세요.");
+			return false;
 		}
 		
 		//삭제할 번호 받기
@@ -302,23 +302,13 @@ public class AccountBookServiceImp implements AccountBookService{
 	/**5. 현재 잔액을 출력하는 메소드 :  신경재*/
 	@Override
 	public boolean printCurrentMoney(List<Item> list) {
-		if (list==null) {
+		if (list.isEmpty()) {
 	        return false;
 		}
 		int index = list.size()-1;
 		
 		System.out.println("현재 잔액 : " + list.get(index).getTotalMoney());
 		
-		return true;
-	}
-
-	/** 가계부 존재여부 확인 메소드*/
-	@Override
-	public boolean isList(List<Item> list) {
-		//리스트가 비어있다면
-		if(list==null) {
-			return false;
-		}
 		return true;
 	}
 
