@@ -5,13 +5,13 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import _sgj.accountBook_sgj.Program;
 import _sgj.accountBook_sgj2.service.AccountBookService;
 import _sgj.accountBook_sgj2.service.AccountBookServiceImp;
 import _sgj.accountBook_sgj2.service.FileService;
 import _sgj.accountBook_sgj2.service.FileServiceImp;
 import _sgj.accountBook_sgj2.service.PrintService;
 import _sgj.accountBook_sgj2.service.PrintServiceImp;
-import program.Program;
 
 public class ABProgram implements Program{
 	static String fileName = "src/accountBook/accountBookList.txt";
