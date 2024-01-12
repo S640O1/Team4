@@ -2,7 +2,8 @@ package _sgj.accountBook_sgj2.service;
 
 import java.util.List;
 
-import accountBook.Item;
+import _sgj.accountBook_sgj2.Item;
+
 
 public interface AccountBookService {
 	//기능을 정한 뒤 업무 분담
