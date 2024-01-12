@@ -47,16 +47,12 @@ public class AccountBookServiceImp implements AccountBookService{
 		scan.nextLine();
 		String memo = scan.nextLine();
 		
-		
+		int index = list.size();
 		//만약 리스트가 비어있다면
-		if(list==null) {
+		if(index <=0) {
 			totalMoney=0;
-		}
-		else if (list.size() <= 0) {
-			totalMoney=0;
-		} else {
-			int index = list.size()-1;
-			totalMoney = list.get(index).getTotalMoney();			
+		}else {
+			totalMoney = list.get(index-1).getTotalMoney();			
 		}
 		
 		if (classify == 1) {
@@ -72,15 +68,16 @@ public class AccountBookServiceImp implements AccountBookService{
 		Item item = new Item(money, totalMoney, date, inMoney, outMoney, memo);
 		list.add(item);
 		recalculation(list);
+		if(fileService.save(fileName, list)) {
+			System.out.println("가계부를 저장했습니다."); 
+		};
+		
 		System.out.println("----------------------------------------------------------------------");
 		System.out.println("  순번  수입/지출     일자         금액         잔액          내역");
 		System.out.println("----------------------------------------------------------------------");
 		
 		System.out.println(item.toString(list.indexOf(item)));
 		
-		if(fileService.save(fileName, list)) {
-			System.out.println("가계부를 저장했습니다."); 
-		};
 		return true;
 	}
 
@@ -347,6 +344,11 @@ public class AccountBookServiceImp implements AccountBookService{
 		
 		if(list.size() <= 1) {
 			return;
+		}
+		if(list.get(0).isInMoney() && !list.get(0).isOutMoney()) {
+			list.get(0).setTotalMoney(list.get(0).getMoney());
+		}else{
+			list.get(0).setTotalMoney(-list.get(0).getMoney());
 		}
 		
 		for(int i=1; i<list.size(); i++) {

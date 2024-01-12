@@ -103,14 +103,8 @@ public class ABProgram implements Program{
 
 	/** 3. 가계부 수정 : 손나영 */
 	private void updateMoney() {
-		//list가 비어있으면 
-		if(!list.isEmpty()) {
-			System.out.println("가계부를 등록해주세요.");
-			return;
-		}
-		//전체목록 보여줌
 		if(!accountBookService.printAB(list)) {
-			System.out.println("조회에 실패했습니다.");
+			System.out.println("가계부를 등록해주세요.");
 			return;
 		}
 		
