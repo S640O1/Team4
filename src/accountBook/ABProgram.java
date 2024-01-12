@@ -29,7 +29,7 @@ public class ABProgram implements Program{
 	
 	//반복종료 번호
 	static final int EXIT = 6;
-	static final int UPDATE_EXIT = 7;
+	static final int UPDATE_EXIT = 6;
 	
 	@Override
 	public void run() {
@@ -162,22 +162,17 @@ public class ABProgram implements Program{
 					System.out.println("수정에 실패하였습니다.");
 				};
 				break;
-			case 4 :	//잔액 수정
-				if(!accountBookService.runUpateInTotalMoney(index, list)) {
-					System.out.println("수정에 실패하였습니다.");
-				};
-				break;
-			case 5 :	//내역수정				
+			case 4 :	//내역수정				
 				if(!accountBookService.runUpateInMemo(index, list)) {
 					System.out.println("수정에 실패하였습니다.");
 				};
 				break;
-			case 6 : //전체수정
+			case 5 : //전체수정
 				if(!accountBookService.runUpateInAll(index, list)) {;	
 				System.out.println("수정에 실패하였습니다.");
 				}
 				break;
-			case 7 : System.out.println("뒤로가기");
+			case 6 : System.out.println("뒤로가기");
 				break;
 			default : throw new InputMismatchException();
 		}
@@ -190,7 +185,7 @@ public class ABProgram implements Program{
 		if(!accountBookService.deleteAB(list, fileName)) {
 			System.out.println("삭제에 실패했습니다.");
 		}
-		fileService.save(fileName, list);
+
 	}
 	
 	/** 5. 현재 잔액 조회 : 경재*/

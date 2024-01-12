@@ -32,14 +32,16 @@ public class Item implements Serializable{
 		num += 1;
 		
 		String printNum = String.format("%4d번", num);
-		String printMoney = String.format(" %,10d원", money);
+		String printMoney;
 		String printTotalMoney = String.format(" %,10d원", totalMoney);
 		
 		
 		if(inMoney && !outMoney) {
+			printMoney = String.format("  %,10d원", money);
 			return printNum + "    수입     " + format1.format(date)
 			+ printMoney + printTotalMoney + "     "+ memo;
 		}else if(!inMoney && outMoney){
+			printMoney = String.format(" -%,10d원", money);
 			return printNum + "    지출     " + format1.format(date)
 			+ printMoney + printTotalMoney + "     "+ memo;
 		}else {
