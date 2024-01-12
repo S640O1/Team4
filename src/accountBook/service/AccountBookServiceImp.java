@@ -29,14 +29,14 @@ public class AccountBookServiceImp implements AccountBookService{
 		boolean inMoney=false, outMoney=false;
 		int totalMoney=0;
 		
-		System.out.print("날짜 (yyyy-MM-dd) : ");
+		System.out.print("일자 (yyyy-MM-dd) : ");
 		while (scan.hasNextLine()) {
 			try {
 				date = format1.parse(scan.nextLine());
 				break;
 			} catch (Exception e) {
-				System.out.println("날짜를 yyyy-MM-dd의 형태로 다시 입력해주세요.");
-				System.out.print("날짜 (yyyy-MM-dd) : ");
+				System.out.println("일자를 yyyy-MM-dd의 형태로 다시 입력해주세요.");
+				System.out.print("일자 (yyyy-MM-dd) : ");
 			}
 		}
 		System.out.print("수입(1)/지출(2) : ");
@@ -110,11 +110,6 @@ public class AccountBookServiceImp implements AccountBookService{
 		/** 가계부 수정 1. 입금/지출 항목수정*/
 	@Override
 	public boolean runUpateInOut(int index, List<Item> list) {
-		
-		//총액도 같이 변경
-//		int totalMoney = list.get(index).getTotalMoney();
-//		int money = list.get(index).getMoney();
-		
 		//수입항목이라면
 		if(list.get(index).isInMoney() && !list.get(index).isOutMoney()) {
 			//지출항목으로
@@ -137,17 +132,16 @@ public class AccountBookServiceImp implements AccountBookService{
 	@Override
 	public boolean runUpateInDate(int index, List<Item> list) {
 		Date date=null;
-		try {		
-			System.out.print("일자 : ");
+		System.out.print("일자 (yyyy-MM-dd) : ");
+		while (scan.hasNextLine()) {
 			try {
 				date = format1.parse(scan.nextLine());
-			} catch (ParseException e) {
-				System.out.println("잘못된 입력입니다.");
+				break;
+			} catch (Exception e) {
+				System.out.println("일자를 yyyy-MM-dd의 형태로 다시 입력해주세요.");
+				System.out.print("일자 (yyyy-MM-dd) : ");
 			}
-		}catch(InputMismatchException e) {
-			System.out.println("잘못된 입력입니다.");
-			scan.nextLine();
-		}	
+		}
 		list.get(index).setDate(date);
 		recalculation(list);
 		return true;
@@ -177,11 +171,10 @@ public class AccountBookServiceImp implements AccountBookService{
 		try {		
 		// 내역받기
 		System.out.print("내역 : ");
-		scan.nextLine();
 		memo = scan.nextLine();	
 		}catch(InputMismatchException e) {
-			System.out.println("잘못된 입력입니다.");
 			scan.nextLine();
+			System.out.println("잘못된 입력입니다.");
 		}
 		
 		list.get(index).setMemo(memo);
@@ -210,12 +203,16 @@ public class AccountBookServiceImp implements AccountBookService{
 			}else {
 				System.out.println("잘못된 번호입니다.");
 			}
-			System.out.print("일자 : ");
-			try {
-				scan.nextLine();
-				date = format1.parse(scan.nextLine());
-			} catch (ParseException e) {
-				System.out.println("잘못된 입력입니다.");
+			scan.nextLine();
+			System.out.print("일자 (yyyy-MM-dd) : ");
+			while (scan.hasNextLine()) {
+				try {
+					date = format1.parse(scan.nextLine());
+					break;
+				} catch (Exception e) {
+					System.out.println("일자를 yyyy-MM-dd의 형태로 다시 입력해주세요.");
+					System.out.print("일자 (yyyy-MM-dd) : ");
+				}
 			}
 			System.out.print("금액 : ");
 			money = scan.nextInt();
