@@ -90,7 +90,7 @@ public class AccountBookServiceImp implements AccountBookService{
 		System.out.println("----------------------------------------------------------------------");
 		System.out.println("  순번  수입/지출     일자         금액         잔액           내역");
 		System.out.println("----------------------------------------------------------------------");
-	
+		recalculation(list);
 	    for (int i = 0; i < list.size(); i++) {
 	        Item item = list.get(i);
 	        System.out.println(item.toString(i));
@@ -112,24 +112,22 @@ public class AccountBookServiceImp implements AccountBookService{
 	public boolean runUpateInOut(int index, List<Item> list) {
 		
 		//총액도 같이 변경
-		int totalMoney = list.get(index).getTotalMoney();
-		int money = list.get(index).getMoney();
+//		int totalMoney = list.get(index).getTotalMoney();
+//		int money = list.get(index).getMoney();
 		
 		//수입항목이라면
 		if(list.get(index).isInMoney() && !list.get(index).isOutMoney()) {
 			//지출항목으로
 			list.get(index).setInMoney(false);
 			list.get(index).setOutMoney(true);
-			//총액변경
-			totalMoney -= (money*2);
-			list.get(index).setTotalMoney(totalMoney);
+			//총액변경 및 정렬
+			recalculation(list);
 			return true;
 		}else if(!list.get(index).isInMoney() && list.get(index).isOutMoney()) {
 			list.get(index).setInMoney(true);
 			list.get(index).setOutMoney(false);
-			//총액변경
-			totalMoney += (money*2);
-			list.get(index).setTotalMoney(totalMoney);
+			//총액변경 및 정렬
+			recalculation(list);
 			return true;
 		}
 		return false;
@@ -167,22 +165,7 @@ public class AccountBookServiceImp implements AccountBookService{
 			scan.nextLine();
 		}		
 		list.get(index).setMoney(money);
-		return true;
-	}
-
-		/** 가계부 수정 4. 잔액수정*/
-	@Override
-	public boolean runUpateInTotalMoney(int index, List<Item> list) {
-		int totalMoney=0;
-		try {		
-			System.out.print("잔액 : ");
-			totalMoney = scan.nextInt();
-			}
-		catch(InputMismatchException e) {
-				System.out.println("잘못된 입력입니다.");
-				scan.nextLine();
-		}		
-		list.get(index).setTotalMoney(totalMoney);
+		recalculation(list);
 		return true;
 	}
 
@@ -193,7 +176,7 @@ public class AccountBookServiceImp implements AccountBookService{
 		
 		try {		
 		// 내역받기
-		System.out.print("내역");
+		System.out.print("내역 : ");
 		scan.nextLine();
 		memo = scan.nextLine();	
 		}catch(InputMismatchException e) {
@@ -229,15 +212,15 @@ public class AccountBookServiceImp implements AccountBookService{
 			}
 			System.out.print("일자 : ");
 			try {
+				scan.nextLine();
 				date = format1.parse(scan.nextLine());
 			} catch (ParseException e) {
 				System.out.println("잘못된 입력입니다.");
 			}
 			System.out.print("금액 : ");
 			money = scan.nextInt();
-			System.out.print("잔액 : ");
-			totalMoney = scan.nextInt();
-			System.out.print("내역");
+
+			System.out.print("내역 : ");
 			scan.nextLine();
 			memo = scan.nextLine();	
 		}catch(InputMismatchException e) {
@@ -280,6 +263,7 @@ public class AccountBookServiceImp implements AccountBookService{
 		if(areYouSure == 'y') {
 			//리스트의 index 배열 삭제
 			list.remove(index);
+			recalculation(list);
 			fileService.save(fileName, list);
 			System.out.println("삭제되었습니다.");
 			return true;
@@ -304,7 +288,7 @@ public class AccountBookServiceImp implements AccountBookService{
 		}
 		int index = list.size()-1;
 		
-		System.out.println("현재 잔액 : " + list.get(index).getTotalMoney());
+		System.out.println("현재 잔액 : " + list.get(index).getTotalMoney()+"원");
 		
 		return true;
 	}
@@ -323,7 +307,9 @@ public class AccountBookServiceImp implements AccountBookService{
 	@Override
 	public void sort(List<Item> list) {
 		list.sort((s1,s2)->{
-			//년도가 같으면
+			return s1.getDate().compareTo(s2.getDate());
+			//아래의 경우 문자열로 인식해서 12월을 1월보다 앞에 정렬함
+			/*//년도가 같으면
 			if (s1.getDate().getYear() != s2.getDate().getYear()){
 				return s1.getDate().getYear() - s2.getDate().getYear();
 			}
@@ -332,6 +318,7 @@ public class AccountBookServiceImp implements AccountBookService{
 				return s1.getDate().getMonth() - s2.getDate().getMonth();
 			}
 			return s1.getDate().getDay() - s2.getDate().getDay();
+			*/
 		});
 		
 	}
@@ -339,15 +326,17 @@ public class AccountBookServiceImp implements AccountBookService{
 	/** 잔액 계산 메소드 */
 	@Override
 	public void recalculation(List<Item> list) {
-		int totalMoney;
+		int totalMoney=0;
 		sort(list);
 		
 		if(list.size() <= 1) {
 			return;
 		}
+		
 		if(list.get(0).isInMoney() && !list.get(0).isOutMoney()) {
 			list.get(0).setTotalMoney(list.get(0).getMoney());
 		}else{
+			totalMoney -= list.get(0).getMoney();
 			list.get(0).setTotalMoney(-list.get(0).getMoney());
 		}
 		
