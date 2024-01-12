@@ -1,7 +1,8 @@
-package accountBook;
+package _sgj.accountBook_sgj2;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import lombok.Data;
@@ -9,9 +10,11 @@ import lombok.Data;
 @Data
 public class Item implements Serializable{
 
-	SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 
 	private static final long serialVersionUID = 6132810887038327706L;
+	SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	private int year,month,day;
+	
 	//사용금액, 잔액, 일자
 	private int money, totalMoney; //date (yyyy-MM-dd) 
 	
@@ -32,16 +35,14 @@ public class Item implements Serializable{
 		num += 1;
 		
 		String printNum = String.format("%4d번", num);
-		String printMoney;
+		String printMoney = String.format(" %,10d원", money);
 		String printTotalMoney = String.format(" %,10d원", totalMoney);
 		
 		
 		if(inMoney && !outMoney) {
-			printMoney = String.format("  %,10d원", money);
 			return printNum + "    수입     " + format1.format(date)
 			+ printMoney + printTotalMoney + "     "+ memo;
 		}else if(!inMoney && outMoney){
-			printMoney = String.format(" -%,10d원", money);
 			return printNum + "    지출     " + format1.format(date)
 			+ printMoney + printTotalMoney + "     "+ memo;
 		}else {
@@ -58,6 +59,11 @@ public class Item implements Serializable{
 		this.inMoney = inMoney;
 		this.outMoney = outMoney;
 		this.memo = memo;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		this.year = cal.get(Calendar.YEAR);
+		this.month = cal.get(Calendar.MONTH) + 1;
+		this.day = cal.get(Calendar.DAY_OF_MONTH);
 	}
 	
 
@@ -67,6 +73,13 @@ public class Item implements Serializable{
 	}
 
 
+	@Override
+	public String toString() {
+		return "Item [format1=" + format1 + ", money=" + money + ", totalMoney=" + totalMoney + ", inMoney=" + inMoney
+				+ ", outMoney=" + outMoney + ", memo=" + memo + ", date=" + date + "]";
+	}
+
+	
 	
 	
 

@@ -1,4 +1,4 @@
-package accountBook.service;
+package _sgj.accountBook_sgj2.service;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,7 +7,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import accountBook.Item;
+import _sgj.accountBook_sgj2.Item;
+
 
 
 public class FileServiceImp implements FileService {
@@ -15,16 +16,8 @@ public class FileServiceImp implements FileService {
 	public List<Item> load(String fileName) {
 		try(ObjectInputStream ois = 
 			new ObjectInputStream(new FileInputStream(fileName))){
-			
-//			List<Item> list = (List<Item>) ois.readObject();
-//			
-//			if(list == null) {
-//				System.out.println("새 가계부를 작성합니다.");
-//				return new ArrayList<Item>();
-//			}
-//			
 			System.out.println("가계부를 불러왔습니다.");
-			return (List<Item>) ois.readObject();				
+			return (List<Item>) ois.readObject();
 		} catch (Exception e) {
 			System.out.println("가계부를 등록해주세요.");
 		}

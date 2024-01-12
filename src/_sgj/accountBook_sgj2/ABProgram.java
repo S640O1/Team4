@@ -1,20 +1,17 @@
-package accountBook;
+package _sgj.accountBook_sgj2;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-import accountBook.service.AccountBookService;
-import accountBook.service.AccountBookServiceImp;
-import accountBook.service.FileService;
-import accountBook.service.FileServiceImp;
-import accountBook.service.PrintService;
-import accountBook.service.PrintServiceImp;
-import program.Program;
+import _sgj.accountBook_sgj.Program;
+import _sgj.accountBook_sgj2.service.AccountBookService;
+import _sgj.accountBook_sgj2.service.AccountBookServiceImp;
+import _sgj.accountBook_sgj2.service.FileService;
+import _sgj.accountBook_sgj2.service.FileServiceImp;
+import _sgj.accountBook_sgj2.service.PrintService;
+import _sgj.accountBook_sgj2.service.PrintServiceImp;
 
 public class ABProgram implements Program{
 	static String fileName = "src/accountBook/accountBookList.txt";
@@ -26,21 +23,20 @@ public class ABProgram implements Program{
 	private FileService fileService = new FileServiceImp();
 	private PrintService printService = new PrintServiceImp();
 
-	List<Item> list;
+	private List<Item> list = new ArrayList<Item>(); 	
+	//List<Item> list = fileService.load(fileName); //수입 지출 내역
 	
 	//반복종료 번호
 	static final int EXIT = 6;
-	static final int UPDATE_EXIT = 6;
+	static final int UPDATE_EXIT = 7;
 	
 	@Override
 	public void run() {
 		int menu = 0;
-		list = fileService.load(fileName); //수입 지출 내역
-		
-		if(list == null) {
-			list = new ArrayList<Item>();
+		List<Item> tmp = fileService.load(fileName);
+		if(!(tmp == null)) {
+			list.addAll(tmp);
 		}
-
 		do {
 			printMenu();
 			try {
@@ -58,7 +54,7 @@ public class ABProgram implements Program{
 			System.out.println("가계부저장에 실패했습니다.");
 		}
 	}
-
+	
 	@Override
 	public void printMenu() {
 		printService.printMainMenu();
@@ -90,9 +86,8 @@ public class ABProgram implements Program{
 
 	/** 1. 가계부 입력 : 심아진 */
 	private void insertMoney() {
-		if(accountBookService.addAB(list, fileName)){
-			System.out.println("가계부 등록이 완료되었습니다.");
-		}
+		list.addAll(accountBookService.addAB(list, fileName));
+		fileService.save(fileName, list);
 	}
 
 	/** 2. 가계부 조회 : 경재*/
@@ -104,9 +99,15 @@ public class ABProgram implements Program{
 
 	/** 3. 가계부 수정 : 손나영 */
 	private void updateMoney() {
-		if(!accountBookService.printAB(list)) {
+		
+		//list가 비어있으면 
+		if(!accountBookService.isList(list)) {
 			System.out.println("가계부를 등록해주세요.");
 			return;
+		}
+		//전체목록 보여줌
+		if(!accountBookService.printAB(list)) {
+			System.out.println("조회에 실패했습니다.");
 		}
 		
 		int index=-1;
@@ -163,17 +164,22 @@ public class ABProgram implements Program{
 					System.out.println("수정에 실패하였습니다.");
 				};
 				break;
-			case 4 :	//내역수정				
+			case 4 :	//잔액 수정
+				if(!accountBookService.runUpateInTotalMoney(index, list)) {
+					System.out.println("수정에 실패하였습니다.");
+				};
+				break;
+			case 5 :	//내역수정				
 				if(!accountBookService.runUpateInMemo(index, list)) {
 					System.out.println("수정에 실패하였습니다.");
 				};
 				break;
-			case 5 : //전체수정
+			case 6 : //전체수정
 				if(!accountBookService.runUpateInAll(index, list)) {;	
 				System.out.println("수정에 실패하였습니다.");
 				}
 				break;
-			case 6 : System.out.println("뒤로가기");
+			case 7 : System.out.println("뒤로가기");
 				break;
 			default : throw new InputMismatchException();
 		}
@@ -183,10 +189,10 @@ public class ABProgram implements Program{
 
 	/** 4. 가계부 삭제 : 양선진*/
 	private void deleteMoney() {
-		if(!accountBookService.deleteAB(list, fileName)) {
+		if(!accountBookService.deleteAB(list)) {
 			System.out.println("삭제에 실패했습니다.");
 		}
-
+		fileService.save(fileName, list);
 	}
 	
 	/** 5. 현재 잔액 조회 : 경재*/

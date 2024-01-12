@@ -17,8 +17,6 @@ public class WordProgram implements Program{
 	static String fileName = "src/word/wordList.txt";
 	private List<Word> list = new ArrayList<Word>();
 	
-	
-	
 	/** 0. 메인 */
 	@Override
 	public void run() {

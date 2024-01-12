@@ -1,4 +1,4 @@
-package accountBook.service;
+package _sgj.accountBook_sgj2.service;
 
 public class PrintServiceImp implements PrintService {
 
@@ -21,9 +21,10 @@ public class PrintServiceImp implements PrintService {
 		System.out.println("1. 수입/지출 여부 수정");
 		System.out.println("2. 일자 수정");
 		System.out.println("3. 금액 수정");
-		System.out.println("4. 내역 수정");
-		System.out.println("5. 전체 수정");
-		System.out.println("6. 뒤로 가기");
+		System.out.println("4. 잔액 수정");
+		System.out.println("5. 내역 수정");
+		System.out.println("6. 전체 수정");
+		System.out.println("7. 뒤로 가기");
 		System.out.println("---------------");
 		System.out.print("메뉴 선택 : "); 		
 	}

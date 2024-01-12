@@ -102,7 +102,6 @@ public class HomeworkEx1 {
 			insertWords();
 			
 			//입력받은 정보로 인스턴스를 생성 wd
-			Homework wd = new Homework(words, wordClass, meaning);
 			
 			//wd가 리스트에 있는지 확인, 없으면 추가
 			
@@ -135,14 +134,11 @@ public class HomeworkEx1 {
 		//입력받은 정보로 인스턴스를 생성 std
 		Homework wd = new Homework(words, wordClass, meaning);
 		
-		if(!list.contains(wd)) {
-			list.add(wd);
 			System.out.println("단어를 등록했습니다.");
 			return;
 		}
 		//있으면 이미 등록됐다고 알림
-		System.out.println("이미 등록된 단어입니다.");
-	}
+	
 
 	private static void printMenu() {
 		System.out.println("----영어 단어장----");
