@@ -280,6 +280,7 @@ public class AccountBookServiceImp implements AccountBookService{
 		if(areYouSure == 'y') {
 			//리스트의 index 배열 삭제
 			list.remove(index);
+			recalculation(list);
 			fileService.save(fileName, list);
 			System.out.println("삭제되었습니다.");
 			return true;
