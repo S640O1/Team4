@@ -6,6 +6,7 @@ import java.net.Socket;
 public class ClientMain {
 	
 	public static void main(String []args) {
+		//아이피랑 포트 입력
 		String ip = "000.000.00.000";
 		int port = 0000;
 		try {

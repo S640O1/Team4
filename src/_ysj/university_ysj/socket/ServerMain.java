@@ -7,6 +7,7 @@ import java.net.Socket;
 public class ServerMain {
 
 	public static void main(String[] args) {
+		//포트 입력
 		int port = 0000;
 		try(ServerSocket serverSocket = new ServerSocket(port)) {
 			while(true) {
