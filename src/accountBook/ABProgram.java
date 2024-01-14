@@ -90,6 +90,12 @@ public class ABProgram implements Program{
 
 	/** 1. 가계부 입력 : 심아진 */
 	private void insertMoney() {
+		/* 강사 피드백
+		 * - addAB(list)를 이용하여 리스트에 새 가계 내역을 입력받아 리스트에 저장하고
+		 * - 성공했다면 여기에서 save를 이용하여 저장하는 것이 적절함.
+		 * - 프로그램이 종료할 때 save 하거나, 수정할 때도 save를 하는 것이 좋음.
+		 * - A서비스가 다른 서비스에서 호출되지 않게 작성하는 것이 좋음.
+		 * - 입력을 여기서 받고 서비스에게는 정보만 전달해서 일을 시키는 게 좋음*/
 		if(accountBookService.addAB(list, fileName)){
 			System.out.println("가계부 등록이 완료되었습니다.");
 		}
@@ -97,6 +103,9 @@ public class ABProgram implements Program{
 
 	/** 2. 가계부 조회 : 경재*/
 	private void printMoney() {
+		/* 강사 피드백
+		 * - printAB 메서드가 가계부 내용을 출력하는 기능이기 때문에 가계부 등록해주세요을
+		 *   여기가 아닌 printAB 메서드에 넣는게 적절함.*/
 		if(!accountBookService.printAB(list)) {
 			System.out.println("가계부를 등록해주세요.");
 		}
@@ -148,6 +157,9 @@ public class ABProgram implements Program{
 		/** (2) 가계부 수정 : 메뉴실행*/
 	private void runUpdateMenu(int menu, int index) {
 		switch(menu) {
+			/* 강사 피드백
+			 * - 수정에 실패한 경우 수정에 실패했다고 출력 후 하단에 수정을 완료했습니다라고 출력될텐데
+			 *   의도한 건지?*/
 			case 1 :	//수입, 지출 여부 변경
 				if(!accountBookService.runUpateInOut(index, list)) {
 					System.out.println("수정에 실패하였습니다.");
