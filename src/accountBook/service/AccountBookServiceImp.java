@@ -21,6 +21,8 @@ public class AccountBookServiceImp implements AccountBookService{
 	SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
 
 	/**1. 가계부(리스트)에 내역을 추가하는 메소드 :  심아진*/
+	/* 강사 피드백
+	 * - 메서드내에서 무조건 true인데 boolean으로 하는 의미가? */
 	@Override
 	public boolean addAB(List<Item> list, String fileName) {
 		
@@ -54,6 +56,9 @@ public class AccountBookServiceImp implements AccountBookService{
 		}else {
 			totalMoney = list.get(index-1).getTotalMoney();			
 		}
+		
+		/* 강사 피드백
+		 * - 수입 지출 여부를 잘못 선택하면 알림을 출력하고, 처리해야 함*/
 		
 		if (classify == 1) {
 			inMoney=true;
@@ -101,6 +106,8 @@ public class AccountBookServiceImp implements AccountBookService{
 	/**3. 가계부(리스트)의 내역을 수정하는 메소드 :  손나영*/
 	@Override
 	public boolean setAB(int index, Item item, List<Item> list) {
+		/* 강사 피드백
+		 * - index의 유효성 여부 체크 안함. 유효하지 않으면 실패하는데...*/
 		//수정
 		list.set(index, item);
 		recalculation(list);
@@ -150,6 +157,9 @@ public class AccountBookServiceImp implements AccountBookService{
 		/** 가계부 수정 3. 금액수정*/
 	@Override
 	public boolean runUpateInMoney(int index, List<Item> list) {
+		/* 강사 피드백
+		 * - 음수 체크는??
+		 * */
 		int money =0;
 		try {		
 			System.out.print("금액 : ");
@@ -167,7 +177,8 @@ public class AccountBookServiceImp implements AccountBookService{
 	@Override
 	public boolean runUpateInMemo(int index, List<Item> list) {
 		String memo="";
-		
+		/* 강사 피드백
+		 * - nextLine()쓰기전에 공백처리 안해도 되는지?*/
 		try {		
 		// 내역받기
 		System.out.print("내역 : ");
@@ -182,6 +193,8 @@ public class AccountBookServiceImp implements AccountBookService{
 	}
 
 		/** 가계부 수정 6. 전체수정*/
+	/* 강사 피드백
+	 * - index가 유효하면 해당 index 번지를 삭제 후 전체를 다시 입력받아 추가하면 코드의 중복을 줄일 수 있음.*/
 	@Override
 	public boolean runUpateInAll(int index, List<Item> list) {
 		int money = 0, totalMoney = 0, classify;
@@ -250,6 +263,8 @@ public class AccountBookServiceImp implements AccountBookService{
 		int index = scan.nextInt() - 1;
 		
 		//삭제할 번호가 없으면(인덱스가 0보다 작거나, 리스트 사이즈보다 클때)없다고 출력 후 return;
+		/* 강사 피드백
+		 * - indexError 메서드를 활용하면 좋음*/
 		if(index < 0 || index >= list.size()) {
 			System.out.println("없는 번호입니다.");
 			return false;
@@ -257,6 +272,8 @@ public class AccountBookServiceImp implements AccountBookService{
 		//있으면 정말로 삭제하겠습니까? 문구 출력 후 y/n
 		System.out.print("정말로 삭제하겠습니까?(y/n) : ");
 		char areYouSure = scan.next().charAt(0);
+		/* 강사 피드백
+		 * - 대문자도 처리해주면 좋음*/
 		if(areYouSure == 'y') {
 			//리스트의 index 배열 삭제
 			list.remove(index);
@@ -329,6 +346,10 @@ public class AccountBookServiceImp implements AccountBookService{
 		if(list.size() <= 1) {
 			return;
 		}
+		/* 강사 피드백
+		 * - sort에서 정렬할 때 totalMoeny를 수입/지출에 맞게 money, -moeny로 설정하게 하면 
+		 *   아래 if else문이 필요 없어짐. 
+		 * */
 		
 		if(list.get(0).isInMoney() && !list.get(0).isOutMoney()) {
 			list.get(0).setTotalMoney(list.get(0).getMoney());
