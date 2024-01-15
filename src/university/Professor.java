@@ -33,7 +33,7 @@ public class Professor implements Serializable {
 	 List<Lecture> lecture;
 	 
 	//학과(전공)
-//		Major major;
+	 Department department;
 		 
 	 
 	//출력 재정의
@@ -44,8 +44,15 @@ public class Professor implements Serializable {
 		
 		return  "[" + num + "]  "+lecture + "  " + name + "  " + type + "  " + phoneNum;
 	}
-		
+	
+	//강의 추가하는 메소드
+	
+	//강의 수정하는 메소드
+	
+	//강의를 삭제하는 메소드
 
+
+	//교번, 성별, 이름, 연락처만 동일해도 같은 교수로 판별
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -55,14 +62,18 @@ public class Professor implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Professor other = (Professor) obj;
-		return gender == other.gender && Objects.equals(lecture, other.lecture) && Objects.equals(name, other.name)
-				&& num == other.num && Objects.equals(phoneNum, other.phoneNum);
+		return gender == other.gender && Objects.equals(name, other.name) && num == other.num
+				&& Objects.equals(phoneNum, other.phoneNum);
 	}
+
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(gender, lecture, name, num, phoneNum);
+		return Objects.hash(gender, name, num, phoneNum);
 	}
+		
+	
+
 
 }
 
