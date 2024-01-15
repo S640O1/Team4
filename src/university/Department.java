@@ -14,10 +14,12 @@ public class Department {
 	//학과 분류 번호
 	int dpNum;
 	//학과명
-	String deparmentName;
-
+	String dpName;
+	
 	@Override
 	public String toString() {
-		return "Department [deparmentName=" + deparmentName + "]";
+		return "Department [dpName=" + dpName + "]";
 	}
+
+
 }
