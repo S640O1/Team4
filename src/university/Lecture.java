@@ -1,5 +1,6 @@
 package university;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -14,8 +15,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Lecture {
+public class Lecture  implements Serializable {
 
+	private static final long serialVersionUID = 9088622124125979149L;
+	
 	int lectureNum, personnel  ;
 	String lectureName, pName, lectureRoom;
 	Date date = new Date(); // 강의 시간
