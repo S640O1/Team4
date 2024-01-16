@@ -19,8 +19,8 @@ public class Lecture  implements Serializable {
 
 	private static final long serialVersionUID = 9088622124125979149L;
 	
-	int lectureNum, personnel  ;	// 강의 번호, 인원
-	String lectureName, pName, lectureRoom;		// 강의명, 교수이름, 강의실
+	int lectureNum, personnel  ;	// 강의 번호(학수 번호), 인원
+	String lectureName, pNum, pName, lectureRoom;		// 강의명, 교번, 교수이름, 강의실
 	Date date = new Date(); // 강의 시간
 	
 	
@@ -42,6 +42,8 @@ public class Lecture  implements Serializable {
 	public int hashCode() {
 		return Objects.hash(date, lectureName, lectureNum, lectureRoom, pName, personnel);
 	}
+	
+	
 	
 	
 	

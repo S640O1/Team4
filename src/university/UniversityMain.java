@@ -23,6 +23,7 @@ public class UniversityMain {
 	 * - 제출일 : 1월 26일. 상황봐서 변경될 수 있음.
 	 */
 	
+	/* 학과 > 교수 > 학생 > 강의(with 교수)> 수강신청*/
 	
 	/*
 	 
@@ -43,7 +44,8 @@ public class UniversityMain {
 	 
 	 */
 	public static void main(String[] args) {
-
+		UniversityProgram up = new UniversityProgram();
+		up.run();
 	}
 
 }
