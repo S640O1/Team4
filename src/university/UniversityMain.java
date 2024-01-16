@@ -26,6 +26,8 @@ public class UniversityMain {
 	/* 학과 > 교수 > 학생 > 강의(with 교수)> 수강신청*/
 	
 	/*
+	 * 
+	 * 학과>교수>학생>강의(교수함께등록)>수강신청
 	 
 	 [University]	//단어장
 	  ㄴ 교수

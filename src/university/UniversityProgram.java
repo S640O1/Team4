@@ -24,7 +24,7 @@ public class UniversityProgram implements Program {
 	private ProfessorService professorService = new ProfessorServiceImp();
 	
 	//대학교 정보
-	private University university = new University(null);
+	private University university;
 	
 	@Override
 	public void run() {
@@ -32,10 +32,10 @@ public class UniversityProgram implements Program {
 		
 		university = fileService.load(fileName);
 		
-		List<Student> sList =  university.
-		List<Department> dList =  fileService.load(fileName);
-		List<Lecture> lList =  fileService.load(fileName);
-		List<Professor> pList =  fileService.load(fileName);
+		if(university == null) {
+			
+		}
+		
 		
 		do {
 			printMenu();
@@ -48,7 +48,7 @@ public class UniversityProgram implements Program {
 			}
 		} while (menu != EXIT);
 		//저장하기
-		if(fileService.save(fileName, university.getList())) {
+		if(fileService.save(fileName, university)) {
 			System.out.println("저장이 완료되었습니다.");
 		}else {
 			System.out.println("저장에 실패했습니다.");
