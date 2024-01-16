@@ -9,20 +9,16 @@ import lombok.Data;
 public class University {
 	
 
-	
-	private List<Professor> list;	//교수 리스트
+	private List<Student> sList;	//학생 리스트
+	private List<Professor> pList;	//교수 리스트
+	private List<Department> dList;	//강의 리스트
+	private List<Lecture> lList;	//학과 리스트
 	
 
-	public University(List<Professor> list) {
-		if(list == null) {
-			list = new ArrayList<Professor>();
-		}
-		this.list = list;
-	}
-	
+
 	/** 교수 추가 기능 */
 	
 	/** 교수 수정 기능 */
-	
+
 	/** 교수 삭제 기능 */
 }
