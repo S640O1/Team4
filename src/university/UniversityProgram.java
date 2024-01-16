@@ -1,7 +1,6 @@
 package university;
 
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 import program.Program;
 import university.service.FileService;
@@ -16,7 +15,7 @@ public class UniversityProgram implements Program {
 	static String fileName = "src/teamProject1/university/universityList.txt";
 	
 	//메뉴 종료 상수
-	static final int EXIT = 5;
+	static final int EXIT = 7;
 	
 	//서비스 목록
 	private PrintService printService = new PrintServiceImp();
@@ -35,7 +34,6 @@ public class UniversityProgram implements Program {
 		if(university == null) {
 			
 		}
-		
 		
 		do {
 			printMenu();
@@ -57,12 +55,36 @@ public class UniversityProgram implements Program {
 
 	@Override
 	public void printMenu() {
-
+		printService.printMainMenu();
 	}
 
 	@Override
 	public void runMenu(int menu) {
-
+		switch(menu) {
+		case 1: 
+			System.out.println("학과 관리 서비스 예정");
+		break;
+		case 2: 
+			System.out.println("교수 관리 서비스 예정");
+			break;
+		case 3: 
+			System.out.println("학생 관리 서비스 예정");
+			break;
+		case 4: 
+			System.out.println("강의 관리 서비스 예정");
+			break;
+		case 5: 
+			System.out.println("수강 관리 서비스 예정");
+			break;
+		case 6: 
+			System.out.println("조회 서비스 예정");
+			break;
+		case 7:
+			System.out.println("프로그램을 종료합니다.");
+			break;
+		default : 
+			throw new InputMismatchException();
+		}
 	}
 
 }
