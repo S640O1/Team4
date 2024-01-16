@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 /*강의 클래스 : 심아진*/
 
-// 강의 번호, 강의명, 담당교수, 인원, 강의 시간, 강의실
+// 강의 번호, 강의명, 담당교수, 인원, 강의 시간, 강의실 + 성적
 
 @Data
 @AllArgsConstructor
@@ -19,9 +19,10 @@ public class Lecture  implements Serializable {
 
 	private static final long serialVersionUID = 9088622124125979149L;
 	
-	int lectureNum, personnel  ;
-	String lectureName, pName, lectureRoom;
+	int lectureNum, personnel  ;	// 강의 번호, 인원
+	String lectureName, pName, lectureRoom;		// 강의명, 교수이름, 강의실
 	Date date = new Date(); // 강의 시간
+	
 	
 	@Override
 	public boolean equals(Object obj) {
@@ -41,6 +42,7 @@ public class Lecture  implements Serializable {
 	public int hashCode() {
 		return Objects.hash(date, lectureName, lectureNum, lectureRoom, pName, personnel);
 	}
+	
 	
 	
 }
