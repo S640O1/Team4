@@ -2,9 +2,12 @@ package university;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
 import program.Program;
 import university.service.FileService;
 import university.service.FileServiceImp;
+import university.service.LectureService;
+import university.service.LectureServiceImp;
 import university.service.PrintService;
 import university.service.PrintServiceImp;
 import university.service.ProfessorService;
@@ -21,6 +24,7 @@ public class UniversityProgram implements Program {
 	private PrintService printService = new PrintServiceImp();
 	private FileService fileService = new FileServiceImp();
 	private ProfessorService professorService = new ProfessorServiceImp();
+	private LectureService lectureService = new LectureServiceImp();
 	
 	//대학교 정보
 	private University university;
@@ -71,6 +75,7 @@ public class UniversityProgram implements Program {
 			System.out.println("학생 관리 서비스 예정");
 			break;
 		case 4: 
+			LectureManager();
 			System.out.println("강의 관리 서비스 예정");
 			break;
 		case 5: 
@@ -85,6 +90,12 @@ public class UniversityProgram implements Program {
 		default : 
 			throw new InputMismatchException();
 		}
+	}
+
+	/** 4. 강의 관리*/
+	private void LectureManager() {
+		
+		
 	}
 
 }

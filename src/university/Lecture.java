@@ -19,7 +19,7 @@ public class Lecture  implements Serializable {
 
 	private static final long serialVersionUID = 9088622124125979149L;
 	
-	int lectureNum, personnel  ;	// 강의 번호(학수 번호), 인원
+	int lectureNum, maxNum  ;	// 강의 번호(학수 번호), 수강가능인원
 	String lectureName, pNum, pName, lectureRoom;		// 강의명, 교번, 교수이름, 강의실
 	Date date = new Date(); // 강의 시간
 	
@@ -35,12 +35,12 @@ public class Lecture  implements Serializable {
 		Lecture other = (Lecture) obj;
 		return Objects.equals(date, other.date) && Objects.equals(lectureName, other.lectureName)
 				&& lectureNum == other.lectureNum && Objects.equals(lectureRoom, other.lectureRoom)
-				&& Objects.equals(pName, other.pName) && personnel == other.personnel;
+				&& Objects.equals(pName, other.pName) && maxNum == other.maxNum;
 	}
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, lectureName, lectureNum, lectureRoom, pName, personnel);
+		return Objects.hash(date, lectureName, lectureNum, lectureRoom, pName, maxNum);
 	}
 	
 	
