@@ -27,17 +27,12 @@ public class UniversityProgram implements Program {
 	private LectureService lectureService = new LectureServiceImp();
 	
 	//대학교 정보
-	private University university;
+	
 	
 	@Override
 	public void run() {
 		int menu = 0;
 		
-		university = fileService.load(fileName);
-		
-		if(university == null) {
-			
-		}
 		
 		do {
 			printMenu();

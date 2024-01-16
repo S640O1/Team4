@@ -28,13 +28,13 @@ public class Professor implements Serializable {
 	
 	//이름, 연락처(000-0000-0000)
 	String name, phoneNum;
-	
-	//담당 강의(강의 번호, 강의명, 담당교수, 인원, 강의 시간, 강의실)
-	 List<Lecture> lecture;
-	 
+		 
 	//학과(전공)
 	 Department department;
 		 
+	 //담당 강의(강의 번호, 강의명, 담당교수, 인원, 강의 시간, 강의실)
+	 //입력받지 않음
+	 List<Lecture> lectureList;
 	 
 	//출력 재정의
 	@Override
@@ -42,12 +42,33 @@ public class Professor implements Serializable {
 		//조건연산자로 성별 출력
 		String type = gender==1 ? "여성" : "남성";
 		
-		return  "[" + num + "]  "+lecture + "  " + name + "  " + type + "  " + phoneNum;
+		return  "[" + num + "]  "+lectureList + "  " + name + "  " + type + "  " + phoneNum;
 	}
 	
 	//강의 추가하는 메소드
+
 	
 	//강의 수정하는 메소드
+	public boolean setMean(int pos, Lecture lecture) {
+		//뜻을 저장하는 리스트가 생성되어 있지 않으면
+		if(lectureList == null) {
+			return false;
+		}
+
+		//pos가 잘못된 경우
+		if(pos < 0 || pos >= lectureList.size()) {
+			return false;
+		}
+		
+		//이미 등록된 뜻이면
+//		if(lectureList.contains(new Lecture(lecture))) {
+//			return false;
+//		}
+//		
+//		//수정
+//		lectureList.set(pos, new Lecture(lecture));
+		return true;
+	}
 	
 	//강의를 삭제하는 메소드
 
