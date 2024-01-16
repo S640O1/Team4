@@ -1,11 +1,13 @@
 package university;
 
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
+
 import program.Program;
 import university.service.FileService;
 import university.service.FileServiceImp;
+import university.service.LectureService;
+import university.service.LectureServiceImp;
 import university.service.PrintService;
 import university.service.PrintServiceImp;
 import university.service.ProfessorService;
@@ -16,12 +18,13 @@ public class UniversityProgram implements Program {
 	static String fileName = "src/teamProject1/university/universityList.txt";
 	
 	//메뉴 종료 상수
-	static final int EXIT = 5;
+	static final int EXIT = 7;
 	
 	//서비스 목록
 	private PrintService printService = new PrintServiceImp();
 	private FileService fileService = new FileServiceImp();
 	private ProfessorService professorService = new ProfessorServiceImp();
+	private LectureService lectureService = new LectureServiceImp();
 	
 	//대학교 정보
 	
@@ -29,7 +32,6 @@ public class UniversityProgram implements Program {
 	@Override
 	public void run() {
 		int menu = 0;
-		
 		
 		
 		do {
@@ -52,12 +54,43 @@ public class UniversityProgram implements Program {
 
 	@Override
 	public void printMenu() {
-
+		printService.printMainMenu();
 	}
 
 	@Override
 	public void runMenu(int menu) {
+		switch(menu) {
+		case 1: 
+			System.out.println("학과 관리 서비스 예정");
+		break;
+		case 2: 
+			System.out.println("교수 관리 서비스 예정");
+			break;
+		case 3: 
+			System.out.println("학생 관리 서비스 예정");
+			break;
+		case 4: 
+			LectureManager();
+			System.out.println("강의 관리 서비스 예정");
+			break;
+		case 5: 
+			System.out.println("수강 관리 서비스 예정");
+			break;
+		case 6: 
+			System.out.println("조회 서비스 예정");
+			break;
+		case 7:
+			System.out.println("프로그램을 종료합니다.");
+			break;
+		default : 
+			throw new InputMismatchException();
+		}
+	}
 
+	/** 4. 강의 관리*/
+	private void LectureManager() {
+		
+		
 	}
 
 }
