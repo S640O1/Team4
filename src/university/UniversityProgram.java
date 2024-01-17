@@ -64,12 +64,15 @@ public class UniversityProgram implements Program {
 	public void runMenu(int menu) {
 		switch(menu) {
 		case 1: 
+			departmentManage();
 			System.out.println("학과 관리 서비스 예정");
 		break;
 		case 2: 
+			professorManage();
 			System.out.println("교수 관리 서비스 예정");
 			break;
 		case 3: 
+			studentManage();
 			System.out.println("학생 관리 서비스 예정");
 			break;
 		case 4: 
@@ -90,7 +93,25 @@ public class UniversityProgram implements Program {
 		}
 	}
 
-	/** 4. 강의 관리*/
+	/** 1. 학과 관리 : 신경재 */
+	private void departmentManage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/** 2. 교수 관리 : 손나영 */
+	private void professorManage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/** 3. 학생 관리 : 양선진 */
+	private void studentManage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/** 4. 강의 관리 : 심아진 */
 	private void LectureManager() {
 		
 		
