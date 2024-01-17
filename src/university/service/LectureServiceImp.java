@@ -75,7 +75,6 @@ public class LectureServiceImp implements LectureService {
 		
 		lList.add(lecture);
 		
-		//System.out.println(lecture.toString(lList.indexOf(lecture)));
 		return lList;
 	}
 
