@@ -41,7 +41,7 @@ public class ABProgram implements Program{
 			list = new ArrayList<Item>();
 		}
 
-		do {
+		do { 
 			printMenu();
 			try {
 				menu = scan.nextInt();

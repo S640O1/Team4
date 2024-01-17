@@ -14,26 +14,20 @@ public class StudentServiceImp implements StudentService {
 	@Override
 	public void insertStudent(List<Student> list, Student student) {
 		System.out.println("추가할 학생 정보를 입력하세요.");
-		System.out.println("학번 : ");
+		System.out.print("학번 : ");
 		int studentId = sc.nextInt();
-		System.out.println("이름 : ");
+		System.out.print("이름 : ");
 		sc.nextLine();
 		String name = sc.nextLine();
-		System.out.println("성별(여성, 남성) : ");
-		sc.nextLine();
-		String gender = sc.nextLine();
-		if(gender != "여성" || gender != "남성") {
-			System.out.println("잘못 입력하였습니다.");
-			return;
-		}
-		System.out.println("학과 : ");
+		System.out.print("성별(m, f) : ");
+		char gender = sc.next().charAt(0);
+		System.out.print("학과 : ");
 		sc.nextLine();
 		String department = sc.nextLine();
-		System.out.println("연락처 : ");
-		sc.nextLine();
+		System.out.print("연락처 : ");
 		String phoneNumber = sc.nextLine();
 
-		Student std = new Student(studentId, gender, name, department, phoneNumber);
+		Student std = new Student(studentId, name, department, phoneNumber, gender);
 		
 		//이미있는 학생일때 추가 X (equals = 학번과 이름이 같을때)
 		if(list.equals(std)) {
@@ -41,15 +35,15 @@ public class StudentServiceImp implements StudentService {
 			return;
 		}
 		//등록안되있으면 배열에 추가 후 정렬
-		list.add(student);
-		printStudentList(list);
+		list.add(std);
+		System.out.println(list.toString());
 		//정렬 메서드
 		System.out.println("등록되었습니다.");
 	}
 
 	//학생수정
 	@Override
-	public void setStudent(List<Student> list, Student student) {
+	public void updateStudent(List<Student> list, Student student) {
 		printStudentList(list);
 		//수정할 학생 선택
 		System.out.println("어떤 학생 정보를 수정하겠습니까? ");
@@ -65,6 +59,7 @@ public class StudentServiceImp implements StudentService {
 			System.out.println("수정할 학번 : ");
 			int studentID = sc.nextInt();
 			list.get(index).setStudentId(studentID);
+			System.out.println(list.toString());
 			System.out.println("수정되었습니다.");
 			break;
 			
@@ -80,12 +75,12 @@ public class StudentServiceImp implements StudentService {
 			System.out.println("성별을 바꾸시겠습니까?(y/n)");
 			char areYouChange = sc.next().charAt(0);
 			if(areYouChange == 'y' || areYouChange == 'Y') {
-				if(student.getGender() == "여성") {
-					student.setGender("남성");
+				if(student.getGender() == 'f') {
+					student.setGender('m');
 					System.out.println("수정되었습니다.");
 					break;
-				}else {
-					student.setDepartment("여성");
+				} else {
+					student.setGender('f');
 					System.out.println("수정되었습니다.");
 					break;
 					//set을 했는데 인스턴스를 다시 만들어서 넣어야되나?
@@ -127,6 +122,16 @@ public class StudentServiceImp implements StudentService {
 		//삭제할 학생정보 입력
 		System.out.println("목록 중 어떤 학생 정보를 삭제하시겠습니까? : ");
 		int index = sc.nextInt()-1;
+		System.out.println("정말로 삭제하시겠습니까? (y/n) ");
+		char areYouSure = sc.next().charAt(0);
+		if(areYouSure == 'y' || areYouSure == 'Y') {
+			list.remove(index);
+			System.out.println("삭제되었습니다.");
+		} else if(areYouSure == 'n' || areYouSure == 'N') {
+			System.out.println("취소되었습니다.");
+		} else {
+			System.out.println("잘못된 문자를 입력하여 취소되었습니다.");
+		}
 	}
 
 	//학생목록
@@ -134,13 +139,13 @@ public class StudentServiceImp implements StudentService {
 	public boolean printStudentList(List<Student> list) {
 		if(list.isEmpty()) {
 			System.out.println("등록된 학생이 없습니다.");
-			return false;			
+			return false;
 		}
-		int index = list.size()-1;
-		for(int i=0;i<index;i++) {
-			System.out.println((index+1) + ". " + list.toString());
+		for(int i=0;i<list.size();i++) {
+			list.get(i);
+			System.out.println((i+1) + ". " + list.toString());
 		}
-		return true;
+			return true;
 	}
 	
 }

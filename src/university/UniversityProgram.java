@@ -1,5 +1,6 @@
 package university;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -28,9 +29,11 @@ public class UniversityProgram implements Program {
 	private FileService fileService = new FileServiceImp();
 	private ProfessorService professorService = new ProfessorServiceImp();
 	private LectureService lectureService = new LectureServiceImp();
-	private StudentServiceImp studentService = new StudentServiceImp();
+	private StudentService studentService = new StudentServiceImp();
 	
 	//대학교 정보
+	ArrayList<Student> sList = new ArrayList<Student>();
+	Student student;
 	
 	
 	@Override
@@ -49,11 +52,11 @@ public class UniversityProgram implements Program {
 			}
 		} while (menu != EXIT);
 		//저장하기
-		if(fileService.save(fileName, university)) {
-			System.out.println("저장이 완료되었습니다.");
-		}else {
-			System.out.println("저장에 실패했습니다.");
-		}
+//		if(fileService.save(fileName, university)) {
+//			System.out.println("저장이 완료되었습니다.");
+//		}else {
+//			System.out.println("저장에 실패했습니다.");
+//		}
 	}
 
 	@Override
@@ -96,31 +99,32 @@ public class UniversityProgram implements Program {
 		int menu = 0;
 		do {
 		printService.printStudentMenu();
+		try {
 		menu = scan.nextInt();
 		runStudentMenu(menu);
+		} catch (InputMismatchException e ) {
+			System.out.println("없는 메뉴입니다.");
+			scan.nextLine();
+		}
 		}while(menu != STUDENT_EXIT);
 		
 	}
-	/** 런 학생 메뉴*/
+	/** 런 학생 메뉴 */
 	private void runStudentMenu(int menu) {
 		switch(menu) {
 		case 1 : 
-			studentService.insertStudent(list, student);
+			studentService.insertStudent(sList, student);
 			break;
-			
 		case 2 : 
-			studentService.updateStudent(list, student);
+			studentService.updateStudent(sList, student);
 			break;
-			
-		case 3 : 
-			studentService.deleteStudent(list, student);
+		case 3 :
+			studentService.deleteStudent(sList, student);
 			break;
-		//뒤로 가기
 		case 4 : 
 			break;
 			
 		default : throw new InputMismatchException();
-			
 		}
 	}
 

@@ -10,7 +10,7 @@ public interface StudentService {
 	public void insertStudent(List<Student> list, Student student);
 	
 	//학생수정
-	public void setStudent(List<Student> list, Student student);
+	public void updateStudent(List<Student> list, Student student);
 
 	//학생삭제
 	public void deleteStudent(List<Student> list, Student student);
