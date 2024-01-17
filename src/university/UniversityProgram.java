@@ -102,19 +102,16 @@ public class UniversityProgram implements Program {
 
 	/** 1. 학과 관리 : 신경재 */
 	private void departmentManage() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	/** 2. 교수 관리 : 손나영 */
 	private void professorManage() {
-		// TODO Auto-generated method stub
 		
 	}
 
 	/** 3. 학생 관리 : 양선진 */
 	private void studentManage() {
-		// TODO Auto-generated method stub
 		
 	}
 
