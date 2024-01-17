@@ -1,6 +1,8 @@
 package university;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import program.Program;
@@ -15,13 +17,14 @@ import university.service.ProfessorServiceImp;
 
 public class UniversityProgram implements Program {
 	private Scanner scan = new Scanner(System.in);
-	static String professorFileName = "src/teamProject1/university/professorList.txt";
-	static String lectureFileName = "src/teamProject1/university/lectureList.txt";
-	static String studentFileName = "src/teamProject1/university/studentList.txt";
-	static String departmentFileName = "src/teamProject1/university/departmentList.txt";
+	static String professorFileName = "src/university/professorList.txt";
+	static String lectureFileName = "src/university/lectureList.txt";
+	static String studentFileName = "src/university/studentList.txt";
+	static String departmentFileName = "src/university/departmentList.txt";
 	
 	//메뉴 종료 상수
 	static final int EXIT = 7;
+	static final int LECTURE_EXIT =4;
 	
 	//서비스 목록
 	private PrintService printService = new PrintServiceImp();
@@ -30,12 +33,16 @@ public class UniversityProgram implements Program {
 	private LectureService lectureService = new LectureServiceImp();
 	
 	//대학교 정보
-	
+	private List<Lecture> lList = new ArrayList<Lecture>();
 	
 	@Override
 	public void run() {
 		int menu = 0;
 		
+		List<Lecture> tmp = fileService.lLoad(lectureFileName);
+		if (!(tmp == null)) {
+			lList.addAll(tmp);
+		}
 		
 		do {
 			printMenu();
@@ -77,7 +84,7 @@ public class UniversityProgram implements Program {
 			break;
 		case 4: 
 			LectureManager();
-			System.out.println("강의 관리 서비스 예정");
+
 			break;
 		case 5: 
 			System.out.println("수강 관리 서비스 예정");
@@ -114,7 +121,57 @@ public class UniversityProgram implements Program {
 	/** 4. 강의 관리 : 심아진 */
 	private void LectureManager() {
 		
+		int menu = 0;
 		
+		do {
+			lecturePrintMenu();
+			
+			try {
+				menu = scan.nextInt();
+				runLectureMenu(menu);
+				break;
+				
+			}catch (InputMismatchException e) {
+				System.out.println("잘못된 메뉴입니다.");
+				scan.nextLine();
+			}
+			
+		} while (menu != LECTURE_EXIT);
+		
+	}
+	
+	/** 4. 강의 관리 : 메뉴 출력*/
+	private void lecturePrintMenu() {
+		printService.printLectureMenu();
+	}
+	
+	/*
+	 * 
+	 * List<Lecture> addLecture(List<Lecture> lList, Lecture lecture);
+
+	boolean runInsertLecture(List<Lecture> lList);
+	
+	 * */
+	/** 4. 강의 관리 : 메뉴 실행*/
+	private void runLectureMenu(int menu) {
+		switch(menu) {
+		case 1 :
+			lList.addAll(lectureService.addLecture(lList, lectureFileName));
+			fileService.lSave(lectureFileName, lList);
+			
+			break;
+		case 2 :
+			System.out.println("강의 수정");
+			break;
+		case 3 :
+			System.out.println("강의 삭제");
+			break;
+		case 4 :
+			System.out.println("뒤로가기");
+			break;
+		default :  throw new InputMismatchException();
+		}
+
 	}
 
 }
