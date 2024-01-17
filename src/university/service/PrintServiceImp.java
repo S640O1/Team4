@@ -33,8 +33,11 @@ public class PrintServiceImp implements PrintService {
 
 	@Override
 	public void printStudentMenu() {	 // 학생 출력 메뉴
-		// TODO Auto-generated method stub
-		
+		System.out.println("1. 학생 등록");
+		System.out.println("2. 학생 수정");
+		System.out.println("3. 학생 삭제");
+		System.out.println("4. 뒤로 가기");
+		System.out.print("메뉴 선택 : ");
 	}
 
 	@Override

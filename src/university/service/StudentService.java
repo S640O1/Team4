@@ -7,12 +7,15 @@ import university.Student;
 public interface StudentService {
 
 	//학생추가
-	public void addStudent(List<Student> list, Student student);
+	public void insertStudent(List<Student> list, Student student);
 	
 	//학생수정
 	public void setStudent(List<Student> list, Student student);
 
 	//학생삭제
 	public void deleteStudent(List<Student> list, Student student);
-
+	
+	//학생목록
+	public boolean printStudentList(List<Student> list);
+	
 }

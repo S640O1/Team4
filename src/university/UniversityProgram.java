@@ -12,6 +12,8 @@ import university.service.PrintService;
 import university.service.PrintServiceImp;
 import university.service.ProfessorService;
 import university.service.ProfessorServiceImp;
+import university.service.StudentService;
+import university.service.StudentServiceImp;
 
 public class UniversityProgram implements Program {
 	private Scanner scan = new Scanner(System.in);
@@ -19,12 +21,14 @@ public class UniversityProgram implements Program {
 	
 	//메뉴 종료 상수
 	static final int EXIT = 7;
+	private int STUDENT_EXIT = 4;	//뒤로 가기
 	
 	//서비스 목록
 	private PrintService printService = new PrintServiceImp();
 	private FileService fileService = new FileServiceImp();
 	private ProfessorService professorService = new ProfessorServiceImp();
 	private LectureService lectureService = new LectureServiceImp();
+	private StudentServiceImp studentService = new StudentServiceImp();
 	
 	//대학교 정보
 	
@@ -67,7 +71,7 @@ public class UniversityProgram implements Program {
 			System.out.println("교수 관리 서비스 예정");
 			break;
 		case 3: 
-			System.out.println("학생 관리 서비스 예정");
+			printStudentMenu();
 			break;
 		case 4: 
 			LectureManager();
@@ -84,6 +88,39 @@ public class UniversityProgram implements Program {
 			break;
 		default : 
 			throw new InputMismatchException();
+		}
+	}
+
+	/** 3. 학생 메뉴 */
+	private void printStudentMenu() {
+		int menu = 0;
+		do {
+		printService.printStudentMenu();
+		menu = scan.nextInt();
+		runStudentMenu(menu);
+		}while(menu != STUDENT_EXIT);
+		
+	}
+	/** 런 학생 메뉴*/
+	private void runStudentMenu(int menu) {
+		switch(menu) {
+		case 1 : 
+			studentService.insertStudent(list, student);
+			break;
+			
+		case 2 : 
+			studentService.updateStudent(list, student);
+			break;
+			
+		case 3 : 
+			studentService.deleteStudent(list, student);
+			break;
+		//뒤로 가기
+		case 4 : 
+			break;
+			
+		default : throw new InputMismatchException();
+			
 		}
 	}
 
