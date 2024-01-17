@@ -9,6 +9,9 @@ import university.Department;
 import university.Professor;
 
 public class ProfessorServiceImp implements ProfessorService {
+	public List<Professor> pList = new ArrayList<Professor>();
+	
+//	private ProfessorService professorService = new ProfessorServiceImp();
 	private Scanner scan = new Scanner(System.in);
 	static final int PROFESSOR_EXIT = 4;
 	
@@ -30,6 +33,7 @@ public class ProfessorServiceImp implements ProfessorService {
 		switch(menu) {
 		case 1: 	//교수등록
 			addProfessor();
+			//세이브 
 			break;
 		case 2: 	//교수수정
 			setProfessor();
@@ -48,6 +52,7 @@ public class ProfessorServiceImp implements ProfessorService {
 		//교수 정보 입력
 		//이름, 교번, 성별, 전화번호, 학과
 		
+		
 		System.out.print("학과 : ");
 		scan.nextLine();
 		String dpName = scan.nextLine();
@@ -56,24 +61,28 @@ public class ProfessorServiceImp implements ProfessorService {
 //			System.out.println("존재하지 않은 학과입니다.");			
 //		}
 		//있다면 학과 리스트에서 동일한 학과 정보를 저장
-		Department department;
+		Department department = new Department(0, dpName, null, pList);
 		
 		System.out.print("성함 : ");
-		String phoneNum = scan.next();
-		System.out.print("교번 : ");
 		String name = scan.next();
-		System.out.print("전화번호 : ");
+		System.out.print("교번 : ");
 		int num = scan.nextInt();
+		System.out.print("전화번호 : ");
+		String phoneNum = scan.next();
 		System.out.print("성별(남:1, 여:2) : ");
 		int gender = 0;
 		//만약 성별이 1과 2가 아닌 숫자라면 다시 입력
-		while(!(gender==1) || !(gender==2)) {
+		do{
 			gender = scan.nextInt();
-		}
+			System.out.println("잘못된 성별입니다.");
+		}while(!(gender==1) || !(gender==2));
 		
-		
-		
-		
+		Professor professor = new Professor(num, gender, name, phoneNum, department, null);
+//		if(!professorService.addProfessor(professor)){
+//			System.out.println("이미 등록된 교수입니다.");
+//			return;
+//		}
+		System.out.println("교수를 등록했습니다.");
 	}
 
 	private void setProfessor() {
@@ -81,6 +90,22 @@ public class ProfessorServiceImp implements ProfessorService {
 	}
 
 	private void delseteProfessor() {
+		//교수 목록을 보여줌(조회)
+
+
+		System.out.print("삭제할 교수의 교번을 입력하세요 : ");
+		int num = scan.nextInt();
+
+		int index = -1;
+		//만약 해당 교번과 동일한 교수정보 인덱스를 불러옴
+//		for(int i=0; i<pList.size(); i++) {
+//			if(pList.get(i).getNum()==num) {
+//				index = i;
+//				professorService.deleteProfessor(index);
+//				return;
+//			}
+//		}
+
 		
 	}
 
@@ -96,7 +121,7 @@ public class ProfessorServiceImp implements ProfessorService {
 
 	
 //	////////////////////////////////////////////////////////////////////////
-	public List<Professor> pList = new ArrayList<Professor>();
+	
 
 	/** 교수정보를 추가하는 메소드*/
 
@@ -124,12 +149,12 @@ public class ProfessorServiceImp implements ProfessorService {
 
 
 	@Override
-	public boolean deleteProfessor(int pos) {
-		//pos가 잘못된 경우
-		if(pos < 0 || pos >= pList.size()) {
+	public boolean deleteProfessor(int index) {
+		//index가 잘못된 경우
+		if(index < 0 || index >= pList.size()) {
 			return false;
 		}
-		pList.remove(pos);
+		pList.remove(index);
 		return true;
 	}
 
