@@ -16,7 +16,7 @@ import university.service.ProfessorService;
 import university.service.ProfessorServiceImp;
 
 public class UniversityProgram implements Program {
-	private Scanner scan = new Scanner(System.in);
+	public static Scanner scan = new Scanner(System.in);
 	static String professorFileName = "src/university/professorList.txt";
 	static String lectureFileName = "src/university/lectureList.txt";
 	static String studentFileName = "src/university/studentList.txt";
@@ -129,10 +129,10 @@ public class UniversityProgram implements Program {
 			try {
 				menu = scan.nextInt();
 				runLectureMenu(menu);
-				break;
+				
 				
 			}catch (InputMismatchException e) {
-				System.out.println("잘못된 메뉴입니다.");
+				System.out.println("잘못된 메뉴입니다.22");
 				scan.nextLine();
 			}
 			
