@@ -137,19 +137,13 @@ public class UniversityProgram implements Program {
 		
 	}
 	
-	/** 4. 강의 관리 : 메뉴 출력*/
+	/** 4. 강의 관리 - 강의 관리 메뉴 출력 : 심아진*/
 	private void lecturePrintMenu() {
 		printService.printLectureMenu();
 	}
-	
-	/*
-	 * 
-	 * List<Lecture> addLecture(List<Lecture> lList, Lecture lecture);
 
-	boolean runInsertLecture(List<Lecture> lList);
 	
-	 * */
-	/** 4. 강의 관리 : 메뉴 실행*/
+	/** 4. 강의 관리 - 메뉴 실행 : 심아진*/
 	private void runLectureMenu(int menu) {
 		switch(menu) {
 		case 1 :
@@ -158,7 +152,10 @@ public class UniversityProgram implements Program {
 			
 			break;
 		case 2 :
-			System.out.println("강의 수정");
+			
+			if (!lectureService.printLecture(lList, lectureFileName)) {
+				
+			}
 			break;
 		case 3 :
 			System.out.println("강의 삭제");

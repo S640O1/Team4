@@ -31,6 +31,7 @@ public class LectureServiceImp implements LectureService {
 	String pattern = "HH:mm";
 	SimpleDateFormat format1 = new SimpleDateFormat(pattern);
 	
+	/** 강의(리스트)에 내역을 추가하는 메소드 : 심아진 */
 	@Override
 	public List<Lecture> addLecture(List<Lecture> lList, String lectureFileName) {
 
@@ -75,6 +76,21 @@ public class LectureServiceImp implements LectureService {
 		lList.add(lecture);
 		
 		return lList;
+	}
+
+
+	/** 강의 리스트 수정 : 심아진*/
+	@Override
+	public boolean setLecture(List<Lecture> lList, String lecutreFileName) {
+		
+		return false;
+	}
+
+	/** 강의 리스트 조회 : 심아진*/
+	@Override
+	public boolean printLecture(List<Lecture> lList, String lectureFileName) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 
