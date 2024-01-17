@@ -1,6 +1,7 @@
 package university;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,9 +17,14 @@ import lombok.Data;
  * 학과 : 하나(수정 시 함께 수정, 삭제 시 교수 정보 삭제)
  * 모든 것이 일치하는 교수가 있을 시 등록불가
  *  */
+/*
+	@NoArgsConstructor : 파라미터가 없는 디폴트 생성자를 생성
+	@AllArgsConstructor : 모든 필드 값을 파라미터로 받는 생성자를 생성
+	@RequiredArgsConstructor : final이나 @NonNull으로 선언된 필드만을 파라미터로 받는 생성자를 생성
+ */
 
 @Data
-@AllArgsConstructor
+
 public class Professor implements Serializable {
 
 	private static final long serialVersionUID = 8377957422955045309L;
@@ -71,6 +77,11 @@ public class Professor implements Serializable {
 	}
 	
 	//강의를 삭제하는 메소드
+	
+	
+	
+	
+	
 
 
 	//교번, 성별, 이름, 연락처만 동일해도 같은 교수로 판별
@@ -91,6 +102,21 @@ public class Professor implements Serializable {
 	@Override
 	public int hashCode() {
 		return Objects.hash(gender, name, num, phoneNum);
+	}
+
+	public Professor(int num, int gender, String name, String phoneNum, Department department,
+			List<Lecture> lectureList) {
+		super();
+		this.num = num;
+		this.gender = gender;
+		this.name = name;
+		this.phoneNum = phoneNum;
+		this.department = department;
+		//만약 강의 리스트가 없다면
+		if(lectureList == null) {
+			lectureList = new ArrayList<Lecture>();
+		}
+		this.lectureList = lectureList;
 	}
 
 
