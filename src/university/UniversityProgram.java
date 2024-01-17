@@ -15,7 +15,10 @@ import university.service.ProfessorServiceImp;
 
 public class UniversityProgram implements Program {
 	private Scanner scan = new Scanner(System.in);
-	static String fileName = "src/teamProject1/university/universityList.txt";
+	static String professorFileName = "src/teamProject1/university/professorList.txt";
+	static String lectureFileName = "src/teamProject1/university/lectureList.txt";
+	static String studentFileName = "src/teamProject1/university/studentList.txt";
+	static String departmentFileName = "src/teamProject1/university/departmentList.txt";
 	
 	//메뉴 종료 상수
 	static final int EXIT = 7;
@@ -44,12 +47,12 @@ public class UniversityProgram implements Program {
 				scan.nextLine();
 			}
 		} while (menu != EXIT);
-		//저장하기
-		if(fileService.save(fileName, university)) {
-			System.out.println("저장이 완료되었습니다.");
-		}else {
-			System.out.println("저장에 실패했습니다.");
-		}
+		//저장하기*4
+//		if(fileService.save()) {
+//			System.out.println("저장이 완료되었습니다.");
+//		}else {
+//			System.out.println("저장에 실패했습니다.");
+//		}
 	}
 
 	@Override
