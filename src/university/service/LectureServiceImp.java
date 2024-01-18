@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
 import university.Lecture;
 import university.UniversityProgram;
@@ -81,24 +80,38 @@ public class LectureServiceImp implements LectureService {
 
 	/** 강의 리스트 수정 : 심아진*/
 	@Override
-	public boolean setLecture(List<Lecture> lList, String lecutreFileName) {
+	public void setLecture(List<Lecture> lList, Lecture lecture) {
+		if(!printLecture(lList)) {
+		}
 		
-		return false;
+		// 수정할 강의 선택
+		System.out.print("수정할 강의번호를 선택하세요. : ");
+		
+		int index = UniversityProgram.scan.nextInt()-1;
+		
+		//수정할 번호 선택
+		
+		
+		
+		// lList.get(index).setLectureNum(index);;
 	}
 
 	/** 강의 리스트 조회 : 심아진*/
 	@Override
-	public boolean printLecture(List<Lecture> lList, String lectureFileName) {
+	public boolean printLecture(List<Lecture> lList) {
 		if(lList.isEmpty()) {
 			System.out.println("등록된 강의가 없습니다.");
 			return false;
 		}
+		
 		for(int i = 0; i < lList.size(); i++) {
-			lList.get(i);
-			System.out.println((i+1) + ". " + lList.toString());
+			System.out.println((i+1) + ". " + lList.get(i).toString());
 		}
 		return true;
 	}
+
+
+
 
 
 }

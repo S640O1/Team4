@@ -52,6 +52,7 @@ public class UniversityProgram implements Program {
 	private List<Student> sList = new ArrayList<Student>();
 	public static List<Professor> pList;
 	Student student;
+	Lecture lecture;
 	
 	@Override
 	public void run() {
@@ -140,7 +141,6 @@ public class UniversityProgram implements Program {
 			break;
 		case 3: 
 			studentManage();
-			System.out.println("학생 관리 서비스 예정");
 			break;
 		case 4: 
 			LectureManager();
@@ -305,6 +305,7 @@ public class UniversityProgram implements Program {
 
 	}
 	
+	
 	/** 4. 강의 등록 : 심아진*/
 	private void insertLecture() {
 		lList.addAll(lectureService.addLecture(lList, lectureFileName));
@@ -313,9 +314,8 @@ public class UniversityProgram implements Program {
 
 	/** 4. 강의 수정 : 심아진*/
 	private void updateLecture() {
-		if (!lectureService.printLecture(lList, lectureFileName)) {
-			
-		}		
+		lectureService.setLecture(lList, lecture);
+	
 	}
 
 	/** 4. 강의 삭제 : 심아진*/
