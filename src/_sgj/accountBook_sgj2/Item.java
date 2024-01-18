@@ -2,6 +2,7 @@ package _sgj.accountBook_sgj2;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import lombok.Data;
@@ -12,6 +13,8 @@ public class Item implements Serializable{
 
 	private static final long serialVersionUID = 6132810887038327706L;
 	SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+	private int year,month,day;
+	
 	//사용금액, 잔액, 일자
 	private int money, totalMoney; //date (yyyy-MM-dd) 
 	
@@ -56,6 +59,11 @@ public class Item implements Serializable{
 		this.inMoney = inMoney;
 		this.outMoney = outMoney;
 		this.memo = memo;
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		this.year = cal.get(Calendar.YEAR);
+		this.month = cal.get(Calendar.MONTH) + 1;
+		this.day = cal.get(Calendar.DAY_OF_MONTH);
 	}
 	
 
