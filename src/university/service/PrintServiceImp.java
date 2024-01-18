@@ -20,6 +20,7 @@ public class PrintServiceImp implements PrintService {
         System.out.print("메뉴 선택 : ");
     }
 
+
     @Override
     public void printDPMenu() {
         System.out.println("---------학과 관리---------");
@@ -37,6 +38,41 @@ public class PrintServiceImp implements PrintService {
         System.out.println("---------교수 관리---------");
         // 구현 필요
     }
+
+  /** 교수 : 메뉴출력 */
+	@Override
+	public void printProfessorMenu() {	// 교수 출력 메뉴
+		System.out.println("---------교수관리---------");
+		System.out.println("1. 교수 등록");
+		System.out.println("2. 교수 정보 수정");
+		System.out.println("3. 교수 삭제");
+		System.out.println("4. 종료");
+		System.out.println("---------------");
+		System.out.print("메뉴 선택 : ");
+	}
+	
+	/** 교수 : 2. 교수 수정 메뉴출력 */
+	@Override
+	public void printSetProfessorMenu() {
+		System.out.println("------교수 정보 수정------");
+		System.out.println("1. 교번");
+		System.out.println("2. 이름");
+		System.out.println("3. 학과");
+		System.out.println("4. 성별");
+		System.out.println("5. 전화번호");
+		System.out.println("6. 뒤로가기");
+		System.out.println("---------------");
+		System.out.print("수정할 항목을 선택하세요 : ");
+	}
+
+	@Override
+	public void printStudentMenu() {	 // 학생 출력 메뉴
+		System.out.println("1. 학생 등록");
+		System.out.println("2. 학생 수정");
+		System.out.println("3. 학생 삭제");
+		System.out.println("4. 뒤로 가기");
+		System.out.print("메뉴 선택 : ");
+	}
 
     @Override
     public void printStudentMenu() {
