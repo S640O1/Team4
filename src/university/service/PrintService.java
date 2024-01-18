@@ -1,5 +1,9 @@
 package university.service;
 
+import java.util.List;
+
+import university.Department;
+
 public interface PrintService {
 	void printMainMenu();
 	void printDPMenu();
@@ -10,5 +14,6 @@ public interface PrintService {
 	void printStudentMenu();
 	void printLectureMenu();
 	void printLectureUpdateMenu();
+
 	
 }

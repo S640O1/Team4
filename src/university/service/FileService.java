@@ -9,12 +9,13 @@ import university.Student;
 
 
 public interface FileService {
-
-	/** 학과 파일정보 불러오기 : 신경재*/
+  
+  /** 학과 파일정보 불러오기 : 신경재*/
 	List<Department> dLoad(String departmentFileName);
 	
-	/** 학과 파일정보 저장하기 : 신경재*/
-	boolean dSave(String departmentFileName, List<Department> dList);
+	/** 학과 파일정보 저장하기 : 신경재
+	 * @return */
+    boolean dpSave(String fileName, List<Department> departmentList);
 
 	/** 교수 파일정보 불러오기 : 손나영*/
 	List<Professor> pLoad(String professorFileName);
@@ -33,10 +34,6 @@ public interface FileService {
 	
 	/** 강의 파일정보 저장하기 : 심아진*/
 	boolean lSave(String lectureFileName, List<Lecture> lList);
-	
-	
-	
-	
 
 
 

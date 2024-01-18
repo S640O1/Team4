@@ -28,8 +28,8 @@ public class LectureServiceImp implements LectureService {
 	private FileService fileService = new FileServiceImp();
 	
 	Date date = new Date();
-	String pattern = "HH:mm";
-	SimpleDateFormat format1 = new SimpleDateFormat(pattern);
+	public static String pattern = "HH:mm";
+	public static SimpleDateFormat format1 = new SimpleDateFormat(pattern);
 	
 	/** 강의(리스트)에 내역을 추가하는 메소드 : 심아진 */
 	@Override
@@ -89,8 +89,15 @@ public class LectureServiceImp implements LectureService {
 	/** 강의 리스트 조회 : 심아진*/
 	@Override
 	public boolean printLecture(List<Lecture> lList, String lectureFileName) {
-		// TODO Auto-generated method stub
-		return false;
+		if(lList.isEmpty()) {
+			System.out.println("등록된 강의가 없습니다.");
+			return false;
+		}
+		for(int i = 0; i < lList.size(); i++) {
+			lList.get(i);
+			System.out.println((i+1) + ". " + lList.toString());
+		}
+		return true;
 	}
 
 
