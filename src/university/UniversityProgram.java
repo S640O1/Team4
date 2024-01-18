@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import program.Program;
+import university.service.DPService;
+import university.service.DPServiceImp;
 import university.service.FileService;
 import university.service.FileServiceImp;
 import university.service.LectureService;
@@ -26,7 +28,7 @@ public class UniversityProgram implements Program {
 	
 	//메뉴 종료 상수
 	static final int EXIT = 7;
-
+	static final int DEPARTMENT_EXIT = 5;  // DEPARTMENT_EXIT 상수 추가
 	private int STUDENT_EXIT = 4;	//뒤로 가기
 	static final int LECTURE_EXIT =4;
 	static final int PROFESSOR_EXIT = 4;
@@ -39,14 +41,14 @@ public class UniversityProgram implements Program {
 	private ProfessorService professorService = new ProfessorServiceImp();
 	private LectureService lectureService = new LectureServiceImp();
 	private StudentService studentService = new StudentServiceImp();
+	private DPService dpService = new DPServiceImp();  // DPService 인스턴스 추가
 	
 	//대학교 정보
-
 	private List<Lecture> lList = new ArrayList<Lecture>();
 	private List<Department> dList = new ArrayList<Department>();
 	private List<Student> sList = new ArrayList<Student>();
 	public static List<Professor> pList;
-  Student student;
+	Student student;
 	
 	@Override
 	public void run() {
@@ -118,18 +120,15 @@ public class UniversityProgram implements Program {
 		switch(menu) {
 		case 1: 
 			departmentManage();
-			System.out.println("학과 관리 서비스 예정");
-		break;
+			break;
 		case 2: 
 			professorManage();
-			System.out.println("교수 관리 서비스 예정");
 			break;
 		case 3: 
 			printStudentMenu();
 			break;
 		case 4: 
 			LectureManager();
-
 			break;
 		case 5: 
 			System.out.println("수강 관리 서비스 예정");
@@ -145,44 +144,57 @@ public class UniversityProgram implements Program {
 		}
 	}
 
-	/** 3. 학생 메뉴 */
-	private void printStudentMenu() {
-		int menu = 0;
-		do {
-		printService.printStudentMenu();
-		try {
-		menu = scan.nextInt();
-		runStudentMenu(menu);
-		} catch (InputMismatchException e ) {
-			System.out.println("없는 메뉴입니다.");
-			scan.nextLine();
-		}
-		}while(menu != STUDENT_EXIT);
-		
-	}
-	/** 런 학생 메뉴 */
-	private void runStudentMenu(int menu) {
-		switch(menu) {
-		case 1 : 
-			studentService.insertStudent(sList, student);
-			break;
-		case 2 : 
-			studentService.updateStudent(sList, student);
-			break;
-		case 3 :
-			studentService.deleteStudent(sList, student);
-			break;
-		case 4 : 
-			break;
-			
-		default : throw new InputMismatchException();
-		}
-	}
+	
 
 	/** 1. 학과 관리 : 신경재 */
 	private void departmentManage() {
-		
-	}
+        int departmentMenu = 0;
+
+        do {
+            printService.printDPMenu(); // 학과 관리 메뉴 출력
+
+            try {
+                departmentMenu = scan.nextInt();
+                runDPMenu(departmentMenu); // runDPMenu 호출
+            } catch (InputMismatchException e) {
+                System.out.println("잘못된 메뉴입니다.");
+                scan.nextLine();
+            }
+
+        } while (departmentMenu != DEPARTMENT_EXIT);
+    }
+
+    // 메서드 추가: 학과 관리 서브 메뉴
+    private void runDPMenu(int departmentMenu) {  // 매개변수 추가
+        switch (departmentMenu) {
+            case 1:
+                // 학과 목록 조회
+                printService.printDepartments(dpService.getAllDepartments(dList));
+                break;
+            case 2:
+                // 학과 등록
+                dpService.addDepartment(dList);
+                fileService.dpSave(departmentFileName, dList);
+                break;
+            case 3:
+                // 학과 수정
+                if (dpService.editDepartment(dList)) {
+                    fileService.dpSave(departmentFileName, dList);
+                }
+                break;
+            case 4:
+                // 학과 삭제
+                if (dpService.deleteDepartment(dList)) {
+                    fileService.dpSave(departmentFileName, dList);
+                }
+                break;
+            case 5:
+                System.out.println("뒤로 가기");
+                break;
+            default:
+                throw new InputMismatchException();
+        }
+    }
 
 	/** 2. 교수 관리 : 손나영 */
 	public void professorManage() {
@@ -345,6 +357,41 @@ public class UniversityProgram implements Program {
 		}
 		System.out.println("잘못된 교번입니다.");
 		
+	}
+	
+	
+	/** 3. 학생 메뉴 : 양선진 */
+	private void printStudentMenu() {
+		int menu = 0;
+		do {
+		printService.printStudentMenu();
+		try {
+		menu = scan.nextInt();
+		runStudentMenu(menu);
+		} catch (InputMismatchException e ) {
+			System.out.println("없는 메뉴입니다.");
+			scan.nextLine();
+		}
+		}while(menu != STUDENT_EXIT);
+		
+	}
+	/** 런 학생 메뉴 */
+	private void runStudentMenu(int menu) {
+		switch(menu) {
+		case 1 : 
+			studentService.insertStudent(sList, student);
+			break;
+		case 2 : 
+			studentService.updateStudent(sList, student);
+			break;
+		case 3 :
+			studentService.deleteStudent(sList, student);
+			break;
+		case 4 : 
+			break;
+			
+		default : throw new InputMismatchException();
+		}
 	}
 
 	/** 4. 강의 관리 : 심아진 */
