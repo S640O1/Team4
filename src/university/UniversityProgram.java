@@ -63,11 +63,13 @@ public class UniversityProgram implements Program {
 
 	//불러오기 및 불러오기 판별
 	private void isLoad() {
+		//교수 정보 불러오기
+		pList = fileService.pLoad(professorFileName);
+		//강의 정보 불러오기
 		List<Lecture> tmp = fileService.lLoad(lectureFileName);
 		if (!(tmp == null)) {
 			lList.addAll(tmp);
 		}
-		pList = fileService.pLoad(professorFileName);
 		
 	}
 
