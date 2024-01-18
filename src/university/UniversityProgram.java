@@ -36,16 +36,15 @@ public class UniversityProgram implements Program {
 	
 	//대학교 정보
 	private List<Lecture> lList = new ArrayList<Lecture>();
+	private List<Department> dList = new ArrayList<Department>();
+	private List<Student> sList = new ArrayList<Student>();
 	public static List<Professor> pList;
 	
 	@Override
 	public void run() {
 		int menu = 0;
 		
-		List<Lecture> tmp = fileService.lLoad(lectureFileName);
-		if (!(tmp == null)) {
-			lList.addAll(tmp);
-		}
+		isLoad();
 		
 		do {
 			printMenu();
@@ -57,12 +56,45 @@ public class UniversityProgram implements Program {
 				scan.nextLine();
 			}
 		} while (menu != EXIT);
-		//저장하기*4
-//		if(fileService.save()) {
-//			System.out.println("저장이 완료되었습니다.");
-//		}else {
-//			System.out.println("저장에 실패했습니다.");
-//		}
+		//저장하기*
+		isSave();
+		
+	}
+
+	//불러오기 및 불러오기 판별
+	private void isLoad() {
+		List<Lecture> tmp = fileService.lLoad(lectureFileName);
+		if (!(tmp == null)) {
+			lList.addAll(tmp);
+		}
+		pList = fileService.pLoad(professorFileName);
+		
+	}
+
+
+	//저장 및 저장판별
+	private void isSave() {
+		if(fileService.dSave(departmentFileName, dList)) {
+			System.out.println("학과 정보 저장이 완료되었습니다.");
+		}else {
+			System.out.println("학과 정보 저장에 실패했습니다.");
+		}
+		if(fileService.pSave(professorFileName)) {
+			System.out.println("교수 정보 저장이 완료되었습니다.");
+		}else {
+			System.out.println("교수 정보 저장에 실패했습니다.");
+		}
+		if(fileService.sSave(studentFileName, sList)) {
+			System.out.println("학생 정보 저장이 완료되었습니다.");
+		}else {
+			System.out.println("학생 정보 저장에 실패했습니다.");
+		}
+		if(fileService.lSave(lectureFileName, lList)) {
+			System.out.println("강의 정보 저장이 완료되었습니다.");
+		}else {
+			System.out.println("강의 정보 저장에 실패했습니다.");
+		}
+		
 	}
 
 	@Override
