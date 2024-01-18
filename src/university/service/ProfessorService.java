@@ -6,8 +6,6 @@ import university.Professor;
 
 public interface ProfessorService {
 	
-	void professorManage() ;
-	
 	/** 교수정보를 추가하는 메소드*/
 	boolean addProfessor(Professor professor);
 	
