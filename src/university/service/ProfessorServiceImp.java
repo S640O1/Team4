@@ -10,6 +10,8 @@ import university.Professor;
 import university.UniversityProgram;
 
 public class ProfessorServiceImp implements ProfessorService {
+	
+	
 	/** 교수정보를 추가하는 메소드*/
 	@Override
 	public boolean addProfessor(Professor professor) {

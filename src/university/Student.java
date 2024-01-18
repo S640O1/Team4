@@ -6,6 +6,7 @@ import java.util.Objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /* 학생 클래스 : 양선진
  * 기본기능 - 학생 관리 - 학생 등록/수정/삭제 
@@ -18,12 +19,15 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Student implements Serializable{
 
 	private static final long serialVersionUID = 506099044819552874L;
-	private int studentId;	//학번
-	private String name, department, phoneNumber;	//이름, 학과, 연락처(01012345678 식으로 입력)
+	private int studentId, score, stdScore;	//학번, 학점, 평균학점
+	private String name, phoneNumber;	//이름, 학과, 연락처(01012345678 식으로 입력)
 	private char gender;	//성별
+	Department department;	//학과
+	List<Lecture> lecture;	//듣고있는 강의
 	 
 	//학번, 이름이 같다면
 	@Override
@@ -48,6 +52,14 @@ public class Student implements Serializable{
 	@Override
 	public String toString() {
 		return studentId + " " + name + " " + gender + " / 학과 : " + department + " / 연락처 : " + phoneNumber;
+	}
+	
+	public Student(int studentId, String name, String phoneNumber, char gender, Department department) {
+		this.studentId = studentId;
+		this.name = name;
+		this.phoneNumber = phoneNumber;
+		this.gender = gender;
+		this.department = department;
 	}
 	 
 }

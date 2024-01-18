@@ -98,5 +98,26 @@ public class PrintServiceImp implements PrintService {
     }
 
 
+	@Override
+	public void printEnrolmentMenu() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void printScoreMenu() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void printPrintMenu() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 }
