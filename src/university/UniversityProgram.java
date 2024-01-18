@@ -237,6 +237,7 @@ public class UniversityProgram implements Program {
 			
 			break;
 		case 2: 	//학생조회
+			//왜 안되지...?
 			studentService.printStudentList(sList);
 			break;
 		case 3: 	//교수조회

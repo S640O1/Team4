@@ -19,6 +19,7 @@ public class StudentServiceImp implements StudentService {
 	@Override
 	public void insertStudent(List<Department> dList, List<Student> list) {
 		//학과 목록을 보여주면서 여기서 어떤건지 번호 입력 Student 인스턴스 값에 저장
+		
 //		System.out.print("학과 번호 : ");
 //		int dpIndex = UniversityProgram.scan.nextInt();
 //		//해당 학과가 없으면 return
