@@ -4,26 +4,26 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import university.Department;
+import university.UniversityProgram;
 
 public class DPServiceImp implements DPService {
-
-    private Scanner scanner = new Scanner(System.in);
 
     @Override
     public List<Department> getAllDepartments(List<Department> departmentList) {
         // 학과 목록 조회
         return departmentList;
     }
+
     @Override
     public Department addDepartment(List<Department> departmentList) {
         System.out.println("새로운 학과를 등록합니다.");
 
         // 사용자로부터 학과 정보 입력 받기
         System.out.print("학과 분류 번호: ");
-        int dpNum = scanner.nextInt();
-        scanner.nextLine(); 
+        int dpNum = UniversityProgram.scan.nextInt();
+        UniversityProgram.scan.nextLine(); // 버퍼 비우기
         System.out.print("학과명: ");
-        String dpName = scanner.nextLine();
+        String dpName = UniversityProgram.scan.nextLine();
 
         // 새로운 학과 객체 생성
         Department newDepartment = new Department(dpNum, dpName, null, null);
@@ -41,7 +41,7 @@ public class DPServiceImp implements DPService {
 
         // 사용자로부터 수정할 학과명 입력 받기
         System.out.print("수정할 학과명: ");
-        String targetDepartmentName = scanner.nextLine();
+        String targetDepartmentName = UniversityProgram.scan.nextLine();
 
         // 해당 학과를 찾아서 수정
         List<Department> targetDepartments = departmentList.stream()
@@ -56,10 +56,10 @@ public class DPServiceImp implements DPService {
         // 수정할 내용 입력 받기
         Department targetDepartment = targetDepartments.get(0);
         System.out.print("수정할 학과 분류 번호: ");
-        int newDpNum = scanner.nextInt();
-        scanner.nextLine(); 
+        int newDpNum = UniversityProgram.scan.nextInt();
+        UniversityProgram.scan.nextLine(); // 버퍼 비우기
         System.out.print("수정할 학과명: ");
-        String newDpName = scanner.nextLine();
+        String newDpName = UniversityProgram.scan.nextLine();
 
         // 수정된 정보로 업데이트
         targetDepartment.setDpNum(newDpNum);
@@ -75,7 +75,7 @@ public class DPServiceImp implements DPService {
 
         // 사용자로부터 삭제할 학과명 입력 받기
         System.out.print("삭제할 학과명: ");
-        String targetDepartmentName = scanner.nextLine();
+        String targetDepartmentName = UniversityProgram.scan.nextLine();
 
         // 해당 학과를 찾아서 삭제
         List<Department> targetDepartments = departmentList.stream()
@@ -92,9 +92,10 @@ public class DPServiceImp implements DPService {
         System.out.println("학과가 성공적으로 삭제되었습니다.");
         return true;
     }
-	@Override
-	public List<Department> getAllDepartments() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+    @Override
+    public List<Department> getAllDepartments() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }
