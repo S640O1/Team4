@@ -6,12 +6,59 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
 
+import university.Department;
 import university.Lecture;
 import university.Professor;
+import university.Student;
 
 
 public class FileServiceImp implements FileService {
 
+
+
+	/** 학과 파일정보 불러오기*/
+	@Override
+	public List<Department> dLoad(String departmentFileName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/** 학과 파일정보 저장하기*/
+	@Override
+	public boolean dSave(String departmentFileName, List<Department> dList) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/** 교수 파일정보 불러오기*/
+	@Override
+	public List<Professor> pLoad(String professorFileName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/** 교수 파일정보 저장하기*/
+	@Override
+	public boolean pSave(String professorFileName, List<Professor> pList) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/** 학생 파일정보 불러오기*/
+	@Override
+	public List<Student> sLoad(String studentFileName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/** 학생 파일정보 저장하기*/
+	@Override
+	public boolean sSave(String studentFileName, List<Student> sList) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/** 강의 파일정보 불러오기*/
 	@Override
 	public List<Lecture> lLoad(String lectureFileName) {
 		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(lectureFileName))) {
@@ -22,7 +69,8 @@ public class FileServiceImp implements FileService {
 		}
 		return null;
 	}
-
+	
+	/** 강의 파일정보 저장하기*/
 	@Override
 	public boolean lSave(String lectureFileName, List<Lecture> lList) {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(lectureFileName))) {
@@ -34,6 +82,5 @@ public class FileServiceImp implements FileService {
 		}
 		return false;
 	}
-
 
 }
