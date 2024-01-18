@@ -44,13 +44,17 @@ public class StudentServiceImp implements StudentService {
 	//학생수정
 	@Override
 	public void updateStudent(List<Student> list, Student student) {
-		printStudentList(list);
+		//printStudentList(list); 밑의 코드와 겹쳐서 중복으로 나옴
+		if(!printStudentList(list)) {
+			return; //반환 = 메소드를 종료하고 값을 내놓음, 밑으로 내려가지 않음
+					//break는 중괄호 하나만 벗어나고 밑으로 내려감
+		}
 		//수정할 학생 선택
 		System.out.println("어떤 학생 정보를 수정하겠습니까? ");
 		int index = sc.nextInt() - 1;
 		
 		//학생의 어떤 항목을 수정할지 선택
-		list.get(index).toString();
+//		list.get(index).toString(); printStudentList(list) 메서드에 있는 코드와 이 코드가 의미하는 바가 같아서 콘솔창에 중복으로 뜸
 		System.out.println("어떤 정보를 수정하겠습니까?"
 							+ "\n1. 학번 \n2. 이름 \n3. 성별 \n4. 전공 \n5. 연락처");
 		int menu = sc.nextInt();
@@ -72,6 +76,7 @@ public class StudentServiceImp implements StudentService {
 			break;
 			
 		case 3 : 
+			//성별 오류
 			System.out.println("성별을 바꾸시겠습니까?(y/n)");
 			char areYouChange = sc.next().charAt(0);
 			if(areYouChange == 'y' || areYouChange == 'Y') {
@@ -118,7 +123,10 @@ public class StudentServiceImp implements StudentService {
 	@Override
 	public void deleteStudent(List<Student> list, Student student) {
 		//학생 리스트 보여주기(sort 해야되나?)
-		printStudentList(list);
+		//printStudentList(list);
+		if(!printStudentList(list)) {
+			return;
+		}
 		//삭제할 학생정보 입력
 		System.out.println("목록 중 어떤 학생 정보를 삭제하시겠습니까? : ");
 		int index = sc.nextInt()-1;

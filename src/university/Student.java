@@ -24,8 +24,6 @@ public class Student implements Serializable{
 	private int studentId;	//학번
 	private String name, department, phoneNumber;	//이름, 학과, 연락처(01012345678 식으로 입력)
 	private char gender;	//성별
-//	//학생이 듣는 강의(강의 번호, 강의명, 담당교수, 인원, 강의 시간, 강의실)
-//	List<Lecture> lecture;
 	 
 	//학번, 이름이 같다면
 	@Override
