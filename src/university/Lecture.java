@@ -7,6 +7,7 @@ import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import university.service.LectureServiceImp;
 
 /*강의 클래스 : 심아진*/
 
@@ -43,17 +44,17 @@ public class Lecture  implements Serializable {
 		return Objects.hash(date, lectureName, lectureNum, lectureRoom, pName, maxNum);
 	}
 
+
 	/*
 	 강의 번호. 강의명 && 시간 (담당교수 : ㅇㅇㅇ) (현재인원/최대인원) 강의실  
 	 
 	 */
 	
-	/*
+	@Override
 	public String toString() {
-		return ;
+		return lectureNum + "." + lectureName + " [" + LectureServiceImp.format1.format(date) + "] 담당 교수 : " +  pName + " (현재인원 / " + maxNum + ") 강의실 : " + lectureRoom ;
 	}
 	
-	*/
 	
 	
 	

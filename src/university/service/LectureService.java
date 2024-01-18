@@ -12,12 +12,11 @@ public interface LectureService {
 	
 	// 2. 강의를 수정하는 메서드
 	boolean setLecture(List<Lecture> lList, String lecutreFileName);
-
-
-	boolean printLecture(List<Lecture> lList, String lectureFileName);
-
 	
 	// 3. 강의를 삭제하는 메서드
+
+	// 4. 강의 목록
+	boolean printLecture(List<Lecture> lList, String lectureFileName);
 	
 	
 }
