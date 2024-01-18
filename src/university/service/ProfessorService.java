@@ -10,8 +10,6 @@ public interface ProfessorService {
 	boolean addProfessor(Professor professor);
 	
 	/** 교수정보를 수정하는 메소드*/
-	List<Professor> setProfessor(List<Professor> list, Professor professor);
-	
 	void setPhoneNum(int index);
 	
 	void setGender(int index);
