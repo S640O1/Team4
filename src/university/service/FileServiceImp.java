@@ -4,12 +4,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
+import accountBook.Item;
 import university.Department;
 import university.Lecture;
 import university.Professor;
 import university.Student;
+import university.UniversityProgram;
 
 
 public class FileServiceImp implements FileService {
@@ -33,14 +36,30 @@ public class FileServiceImp implements FileService {
 	/** 교수 파일정보 불러오기*/
 	@Override
 	public List<Professor> pLoad(String professorFileName) {
-		// TODO Auto-generated method stub
+		try(ObjectInputStream ois = 
+			new ObjectInputStream(new FileInputStream(professorFileName))){
+			if(ois.readObject() == null) {
+				System.out.println("교수 정보를 등록해주세요.");
+				return new ArrayList<Professor>();
+			}
+			System.out.println("교수 정보를 불러왔습니다.");
+			return (List<Professor>) ois.readObject();				
+		} catch (Exception e) {
+			System.out.println("교수 정보를 불러오는 중 오류가 발생하였습니다.");
+		}
 		return null;
 	}
 
 	/** 교수 파일정보 저장하기*/
 	@Override
-	public boolean pSave(String professorFileName, List<Professor> pList) {
-		// TODO Auto-generated method stub
+	public boolean pSave(String professorFileName) {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(professorFileName))) {
+			oos.writeObject(UniversityProgram.pList);
+			oos.flush();
+			return true;
+		} catch (Exception e) {
+			System.out.println("예외가 발생했습니다.");
+		}
 		return false;
 	}
 
