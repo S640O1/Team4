@@ -34,6 +34,7 @@ public class UniversityProgram implements Program {
 	
 	//대학교 정보
 	private List<Lecture> lList = new ArrayList<Lecture>();
+	public static List<Professor> pList;
 	
 	@Override
 	public void run() {
