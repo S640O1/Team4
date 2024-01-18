@@ -2,6 +2,7 @@ package university;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import lombok.AllArgsConstructor;
@@ -22,6 +23,7 @@ public class Lecture  implements Serializable {
 	int lectureNum, maxNum, pNum  ;	// 강의 번호(학수 번호), 수강가능인원
 	String lectureName, pName, lectureRoom;		// 강의명, 교번, 교수이름, 강의실
 	Date date = new Date(); // 강의 시간
+	List<Student> students;
 	
 	
 	@Override

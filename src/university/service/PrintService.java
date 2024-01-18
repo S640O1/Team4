@@ -14,6 +14,9 @@ public interface PrintService {
 	void printStudentMenu();
 	void printLectureMenu();
 	void printLectureUpdateMenu();
+	void printEnrolmentMenu();
+	void printScoreMenu();
+	void printPrintMenu();
 
 	
 }

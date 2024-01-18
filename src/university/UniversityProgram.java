@@ -8,6 +8,8 @@ import java.util.Scanner;
 import program.Program;
 import university.service.DPService;
 import university.service.DPServiceImp;
+import university.service.EnrolmentService;
+import university.service.EnrolmentServiceImp;
 import university.service.FileService;
 import university.service.FileServiceImp;
 import university.service.LectureService;
@@ -16,6 +18,8 @@ import university.service.PrintService;
 import university.service.PrintServiceImp;
 import university.service.ProfessorService;
 import university.service.ProfessorServiceImp;
+import university.service.ScoreService;
+import university.service.ScoreServiceImp;
 import university.service.StudentService;
 import university.service.StudentServiceImp;
 
@@ -34,20 +38,22 @@ public class UniversityProgram implements Program {
 	static final int PROFESSOR_EXIT = 4;
 	static final int SETPROFESSOR_EXIT = 6;
 
-  //서비스 목록
+   //서비스 목록
 	private PrintService printService = new PrintServiceImp();
 	private FileService fileService = new FileServiceImp();
 	private ProfessorService professorService = new ProfessorServiceImp();
 	private LectureService lectureService = new LectureServiceImp();
 	private StudentService studentService = new StudentServiceImp();
 	private DPService dpService = new DPServiceImp();  // DPService 인스턴스 추가
+	private ScoreService scoreService = new ScoreServiceImp();
+	private EnrolmentService enrolmentService = new EnrolmentServiceImp();
 	
 	//대학교 정보
 	private List<Lecture> lList = new ArrayList<Lecture>();
 	private List<Department> dList = new ArrayList<Department>();
 	private List<Student> sList = new ArrayList<Student>();
-	public static List<Professor> pList;
-	Student student;
+	public static List<Professor> pList = new ArrayList<Professor>();
+
 	
 	@Override
 	public void run() {
@@ -73,12 +79,25 @@ public class UniversityProgram implements Program {
 
 	//불러오기 및 불러오기 판별
 	private void isLoad() {
+		//학과 정보 불러오기
+		List<Department> tmpD = fileService.dLoad(departmentFileName);
+		if (!(tmpD == null)) {
+			dList.addAll(tmpD);
+		}
+		//학생 정보 불러오기
+		List<Student> tmpS = fileService.sLoad(studentFileName);
+		if (!(tmpS == null)) {
+			sList.addAll(tmpS);
+		}
 		//교수 정보 불러오기
-		pList = fileService.pLoad(professorFileName);
+		List<Professor> tmpP = fileService.pLoad(professorFileName);
+		if (!(tmpP == null)) {
+			pList.addAll(tmpP);
+		}
 		//강의 정보 불러오기
-		List<Lecture> tmp = fileService.lLoad(lectureFileName);
-		if (!(tmp == null)) {
-			lList.addAll(tmp);
+		List<Lecture> tmpL = fileService.lLoad(lectureFileName);
+		if (!(tmpL == null)) {
+			lList.addAll(tmpL);
 		}
 		
 	}
@@ -91,16 +110,19 @@ public class UniversityProgram implements Program {
 		}else {
 			System.out.println("학과 정보 저장에 실패했습니다.");
 		}
+		
 		if(fileService.pSave(professorFileName)) {
 			System.out.println("교수 정보 저장이 완료되었습니다.");
 		}else {
 			System.out.println("교수 정보 저장에 실패했습니다.");
 		}
+		
 		if(fileService.sSave(studentFileName, sList)) {
 			System.out.println("학생 정보 저장이 완료되었습니다.");
 		}else {
 			System.out.println("학생 정보 저장에 실패했습니다.");
 		}
+		
 		if(fileService.lSave(lectureFileName, lList)) {
 			System.out.println("강의 정보 저장이 완료되었습니다.");
 		}else {
@@ -130,12 +152,17 @@ public class UniversityProgram implements Program {
 			LectureManager();
 			break;
 		case 5: 
+			enrolmentManager();
 			System.out.println("수강 관리 서비스 예정");
 			break;
-		case 6: 
-			System.out.println("조회 서비스 예정");
+		case 6: 	//성적관리시스템
+			scoreManager();
 			break;
 		case 7:
+			printManager();
+			System.out.println("조회 서비스 예정");
+			break;
+		case 8:
 			System.out.println("프로그램을 종료합니다.");
 			break;
 		default : 
@@ -144,6 +171,129 @@ public class UniversityProgram implements Program {
 	}
 
 	
+	private void scoreManager() {
+		int menu = 0;
+
+        do {
+            printService.printScoreMenu();
+
+            try {
+            	menu = scan.nextInt();
+                runScoreMenu(menu); 
+            } catch (InputMismatchException e) {
+                System.out.println("잘못된 메뉴입니다.");
+                scan.nextLine();
+            }
+
+        } while (menu != 3);
+	}
+
+	private void runScoreMenu(int menu) {
+		switch(menu) {
+		case 1:		//성적등록
+//			scoreService.~~();
+			
+			//학생 목록을 보여줌
+			//성적 등록할 학생을 선택
+			int sIndex = scan.nextInt() -1;
+			//해당 학생이 수강하고 있는 강의 리스트를 가져온다.(출력)
+			List<Lecture> stdlList = sList.get(sIndex).getLecture();
+			//성적 등록할 강의 선택
+			int lIndex = scan.nextInt() -1;
+//			stdlList.get(lIndex).s
+			
+			break;
+		case 2: 	//성적수정
+//			scoreService.~~();
+			break;
+		case 3: 
+			break;
+		default : 
+			throw new InputMismatchException();
+		}		
+		
+	}
+
+	private void printManager() {
+		int menu = 0;
+
+        do {
+            printService.printPrintMenu();
+
+            try {
+            	menu = scan.nextInt();
+                runPrintMenu(menu); 
+            } catch (InputMismatchException e) {
+                System.out.println("잘못된 메뉴입니다.");
+                scan.nextLine();
+            }
+
+        } while (menu != 3);
+	}
+
+	//각자 파트 조회기능 구현
+	private void runPrintMenu(int menu) {
+		switch(menu) {
+		case 1:		//학과조회
+			
+			break;
+		case 2: 	//학생조회
+			
+			break;
+		case 3: 	//교수조회
+			
+			break;
+		case 4: 	//강의조회
+			
+			break;
+		case 5: 	//성적조회
+//			성적 조회
+//			 *     -		- 학생 성적 조회 : 
+//			 *     				- 평균 학점 조회
+//		 *     					- 전체 학점 조회(수강하고있는 강의목록과 그 강의 점수 출력) 
+
+			break;
+		case 6: 
+			break;
+		default : 
+			throw new InputMismatchException();
+		}		
+		
+	}
+
+	/** 수강신청 관리 */
+	private void enrolmentManager() {
+		int menu = 0;
+
+        do {
+            printService.printEnrolmentMenu();
+
+            try {
+            	menu = scan.nextInt();
+                runEnrolmentMenu(menu); 
+            } catch (InputMismatchException e) {
+                System.out.println("잘못된 메뉴입니다.");
+                scan.nextLine();
+            }
+
+        } while (menu != 3);
+	}
+
+	/** 수강신청 관리 : 메뉴실행*/
+	private void runEnrolmentMenu(int menu) {
+		switch(menu) {
+		case 1:	//수강신청, 손나영
+//			enrolmentService.~~~();
+			break;
+		case 2: //수강 취소
+//			enrolmentService.~~();
+			break;
+		case 3: 
+			break;
+		default : 
+			throw new InputMismatchException();
+		}		
+	}
 
 	/** 1. 학과 관리 : 신경재 */
 	private void departmentManage() {
@@ -254,12 +404,12 @@ public class UniversityProgram implements Program {
 		System.out.print("전화번호 : ");
 		String phoneNum = UniversityProgram.scan.next();
 		System.out.print("성별(남:1, 여:2) : ");
-		int gender = 0;
+		int gender = UniversityProgram.scan.nextInt();
 		//만약 성별이 1과 2가 아닌 숫자라면 다시 입력
-		do{
-			gender = UniversityProgram.scan.nextInt();
-			System.out.println("잘못된 성별입니다.");
-		}while(!(gender==1) || !(gender==2));
+//		do{
+//			gender = UniversityProgram.scan.nextInt();
+//			System.out.println("잘못된 성별입니다.");
+//		}while(!(gender==1) || !(gender==2));
 		
 		Professor professor = new Professor(num, gender, name, phoneNum, department, null);
 		if(!professorService.addProfessor(professor)){
@@ -267,6 +417,7 @@ public class UniversityProgram implements Program {
 			return;
 		}
 		System.out.println("교수를 등록했습니다.");
+		professor.toString();
 	}
 	
 		/** 교수 : 2. 교수 수정 */
@@ -365,8 +516,8 @@ public class UniversityProgram implements Program {
 		do {
 		printService.printStudentMenu();
 		try {
-		menu = scan.nextInt();
-		runStudentMenu(menu);
+			menu = scan.nextInt();
+			runStudentMenu(menu);
 		} catch (InputMismatchException e ) {
 			System.out.println("없는 메뉴입니다.");
 			scan.nextLine();
@@ -378,13 +529,13 @@ public class UniversityProgram implements Program {
 	private void runStudentMenu(int menu) {
 		switch(menu) {
 		case 1 : 
-			studentService.insertStudent(sList, student);
+			studentService.insertStudent(dList, sList);
 			break;
 		case 2 : 
-			studentService.updateStudent(sList, student);
+			studentService.updateStudent(sList);
 			break;
 		case 3 :
-			studentService.deleteStudent(sList, student);
+			studentService.deleteStudent(sList);
 			break;
 		case 4 : 
 			break;

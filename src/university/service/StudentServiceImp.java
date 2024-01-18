@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import accountBook.Item;
 import university.Student;
+import university.Department;
 
 public class StudentServiceImp implements StudentService {
 
@@ -16,7 +17,12 @@ public class StudentServiceImp implements StudentService {
 	
 	//학생추가
 	@Override
-	public void insertStudent(List<Student> list, Student student) {
+	public void insertStudent(List<Department> dList, List<Student> list) {
+		//학과 목록을 보여주면서 여기서 어떤건지 번호 입력 Student 인스턴스 값에 저장
+		System.out.print("학과 번호 : ");
+		int dpIndex = sc.nextInt();
+		//해당 학과가 없으면 return
+		Department department = dList.get(dpIndex);
 		System.out.println("추가할 학생 정보를 입력하세요.");
 		System.out.print("학번 : ");
 		int studentId = sc.nextInt();
@@ -25,14 +31,12 @@ public class StudentServiceImp implements StudentService {
 		String name = sc.nextLine();
 		System.out.print("성별(m, f) : ");
 		char gender = sc.next().charAt(0);
-		System.out.print("학과 : ");
-		sc.nextLine();
-		String department = sc.nextLine();
+		
 		System.out.print("연락처 : ");
 		String phoneNumber = sc.nextLine();
 
-		Student std = new Student(studentId, name, department, phoneNumber, gender);
-		
+		Student std = new Student(studentId, name, phoneNumber, gender, department);
+
 		//이미있는 학생일때 추가 X (equals = 학번과 이름이 같을때)
 		if(list.equals(std)) {
 			System.out.println("이미있는 학생입니다.");
@@ -41,7 +45,7 @@ public class StudentServiceImp implements StudentService {
 		//등록안되있으면 배열에 추가 후 정렬
 		list.add(std);
 		for(int i=0;i<list.size();i++) {
-			System.out.println((i+1)+ ". " + list.toString());
+			System.out.println((i+1)+ ". " + list.get(i).toString());
 		}
 		//정렬 메서드
 		System.out.println("등록되었습니다.");
@@ -49,7 +53,7 @@ public class StudentServiceImp implements StudentService {
 
 	//학생수정
 	@Override
-	public void updateStudent(List<Student> list, Student student) {
+	public void updateStudent(List<Student> list) {
 		//printStudentList(list); 밑의 코드와 겹쳐서 중복으로 나옴
 		if(!printStudentList(list)) {
 			return; //반환 = 메소드를 종료하고 값을 내놓음, 밑으로 내려가지 않음
@@ -58,18 +62,19 @@ public class StudentServiceImp implements StudentService {
 		//수정할 학생 선택
 		System.out.println("어떤 학생 정보를 수정하겠습니까? ");
 		int index = sc.nextInt() - 1;
+		Student std = list.get(index);
 		
 		//학생의 어떤 항목을 수정할지 선택
 //		list.get(index).toString(); printStudentList(list) 메서드에 있는 코드와 이 코드가 의미하는 바가 같아서 콘솔창에 중복으로 뜸
 		System.out.println("어떤 정보를 수정하겠습니까?"
-							+ "\n1. 학번 \n2. 이름 \n3. 성별 \n4. 전공 \n5. 연락처");
+							+ "\n1. 학번 \n2. 이름 \n3.성별 \n4. 전공 \n5. 연락처");
 		int menu = sc.nextInt();
 		switch(menu) {
 		case 1 : 
 			System.out.println("수정할 학번 : ");
 			int studentID = sc.nextInt();
-			list.get(index).setStudentId(studentID);
-			System.out.println(list.toString());
+			std.setStudentId(studentID);
+			System.out.println(std.toString());
 			System.out.println("수정되었습니다.");
 			break;
 			
@@ -77,7 +82,8 @@ public class StudentServiceImp implements StudentService {
 			System.out.println("수정할 이름 : ");
 			sc.nextLine();
 			String name = sc.nextLine();
-			list.get(index).setName(name);
+			std.setName(name);
+			System.out.println(std.toString());
 			System.out.println("수정되었습니다.");
 			break;
 			
@@ -86,12 +92,14 @@ public class StudentServiceImp implements StudentService {
 			System.out.println("성별을 바꾸시겠습니까?(y/n)");
 			char areYouChange = sc.next().charAt(0);
 			if(areYouChange == 'y' || areYouChange == 'Y') {
-				if(student.getGender() == 'f') {
-					student.setGender('m');
+				if(std.getGender() == 'f') {
+					std.setGender('m');
+					System.out.println(std.toString());
 					System.out.println("수정되었습니다.");
 					break;
 				} else {
-					student.setGender('f');
+					std.setGender('f');
+					System.out.println(std.toString());
 					System.out.println("수정되었습니다.");
 					break;
 					//set을 했는데 인스턴스를 다시 만들어서 넣어야되나?
@@ -104,11 +112,12 @@ public class StudentServiceImp implements StudentService {
 				break;
 			}
 			
-		case 4 : 
+		case 4 : //학과 수정
 			System.out.println("수정할 전공 : ");
 			sc.nextLine();
 			String department = sc.nextLine();
-			list.get(index).setDepartment(department);
+//			std.setDepartment(department);
+			System.out.println(std.toString());
 			System.out.println("수정되었습니다.");
 			break;
 			
@@ -116,7 +125,8 @@ public class StudentServiceImp implements StudentService {
 			System.out.println("수정할 연락처 : ");
 			sc.nextLine();
 			String phoneNumber = sc.nextLine();
-			list.get(index).setPhoneNumber(phoneNumber);
+			std.setPhoneNumber(phoneNumber);
+			System.out.println(std.toString());
 			System.out.println("수정되었습니다.");
 			break;
 			
@@ -127,7 +137,7 @@ public class StudentServiceImp implements StudentService {
 
 	//학생삭제
 	@Override
-	public void deleteStudent(List<Student> list, Student student) {
+	public void deleteStudent(List<Student> list) {
 		//학생 리스트 보여주기(sort 해야되나?)
 		//printStudentList(list);
 		if(!printStudentList(list)) {
@@ -158,7 +168,7 @@ public class StudentServiceImp implements StudentService {
 		}
 		for(int i=0;i<list.size();i++) {
 			list.get(i);
-			System.out.println((i+1) + ". " + list.toString());
+			System.out.println((i+1) + ". " + list.get(i).toString());
 		}
 			return true;
 	}
