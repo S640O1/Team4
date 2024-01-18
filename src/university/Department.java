@@ -25,6 +25,12 @@ public class Department implements Serializable{
 	//교수리스트
 	List<Professor> pList;
 	
+	// 생성자에 초기화 코드 추가
+	public Department(int dpNum, String dpName) {
+        this.dpNum = dpNum;
+        this.dpName = dpName;
+    }
+	
 	@Override
 	public String toString() {
 		return "Department [dpName=" + dpName + "]";

@@ -10,6 +10,7 @@ import university.Student;
 
 public interface FileService {
 
+	void dpSave(String fileName, List<Department> departmentList);
 	/** 학과 파일정보 불러오기*/
 	List<Department> dLoad(String departmentFileName);
 	

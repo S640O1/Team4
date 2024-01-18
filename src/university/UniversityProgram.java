@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import program.Program;
+import university.service.DPService;  // DPService 인터페이스
+import university.service.DPServiceImp; // DPServiceImp 클래스
 import university.service.FileService;
 import university.service.FileServiceImp;
 import university.service.LectureService;
@@ -25,15 +27,18 @@ public class UniversityProgram implements Program {
 	//메뉴 종료 상수
 	static final int EXIT = 7;
 	static final int LECTURE_EXIT =4;
+	static final int DEPARTMENT_EXIT = 5;  // DEPARTMENT_EXIT 상수 추가
 	
 	//서비스 목록
 	private PrintService printService = new PrintServiceImp();
 	private FileService fileService = new FileServiceImp();
 	private ProfessorService professorService = new ProfessorServiceImp();
 	private LectureService lectureService = new LectureServiceImp();
+	private DPService dpService = new DPServiceImp();  // DPService 인스턴스 추가
 	
 	//대학교 정보
 	private List<Lecture> lList = new ArrayList<Lecture>();
+	private List<Department> departmentList = new ArrayList<Department>();
 	
 	@Override
 	public void run() {
@@ -72,8 +77,8 @@ public class UniversityProgram implements Program {
 		switch(menu) {
 		case 1: 
 			departmentManage();
-			System.out.println("학과 관리 서비스 예정");
 		break;
+		
 		case 2: 
 			professorManage();
 			System.out.println("교수 관리 서비스 예정");
@@ -101,9 +106,54 @@ public class UniversityProgram implements Program {
 	}
 
 	/** 1. 학과 관리 : 신경재 */
-	private void departmentManage() {
-		
-	}
+    private void departmentManage() {
+        int departmentMenu = 0;
+
+        do {
+            printService.printDPMenu(); // 학과 관리 메뉴 출력
+
+            try {
+                departmentMenu = scan.nextInt();
+                runDPMenu(departmentMenu); // runDPMenu 호출
+            } catch (InputMismatchException e) {
+                System.out.println("잘못된 메뉴입니다.");
+                scan.nextLine();
+            }
+
+        } while (departmentMenu != DEPARTMENT_EXIT);
+    }
+
+    // 메서드 추가: 학과 관리 서브 메뉴
+    private void runDPMenu(int departmentMenu) {  // 매개변수 추가
+        switch (departmentMenu) {
+            case 1:
+                // 학과 목록 조회
+                printService.printDepartments(dpService.getAllDepartments(departmentList));
+                break;
+            case 2:
+                // 학과 등록
+                dpService.addDepartment(departmentList);
+                fileService.dpSave(departmentFileName, departmentList);
+                break;
+            case 3:
+                // 학과 수정
+                if (dpService.editDepartment(departmentList)) {
+                    fileService.dpSave(departmentFileName, departmentList);
+                }
+                break;
+            case 4:
+                // 학과 삭제
+                if (dpService.deleteDepartment(departmentList)) {
+                    fileService.dpSave(departmentFileName, departmentList);
+                }
+                break;
+            case 5:
+                System.out.println("뒤로 가기");
+                break;
+            default:
+                throw new InputMismatchException();
+        }
+    }
 
 	/** 2. 교수 관리 : 손나영 */
 	private void professorManage() {
