@@ -86,7 +86,7 @@ public class UniversityProgram implements Program {
 
 	//저장 및 저장판별
 	private void isSave() {
-		if(fileService.dSave(departmentFileName, dList)) {
+		if(fileService.dpSave(departmentFileName, dList)) {
 			System.out.println("학과 정보 저장이 완료되었습니다.");
 		}else {
 			System.out.println("학과 정보 저장에 실패했습니다.");
@@ -168,7 +168,7 @@ public class UniversityProgram implements Program {
         switch (departmentMenu) {
             case 1:
                 // 학과 목록 조회
-                printService.printDepartments(dpService.getAllDepartments(dList));
+            	dpService.printDepartments(dList);
                 break;
             case 2:
                 // 학과 등록

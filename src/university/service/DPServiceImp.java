@@ -98,4 +98,9 @@ public class DPServiceImp implements DPService {
         // TODO Auto-generated method stub
         return null;
     }
+
+	@Override
+	public void printDepartments(List<Department> dList) {
+		
+	}
 }

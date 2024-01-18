@@ -2,6 +2,8 @@ package university.service;
 
 import java.util.List;
 
+import university.Department;
+
 
 
 public class PrintServiceImp implements PrintService {
@@ -31,12 +33,6 @@ public class PrintServiceImp implements PrintService {
         System.out.println("5. 뒤로가기");
         System.out.println("---------------");
         System.out.print("메뉴 선택 : ");
-    }
-
-    @Override
-    public void printProfessorMenu() {
-        System.out.println("---------교수 관리---------");
-        // 구현 필요
     }
 
   /** 교수 : 메뉴출력 */
@@ -74,11 +70,6 @@ public class PrintServiceImp implements PrintService {
 		System.out.print("메뉴 선택 : ");
 	}
 
-    @Override
-    public void printStudentMenu() {
-        System.out.println("---------학생 관리---------");
-        // 구현 필요
-    }
 
     @Override
     public void printLectureMenu() {
@@ -105,5 +96,7 @@ public class PrintServiceImp implements PrintService {
         System.out.println("---------------");
         System.out.print("메뉴 선택 : ");
     }
+
+
 
 }

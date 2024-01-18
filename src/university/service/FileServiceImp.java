@@ -27,21 +27,17 @@ public class FileServiceImp implements FileService {
 		return null;
 	}
 	
+	/** 학과 파일정보 저장하기*/
 	 @Override
-    public void dpSave(String fileName, List<Department> departmentList) {
+    public boolean dpSave(String fileName, List<Department> departmentList) {
     	try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
 	            oos.writeObject(departmentList);
     			} catch (IOException e) {
-	            e.printStackTrace();
+    				return false;
 	        }
+    	return true;
 	    }
 	
-	/** 학과 파일정보 저장하기*/
-	@Override
-	public boolean dSave(String departmentFileName, List<Department> dList) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 
 	/** 교수 파일정보 불러오기*/
 	@Override
