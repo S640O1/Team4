@@ -14,4 +14,6 @@ public interface DPService {
     boolean deleteDepartment(List<Department> departmentList);
 
 	List<Department> getAllDepartments(List<Department> departmentList);
+
+	void printDepartments(List<Department> dList);
 }

@@ -13,8 +13,9 @@ public interface FileService {
   /** 학과 파일정보 불러오기 : 신경재*/
 	List<Department> dLoad(String departmentFileName);
 	
-	/** 학과 파일정보 저장하기 : 신경재*/
-  void dpSave(String fileName, List<Department> departmentList);
+	/** 학과 파일정보 저장하기 : 신경재
+	 * @return */
+    boolean dpSave(String fileName, List<Department> departmentList);
 
 	/** 교수 파일정보 불러오기 : 손나영*/
 	List<Professor> pLoad(String professorFileName);
