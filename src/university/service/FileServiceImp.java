@@ -2,6 +2,7 @@ package university.service;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
@@ -25,7 +26,16 @@ public class FileServiceImp implements FileService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	 @Override
+    public void dpSave(String fileName, List<Department> departmentList) {
+    	try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
+	            oos.writeObject(departmentList);
+    			} catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	
 	/** 학과 파일정보 저장하기*/
 	@Override
 	public boolean dSave(String departmentFileName, List<Department> dList) {

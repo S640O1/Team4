@@ -28,14 +28,13 @@ public class UniversityProgram implements Program {
 	
 	//메뉴 종료 상수
 	static final int EXIT = 7;
-	static final int DEPARTMENT_EXIT = 5;  // DEPARTMENT_EXIT 상수 추가
 	private int STUDENT_EXIT = 4;	//뒤로 가기
 	static final int LECTURE_EXIT =4;
+	static final int DEPARTMENT_EXIT = 5;  // DEPARTMENT_EXIT 상수 추가
 	static final int PROFESSOR_EXIT = 4;
 	static final int SETPROFESSOR_EXIT = 6;
 
-	
-	//서비스 목록
+  //서비스 목록
 	private PrintService printService = new PrintServiceImp();
 	private FileService fileService = new FileServiceImp();
 	private ProfessorService professorService = new ProfessorServiceImp();
