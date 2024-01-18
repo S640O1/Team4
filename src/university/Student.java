@@ -21,10 +21,9 @@ import lombok.Data;
 public class Student implements Serializable{
 
 	private static final long serialVersionUID = 506099044819552874L;
-	private int studentId, gender;//학번, 성별(1:여성, 2:남성)
+	private int studentId;	//학번
 	private String name, department, phoneNumber;	//이름, 학과, 연락처(01012345678 식으로 입력)
-	//학생이 듣는 강의(강의 번호, 강의명, 담당교수, 인원, 강의 시간, 강의실)
-	List<Lecture> lecture;
+	private char gender;	//성별
 	 
 	//학번, 이름이 같다면
 	@Override
@@ -43,12 +42,12 @@ public class Student implements Serializable{
 		return Objects.hash(name, studentId);
 	}
 	
-	/* 학번 이름
+	/* 학번 이름 성별
 	 * 학과 : 학과명
 	 * 연락처 : 01012345678 */
 	@Override
 	public String toString() {
-		return studentId + " " + name + "\n학과 : " + department + "\n연락처 : " + phoneNumber;
+		return studentId + " " + name + " " + gender + " / 학과 : " + department + " / 연락처 : " + phoneNumber;
 	}
 	 
 }
