@@ -11,7 +11,6 @@ import university.UniversityProgram;
 
 public class ProfessorServiceImp implements ProfessorService {
 	/** 교수정보를 추가하는 메소드*/
-
 	@Override
 	public boolean addProfessor(Professor professor) {
 		//이미 등록된 교수면(교번, 성별, 이름, 연락처 동일)
@@ -23,15 +22,8 @@ public class ProfessorServiceImp implements ProfessorService {
 		return true;
 	}
 
-
-
 	/** 교수정보를 수정하는 메소드*/
-	@Override
-	public List<Professor> setProfessor(List<Professor> list, Professor professor) {
-		return null;
-	}
-	
-	/** 수정 : 1. 전화번호 수정 메소드*/
+		/** 수정 : 1. 전화번호 수정 메소드*/
 	@Override
 	public void setPhoneNum(int index) {
 		System.out.print("전화번호 : ");
@@ -39,12 +31,14 @@ public class ProfessorServiceImp implements ProfessorService {
 		UniversityProgram.pList.get(index).setPhoneNum(phoneNum);
 	}
 
+		/** 수정 : 2. 성별 수정 메소드*/
 	@Override
 	public void setGender(int index) {
 		int gender = UniversityProgram.pList.get(index).getGender()==1 ? 2 : 1;
 		UniversityProgram.pList.get(index).setGender(gender);
 	}
 
+		/** 수정 : 3. 학과 수정 메소드*/
 	@Override
 	public void setDepartment(int index) {
 		System.out.print("학과 : ");
@@ -60,20 +54,21 @@ public class ProfessorServiceImp implements ProfessorService {
 		UniversityProgram.pList.get(index).setDepartment(department);
 	}
 
+		/** 수정 : 4. 이름 수정 메소드*/
 	@Override
 	public void setName(int index) {
-		System.out.print("성함 : ");
+		System.out.print("이름 : ");
 		String name = UniversityProgram.scan.next();
 		UniversityProgram.pList.get(index).setName(name);
 	}
 
+		/** 수정 : 5. 교번 수정 메소드*/
 	@Override
 	public void setNum(int index) {
 		System.out.print("교번 : ");
 		int num = UniversityProgram.scan.nextInt();
 		UniversityProgram.pList.get(index).setNum(num);
 	}
-
 
 	/** 교수정보를 삭제하는 메소드*/
 	@Override
