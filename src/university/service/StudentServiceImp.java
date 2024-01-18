@@ -3,10 +3,14 @@ package university.service;
 import java.util.List;
 import java.util.Scanner;
 
+import accountBook.Item;
 import university.Student;
 
 public class StudentServiceImp implements StudentService {
 
+	/* 안되는 거
+	 * 1. 학생 등록할 때 2번째 부터 추가하는 학생과 그 전의 학생의 출력이 합쳐진다. 
+	 * 2. 성별 수정 때 오류*/
 	//정렬(sort) 메서드 어떻게?
 	Scanner sc = new Scanner(System.in);
 	
@@ -36,7 +40,9 @@ public class StudentServiceImp implements StudentService {
 		}
 		//등록안되있으면 배열에 추가 후 정렬
 		list.add(std);
-		System.out.println(list.toString());
+		for(int i=0;i<list.size();i++) {
+			System.out.println((i+1)+ ". " + list.toString());
+		}
 		//정렬 메서드
 		System.out.println("등록되었습니다.");
 	}

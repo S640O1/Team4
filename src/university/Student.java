@@ -47,7 +47,7 @@ public class Student implements Serializable{
 	 * 연락처 : 01012345678 */
 	@Override
 	public String toString() {
-		return studentId + " " + name + " " + gender + "\n학과 : " + department + "\n연락처 : " + phoneNumber;
+		return studentId + " " + name + " " + gender + " / 학과 : " + department + " / 연락처 : " + phoneNumber;
 	}
 	 
 }
