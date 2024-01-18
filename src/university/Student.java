@@ -46,9 +46,7 @@ public class Student implements Serializable{
 		return Objects.hash(name, studentId);
 	}
 	
-	/* 학번 이름 성별
-	 * 학과 : 학과명
-	 * 연락처 : 01012345678 */
+	/* 학번 이름 성별 / 학과 : 학과명 / 연락처 : 01012345678 */
 	@Override
 	public String toString() {
 		return studentId + " " + name + " " + gender + " / 학과 : " + department + " / 연락처 : " + phoneNumber;
@@ -59,6 +57,11 @@ public class Student implements Serializable{
 		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.gender = gender;
+		this.department = department;
+	}
+	
+	//학과변경시
+	public void setDepartment(Department department) {
 		this.department = department;
 	}
 	 
