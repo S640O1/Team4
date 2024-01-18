@@ -176,7 +176,6 @@ public class UniversityProgram implements Program {
 
         do {
             printService.printScoreMenu();
-
             try {
             	menu = scan.nextInt();
                 runScoreMenu(menu); 
@@ -228,7 +227,7 @@ public class UniversityProgram implements Program {
                 scan.nextLine();
             }
 
-        } while (menu != 3);
+        } while (menu != 6);
 	}
 
 	//각자 파트 조회기능 구현
@@ -238,7 +237,7 @@ public class UniversityProgram implements Program {
 			
 			break;
 		case 2: 	//학생조회
-			
+			studentService.printStudentList(sList);
 			break;
 		case 3: 	//교수조회
 			
