@@ -29,7 +29,7 @@ public class Professor implements Serializable {
 
 	private static final long serialVersionUID = 8377957422955045309L;
 	
-	//교번, 성별(1:여성, 2:남성)
+	//교번, 성별(1:남성, 2:여성)
 	int num, gender;
 	
 	//이름, 연락처(000-0000-0000)
@@ -46,9 +46,9 @@ public class Professor implements Serializable {
 	@Override
 	public String toString() {
 		//조건연산자로 성별 출력
-		String type = gender==1 ? "여성" : "남성";
+		String type = gender==1 ? " 남성" : "여성";
 		
-		return  "[" + num + "]  "+lectureList + "  " + name + "  " + type + "  " + phoneNum;
+		return  "[" + num + "]  "+ department + "  " + name + "  " + type + "  " + phoneNum;
 	}
 	
 	//강의 추가하는 메소드
