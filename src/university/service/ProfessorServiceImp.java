@@ -225,14 +225,8 @@ public class ProfessorServiceImp implements ProfessorService {
 	public List<Professor> setProfessor(List<Professor> list, Professor professor) {
 		return null;
 	}
-
-
-	/** 교수정보를 삭제하는 메소드*/
-	@Override
-	public void deleteProfessor(int index) {
-		pList.remove(index);
-	}
-
+	
+	/** 수정 : 1. 전화번호 수정 메소드*/
 	@Override
 	public void setPhoneNum(int index) {
 		System.out.print("전화번호 : ");
@@ -273,6 +267,13 @@ public class ProfessorServiceImp implements ProfessorService {
 		System.out.print("교번 : ");
 		int num = UniversityProgram.scan.nextInt();
 		pList.get(index).setNum(num);
+	}
+
+
+	/** 교수정보를 삭제하는 메소드*/
+	@Override
+	public void deleteProfessor(int index) {
+		pList.remove(index);
 	}
 
 
