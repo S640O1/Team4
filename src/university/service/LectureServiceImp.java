@@ -88,8 +88,10 @@ public class LectureServiceImp implements LectureService {
 		System.out.print("수정할 강의번호를 선택하세요. : ");
 		
 		int index = UniversityProgram.scan.nextInt()-1;
+		Lecture lec = lList.get(index);
 		
 		//수정할 번호 선택
+		
 		
 		
 		

@@ -16,7 +16,6 @@ import university.service.LectureServiceImp;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Lecture  implements Serializable {
 
 	private static final long serialVersionUID = 9088622124125979149L;
@@ -56,6 +55,20 @@ public class Lecture  implements Serializable {
 	public String toString() {
 		return lectureNum + "." + lectureName + " [" + LectureServiceImp.format1.format(date) + "] 담당 교수 : " +  pName + " (현재인원 / " + maxNum + ") 강의실 : " + lectureRoom ;
 	}
+
+	public Lecture(int lectureNum, int maxNum, int pNum, String lectureName, String pName, String lectureRoom,
+			Date date) {
+		super();
+		this.lectureNum = lectureNum;
+		this.maxNum = maxNum;
+		this.pNum = pNum;
+		this.lectureName = lectureName;
+		this.pName = pName;
+		this.lectureRoom = lectureRoom;
+		this.date = date;
+	}
+
+
 	
 	
 	
