@@ -47,6 +47,9 @@ public class ProfessorServiceImp implements ProfessorService {
 		UniversityProgram.scan.nextLine();
 		String dpName = UniversityProgram.scan.nextLine();
 		//만약 학과가 학과 리스트안에 없다면
+		
+		
+		
 //			if(.equals("dpName")) {
 //				System.out.println("존재하지 않은 학과입니다.");			
 //			}

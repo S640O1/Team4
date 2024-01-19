@@ -386,25 +386,62 @@ public class UniversityProgram implements Program {
 		//교수 정보 입력
 		//이름, 교번, 성별, 전화번호, 학과
 		
-		
 		System.out.print("학과 : ");
 		UniversityProgram.scan.nextLine();
 		String dpName = UniversityProgram.scan.nextLine();
 		//만약 학과가 학과 리스트안에 없다면
-//		if(.equals("dpName")) {
-//			System.out.println("존재하지 않은 학과입니다.");			
-//		}
+		int index=-1;
+		for(int i=0; i<dList.size(); i++) {
+			if(dList.get(i).dpName.equals(dpName)) {
+				index = i;
+				break;
+			}
+		}
+		if(index < 0 || index >= dList.size()) {
+			System.out.println("존재하지 않은 학과입니다.");	
+			return;
+		}
+		
 		//있다면 학과 리스트에서 동일한 학과 정보를 저장
-		Department department = new Department(0, dpName, null, pList);
+		Department department = dList.get(index);
 		
 		System.out.print("성함 : ");
 		String name = UniversityProgram.scan.next();
-		System.out.print("교번 : ");
-		int num = UniversityProgram.scan.nextInt();
+		
+		int num = 0, gender=0;
+		boolean trueNG = true; 
+		while(trueNG) {
+			try {
+				System.out.print("교번 : ");
+				num = UniversityProgram.scan.nextInt();
+				if(num > 0 ) {
+					trueNG = false;
+				}
+				System.out.println("잘못된 교번입니다.");					
+			}catch(InputMismatchException e){
+				System.out.println("잘못된 입력입니다.");
+				UniversityProgram.scan.nextLine();
+			}
+		}
+		
+		while(trueNG) {
+			try {
+				System.out.print("성별(남:1, 여:2) : ");
+				gender = UniversityProgram.scan.nextInt();
+				if(gender == 1 || gender == 2) {
+					trueNG = false;
+				}
+				System.out.println("잘못된 성별입니다.");
+			}catch(InputMismatchException e){
+				System.out.println("잘못된 입력입니다.");
+				UniversityProgram.scan.nextLine();
+			}
+		}
+		
 		System.out.print("전화번호 : ");
-		String phoneNum = UniversityProgram.scan.next();
-		System.out.print("성별(남:1, 여:2) : ");
-		int gender = UniversityProgram.scan.nextInt();
+		UniversityProgram.scan.nextLine();
+		String phoneNum  = UniversityProgram.scan.next();
+		
 		//만약 성별이 1과 2가 아닌 숫자라면 다시 입력
 //		do{
 //			gender = UniversityProgram.scan.nextInt();
