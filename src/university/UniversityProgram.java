@@ -163,7 +163,7 @@ public class UniversityProgram implements Program {
 			professorManage();
 			break;
 		case 3: 
-			studentManage();
+			printStudentMenu();
 			break;
 		case 4: 
 			LectureManager();
@@ -362,13 +362,20 @@ public class UniversityProgram implements Program {
     }
 
 	/** 2. 교수 관리 : 손나영 */
-	private void professorManage() {
-		
+    public void professorManage() {
+		int menu = 0;
+		do {
+			printService.printProfessorMenu();
+			try {
+				menu = UniversityProgram.scan.nextInt();
+				runProfessorMenu(menu);
+			} catch (InputMismatchException e){
+				System.out.println("잘못된 메뉴입니다.");
+				UniversityProgram.scan.nextLine();
+			}
+		} while (menu != PROFESSOR_EXIT);
 	}
-
-	/** 3. 학생 관리 : 양선진 */
-	private void studentManage() {
-
+    
 		/** 교수 : 메뉴실행 */
 	private void runProfessorMenu(int menu) {
 		switch(menu) {
