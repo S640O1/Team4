@@ -41,6 +41,7 @@ public class DPServiceImp implements DPService {
 
         // 사용자로부터 수정할 학과명 입력 받기
         System.out.print("수정할 학과명: ");
+        UniversityProgram.scan.nextLine();
         String targetDepartmentName = UniversityProgram.scan.nextLine();
 
         // 해당 학과를 찾아서 수정
@@ -75,7 +76,11 @@ public class DPServiceImp implements DPService {
 
         // 사용자로부터 삭제할 학과명 입력 받기
         System.out.print("삭제할 학과명: ");
+        UniversityProgram.scan.nextLine();
         String targetDepartmentName = UniversityProgram.scan.nextLine();
+        
+        //학과 리스트가 존재하지 않을 때
+        	//return;
 
         // 해당 학과를 찾아서 삭제
         List<Department> targetDepartments = departmentList.stream()

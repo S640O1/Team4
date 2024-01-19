@@ -18,6 +18,9 @@ public interface PrintService {
 	
 	// 강의 수정 메뉴
 	void printLectureUpdateMenu();
+	void printEnrolmentMenu();
+	void printScoreMenu();
+	void printPrintMenu();
 
 
 	

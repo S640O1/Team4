@@ -22,19 +22,26 @@ public class FileServiceImp implements FileService {
 	/** 학과 파일정보 불러오기*/
 	@Override
 	public List<Department> dLoad(String departmentFileName) {
-		// TODO Auto-generated method stub
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(departmentFileName))) {
+			System.out.println("학과를 불러왔습니다.");
+			return (List<Department>)ois.readObject();
+		} catch (Exception e) {
+			System.out.println("학과를 등록해주세요.");
+		}
 		return null;
 	}
 	
 	/** 학과 파일정보 저장하기*/
 	 @Override
     public boolean dpSave(String fileName, List<Department> departmentList) {
-    	try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
-	            oos.writeObject(departmentList);
-    			} catch (IOException e) {
-    				return false;
-	        }
-    	return true;
+		 try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
+				oos.writeObject(departmentList);
+				oos.flush();
+				return true;
+			} catch (Exception e) {
+				System.out.println("예외가 발생했습니다.");
+			}
+			return false;
 	    }
 	
 
@@ -43,14 +50,10 @@ public class FileServiceImp implements FileService {
 	public List<Professor> pLoad(String professorFileName) {
 		try(ObjectInputStream ois = 
 			new ObjectInputStream(new FileInputStream(professorFileName))){
-			if(ois.readObject() == null) {
-				System.out.println("교수 정보를 등록해주세요.");
-				return new ArrayList<Professor>();
-			}
 			System.out.println("교수 정보를 불러왔습니다.");
 			return (List<Professor>) ois.readObject();				
 		} catch (Exception e) {
-			System.out.println("교수 정보를 불러오는 중 오류가 발생하였습니다.");
+			System.out.println("교수를 등록해주세요.");
 		}
 		return null;
 	}
@@ -71,14 +74,25 @@ public class FileServiceImp implements FileService {
 	/** 학생 파일정보 불러오기*/
 	@Override
 	public List<Student> sLoad(String studentFileName) {
-		// TODO Auto-generated method stub
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(studentFileName))) {
+			System.out.println("학생을 불러왔습니다.");
+			return (List<Student>)ois.readObject();
+		} catch (Exception e) {
+			System.out.println("학생을 등록해주세요.");
+		}
 		return null;
 	}
 
 	/** 학생 파일정보 저장하기*/
 	@Override
 	public boolean sSave(String studentFileName, List<Student> sList) {
-		// TODO Auto-generated method stub
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(studentFileName))) {
+			oos.writeObject(sList);
+			oos.flush();
+			return true;
+		} catch (Exception e) {
+			System.out.println("예외가 발생했습니다.");
+		}
 		return false;
 	}
 
