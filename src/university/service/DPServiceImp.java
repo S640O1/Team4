@@ -11,6 +11,7 @@ public class DPServiceImp implements DPService {
     @Override
     public List<Department> getAllDepartments(List<Department> departmentList) {
         // 학과 목록 조회
+    	
         return departmentList;
     }
 
@@ -106,6 +107,8 @@ public class DPServiceImp implements DPService {
 
 	@Override
 	public void printDepartments(List<Department> dList) {
-		
+		for(int i = 0; i<dList.size(); i++) {
+			System.out.println(dList.get(i).toString());
+    	}
 	}
 }
