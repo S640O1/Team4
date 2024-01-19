@@ -574,7 +574,7 @@ public class UniversityProgram implements Program {
 				
 				
 			}catch (InputMismatchException e) {
-				System.out.println("잘못된 메뉴입니다.22");
+				System.out.println("잘못된 메뉴입니다.");
 				scan.nextLine();
 			}
 			
@@ -601,7 +601,6 @@ public class UniversityProgram implements Program {
 			
 		case 3 :
 			deleteLecture();
-			System.out.println("강의 삭제");
 			break;
 		case 4 :
 			System.out.println("뒤로가기");
@@ -621,13 +620,14 @@ public class UniversityProgram implements Program {
 	/** 4. 강의 수정 : 심아진*/
 	private void updateLecture() {
 		lectureService.setLecture(lList, lecture);
+		fileService.lSave(lectureFileName, lList);
 	
 	}
 
 	/** 4. 강의 삭제 : 심아진*/
 	private void deleteLecture() {
-
-		
+		lectureService.deleteLecture(lList);
+		fileService.lSave(lectureFileName, lList);
 	}
 
 }

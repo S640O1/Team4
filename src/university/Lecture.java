@@ -25,26 +25,6 @@ public class Lecture  implements Serializable {
 	Date date = new Date(); // 강의 시간
 	List<Student> students;
 	
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Lecture other = (Lecture) obj;
-		return Objects.equals(date, other.date) && Objects.equals(lectureName, other.lectureName)
-				&& lectureNum == other.lectureNum && Objects.equals(lectureRoom, other.lectureRoom)
-				&& Objects.equals(pName, other.pName) && maxNum == other.maxNum;
-	}
-	
-	@Override
-	public int hashCode() {
-		return Objects.hash(date, lectureName, lectureNum, lectureRoom, pName, maxNum);
-	}
-
 
 	/*
 	 강의 번호. 강의명 && 시간 (담당교수 : ㅇㅇㅇ) (현재인원/최대인원) 강의실  
@@ -66,6 +46,25 @@ public class Lecture  implements Serializable {
 		this.pName = pName;
 		this.lectureRoom = lectureRoom;
 		this.date = date;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Lecture other = (Lecture) obj;
+		return Objects.equals(date, other.date) && Objects.equals(lectureName, other.lectureName)
+				&& lectureNum == other.lectureNum && Objects.equals(lectureRoom, other.lectureRoom)
+				&& maxNum == other.maxNum && Objects.equals(pName, other.pName) && pNum == other.pNum;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(date, lectureName, lectureNum, lectureRoom, maxNum, pName, pNum);
 	}
 
 
