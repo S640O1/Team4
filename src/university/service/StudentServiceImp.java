@@ -120,6 +120,7 @@ public class StudentServiceImp implements StudentService {
 			System.out.println("수정할 전공 : ");
 			UniversityProgram.scan.nextLine();
 			int department = UniversityProgram.scan.nextInt();
+			//setDepartment를 어떻게 구현해야 할까...
 			std.setDepartment(department);
 			System.out.println(std.toString());
 			System.out.println("수정되었습니다.");
