@@ -22,6 +22,9 @@ public interface ProfessorService {
 	
 	/** 교수정보를 삭제하는 메소드*/
 	void deleteProfessor(int index);
+	
+	/** 교수정보를 조회하는 메소드*/
+	boolean printProfessor();
 
 	
 }
