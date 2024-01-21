@@ -31,7 +31,7 @@ public class UniversityProgram implements Program {
 	static String departmentFileName = "src/university/departmentList.txt";
 	
 	//메뉴 종료 상수
-	static final int EXIT = 7;
+	static final int EXIT = 8;
 
 	//서비스 목록
 	private int STUDENT_EXIT = 4;	//뒤로 가기
@@ -170,14 +170,12 @@ public class UniversityProgram implements Program {
 			break;
 		case 5: 
 			enrolmentManager();
-			System.out.println("수강 관리 서비스 예정");
 			break;
 		case 6: 	//성적관리시스템
 			scoreManager();
 			break;
 		case 7:
 			printManager();
-			System.out.println("조회 서비스 예정");
 			break;
 		case 8:
 			System.out.println("프로그램을 종료합니다.");
@@ -233,18 +231,16 @@ public class UniversityProgram implements Program {
 	private void printManager() {
 		int menu = 0;
 
-        do {
-            printService.printPrintMenu();
+        printService.printPrintMenu();
 
-            try {
-            	menu = scan.nextInt();
-                runPrintMenu(menu); 
-            } catch (InputMismatchException e) {
-                System.out.println("잘못된 메뉴입니다.");
-                scan.nextLine();
-            }
+        try {
+        	menu = scan.nextInt();
+            runPrintMenu(menu); 
+        } catch (InputMismatchException e) {
+            System.out.println("잘못된 메뉴입니다.");
+            scan.nextLine();
+        }
 
-        } while (menu != 3);
 	}
 
 	//각자 파트 조회기능 구현
@@ -260,7 +256,9 @@ public class UniversityProgram implements Program {
 			
 			break;
 		case 4: 	//강의조회
-			
+			if (!lectureService.printLecture(lList)) {
+				System.out.println("등록된 강의가 없습니다.");
+			}
 			break;
 		case 5: 	//성적조회
 //			성적 조회

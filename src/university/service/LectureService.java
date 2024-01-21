@@ -19,4 +19,5 @@ public interface LectureService {
 	public boolean printLecture(List<Lecture> lList);
 	
 	
+	
 }
