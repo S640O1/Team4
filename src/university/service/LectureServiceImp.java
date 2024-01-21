@@ -61,7 +61,10 @@ public class LectureServiceImp implements LectureService {
 		Lecture lecture = new Lecture(lectureNum, maxNum, pNum, lectureName,  pName, lectureRoom, date);
 		// System.out.println(lecture);
 		
-		//강의 번호가 같으면 등록 X 코드 작성
+		//강의 같으면 등록 X 코드 작성 => 같은 강의 등록해도 저장이 되는 오류
+		if (lList.equals(lecture)) {
+			System.out.println("이미 등록된 강의입니다.");
+		}
 		
 		lList.add(lecture);
 		System.out.println("강의가 등록되었습니다.");

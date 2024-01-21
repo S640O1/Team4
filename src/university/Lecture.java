@@ -48,6 +48,9 @@ public class Lecture  implements Serializable {
 		this.date = date;
 	}
 
+	// 강의 번호, 강의명, 교수번호, 교수이름, 강의시간, 강의실이 같은 경우
+	
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -59,12 +62,12 @@ public class Lecture  implements Serializable {
 		Lecture other = (Lecture) obj;
 		return Objects.equals(date, other.date) && Objects.equals(lectureName, other.lectureName)
 				&& lectureNum == other.lectureNum && Objects.equals(lectureRoom, other.lectureRoom)
-				&& maxNum == other.maxNum && Objects.equals(pName, other.pName) && pNum == other.pNum;
+				&& Objects.equals(pName, other.pName) && pNum == other.pNum;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, lectureName, lectureNum, lectureRoom, maxNum, pName, pNum);
+		return Objects.hash(date, lectureName, lectureNum, lectureRoom, pName, pNum);
 	}
 
 
