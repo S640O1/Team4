@@ -18,6 +18,7 @@ public interface PrintService {
 	void printScoreMenu();
 	void printPrintMenu();
 
+	void printScoreSubMenu();
 
 	
 }

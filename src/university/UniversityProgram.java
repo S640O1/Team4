@@ -169,7 +169,7 @@ public class UniversityProgram implements Program {
 			LectureManager();
 			break;
 		case 5: 
-			enrolmentManager();
+			enrolmentManager();		//수강신청
 			break;
 		case 6: 	//성적관리시스템
 			scoreManager();
@@ -190,7 +190,6 @@ public class UniversityProgram implements Program {
 
         do {
             printService.printScoreMenu();
-
             try {
             	menu = scan.nextInt();
                 runScoreMenu(menu); 
@@ -203,6 +202,7 @@ public class UniversityProgram implements Program {
 	}
 
 	private void runScoreMenu(int menu) {
+		
 		switch(menu) {
 		case 1:		//성적등록
 //			scoreService.~~();
@@ -250,10 +250,13 @@ public class UniversityProgram implements Program {
 			
 			break;
 		case 2: 	//학생조회
-			
+			//왜 안되지...?
+			studentService.printStudentList(sList);
 			break;
 		case 3: 	//교수조회
-			
+			if(!professorService.printProfessor()) {
+				return;
+			}
 			break;
 		case 4: 	//강의조회
 			if (!lectureService.printLecture(lList)) {
@@ -261,12 +264,22 @@ public class UniversityProgram implements Program {
 			}
 			break;
 		case 5: 	//성적조회
-//			성적 조회
-//			 *     -		- 학생 성적 조회 : 
-//			 *     				- 평균 학점 조회
-//		 *     					- 전체 학점 조회(수강하고있는 강의목록과 그 강의 점수 출력) 
-
+			do {
+			printService.printScoreSubMenu();
+			menu = scan.nextInt();
+			}while(menu != 3);
+			switch(menu) {
+			case 1 :
+				scoreService.showStudentStandardScore(sList);
+				break;
+			case 2 : 
+				scoreService.showStudentLectureScore(sList);
+				break;
+			case 3 : //뒤로 가기
+				break;
+			}
 			break;
+			
 		case 6: 
 			break;
 		default : 
@@ -293,13 +306,15 @@ public class UniversityProgram implements Program {
         } while (menu != 3);
 	}
 
-	/** 수강신청 관리 : 메뉴실행*/
+	/** 수강신청 관리 : 메뉴실행 : 손나영*/
 	private void runEnrolmentMenu(int menu) {
 		switch(menu) {
 		case 1:	//수강신청, 손나영
+			enrolment();
 //			enrolmentService.~~~();
 			break;
 		case 2: //수강 취소
+			Withdrawal();
 //			enrolmentService.~~();
 			break;
 		case 3: 
@@ -307,6 +322,119 @@ public class UniversityProgram implements Program {
 		default : 
 			throw new InputMismatchException();
 		}		
+		fileService.lSave(lectureFileName, lList);
+		fileService.sSave(studentFileName, sList);
+		fileService.pSave(professorFileName);
+	}
+		/** 수강신청 : 1. 수강신청*/
+	private void enrolment() {
+		//학생 학번 입력(로그인처럼)
+		boolean trueS =true;
+		int id = -1;
+		while(trueS) {
+			try {
+				System.out.println("학번을 입력하세요.");
+				id = scan.nextInt();
+				if(id > 0 ) {
+					trueS = false;
+				}else {
+					System.out.println("잘못된 학번입니다.");
+				}
+			}catch(InputMismatchException e){
+				System.out.println("잘못된 입력입니다.");
+				scan.nextLine();
+			}
+		}
+		
+		int indexS  = -1;	//학생인덱스
+		boolean isStudent = false;
+		//학번이 동일한 학생을 찾는다.
+		for(int i=0; i<sList.size(); i++) {
+			if(sList.get(i).getStudentId()==id) {
+				indexS = i;
+				isStudent = true;
+				break;
+			}
+		}
+		if(!isStudent) {
+			System.out.println("등록되지 않은 학생입니다.");
+			return;
+		}
+		
+		//등록된 학생이라면 강의 목록을 보여준다
+		//강의 목록이 없다면 메소드를 종료한다
+		if(!lectureService.printLecture(lList, lectureFileName)) {
+			return;
+		}
+		
+		//강의 번호를 선택한다.
+		boolean trueL =true;
+		int indexL = -1;	//강의인덱스
+		while(trueL) {
+			try {
+				System.out.println("수강할 강의를 선택하세요.");
+				indexL = scan.nextInt() - 1;
+				if(indexL > 0 || indexL >= lList.size()) {
+					trueL = false;
+				}else {
+					System.out.println("없는 강의입니다.");
+				}
+			}catch(InputMismatchException e){
+				System.out.println("잘못된 입력입니다.");
+				scan.nextLine();
+			}
+		}
+		
+		if(!enrolmentService.applications(indexL, indexS, lList, sList)) {
+			return;
+		}
+		System.out.println("수강신청이 완료되었습니다.");
+	}
+
+	/** 수강신청 : 2. 수강취소*/
+	private void Withdrawal() {
+		//학생 학번 입력(로그인처럼)
+		boolean trueS =true;
+		int id = -1;
+		while(trueS) {
+			try {
+				System.out.println("학번을 입력하세요.");
+				id = scan.nextInt();
+				if(id > 0 ) {
+					trueS = false;
+				}else {
+					System.out.println("잘못된 학번입니다.");
+				}
+			}catch(InputMismatchException e){
+				System.out.println("잘못된 입력입니다.");
+				scan.nextLine();
+			}
+		}
+		
+		int indexS  = -1;	//학생인덱스
+		boolean isStudent = false;
+		//학번이 동일한 학생을 찾는다.
+		for(int i=0; i<sList.size(); i++) {
+			if(sList.get(i).getStudentId()==id) {
+				indexS = i;
+				isStudent = true;
+				break;
+			}
+		}
+		if(!isStudent) {
+			System.out.println("등록되지 않은 학생입니다.");
+			return;
+		}
+		
+		//해당학생이 수강하고 있는 강의 목록 출력
+		
+		//삭제하고 싶은 강의 목록 선택
+		
+		//강의 리스트에서 동일한 강의 인덱스 얻어오기(학수번호)
+		
+		//해당 강의 리스트에서 강의 삭제하기 
+
+		//해당강의 학생 리스트에서도 삭제
 	}
 
 	/** 1. 학과 관리 : 신경재 */
@@ -365,7 +493,7 @@ public class UniversityProgram implements Program {
 		do {
 			printService.printProfessorMenu();
 			try {
-				menu = UniversityProgram.scan.nextInt();
+				menu = scan.nextInt();
 				runProfessorMenu(menu);
 			} catch (InputMismatchException e){
 				System.out.println("잘못된 메뉴입니다.");
@@ -379,14 +507,15 @@ public class UniversityProgram implements Program {
 		switch(menu) {
 		case 1: 	//교수등록
 			addProfessor();
-			//세이브 
+			fileService.pSave(professorFileName);
 			break;
 		case 2: 	//교수수정
 			setProfessor();
+			fileService.pSave(professorFileName);
 			break;	
 		case 3: 	//교수삭제
 			delseteProfessor();
-
+			fileService.pSave(professorFileName);
 			break;
 		case 4: 
 			break;
@@ -400,30 +529,63 @@ public class UniversityProgram implements Program {
 		//교수 정보 입력
 		//이름, 교번, 성별, 전화번호, 학과
 		
-		
 		System.out.print("학과 : ");
-		UniversityProgram.scan.nextLine();
-		String dpName = UniversityProgram.scan.nextLine();
+		scan.nextLine();
+		String dpName = scan.nextLine();
 		//만약 학과가 학과 리스트안에 없다면
-//		if(.equals("dpName")) {
-//			System.out.println("존재하지 않은 학과입니다.");			
-//		}
+		int index=-1;
+		for(int i=0; i<dList.size(); i++) {
+			if(dList.get(i).dpName.equals(dpName)) {
+				index = i;
+				break;
+			}
+		}
+		if(index < 0 || index >= dList.size()) {
+			System.out.println("존재하지 않은 학과입니다.");	
+			return;
+		}
+		
 		//있다면 학과 리스트에서 동일한 학과 정보를 저장
-		Department department = new Department(0, dpName, null, pList);
+		Department department = dList.get(index);
 		
 		System.out.print("성함 : ");
-		String name = UniversityProgram.scan.next();
-		System.out.print("교번 : ");
-		int num = UniversityProgram.scan.nextInt();
+		String name = scan.next();
+		
+		int num = 0, gender=0;
+		boolean trueN = true, trueG = true; 
+		while(trueN) {
+			try {
+				System.out.print("교번 : ");
+				num = scan.nextInt();
+				if(num > 0 ) {
+					trueN = false;
+				}else {
+					System.out.println("잘못된 교번입니다.");
+				}
+			}catch(InputMismatchException e){
+				System.out.println("잘못된 입력입니다.");
+				scan.nextLine();
+			}
+		}
+		
+		while(trueG) {
+			try {
+				System.out.print("성별(남:1, 여:2) : ");
+				gender = scan.nextInt();
+				if(gender == 1 || gender == 2) {
+					trueG = false;
+				}else {
+					System.out.println("잘못된 성별입니다.");
+				}
+			}catch(InputMismatchException e){
+				System.out.println("잘못된 입력입니다.");
+				scan.nextLine();
+			}
+		}
+		
 		System.out.print("전화번호 : ");
-		String phoneNum = UniversityProgram.scan.next();
-		System.out.print("성별(남:1, 여:2) : ");
-		int gender = UniversityProgram.scan.nextInt();
-		//만약 성별이 1과 2가 아닌 숫자라면 다시 입력
-//		do{
-//			gender = UniversityProgram.scan.nextInt();
-//			System.out.println("잘못된 성별입니다.");
-//		}while(!(gender==1) || !(gender==2));
+		scan.nextLine();
+		String phoneNum  = scan.next();
 		
 		Professor professor = new Professor(num, gender, name, phoneNum, department, null);
 		if(!professorService.addProfessor(professor)){
@@ -431,15 +593,32 @@ public class UniversityProgram implements Program {
 			return;
 		}
 		System.out.println("교수를 등록했습니다.");
-		professor.toString();
+		professorService.printProfessor();
 	}
 	
 		/** 교수 : 2. 교수 수정 */
 	private void setProfessor() {
 		//교수 목록을 보여줌(조회)
+		if(!professorService.printProfessor()) {
+			return;
+		}
+		boolean trueN =true;
+		int num = -1;
+		while(trueN) {
+			try {
+				System.out.print("수정할 교수의 교번을 입력하세요 : ");
+				num = scan.nextInt();
+				if(num > 0 ) {
+					trueN = false;
+				}else {
+					System.out.println("잘못된 교번입니다.");
+				}
+			}catch(InputMismatchException e){
+				System.out.println("잘못된 입력입니다.");
+				scan.nextLine();
+			}
+		}
 		
-		System.out.print("수정할 교수의 교번을 입력하세요 : ");
-		int num = UniversityProgram.scan.nextInt();
 		
 		//해당 교번과 동일한 교수정보 인덱스를 찾아서 삭제진행
 		int index = -1;
@@ -460,12 +639,12 @@ public class UniversityProgram implements Program {
 		do {
 			printService.printSetProfessorMenu();
 			try {
-				menu = UniversityProgram.scan.nextInt();
+				menu = scan.nextInt();
 				runSetProfessorMenu(menu, index);
 				break;
 			} catch (InputMismatchException e){
 				System.out.println("잘못된 메뉴입니다.");
-				UniversityProgram.scan.nextLine();
+				scan.nextLine();
 			}
 		} while (menu != SETPROFESSOR_EXIT);
 	}
@@ -498,7 +677,6 @@ public class UniversityProgram implements Program {
 		default : 
 			throw new InputMismatchException();
 		}
-		//세이브
 	}
 	
 
@@ -506,10 +684,26 @@ public class UniversityProgram implements Program {
 		/** 교수 : 3. 교수 삭제 */
 	private void delseteProfessor() {
 		//교수 목록을 보여줌(조회)
+		if(!professorService.printProfessor()) {
+			return;
+		}
 
-
-		System.out.print("삭제할 교수의 교번을 입력하세요 : ");
-		int num = UniversityProgram.scan.nextInt();
+		boolean trueN =true;
+		int num = -1;
+		while(trueN) {
+			try {
+				System.out.print("삭제할 교수의 교번을 입력하세요 : ");
+				num = scan.nextInt();
+				if(num > 0 ) {
+					trueN = false;
+				}else {
+					System.out.println("잘못된 교번입니다.");
+				}
+			}catch(InputMismatchException e){
+				System.out.println("잘못된 입력입니다.");
+				scan.nextLine();
+			}
+		}
 
 //		해당 교번과 동일한 교수정보 인덱스를 찾아서 삭제진행
 		for(int i=0; i<pList.size(); i++) {
@@ -519,7 +713,7 @@ public class UniversityProgram implements Program {
 				return;
 			}
 		}
-		System.out.println("잘못된 교번입니다.");
+		System.out.println("등록되지 않은 교수입니다.");
 		
 	}
 	

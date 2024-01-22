@@ -33,7 +33,7 @@ public class Department implements Serializable{
 	
 	@Override
 	public String toString() {
-		return "Department [dpName=" + dpName + "]";
+		return dpNum +". 학과명 : "+ dpName  ;
 	}
 
 	@Override
