@@ -1,7 +1,7 @@
 package university;
 
 public class UniversityMain {
-	int main;
+
 	/*
 	 * 대학생 관리 프로그램을 작성하세요.
 	 * 
