@@ -176,7 +176,6 @@ public class UniversityProgram implements Program {
 
         do {
             printService.printScoreMenu();
-
             try {
             	menu = scan.nextInt();
                 runScoreMenu(menu); 
@@ -189,6 +188,7 @@ public class UniversityProgram implements Program {
 	}
 
 	private void runScoreMenu(int menu) {
+		
 		switch(menu) {
 		case 1:		//성적등록
 //			scoreService.~~();
@@ -228,7 +228,7 @@ public class UniversityProgram implements Program {
                 scan.nextLine();
             }
 
-        } while (menu != 3);
+        } while (menu != 6);
 	}
 
 	//각자 파트 조회기능 구현
@@ -238,7 +238,8 @@ public class UniversityProgram implements Program {
 			
 			break;
 		case 2: 	//학생조회
-			
+			//왜 안되지...?
+			studentService.printStudentList(sList);
 			break;
 		case 3: 	//교수조회
 			
@@ -247,12 +248,22 @@ public class UniversityProgram implements Program {
 			
 			break;
 		case 5: 	//성적조회
-//			성적 조회
-//			 *     -		- 학생 성적 조회 : 
-//			 *     				- 평균 학점 조회
-//		 *     					- 전체 학점 조회(수강하고있는 강의목록과 그 강의 점수 출력) 
-
+			do {
+			printService.printScoreSubMenu();
+			menu = scan.nextInt();
+			}while(menu != 3);
+			switch(menu) {
+			case 1 :
+				scoreService.showStudentStandardScore(sList);
+				break;
+			case 2 : 
+				scoreService.showStudentLectureScore(sList);
+				break;
+			case 3 : //뒤로 가기
+				break;
+			}
 			break;
+			
 		case 6: 
 			break;
 		default : 
