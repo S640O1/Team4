@@ -103,20 +103,22 @@ public class PrintServiceImp implements PrintService {
 
 	@Override
 	public void printEnrolmentMenu() {
-		// TODO Auto-generated method stub
+		System.out.println("-------수강 관리-------");
+        System.out.println("1. 수강 신청");
+        System.out.println("2. 수강 취소");
+        System.out.println("3. 뒤로 가기");
+        System.out.println("---------------");
+        System.out.print("메뉴 선택 : ");		
 		
 	}
 
 
 	@Override
 	public void printScoreMenu() {
-		System.out.println("---------조회---------");
-        System.out.println("1. 학과 조회");
-        System.out.println("2. 학생 조회");
-        System.out.println("3. 교수 조회");
-        System.out.println("4. 강의 조회");
-        System.out.println("5. 성적 조회");
-        System.out.println("6. 뒤로 가기");
+		System.out.println("-------성적 관리-------");
+        System.out.println("1. 성적 등록");
+        System.out.println("2. 성적 수정");
+        System.out.println("3. 뒤로가기");
         System.out.println("---------------");
         System.out.print("메뉴 선택 : ");		
 	}

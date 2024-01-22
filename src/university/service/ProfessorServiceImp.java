@@ -17,10 +17,11 @@ public class ProfessorServiceImp implements ProfessorService {
 	/** 교수정보를 추가하는 메소드*/
 	@Override
 	public boolean addProfessor(Professor professor) {
+		
 		//이미 등록된 교수면(교번, 성별, 이름, 연락처 동일)
-		if(pList.equals(professor)) {
-			return false;
-		}
+//		if(pList.equals(professor)) {
+//			return false;
+//		}
 		//새 교수를 등록
 		pList.add(professor);
 		return true;
@@ -86,12 +87,15 @@ public class ProfessorServiceImp implements ProfessorService {
 	/** 교수정보를 조회하는 메소드*/
 	@Override
 	public boolean printProfessor() {
-		if(pList.size() == 0) {
+		if(pList.isEmpty()) {
 			System.out.println("등록된 교수가 없습니다.");
 			return false;
 		}
 		
-		pList.stream().forEach(p->p.toString());
+//		pList.stream().forEach(p->p.toString());
+		for(int i=0; i<pList.size(); i++) {
+			System.out.println(pList.get(i).toString());
+		}
 		return true;
 		
 	}

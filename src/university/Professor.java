@@ -40,7 +40,7 @@ public class Professor implements Serializable {
 		 
 	 //담당 강의(강의 번호, 강의명, 담당교수, 인원, 강의 시간, 강의실)
 	 //입력받지 않음
-	 List<Lecture> lectureList;
+	 List<Lecture> lList;
 	 
 	//출력 재정의
 	@Override
@@ -57,12 +57,12 @@ public class Professor implements Serializable {
 	//강의 수정하는 메소드
 	public boolean setMean(int pos, Lecture lecture) {
 		//뜻을 저장하는 리스트가 생성되어 있지 않으면
-		if(lectureList == null) {
+		if(lList == null) {
 			return false;
 		}
 
 		//pos가 잘못된 경우
-		if(pos < 0 || pos >= lectureList.size()) {
+		if(pos < 0 || pos >= lList.size()) {
 			return false;
 		}
 		
@@ -79,10 +79,6 @@ public class Professor implements Serializable {
 	//강의를 삭제하는 메소드
 	
 	
-	
-	
-	
-
 
 	//교번, 성별, 이름, 연락처만 동일해도 같은 교수로 판별
 	@Override
@@ -104,8 +100,7 @@ public class Professor implements Serializable {
 		return Objects.hash(gender, name, num, phoneNum);
 	}
 
-	public Professor(int num, int gender, String name, String phoneNum, Department department,
-			List<Lecture> lectureList) {
+	public Professor(int num, int gender, String name, String phoneNum, Department department, List<Lecture> lList) {
 		super();
 		this.num = num;
 		this.gender = gender;
@@ -113,10 +108,9 @@ public class Professor implements Serializable {
 		this.phoneNum = phoneNum;
 		this.department = department;
 		//만약 강의 리스트가 없다면
-		if(lectureList == null) {
-			lectureList = new ArrayList<Lecture>();
+		if(lList == null || lList.size() ==0) {
+			this.lList = new ArrayList<Lecture>();
 		}
-		this.lectureList = lectureList;
 	}
 
 
