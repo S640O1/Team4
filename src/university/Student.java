@@ -59,10 +59,6 @@ public class Student implements Serializable{
 		this.gender = gender;
 		this.department = department;
 	}
-	
-	//학과변경시
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
+
 
 }

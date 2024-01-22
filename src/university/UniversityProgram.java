@@ -54,7 +54,7 @@ public class UniversityProgram implements Program {
 	
 	//대학교 정보
 	private List<Lecture> lList = new ArrayList<Lecture>();
-	private List<Department> dList = new ArrayList<Department>();
+	public static List<Department> dList = new ArrayList<Department>();
 	private List<Student> sList = new ArrayList<Student>();
 
 	public static List<Professor> pList;
@@ -363,7 +363,7 @@ public class UniversityProgram implements Program {
 		
 		//등록된 학생이라면 강의 목록을 보여준다
 		//강의 목록이 없다면 메소드를 종료한다
-		if(!lectureService.printLecture(lList, lectureFileName)) {
+		if(!lectureService.printLecture(lList)) {
 			return;
 		}
 		
