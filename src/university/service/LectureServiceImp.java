@@ -20,6 +20,7 @@ public class LectureServiceImp implements LectureService {
 	
 	
 	/** 강의(리스트)에 내역을 추가하는 메소드 : 심아진 */
+	@SuppressWarnings("unlikely-arg-type")
 	@Override
 	public List<Lecture> addLecture(List<Lecture> lList, String lectureFileName) {
 
@@ -30,9 +31,16 @@ public class LectureServiceImp implements LectureService {
 		System.out.print("강의 번호를 입력하세요 : ");
 		int lectureNum = UniversityProgram.scan.nextInt();
 		
+
+		
 		System.out.print("강의명을 입력하세요 : ");
 		UniversityProgram.scan.nextLine();
 		String lectureName = UniversityProgram.scan.nextLine();
+		
+		//교수 리스트 출력
+//		if(!professorService.printProfessor()) {
+//			return;
+//		}
 		
 		//교수가 있다면 입력 받고, 없으면 받지 않음 -> 교수 완성되면 실행
 		System.out.print("담당 교수 번호를 입력하세요 : ");
@@ -58,12 +66,16 @@ public class LectureServiceImp implements LectureService {
 		System.out.print("강의실을 입력하세요 : ");
 		String lectureRoom = UniversityProgram.scan.nextLine();
 		
-		Lecture lecture = new Lecture(lectureNum, maxNum, pNum, lectureName,  pName, lectureRoom, date);
+		Lecture lecture = new Lecture(lectureNum, maxNum, pNum, lectureName,  pName, lectureRoom, date, null);
 		// System.out.println(lecture);
 		
 		//강의 같으면 등록 X 코드 작성 => 같은 강의 등록해도 저장이 되는 오류
-		if (lList.equals(lecture)) {
-			System.out.println("이미 등록된 강의입니다.");
+
+		for(int i=0; i<lList.size(); i++) {
+			if(lList.get(i).equals(lectureNum)) {
+				System.out.println("이미 등록된 강의입니다.");
+				return lList;
+			}
 		}
 		
 		lList.add(lecture);

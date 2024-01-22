@@ -1,6 +1,7 @@
 package university;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +16,7 @@ import university.service.LectureServiceImp;
 // 강의 번호, 강의명, 담당교수, 인원, 강의 시간, 강의실 + 성적
 
 @Data
-@AllArgsConstructor
+//@AllArgsConstructor
 public class Lecture  implements Serializable {
 
 	private static final long serialVersionUID = 9088622124125979149L;
@@ -33,11 +34,11 @@ public class Lecture  implements Serializable {
 	
 	@Override
 	public String toString() {
-		return lectureNum + "." + lectureName + " [" + LectureServiceImp.format1.format(date) + "] 담당 교수 : " +  pName + " (현재인원 / " + maxNum + ") 강의실 : " + lectureRoom ;
+		return lectureNum + "." + lectureName + " [" + LectureServiceImp.format1.format(date) + "] 담당 교수 : " +  pName + " ("+ students.size() +" / " + maxNum + ") 강의실 : " + lectureRoom ;
 	}
 
 	public Lecture(int lectureNum, int maxNum, int pNum, String lectureName, String pName, String lectureRoom,
-			Date date) {
+			Date date, List<Student> students) {
 		super();
 		this.lectureNum = lectureNum;
 		this.maxNum = maxNum;
@@ -46,11 +47,20 @@ public class Lecture  implements Serializable {
 		this.pName = pName;
 		this.lectureRoom = lectureRoom;
 		this.date = date;
+		if(students == null || students.size() ==0) {
+			this.students = new ArrayList<Student>();
+		}
 	}
 
 	// 강의 번호, 강의명, 교수번호, 교수이름, 강의시간, 강의실이 같은 경우
 	
 	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(lectureNum);
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -60,15 +70,9 @@ public class Lecture  implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Lecture other = (Lecture) obj;
-		return Objects.equals(date, other.date) && Objects.equals(lectureName, other.lectureName)
-				&& lectureNum == other.lectureNum && Objects.equals(lectureRoom, other.lectureRoom)
-				&& Objects.equals(pName, other.pName) && pNum == other.pNum;
+		return lectureNum == other.lectureNum;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(date, lectureName, lectureNum, lectureRoom, pName, pNum);
-	}
 
 
 	

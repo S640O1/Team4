@@ -31,13 +31,24 @@ public class EnrolmentServiceImp implements EnrolmentService {
 		//수강 강의 인스턴스
 		Lecture lecture = lList.get(indexL);
 		
+		
+		
 		//만약 강의 속 학생 리스트의 사이즈가 수강인원보다 적다면 수강신청 완료
+		
 		if(lecture.getStudents().size() >= lecture.getMaxNum()) {
 			System.out.println("수강인원이 초과되었습니다.");
 			return false;
+		}else if(lecture.getStudents().isEmpty()) {
+	
 		}
+		
 		//학생 정보에 수강강의 추가
 		std.getLecture().add(lecture);
+		
+//		List<Lecture> lec = std.getLecture();
+//		lec.add(lecture);
+//		std.getLecture().set(indexL, lecture);
+		
 		
 		//강의의 수강학생 목록에 학생 추가
 		lecture.getStudents().add(std);
@@ -46,7 +57,7 @@ public class EnrolmentServiceImp implements EnrolmentService {
 		//해당 강의 교수 정보에 강의 정보 업데이트
 		for(int i=0; i<pList.size(); i++) {
 			if(pList.get(i).getNum() == lecture.getPNum()) {
-				pList.get(i).getLectureList().add(lecture);
+				pList.get(i).getLList().add(lecture);
 				break;
 			}
 		}

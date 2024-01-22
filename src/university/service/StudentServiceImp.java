@@ -37,7 +37,7 @@ public class StudentServiceImp implements StudentService {
 		String phoneNumber = UniversityProgram.scan.nextLine();
 
 															//null = department
-		Student std = new Student(studentId, name, phoneNumber, gender, null);
+		Student std = new Student(studentId, name, phoneNumber, gender, null, null);
 
 		//이미있는 학생일때 추가 X (equals = 학번과 이름이 같을때)
 		if(list.equals(std)) {
@@ -117,6 +117,8 @@ public class StudentServiceImp implements StudentService {
 			}
 			
 		case 4 : //학과 수정
+			//전공리스트 출력
+			
 			System.out.println("수정하고싶은 전공 : ");
 			int dIndex = UniversityProgram.scan.nextInt()-1;
 			Department department = UniversityProgram.dList.get(dIndex);
