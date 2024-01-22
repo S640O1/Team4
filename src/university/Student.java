@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class Student implements Serializable{
 
 	private static final long serialVersionUID = 506099044819552874L;
-	private int studentId, score, stdScore;	//학번, 학점, 평균학점
+	private int studentId, score;	//학번, 학점
 	private String name, phoneNumber;	//이름, 학과, 연락처(01012345678 식으로 입력)
 	private char gender;	//성별
 	Department department;	//학과
@@ -64,5 +64,5 @@ public class Student implements Serializable{
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
-	 
+
 }

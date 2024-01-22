@@ -7,7 +7,7 @@ import university.Student;
 public interface ScoreService {
 	
 	//평균 학점 조회
-	public void showStudentScore(List<Student> sList);
+	public void showStudentStandardScore(List<Student> sList);
 	
 	//강의 학점 조회
 	public void showStudentLectureScore(List<Student> sList);

@@ -168,7 +168,6 @@ public class StudentServiceImp implements StudentService {
 	public boolean printStudentList(List<Student> list) {
 		if(list.isEmpty()) {
 			System.out.println("등록된 학생이 없습니다.");
-			//왜 return false로 밖에 안나오지???
 			return false;
 		}
 		for(int i=0;i<list.size();i++) {

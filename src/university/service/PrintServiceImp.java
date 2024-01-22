@@ -128,5 +128,16 @@ public class PrintServiceImp implements PrintService {
 	}
 
 
+	@Override
+	public void printScoreSubMenu() {
+		System.out.println("------성적 조회------");
+        System.out.println("1. 학생 평균 학점 조회");
+        System.out.println("2. 학생 각 강의별 학점 조회");
+        System.out.println("3. 뒤로 가기");
+        System.out.println("---------------");
+        System.out.print("메뉴 선택 : ");
+	}
+
+
 
 }
