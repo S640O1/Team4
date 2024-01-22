@@ -117,9 +117,9 @@ public class StudentServiceImp implements StudentService {
 			}
 			
 		case 4 : //학과 수정
-			System.out.println("수정할 전공 : ");
-			UniversityProgram.scan.nextLine();
-			int department = UniversityProgram.scan.nextInt();
+			System.out.println("수정하고싶은 전공 : ");
+			int dIndex = UniversityProgram.scan.nextInt()-1;
+			Department department = UniversityProgram.dList.get(dIndex);
 			//setDepartment를 어떻게 구현해야 할까...
 			std.setDepartment(department);
 			System.out.println(std.toString());
