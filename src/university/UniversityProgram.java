@@ -31,7 +31,9 @@ public class UniversityProgram implements Program {
 	static String departmentFileName = "src/university/departmentList.txt";
 	
 	//메뉴 종료 상수
-	static final int EXIT = 7;
+	static final int EXIT = 8;
+
+	//서비스 목록
 	private int STUDENT_EXIT = 4;	//뒤로 가기
 	static final int LECTURE_EXIT =4;
 	static final int DEPARTMENT_EXIT = 5;  // DEPARTMENT_EXIT 상수 추가
@@ -44,6 +46,8 @@ public class UniversityProgram implements Program {
 	private ProfessorService professorService = new ProfessorServiceImp();
 	private LectureService lectureService = new LectureServiceImp();
 	private StudentService studentService = new StudentServiceImp();
+	
+	//대학교 정보
 	private DPService dpService = new DPServiceImp();  // DPService 인스턴스 추가
 	private ScoreService scoreService = new ScoreServiceImp();
 	private EnrolmentService enrolmentService = new EnrolmentServiceImp();
@@ -52,14 +56,19 @@ public class UniversityProgram implements Program {
 	private List<Lecture> lList = new ArrayList<Lecture>();
 	private List<Department> dList = new ArrayList<Department>();
 	private List<Student> sList = new ArrayList<Student>();
-	public static List<Professor> pList = new ArrayList<Professor>();
 
-	
+	public static List<Professor> pList;
+	Student student;
+	Lecture lecture;
+
 	@Override
 	public void run() {
 		int menu = 0;
 		
-		isLoad();
+		List<Lecture> tmp = fileService.lLoad(lectureFileName);
+		if (!(tmp == null)) {
+			lList.addAll(tmp);
+		}
 		
 		do {
 			printMenu();
@@ -71,6 +80,14 @@ public class UniversityProgram implements Program {
 				scan.nextLine();
 			}
 		} while (menu != EXIT);
+
+		//저장하기*4
+//		if(fileService.save()) {
+//			System.out.println("저장이 완료되었습니다.");
+//		}else {
+//			System.out.println("저장에 실패했습니다.");
+//		}
+
 
 		//저장하기*
 		isSave();
@@ -159,7 +176,6 @@ public class UniversityProgram implements Program {
 			break;
 		case 7:
 			printManager();
-			System.out.println("조회 서비스 예정");
 			break;
 		case 8:
 			System.out.println("프로그램을 종료합니다.");
@@ -168,7 +184,6 @@ public class UniversityProgram implements Program {
 			throw new InputMismatchException();
 		}
 	}
-
 	
 	private void scoreManager() {
 		int menu = 0;
@@ -216,18 +231,16 @@ public class UniversityProgram implements Program {
 	private void printManager() {
 		int menu = 0;
 
-        do {
-            printService.printPrintMenu();
+        printService.printPrintMenu();
 
-            try {
-            	menu = scan.nextInt();
-                runPrintMenu(menu); 
-            } catch (InputMismatchException e) {
-                System.out.println("잘못된 메뉴입니다.");
-                scan.nextLine();
-            }
+        try {
+        	menu = scan.nextInt();
+            runPrintMenu(menu); 
+        } catch (InputMismatchException e) {
+            System.out.println("잘못된 메뉴입니다.");
+            scan.nextLine();
+        }
 
-        } while (menu != 6);
 	}
 
 	//각자 파트 조회기능 구현
@@ -246,7 +259,9 @@ public class UniversityProgram implements Program {
 			}
 			break;
 		case 4: 	//강의조회
-			
+			if (!lectureService.printLecture(lList)) {
+				System.out.println("등록된 강의가 없습니다.");
+			}
 			break;
 		case 5: 	//성적조회
 			do {
@@ -473,7 +488,7 @@ public class UniversityProgram implements Program {
     }
 
 	/** 2. 교수 관리 : 손나영 */
-	public void professorManage() {
+    public void professorManage() {
 		int menu = 0;
 		do {
 			printService.printProfessorMenu();
@@ -486,7 +501,7 @@ public class UniversityProgram implements Program {
 			}
 		} while (menu != PROFESSOR_EXIT);
 	}
-
+    
 		/** 교수 : 메뉴실행 */
 	private void runProfessorMenu(int menu) {
 		switch(menu) {
@@ -751,7 +766,7 @@ public class UniversityProgram implements Program {
 				
 				
 			}catch (InputMismatchException e) {
-				System.out.println("잘못된 메뉴입니다.22");
+				System.out.println("잘못된 메뉴입니다.");
 				scan.nextLine();
 			}
 			
@@ -769,18 +784,15 @@ public class UniversityProgram implements Program {
 	private void runLectureMenu(int menu) {
 		switch(menu) {
 		case 1 :
-			lList.addAll(lectureService.addLecture(lList, lectureFileName));
-			fileService.lSave(lectureFileName, lList);
-			
+			insertLecture();
 			break;
+			
 		case 2 :
-			
-			if (!lectureService.printLecture(lList, lectureFileName)) {
-				
-			}
+			updateLecture();
 			break;
+			
 		case 3 :
-			System.out.println("강의 삭제");
+			deleteLecture();
 			break;
 		case 4 :
 			System.out.println("뒤로가기");
@@ -788,6 +800,25 @@ public class UniversityProgram implements Program {
 		default :  throw new InputMismatchException();
 		}
 
+	}
+	
+	/** 4. 강의 등록 : 심아진*/
+	private void insertLecture() {
+		lectureService.addLecture(lList, lectureFileName);
+		fileService.lSave(lectureFileName, lList);
+	}
+
+	/** 4. 강의 수정 : 심아진*/
+	private void updateLecture() {
+		lectureService.setLecture(lList, lecture);
+		fileService.lSave(lectureFileName, lList);
+	
+	}
+
+	/** 4. 강의 삭제 : 심아진*/
+	private void deleteLecture() {
+		lectureService.deleteLecture(lList);
+		fileService.lSave(lectureFileName, lList);
 	}
 
 }

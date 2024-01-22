@@ -8,7 +8,6 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import accountBook.Item;
 import university.Department;
 import university.Lecture;
 import university.Professor;

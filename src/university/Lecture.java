@@ -16,7 +16,6 @@ import university.service.LectureServiceImp;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 public class Lecture  implements Serializable {
 
 	private static final long serialVersionUID = 9088622124125979149L;
@@ -25,6 +24,31 @@ public class Lecture  implements Serializable {
 	String lectureName, pName, lectureRoom;		// 강의명, 교번, 교수이름, 강의실
 	Date date = new Date(); // 강의 시간
 	List<Student> students;
+	
+
+	/*
+	 강의 번호. 강의명 && 시간 (담당교수 : ㅇㅇㅇ) (현재인원/최대인원) 강의실  
+	 
+	 */
+	
+	@Override
+	public String toString() {
+		return lectureNum + "." + lectureName + " [" + LectureServiceImp.format1.format(date) + "] 담당 교수 : " +  pName + " (현재인원 / " + maxNum + ") 강의실 : " + lectureRoom ;
+	}
+
+	public Lecture(int lectureNum, int maxNum, int pNum, String lectureName, String pName, String lectureRoom,
+			Date date) {
+		super();
+		this.lectureNum = lectureNum;
+		this.maxNum = maxNum;
+		this.pNum = pNum;
+		this.lectureName = lectureName;
+		this.pName = pName;
+		this.lectureRoom = lectureRoom;
+		this.date = date;
+	}
+
+	// 강의 번호, 강의명, 교수번호, 교수이름, 강의시간, 강의실이 같은 경우
 	
 	
 	@Override
@@ -38,24 +62,15 @@ public class Lecture  implements Serializable {
 		Lecture other = (Lecture) obj;
 		return Objects.equals(date, other.date) && Objects.equals(lectureName, other.lectureName)
 				&& lectureNum == other.lectureNum && Objects.equals(lectureRoom, other.lectureRoom)
-				&& Objects.equals(pName, other.pName) && maxNum == other.maxNum;
+				&& Objects.equals(pName, other.pName) && pNum == other.pNum;
 	}
-	
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, lectureName, lectureNum, lectureRoom, pName, maxNum);
+		return Objects.hash(date, lectureName, lectureNum, lectureRoom, pName, pNum);
 	}
 
 
-	/*
-	 강의 번호. 강의명 && 시간 (담당교수 : ㅇㅇㅇ) (현재인원/최대인원) 강의실  
-	 
-	 */
-	
-	@Override
-	public String toString() {
-		return lectureNum + "." + lectureName + " [" + LectureServiceImp.format1.format(date) + "] 담당 교수 : " +  pName + " (현재인원 / " + maxNum + ") 강의실 : " + lectureRoom ;
-	}
 	
 	
 	
