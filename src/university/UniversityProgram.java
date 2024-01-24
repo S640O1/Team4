@@ -242,21 +242,12 @@ public class UniversityProgram implements Program {
 			}
 			break;
 		case 5: 	//성적조회
-				do {
-				printService.printScoreSubMenu();
-				menu = scan.nextInt();
-				}while(menu != 3);
-				switch(menu) {
-				case 1 :	//평균학점
-					scoreService.showStudentStandardScore(sList);
-					break;
-				case 2 : 	//각 강의별 성적 조회
-					scoreService.showStudentLectureScore(sList);
-					break;
-				case 3 : //뒤로 가기
-					break;
-				}
-				break;
+			do {
+			printService.printScoreSubMenu();
+			menu = scan.nextInt();
+			runViewScore(menu);
+			}while(menu != 3);
+			break;
 			
 		case 6: //뒤로가기
 			break;
@@ -264,6 +255,20 @@ public class UniversityProgram implements Program {
 			throw new InputMismatchException();
 		}		
 		
+	}
+	
+	/** 성적 조회 */
+	private void runViewScore(int menu) {
+		switch(menu) {
+		case 1 :	//평균학점
+			scoreService.showStudentStandardScore(sList);
+			break;
+		case 2 : 	//각 강의별 성적 조회
+			scoreService.showStudentLectureScore(sList);
+			break;
+		case 3 : //뒤로 가기
+			break;
+			}
 	}
 
 	/** 수강신청 관리 */
