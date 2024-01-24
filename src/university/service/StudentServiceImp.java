@@ -27,6 +27,12 @@ public class StudentServiceImp implements StudentService {
 		System.out.println("추가할 학생 정보를 입력하세요.");
 		System.out.print("학번 : ");
 		int studentId = UniversityProgram.scan.nextInt();
+		for(int i=0; i<list.size();i++) {
+			if(list.get(i).equals(studentId)) {
+				System.out.println("이미있는 학번입니다.");
+				return;
+			}
+		}
 		System.out.print("이름 : ");
 		UniversityProgram.scan.nextLine();
 		String name = UniversityProgram.scan.nextLine();
