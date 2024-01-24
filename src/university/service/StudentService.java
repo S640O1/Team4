@@ -8,7 +8,7 @@ import university.Student;
 public interface StudentService {
 
 	//학생추가
-	public void insertStudent(List<Department> dList, List<Student> list);
+	public void insertStudent(List<Department> dList, List<Student> list) throws Exception;
 	
 	//학생수정
 	public void updateStudent(List<Student> list);

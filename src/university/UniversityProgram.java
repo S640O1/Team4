@@ -713,12 +713,15 @@ public class UniversityProgram implements Program {
 		} catch (InputMismatchException e ) {
 			System.out.println("없는 메뉴입니다.");
 			scan.nextLine();
+		} catch (Exception e) {
+			System.out.println("올바른 성별을 입력하세요.");
 		}
 		}while(menu != STUDENT_EXIT);
 		
 	}
-	/** 런 학생 메뉴 */
-	private void runStudentMenu(int menu) {
+	/** 런 학생 메뉴 
+	 * @throws Exception */
+	private void runStudentMenu(int menu) throws Exception {
 		switch(menu) {
 		case 1 : 
 			studentService.insertStudent(dList, sList);

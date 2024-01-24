@@ -1,12 +1,10 @@
 package university.service;
 
 import java.util.List;
-import java.util.Scanner;
 
-import accountBook.Item;
+import university.Department;
 import university.Student;
 import university.UniversityProgram;
-import university.Department;
 
 public class StudentServiceImp implements StudentService {
 
@@ -17,7 +15,7 @@ public class StudentServiceImp implements StudentService {
 	
 	//학생추가
 	@Override
-	public void insertStudent(List<Department> dList, List<Student> list) {
+	public void insertStudent(List<Department> dList, List<Student> list) throws Exception {
 		//학과 목록을 보여주면서 여기서 어떤건지 번호 입력 Student 인스턴스 값에 저장
 //		System.out.print("학과 번호 : ");
 //		int dpIndex = UniversityProgram.scan.nextInt();
@@ -27,6 +25,7 @@ public class StudentServiceImp implements StudentService {
 		System.out.println("추가할 학생 정보를 입력하세요.");
 		System.out.print("학번 : ");
 		int studentId = UniversityProgram.scan.nextInt();
+		//같은 학번이 있으면 왜 여기 먼저 거쳐지지 않고 학생 인스턴스에서만 걸러지나?
 		for(int i=0; i<list.size();i++) {
 			if(list.get(i).equals(studentId)) {
 				System.out.println("이미있는 학번입니다.");
@@ -37,18 +36,25 @@ public class StudentServiceImp implements StudentService {
 		UniversityProgram.scan.nextLine();
 		String name = UniversityProgram.scan.nextLine();
 		System.out.print("성별(m, f) : ");
-		char gender = UniversityProgram.scan.next().charAt(0);
+		char genderChar = UniversityProgram.scan.next().charAt(0);
+		boolean male = false;
+		switch(genderChar) {
+		case 'm': case 'M' : male = true; break;
+		case 'f': case 'F' : male = false; break;
+		default : throw new Exception("올바른 성별을 입력하세요.");
+		}
+		
 		System.out.print("연락처 : ");
 		UniversityProgram.scan.nextLine();
 		String phoneNumber = UniversityProgram.scan.nextLine();
 		
 															//null = department
-		Student std = new Student(studentId, name, phoneNumber, gender, null, null);
+		Student std = new Student(studentId, name, phoneNumber, genderChar, null, null);
 
 		//이미있는 학생일때 추가 X (equals = 학번이 같을때)
 		for(int i=0; i<list.size();i++) {			
 			if(list.get(i).equals(std)) {
-				System.out.println("이미있는 학생입니다.");
+				System.out.println("이미 등록된 학번입니다.");
 				return;
 			}
 		}
@@ -123,7 +129,7 @@ public class StudentServiceImp implements StudentService {
 				System.out.println("잘못된 문자입니다.");
 				break;
 			}
-			
+
 		case 4 : //학과 수정
 			//전공리스트 출력
 			
