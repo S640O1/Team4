@@ -19,11 +19,11 @@ public class StudentServiceImp implements StudentService {
 	@Override
 	public void insertStudent(List<Department> dList, List<Student> list) {
 		//학과 목록을 보여주면서 여기서 어떤건지 번호 입력 Student 인스턴스 값에 저장
-		
 //		System.out.print("학과 번호 : ");
 //		int dpIndex = UniversityProgram.scan.nextInt();
 //		//해당 학과가 없으면 return
 //		Department department = dList.get(dpIndex);
+		
 		System.out.println("추가할 학생 정보를 입력하세요.");
 		System.out.print("학번 : ");
 		int studentId = UniversityProgram.scan.nextInt();
@@ -35,14 +35,16 @@ public class StudentServiceImp implements StudentService {
 		System.out.print("연락처 : ");
 		UniversityProgram.scan.nextLine();
 		String phoneNumber = UniversityProgram.scan.nextLine();
-
+		
 															//null = department
 		Student std = new Student(studentId, name, phoneNumber, gender, null, null);
 
-		//이미있는 학생일때 추가 X (equals = 학번과 이름이 같을때)
-		if(list.equals(std)) {
-			System.out.println("이미있는 학생입니다.");
-			return;
+		//이미있는 학생일때 추가 X (equals = 학번이 같을때)
+		for(int i=0; i<list.size();i++) {			
+			if(list.get(i).equals(std)) {
+				System.out.println("이미있는 학생입니다.");
+				return;
+			}
 		}
 		//등록안되있으면 배열에 추가 후 정렬
 		list.add(std);
