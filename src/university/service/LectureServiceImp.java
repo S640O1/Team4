@@ -14,6 +14,8 @@ public class LectureServiceImp implements LectureService {
 	
 	private FileService fileService = new FileServiceImp();
 	private PrintService printService = new PrintServiceImp();
+	private ProfessorService professorService = new ProfessorServiceImp();
+
 	
 	Date date = new Date();
 	public static String pattern = "HH:mm";
@@ -24,7 +26,7 @@ public class LectureServiceImp implements LectureService {
 	/** 강의(리스트)에 내역을 추가하는 메소드 : 심아진 */
 	@SuppressWarnings("unlikely-arg-type")
 	@Override
-	public List<Lecture> addLecture(List<Lecture> lList, String lectureFileName) {
+	public List<Lecture> addLecture(List<Lecture> lList, String lectureFileNames) {
 
 		if(lList == null) {
 			lList = new ArrayList<Lecture>();
@@ -40,11 +42,8 @@ public class LectureServiceImp implements LectureService {
 		String lectureName = UniversityProgram.scan.nextLine();
 		
 		//교수 리스트 출력
-//		if(!professorService.printProfessor()) {
-//			return;
-//		}
+		professorService.printProfessor();
 		
-		//교수가 있다면 입력 받고, 없으면 받지 않음 -> 교수 완성되면 실행
 		System.out.print("담당 교수 번호를 입력하세요 : ");
 		int num = UniversityProgram.scan.nextInt();
 		
