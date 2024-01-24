@@ -47,11 +47,11 @@ public class Student implements Serializable{
 		return Objects.hash(studentId);
 	}
 	
-	/* 학번 이름 성별 / 학과 : 학과명 / 연락처 : 01012345678 */
+	/* 학번 이름 성별 / 학과 : 학과명 / 연락처 : 01012345678 점수*/
 	@Override
 	public String toString() {
-		return studentId + " " + name + " " + gender + " / 학과 : " + department + " / 연락처 : " + phoneNumber
-				+ lecture.toString() + score + "점";
+		return studentId + " " + name + " " + gender + " / 학과 : " + department + " / 연락처 : " + phoneNumber + " / " + score + "점\n"
+				+ lecture.toString() ;
 	}
 	
 	public Student(int studentId, String name, String phoneNumber, char gender, Department department, List<Lecture> lecture) {
