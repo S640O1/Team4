@@ -47,38 +47,15 @@ public class Professor implements Serializable {
 	public String toString() {
 		//조건연산자로 성별 출력
 		String type = gender==1 ? " 남성" : "여성";
+		String printNum = String.format("%6d", num);
+		String printdpName = String.format("%10s",  department.dpName );
+		String printName = String.format("%6s",  name );
+		String printType = String.format(" %s ",  type );
+		String printPhoneNum = String.format(" %13s ",  phoneNum );
 		
-		return  "[" + num + "]  "+ department + "  " + name + "  " + type + "  " + phoneNum;
-	}
-	
-	//강의 추가하는 메소드
-
-	
-	//강의 수정하는 메소드
-	public boolean setMean(int pos, Lecture lecture) {
-		//뜻을 저장하는 리스트가 생성되어 있지 않으면
-		if(lList == null) {
-			return false;
-		}
-
-		//pos가 잘못된 경우
-		if(pos < 0 || pos >= lList.size()) {
-			return false;
-		}
 		
-		//이미 등록된 뜻이면
-//		if(lectureList.contains(new Lecture(lecture))) {
-//			return false;
-//		}
-//		
-//		//수정
-//		lectureList.set(pos, new Lecture(lecture));
-		return true;
+		return  "[" + printNum + "] "+ printdpName + " " + printName + " " + printType + " " + printPhoneNum;
 	}
-	
-	//강의를 삭제하는 메소드
-	
-	
 
 	//교번, 성별, 이름, 연락처만 동일해도 같은 교수로 판별
 	@Override

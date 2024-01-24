@@ -222,7 +222,6 @@ public class UniversityProgram implements Program {
 
 	}
 
-	//각자 파트 조회기능 구현
 	private void runPrintMenu(int menu) {
 		switch(menu) {
 		case 1:		//학과조회
@@ -266,7 +265,7 @@ public class UniversityProgram implements Program {
 		
 	}
 
-	/** 수강신청 관리 */
+	/** 수강신청 관리  : 손나영*/
 	private void enrolmentManager() {
 		int menu = 0;
 
@@ -284,7 +283,7 @@ public class UniversityProgram implements Program {
         } while (menu != 3);
 	}
 
-	/** 수강신청 관리 : 메뉴실행 : 손나영*/
+	/** 수강신청 관리 : 메뉴실행*/
 	private void runEnrolmentMenu(int menu) {
 		switch(menu) {
 		case 1:	//수강신청, 손나영
@@ -640,8 +639,8 @@ public class UniversityProgram implements Program {
 			System.out.println("이름을 수정했습니다.");
 			break;	
 		case 3: 	//학과
-			professorService.setDepartment(index);
-			System.out.println("학과를 수정했습니다.");
+			professorService.setDepartment(index, dList);
+			
 			break;
 		case 4: 	//성별
 			professorService.setGender(index);
