@@ -92,10 +92,10 @@ public class ProfessorServiceImp implements ProfessorService {
 			return false;
 		}
 		
-//		pList.stream().forEach(p->p.toString());
 		System.out.println("  교번  |    학과    |  이름  | 성별 |    전화번호    ");
 		System.out.println("------------------------------------------------------");
 		
+//		pList.stream().forEach(p->p.toString());
 		for(int i=0; i<pList.size(); i++) {
 			System.out.println(pList.get(i).toString());
 		}

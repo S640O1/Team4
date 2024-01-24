@@ -529,8 +529,8 @@ public class UniversityProgram implements Program {
 		System.out.print("성함 : ");
 		String name = scan.next();
 		
-		int num = 0, gender=0;
-		boolean trueN = true, trueG = true; 
+		int num = 0, gender=0, phoneNumInt=0;
+		boolean trueN = true, trueG = true, trueP = true; 
 		while(trueN) {
 			try {
 				System.out.print("교번 : ");
@@ -561,11 +561,27 @@ public class UniversityProgram implements Program {
 			}
 		}
 		
-		System.out.print("전화번호 : ");
-		scan.nextLine();
-		String phoneNum  = scan.next();
+		String phonNum ="";
+		while(trueP) {
+			try {
+				System.out.print("전화번호(하이픈('-')을 제외한 11자리를 입력하세요) : ");
+				phoneNumInt  = scan.nextInt();
+				phonNum =  "0"+Integer.toString(phoneNumInt);
+				if(phonNum.length() == 11 ) {
+					trueP = false;
+				}else {
+					System.out.println("잘못된 전화번호입니다.");
+				}
+			}catch(InputMismatchException e){
+				System.out.println("잘못된 입력입니다.");
+				scan.nextLine();
+			}
+		}
 		
-		Professor professor = new Professor(num, gender, name, phoneNum, department, null);
+		
+		
+		
+		Professor professor = new Professor(num, gender, name, phonNum, department, null);
 		if(!professorService.addProfessor(professor)){
 			System.out.println("이미 등록된 교수입니다.");
 			return;
