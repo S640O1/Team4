@@ -32,10 +32,19 @@ public class Lecture  implements Serializable {
 	 
 	 */
 	
+	
+	
 	@Override
 	public String toString() {
+		
+		int sSize;
+		if (students == null) {
+			sSize = 0;
+		}
+		sSize = students.size();
+		
+		return lectureNum + "." + lectureName + " [" + LectureServiceImp.format1.format(date) + "] 담당 교수 : " +  pName + " ("+ sSize + " / " + maxNum + ") 강의실 : " + lectureRoom ;
 
-		return lectureNum + "." + lectureName + " [" + LectureServiceImp.format1.format(date) + "] 담당 교수 : " +  pName + " ("+students.size() +" / " + maxNum + ") 강의실 : " + lectureRoom;
 	}
 
 	public Lecture(int lectureNum, int maxNum, int pNum, String lectureName, String pName, String lectureRoom,
