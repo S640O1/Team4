@@ -45,24 +45,20 @@ public class LectureServiceImp implements LectureService {
 		professorService.printProfessor();
 		
 		System.out.print("담당 교수 번호를 입력하세요 : ");
-		int num = UniversityProgram.scan.nextInt();
+		int num = UniversityProgram.scan.nextInt() -1;
 		
-//		int index = -1;
-		
-		boolean isP=false;
 		
 		for (int i = 0; i < pList.size(); i++) {
 			if (pList.get(i).getNum() == num) {
-//				index = i;
-				isP = true;
 				break;
 			}
 		}
 	
-		if (isP == false) {
-			System.out.println("등록되지 않은 교번입니다");
-			return null;
-		}
+		if (num < 0 || num >= lList.size() ) {
+		System.out.println("일치하는 번호가 없습니다.");
+		return null;
+	}
+
 		
 //		int nameIndex = -1;
 	
