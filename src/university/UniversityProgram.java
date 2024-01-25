@@ -191,7 +191,6 @@ public class UniversityProgram implements Program {
 		switch(menu) {
 		case 1:		//성적등록
 			scoreService.addScore(sList, lList);
-			
 			break;
 		case 2: 		// 성적 수정
 			scoreService.updateScore(sList, lList);
@@ -201,9 +200,8 @@ public class UniversityProgram implements Program {
 		default : 
 			throw new InputMismatchException();
 		}		
-		fileService.lSave(lectureFileName, lList);
-		fileService.sSave(studentFileName, sList);
-		fileService.pSave(professorFileName);
+//		fileService.lSave(lectureFileName, lList);
+//		fileService.sSave(studentFileName, sList);
 		
 	}
 
@@ -256,7 +254,7 @@ public class UniversityProgram implements Program {
 	private void runViewScore(int menu) {
 		switch(menu) {
 		case 1 :	//평균학점
-			scoreService.showStudentStandardScore(sList);
+			scoreService.showStudentStandardScore(sList, lList);
 			break;
 		case 2 : 	//각 강의별 성적 조회
 			scoreService.showStudentLectureScore(sList, lList);
