@@ -151,6 +151,14 @@ public class ScoreServiceImp implements ScoreService {
 		index = UniversityProgram.scan.nextInt() - 1;
 		Student std = sList.get(index);
 		
+
+//		//선택한 인덱스의 학생
+//		System.out.println(std.getName() + " 학생의 각 강의 학점");
+//		//선택한 학생의 각 강의별 학점 나오게 하기
+//		for(int i=0;i<std.getLecture().size();i++) {
+//			System.out.println(lList.get(i).getLectureName() + " : " + std.getScore());
+//		}
+
 		//선택한 인덱스의 학생
 		System.out.println(std.getName() + " 학생의 각 강의 학점");
 		
@@ -162,6 +170,7 @@ public class ScoreServiceImp implements ScoreService {
 				}
 			}
 		}
+
 	}
 
 
