@@ -821,7 +821,7 @@ public class UniversityProgram implements Program {
 	
 	/** 4. 강의 등록 : 심아진*/
 	private void insertLecture() {
-		lectureService.addLecture(lList, lectureFileName);
+		lectureService.addLecture(lList, pList, lectureFileName);
 		fileService.lSave(lectureFileName, lList);
 	}
 

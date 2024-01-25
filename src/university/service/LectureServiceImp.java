@@ -21,12 +21,10 @@ public class LectureServiceImp implements LectureService {
 	public static String pattern = "HH:mm";
 	public static SimpleDateFormat format1 = new SimpleDateFormat(pattern);
 	
-	public static List<Professor> pList = new ArrayList<Professor>();
 	
 	/** 강의(리스트)에 내역을 추가하는 메소드 : 심아진 */
-	@SuppressWarnings("unlikely-arg-type")
 	@Override
-	public List<Lecture> addLecture(List<Lecture> lList, String lectureFileNames) {
+	public List<Lecture> addLecture(List<Lecture> lList, List<Professor>pList, String lectureFileNames) {
 
 		if(lList == null) {
 			lList = new ArrayList<Lecture>();
@@ -45,19 +43,12 @@ public class LectureServiceImp implements LectureService {
 		professorService.printProfessor();
 		
 		System.out.print("담당 교수 번호를 입력하세요 : ");
-		int num = UniversityProgram.scan.nextInt() -1;
-		
-		
-		for (int i = 0; i < pList.size(); i++) {
-			if (pList.get(i).getNum() == num) {
-				break;
-			}
-		}
+		int num = UniversityProgram.scan.nextInt()-1;
 	
-		if (num < 0 || num >= lList.size() ) {
-		System.out.println("일치하는 번호가 없습니다.");
-		return null;
-	}
+		if (num < 0 || num >=pList.size()) {
+			System.out.println("일치하는 번호가 없습니다.");
+			return null;
+		}
 
 		
 //		int nameIndex = -1;
@@ -65,17 +56,10 @@ public class LectureServiceImp implements LectureService {
 		System.out.print("담당 교수를 입력하세요 : ");
 		String pName = UniversityProgram.scan.next();
 		
-//		for (int i = 0; i < pList.size(); i++) {
-//			if (pList.get(i).getName().equals(pName)) {
-//				nameIndex = i;
-//				break;
-//			}
-//		}
-//		
-//		if (nameIndex < 0 || nameIndex >= pList.size()) {
-//			System.out.println("등록되지 않은 교수입니다");
-//			return null;
-//		}
+		if (!pList.get(num).getName().equals(pName)) {
+			System.out.println("등록된 교수가 없습니다.");
+			return null;
+		}
 
 		
 		System.out.print("최대 수강 인원을 입력하세요 : ");
