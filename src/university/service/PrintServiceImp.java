@@ -16,8 +16,9 @@ public class PrintServiceImp implements PrintService {
         System.out.println("3. 학생 관리");
         System.out.println("4. 강의 관리");
         System.out.println("5. 수강 관리");
-        System.out.println("6. 조회");
-        System.out.println("7. 종료");
+        System.out.println("6. 성적 관리");
+        System.out.println("7. 조회");
+        System.out.println("8. 종료");
         System.out.println("---------------");
         System.out.print("메뉴 선택 : ");
     }
@@ -63,10 +64,12 @@ public class PrintServiceImp implements PrintService {
 
 	@Override
 	public void printStudentMenu() {	 // 학생 출력 메뉴
+		System.out.println("---------학생 관리---------");
 		System.out.println("1. 학생 등록");
 		System.out.println("2. 학생 수정");
 		System.out.println("3. 학생 삭제");
 		System.out.println("4. 뒤로 가기");
+        System.out.println("---------------");
 		System.out.print("메뉴 선택 : ");
 	}
 
@@ -100,22 +103,49 @@ public class PrintServiceImp implements PrintService {
 
 	@Override
 	public void printEnrolmentMenu() {
-		// TODO Auto-generated method stub
+		System.out.println("-------수강 관리-------");
+        System.out.println("1. 수강 신청");
+        System.out.println("2. 수강 취소");
+        System.out.println("3. 뒤로 가기");
+        System.out.println("---------------");
+        System.out.print("메뉴 선택 : ");		
 		
 	}
 
 
 	@Override
 	public void printScoreMenu() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("-------성적 관리-------");
+        System.out.println("1. 성적 등록");
+        System.out.println("2. 성적 수정");
+        System.out.println("3. 뒤로가기");
+        System.out.println("---------------");
+        System.out.print("메뉴 선택 : ");		
 	}
 
 
 	@Override
 	public void printPrintMenu() {
-		// TODO Auto-generated method stub
-		
+		 System.out.println("---------조회---------");
+        System.out.println("1. 학과 정보 조회");
+        System.out.println("2. 학생 정보 조회");
+        System.out.println("3. 교수 정보 조회");
+        System.out.println("4. 강의 정보 조회");
+        System.out.println("5. 성적 조회");
+        System.out.println("6. 뒤로가기");
+        System.out.println("---------------");
+        System.out.print("메뉴 선택 : ");
+	}
+
+
+	@Override
+	public void printScoreSubMenu() {
+		System.out.println("------성적 조회------");
+        System.out.println("1. 학생 평균 학점 조회");
+        System.out.println("2. 학생 각 강의별 학점 조회");
+        System.out.println("3. 뒤로 가기");
+        System.out.println("---------------");
+        System.out.print("메뉴 선택 : ");
 	}
 
 

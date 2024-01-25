@@ -108,7 +108,7 @@ public class DPServiceImp implements DPService {
 	@Override
 	public void printDepartments(List<Department> dList) {
 		for(int i = 0; i<dList.size(); i++) {
-			System.out.println(dList.get(i).toString());
+			System.out.println("[" +(i+1) + "] "+ dList.get(i).toString());
     	}
 	}
 }

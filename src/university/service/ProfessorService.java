@@ -2,6 +2,7 @@ package university.service;
 
 import java.util.List;
 
+import university.Department;
 import university.Professor;
 
 public interface ProfessorService {
@@ -14,7 +15,7 @@ public interface ProfessorService {
 	
 	void setGender(int index);
 	
-	void setDepartment(int index);
+	void setDepartment(int index, List<Department> dList);
 	
 	void setName(int index);
 	
@@ -22,6 +23,9 @@ public interface ProfessorService {
 	
 	/** 교수정보를 삭제하는 메소드*/
 	void deleteProfessor(int index);
+	
+	/** 교수정보를 조회하는 메소드*/
+	boolean printProfessor();
 
 	
 }
