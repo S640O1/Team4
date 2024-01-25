@@ -246,6 +246,9 @@ public class UniversityProgram implements Program {
 			runViewScore(menu);
 			}while(menu != 3);
 			break;
+		default : 
+			throw new InputMismatchException();
+		}
 	}
 	
 	/** 성적 조회 */
