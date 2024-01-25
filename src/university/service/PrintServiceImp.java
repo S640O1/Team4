@@ -25,7 +25,7 @@ public class PrintServiceImp implements PrintService {
 
 
     @Override
-    public void printDPMenu() {
+    public void printDPMenu() {		// 학과 출력 메뉴
         System.out.println("---------학과 관리---------");
         System.out.println("1. 학과 목록 조회");
         System.out.println("2. 학과 등록");

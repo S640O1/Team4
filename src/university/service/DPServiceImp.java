@@ -14,9 +14,9 @@ public class DPServiceImp implements DPService {
     	
         return departmentList;
     }
-
+    /** 학과를 등록하는 메소드*/
     @Override
-    public Department addDepartment(List<Department> departmentList) {
+    public List<Department> addDepartment(List<Department> departmentList) {
         System.out.println("새로운 학과를 등록합니다.");
 
         // 사용자로부터 학과 정보 입력 받기
@@ -29,13 +29,22 @@ public class DPServiceImp implements DPService {
         // 새로운 학과 객체 생성
         Department newDepartment = new Department(dpNum, dpName, null, null);
 
+        // 중복된 학과 시 
+
+      		for(int i=0; i<departmentList.size(); i++) {
+      			if(departmentList.get(i).equals(dpNum)) {
+      				System.out.println("이미 등록된 강의입니다.");
+      				return departmentList;
+      			}
+      		}
+      		
         // 리스트에 추가
         departmentList.add(newDepartment);
         System.out.println("학과가 성공적으로 등록되었습니다.");
 
-        return newDepartment;
+        return (List<Department>) newDepartment;
     }
-
+    /** 학과를 수정하는 메소드*/
     @Override
     public boolean editDepartment(List<Department> departmentList) {
         System.out.println("학과를 수정합니다.");
@@ -99,16 +108,16 @@ public class DPServiceImp implements DPService {
         return true;
     }
 
-    @Override
-    public List<Department> getAllDepartments() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+ 
 	@Override
-	public void printDepartments(List<Department> dList) {
+	public boolean printDepartments(List<Department> dList) {
+		if(dList.isEmpty()) {
+			System.out.println("등록된 학과가 없습니다.");
+			return false;
+		}
 		for(int i = 0; i<dList.size(); i++) {
 			System.out.println("[" +(i+1) + "] "+ dList.get(i).toString());
     	}
+		return true;
 	}
 }
