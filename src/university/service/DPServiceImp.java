@@ -120,9 +120,5 @@ public class DPServiceImp implements DPService {
     	}
 		return true;
 	}
-	@Override
-	public List<Department> getAllDepartments() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }

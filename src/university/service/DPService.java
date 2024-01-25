@@ -5,8 +5,6 @@ import university.Department;
 
 public interface DPService {
 
-    List<Department> getAllDepartments();
-
     List<Department> addDepartment(List<Department> departmentList);
 
     boolean editDepartment(List<Department> departmentList);
