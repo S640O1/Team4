@@ -9,8 +9,8 @@ import university.UniversityProgram;
 public class StudentServiceImp implements StudentService {
 
 	/* 안되는 거
-	 * 1. 학생 등록할 때 2번째 부터 추가하는 학생과 그 전의 학생의 출력이 합쳐진다. 
-	 * 2. 성별 수정 때 오류*/
+	 * 1. 27행~ 같은 학번이 학생 리스트에 있을 시 위에서 먼저 거르고 싶은데 안거쳐짐
+	 * */
 	//정렬(sort) 메서드 어떻게?
 	
 	//학생추가
