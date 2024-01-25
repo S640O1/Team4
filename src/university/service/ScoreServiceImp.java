@@ -26,10 +26,12 @@ public class ScoreServiceImp implements ScoreService {
 		//해당 강의를 수강하는 학생리스트 출력
 		List<Student> stdList = lList.get(indexL).getStudents();
 		if(!studentService.printStudentList(stdList)) {
+			System.out.println("해당 강의를 듣는 학생이 없습니다.");
 			return;
 		}
 		
 		//점수 등록할 학생 인덱스
+		//해당 강의의 학생리스트의 A학생인덱스
 		System.out.print("성적을 등록할 학생을 선택하세요 : ");
 		int indexS = UniversityProgram.scan.nextInt() - 1;
 		
@@ -37,10 +39,20 @@ public class ScoreServiceImp implements ScoreService {
 		System.out.print("점수를 입력하세요(4.5점 만점) : ");
 		double score = UniversityProgram.scan.nextDouble();
 		
-		//점수 저장
+		//점수 저장 (강의 안에 있는 학생 리스트의 학생 점수를 저장)
 		 lList.get(indexL).getStudents().get(indexS).setScore(score);
 		
-		//학생리스트에 업데이트
+		 studentService.printStudentList(lList.get(indexL).getStudents());
+		//학생리스트에 업데이트 (학생정보 안에 있는 강의 리스트의 학생 리스트의 본인 점수 저장)
+		 
+		 
+//		 //학생리스트에서 해당 학생을 찾기
+//		 for(int i=0; i<sList.size(); i++) {
+//			 //전체 학생 리스트 중 A학생의 id와 동일한 index값을 가져오기
+//			 if(sList.get(i).getStudentId() == )
+//			 
+//		 }
+
 		 for(int i=0; i<sList.size(); i++) {
 			 //만약 전체학생리스트 중 해당 학생의 학생id와 동일한 인스턴스가 있다면
 			 if(sList.get(i).getStudentId() == stdList.get(indexS).getStudentId()) {
@@ -55,7 +67,6 @@ public class ScoreServiceImp implements ScoreService {
 				 }
 			 }
 		 }
-		 studentService.printStudentList(lList.get(indexL).getStudents());
 		 
 		
 	}
@@ -64,7 +75,7 @@ public class ScoreServiceImp implements ScoreService {
 
 	//강의 평균 점수
 	@Override
-	public void showStudentStandardScore(List<Student> sList) {
+	public void showStudentStandardScore(List<Student> sList, List<Lecture> lList) {
 		//실수로 변경하기
 		
 		//학생 목록
@@ -76,10 +87,12 @@ public class ScoreServiceImp implements ScoreService {
 		Student std =  sList.get(index);
 		
 		//수강하고 있는 강의 리스트
-		List<Lecture> lList = sList.get(index).getLecture();
+//		List<Lecture> lList = sList.get(index).getLecture();
 		
 		//전체 합계 초기화
 		double sumScore=0;
+		
+		
 		
 		//수강하고 있는 강의의
 		for(int i=0; i<lList.size(); i++) {
