@@ -15,7 +15,9 @@ public class ScoreServiceImp implements ScoreService {
 	@Override
 	public void addScore(List<Student> sList, List<Lecture> lList) {
 		//강의목록 출력
-		lectureService.printLecture(lList);
+		if(!lectureService.printLecture(lList)) {
+			return;
+		}
 		
 		//점수를 줄 강의 선택
 		System.out.print("점수를 입력할 강의를 선택하세요. : ");
@@ -23,7 +25,9 @@ public class ScoreServiceImp implements ScoreService {
 		
 		//해당 강의를 수강하는 학생리스트 출력
 		List<Student> stdList = lList.get(indexL).getStudents();
-		studentService.printStudentList(stdList);
+		if(!studentService.printStudentList(stdList)) {
+			return;
+		}
 		
 		//점수 등록할 학생 인덱스
 		System.out.print("성적을 등록할 학생을 선택하세요 : ");
@@ -77,8 +81,10 @@ public class ScoreServiceImp implements ScoreService {
 		//포문을 돌려서
 			//해당 학생의 모든 점수를 저장
 		//전체 합계 초기화
-		int sumScore=0;
+		double sumScore=0;
 		// for 문으로 모두 합함 / lList.get(index).getLecture().size()		
+		
+		//평균점수 오류
 		for(int i=0; i<lList.size(); i++) {
 			//강의 안에 해당 학생(덱스)의 스코어
 			List<Student> stdL = lList.get(i).getStudents();
@@ -101,7 +107,7 @@ public class ScoreServiceImp implements ScoreService {
 	public void showStudentLectureScore(List<Student> sList) {
 
 		studentService.printStudentList(sList);
-		System.out.println("학점을 볼 학생 선택 : ");
+		System.out.print("학점을 볼 학생 선택 : ");
 		index = UniversityProgram.scan.nextInt() - 1;
 		Student std = sList.get(index);
 		
