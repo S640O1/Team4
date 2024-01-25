@@ -48,8 +48,7 @@ public class LectureServiceImp implements LectureService {
 		int num = UniversityProgram.scan.nextInt();
 		
 		int index = -1;
-		
-		boolean isP=false;
+		boolean isP = false;
 		
 		for (int i = 0; i < pList.size(); i++) {
 			if (pList.get(i).getNum() == num) {
@@ -58,19 +57,17 @@ public class LectureServiceImp implements LectureService {
 				break;
 			}
 		}
-		
+	
 		if (isP = false) {
 			System.out.println("등록되지 않은 교번입니다");
 			return null;
 		}
 	
-		
 		System.out.print("담당 교수를 입력하세요 : ");
 		String pName = UniversityProgram.scan.next();
 		
 		for (int i = 0; i < pList.size(); i++) {
 			if (pList.get(i).getName().equals(pName)) {
-				index = i;
 				break;
 			}
 		}
