@@ -53,7 +53,7 @@ public class Professor implements Serializable {
 		String printPhoneNum = String.format(" %13s ",  phoneFormatter(phoneNum) );
 		
 		
-		return  " [" + printNum + "] "+ printdpName + " " + printName + "  " + printType + "  " + printPhoneNum;
+		return  " [" + printNum + "]\t    "+ printdpName + "\t\t    " + printName + "   " + printType + "  " + printPhoneNum;
 	}
 
 	//교번, 성별, 이름, 연락처만 동일해도 같은 교수로 판별

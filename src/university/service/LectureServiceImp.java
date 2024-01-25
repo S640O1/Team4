@@ -47,6 +47,9 @@ public class LectureServiceImp implements LectureService {
 		System.out.print("담당 교수 번호를 입력하세요 : ");
 		int num = UniversityProgram.scan.nextInt();
 		
+		
+		
+		
 		int index = -1;
 		
 		boolean isP=false;
