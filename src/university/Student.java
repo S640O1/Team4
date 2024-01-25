@@ -31,7 +31,6 @@ public class Student implements Serializable{
 	Department department;	//학과
 	List<Lecture> lecture;	//듣고있는 강의
 	 
-	//학번, 이름이 같다면
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -41,18 +40,19 @@ public class Student implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Student other = (Student) obj;
-		return Objects.equals(name, other.name) && studentId == other.studentId;
+		return studentId == other.studentId;
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, studentId);
+		return Objects.hash(studentId);
 	}
 	
-	/* 학번 이름 성별 / 학과 : 학과명 / 연락처 : 01012345678 */
+	/* 학번 이름 성별 / 학과 : 학과명 / 연락처 : 01012345678 점수*/
 	@Override
 	public String toString() {
+		String scoreS = String.format("%.2f", (float)score);
 		return studentId + " " + name + " " + gender + " / 학과 : " + department + " / 연락처 : " + phoneNumber
-				+ lecture.toString() + score + "점";
+				+ lecture.toString() + scoreS + "점";
 	}
 	
 	public Student(int studentId, String name, String phoneNumber, char gender, Department department, List<Lecture> lecture) {

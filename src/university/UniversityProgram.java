@@ -193,8 +193,7 @@ public class UniversityProgram implements Program {
 			scoreService.addScore(sList, lList);
 			
 			break;
-		case 2: 	//성적수정
-//			scoreService.~~();
+		case 2: 	
 			break;
 		case 3: 
 			break;
@@ -222,7 +221,6 @@ public class UniversityProgram implements Program {
 
 	}
 
-	//각자 파트 조회기능 구현
 	private void runPrintMenu(int menu) {
 		switch(menu) {
 		case 1:		//학과조회
@@ -242,31 +240,29 @@ public class UniversityProgram implements Program {
 			}
 			break;
 		case 5: 	//성적조회
-				do {
-				printService.printScoreSubMenu();
-				menu = scan.nextInt();
-				}while(menu != 3);
-				switch(menu) {
-				case 1 :	//평균학점
-					scoreService.showStudentStandardScore(sList);
-					break;
-				case 2 : 	//각 강의별 성적 조회
-					scoreService.showStudentLectureScore(sList);
-					break;
-				case 3 : //뒤로 가기
-					break;
-				}
-				break;
-			
-		case 6: //뒤로가기
+			do {
+			printService.printScoreSubMenu();
+			menu = scan.nextInt();
+			runViewScore(menu);
+			}while(menu != 3);
 			break;
-		default : 
-			throw new InputMismatchException();
-		}		
-		
+	}
+	
+	/** 성적 조회 */
+	private void runViewScore(int menu) {
+		switch(menu) {
+		case 1 :	//평균학점
+			scoreService.showStudentStandardScore(sList);
+			break;
+		case 2 : 	//각 강의별 성적 조회
+			scoreService.showStudentLectureScore(sList);
+			break;
+		case 3 : //뒤로 가기
+			break;
+			}
 	}
 
-	/** 수강신청 관리 */
+	/** 수강신청 관리  : 손나영*/
 	private void enrolmentManager() {
 		int menu = 0;
 
@@ -284,7 +280,7 @@ public class UniversityProgram implements Program {
         } while (menu != 3);
 	}
 
-	/** 수강신청 관리 : 메뉴실행 : 손나영*/
+	/** 수강신청 관리 : 메뉴실행*/
 	private void runEnrolmentMenu(int menu) {
 		switch(menu) {
 		case 1:	//수강신청, 손나영
@@ -530,8 +526,8 @@ public class UniversityProgram implements Program {
 		System.out.print("성함 : ");
 		String name = scan.next();
 		
-		int num = 0, gender=0;
-		boolean trueN = true, trueG = true; 
+		int num = 0, gender=0, phoneNumInt=0;
+		boolean trueN = true, trueG = true, trueP = true; 
 		while(trueN) {
 			try {
 				System.out.print("교번 : ");
@@ -562,11 +558,27 @@ public class UniversityProgram implements Program {
 			}
 		}
 		
-		System.out.print("전화번호 : ");
-		scan.nextLine();
-		String phoneNum  = scan.next();
+		String phonNum ="";
+		while(trueP) {
+			try {
+				System.out.print("전화번호(하이픈('-')을 제외한 11자리를 입력하세요) : ");
+				phoneNumInt  = scan.nextInt();
+				phonNum =  "0"+Integer.toString(phoneNumInt);
+				if(phonNum.length() == 11 ) {
+					trueP = false;
+				}else {
+					System.out.println("잘못된 전화번호입니다.");
+				}
+			}catch(InputMismatchException e){
+				System.out.println("잘못된 입력입니다.");
+				scan.nextLine();
+			}
+		}
 		
-		Professor professor = new Professor(num, gender, name, phoneNum, department, null);
+		
+		
+		
+		Professor professor = new Professor(num, gender, name, phonNum, department, null);
 		if(!professorService.addProfessor(professor)){
 			System.out.println("이미 등록된 교수입니다.");
 			return;
@@ -640,8 +652,8 @@ public class UniversityProgram implements Program {
 			System.out.println("이름을 수정했습니다.");
 			break;	
 		case 3: 	//학과
-			professorService.setDepartment(index);
-			System.out.println("학과를 수정했습니다.");
+			professorService.setDepartment(index, dList);
+			
 			break;
 		case 4: 	//성별
 			professorService.setGender(index);
@@ -708,12 +720,15 @@ public class UniversityProgram implements Program {
 		} catch (InputMismatchException e ) {
 			System.out.println("없는 메뉴입니다.");
 			scan.nextLine();
+		} catch (Exception e) {
+			System.out.println("올바른 성별을 입력하세요.");
 		}
 		}while(menu != STUDENT_EXIT);
 		
 	}
-	/** 런 학생 메뉴 */
-	private void runStudentMenu(int menu) {
+	/** 런 학생 메뉴 
+	 * @throws Exception */
+	private void runStudentMenu(int menu) throws Exception {
 		switch(menu) {
 		case 1 : 
 			studentService.insertStudent(dList, sList);

@@ -44,6 +44,7 @@ public class Lecture  implements Serializable {
 		sSize = students.size();
 		
 		return lectureNum + "." + lectureName + " [" + LectureServiceImp.format1.format(date) + "] 담당 교수 : " +  pName + " ("+ sSize + " / " + maxNum + ") 강의실 : " + lectureRoom ;
+
 	}
 
 	public Lecture(int lectureNum, int maxNum, int pNum, String lectureName, String pName, String lectureRoom,

@@ -17,11 +17,10 @@ public class ProfessorServiceImp implements ProfessorService {
 	/** 교수정보를 추가하는 메소드*/
 	@Override
 	public boolean addProfessor(Professor professor) {
-		
 		//이미 등록된 교수면(교번, 성별, 이름, 연락처 동일)
-//		if(pList.equals(professor)) {
-//			return false;
-//		}
+		if(pList.equals(professor)) {
+			return false;
+		}
 		//새 교수를 등록
 		pList.add(professor);
 		return true;
@@ -45,21 +44,22 @@ public class ProfessorServiceImp implements ProfessorService {
 
 		/** 수정 : 3. 학과 수정 메소드*/
 	@Override
-	public void setDepartment(int index) {
+	public void setDepartment(int index, List<Department>  dList) {
 		System.out.print("학과 : ");
 		scan.nextLine();
 		String dpName = scan.nextLine();
+		
 		//만약 학과가 학과 리스트안에 없다면
-		
-		
-		
-//			if(.equals("dpName")) {
-//				System.out.println("존재하지 않은 학과입니다.");			
-//			}
-		//있다면 학과 리스트에서 동일한 학과 정보를 저장
+		for(int i=0; i<dList.size(); i++){
+			if(!(dList.get(i).getDpName() == dpName)) {
+				System.out.println("존재하지 않은 학과입니다.");	
+				return;
+			}
+		}
 		Department department = new Department(0, dpName, null, pList);
 		
 		pList.get(index).setDepartment(department);
+		System.out.println("학과를 수정했습니다.");
 	}
 
 		/** 수정 : 4. 이름 수정 메소드*/
@@ -91,6 +91,9 @@ public class ProfessorServiceImp implements ProfessorService {
 			System.out.println("등록된 교수가 없습니다.");
 			return false;
 		}
+		
+		System.out.println("  교번  |    학과    |  이름  | 성별 |    전화번호    ");
+		System.out.println("------------------------------------------------------");
 		
 //		pList.stream().forEach(p->p.toString());
 		for(int i=0; i<pList.size(); i++) {
