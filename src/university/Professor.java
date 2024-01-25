@@ -46,7 +46,7 @@ public class Professor implements Serializable {
 	public String toString() {
 		//조건연산자로 성별 출력
 		String type = gender==1 ? " 남성" : "여성";
-		String printNum = String.format("%05d", num);
+		String printNum = String.format("%5d", num);
 		String printdpName = String.format("%6s",  department.dpName );
 		String printName = String.format("%4s",  name );
 		String printType = String.format(" %s ",  type );
