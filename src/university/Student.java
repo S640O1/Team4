@@ -51,8 +51,8 @@ public class Student implements Serializable{
 	@Override
 	public String toString() {
 		String scoreS = String.format("%.2f", (float)score);
-		return studentId + " " + name + " " + gender + " / 학과 : " + department + " / 연락처 : " + phoneNumber
-				+ lecture.toString() + scoreS + "점";
+		return "학번 : " + studentId + " " + name + " " + gender + " / 학과 : " + department + " / 연락처 : " +
+				phoneNumber + " / " + scoreS + "점\n" + lecture.toString();
 	}
 	
 	public Student(int studentId, String name, String phoneNumber, char gender, Department department, List<Lecture> lecture) {
