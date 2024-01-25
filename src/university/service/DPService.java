@@ -7,7 +7,7 @@ public interface DPService {
 
     List<Department> getAllDepartments();
 
-    Department addDepartment(List<Department> departmentList);
+    List<Department> addDepartment(List<Department> departmentList);
 
     boolean editDepartment(List<Department> departmentList);
 
@@ -15,5 +15,5 @@ public interface DPService {
 
 	List<Department> getAllDepartments(List<Department> departmentList);
 
-	void printDepartments(List<Department> dList);
+	boolean printDepartments(List<Department> dList);
 }

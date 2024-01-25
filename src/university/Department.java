@@ -40,7 +40,7 @@ public class Department implements Serializable{
 	
 	@Override
 	public String toString() {
-		return dpNum +". 학과명 : "+ dpName  ;
+		return "학과 분류 번호 : "+ dpNum +". 학과명 : "+ dpName  ;
 	}
 
 	@Override
