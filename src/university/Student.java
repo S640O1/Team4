@@ -25,7 +25,7 @@ public class Student implements Serializable{
 
 	private static final long serialVersionUID = 506099044819552874L;
 	private int studentId;	//학번, 학점
-	private double score;
+	private double score;	//+평균
 	private String name, phoneNumber;	//이름, 학과, 연락처(01012345678 식으로 입력)
 	private char gender;	//성별
 	Department department;	//학과
@@ -52,7 +52,7 @@ public class Student implements Serializable{
 	public String toString() {
 		String scoreS = String.format("%.2f", (float)score);
 		return "학번 : " + studentId + " " + name + " " + gender + " / 학과 : " + department + " / 연락처 : " +
-				phoneNumber + " / " + scoreS + "점\n" + lecture.toString();
+				phoneNumber + " / " + scoreS + "점\n";
 	}
 	
 	public Student(int studentId, String name, String phoneNumber, char gender, Department department, List<Lecture> lecture) {
