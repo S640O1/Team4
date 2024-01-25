@@ -3,11 +3,12 @@ package university.service;
 import java.util.List;
 
 import university.Lecture;
+import university.Professor;
 
 public interface LectureService {
 	
 	// 1.  강의를 등록하는 메서드
-	List<Lecture> addLecture(List<Lecture> lList, String lectureFileName);
+	List<Lecture> addLecture(List<Lecture> lList, List<Professor>pList, String lectureFileName);
 
 	// 2. 강의를 수정하는 메서드
 	public void setLecture(List<Lecture> lList, Lecture lecture);
