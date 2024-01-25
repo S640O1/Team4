@@ -11,7 +11,7 @@ import lombok.Data;
 /* 교수 클래스 : 손나영 */
 //교수 : 교번, 이름, 담당 강의, 연락처, 성별
 /*
- * 연락처 : 000-0000-0000 형태로 입력받기. 자릿수 검사, 13자리가 아닐 경우 잘못된 전화번호라고 알리기
+ * 연락처 : 01012345678 형태로 입력받기. 자릿수 검사, 11자리가 아닐 경우 잘못된 전화번호라고 알리기
  * 이름 : 동명이인일 수 있음
  * 담당강의 : 여러개일 수 있음(만약 강의 내용이 수정, 삭제가 된다면 같이 수정 및 삭제가 되어야함
  * 학과 : 하나(수정 시 함께 수정, 삭제 시 교수 정보 삭제)
@@ -24,7 +24,6 @@ import lombok.Data;
  */
 
 @Data
-
 public class Professor implements Serializable {
 
 	private static final long serialVersionUID = 8377957422955045309L;
@@ -32,7 +31,7 @@ public class Professor implements Serializable {
 	//교번, 성별(1:남성, 2:여성)
 	int num, gender;
 	
-	//이름, 연락처(000-0000-0000)
+	//이름, 연락처(8자 혹은 11자로 받아서 000-0000-0000 형태로출력)
 	String name, phoneNum;
 		 
 	//학과(전공)
@@ -47,38 +46,15 @@ public class Professor implements Serializable {
 	public String toString() {
 		//조건연산자로 성별 출력
 		String type = gender==1 ? " 남성" : "여성";
+		String printNum = String.format("%05d", num);
+		String printdpName = String.format("%6s",  department.dpName );
+		String printName = String.format("%4s",  name );
+		String printType = String.format(" %s ",  type );
+		String printPhoneNum = String.format(" %13s ",  phoneFormatter(phoneNum) );
 		
-		return  "[" + num + "]  "+ department + "  " + name + "  " + type + "  " + phoneNum;
-	}
-	
-	//강의 추가하는 메소드
-
-	
-	//강의 수정하는 메소드
-	public boolean setMean(int pos, Lecture lecture) {
-		//뜻을 저장하는 리스트가 생성되어 있지 않으면
-		if(lList == null) {
-			return false;
-		}
-
-		//pos가 잘못된 경우
-		if(pos < 0 || pos >= lList.size()) {
-			return false;
-		}
 		
-		//이미 등록된 뜻이면
-//		if(lectureList.contains(new Lecture(lecture))) {
-//			return false;
-//		}
-//		
-//		//수정
-//		lectureList.set(pos, new Lecture(lecture));
-		return true;
+		return  " [" + printNum + "] "+ printdpName + " " + printName + "  " + printType + "  " + printPhoneNum;
 	}
-	
-	//강의를 삭제하는 메소드
-	
-	
 
 	//교번, 성별, 이름, 연락처만 동일해도 같은 교수로 판별
 	@Override
@@ -112,37 +88,12 @@ public class Professor implements Serializable {
 			this.lList = new ArrayList<Lecture>();
 		}
 	}
-
-
 	
-
-
+	//전화번호 메소드
+	public String phoneFormatter(String phoneNum) {
+		 String formatNum = "";
+		formatNum = phoneNum.replaceAll("(\\d{3})(\\d{3,4})(\\d{4})", "$1-$2-$3");
+		return formatNum;
+	}
 }
-
-
-
-
-
-
-
-/* <전화번호 받아오기 응용?>
- * - 날짜 변환을 위해 SimpleDateFormat을 멤버로 하기보단 패턴을 멤버로 한 후, 
- *   지역변수로 SimpleDateFormat을 이용하는 방법도 있음
- * public final static String datePattern = "yyyy-MM-dd";
- * - 위와 같이 선언하면 Item.datePattern을 통해 다른 클래스에서도 Item 클래스의 날짜 패턴을 알 수 있음.
- * 
- * public class FormatUtil {
- 
-  public static String phone(String src) {
-    if (src == null) {
-      return "";
-    }
-    if (src.length() == 8) {
-      return src.replaceFirst("^([0-9]{4})([0-9]{4})$", "$1-$2");
-    } else if (src.length() == 12) {
-      return src.replaceFirst("(^[0-9]{4})([0-9]{4})([0-9]{4})$", "$1-$2-$3");
-    }
-    return src.replaceFirst("(^02|[0-9]{3})([0-9]{3,4})([0-9]{4})$", "$1-$2-$3");
-  }
-  */
 

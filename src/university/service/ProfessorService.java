@@ -2,6 +2,7 @@ package university.service;
 
 import java.util.List;
 
+import university.Department;
 import university.Professor;
 
 public interface ProfessorService {
@@ -14,7 +15,7 @@ public interface ProfessorService {
 	
 	void setGender(int index);
 	
-	void setDepartment(int index);
+	void setDepartment(int index, List<Department> dList);
 	
 	void setName(int index);
 	
