@@ -193,7 +193,8 @@ public class UniversityProgram implements Program {
 			scoreService.addScore(sList, lList);
 			
 			break;
-		case 2: 	
+		case 2: 		// 성적 수정
+			scoreService.updateScore(sList, lList);
 			break;
 		case 3: 
 			break;
@@ -820,7 +821,7 @@ public class UniversityProgram implements Program {
 	
 	/** 4. 강의 등록 : 심아진*/
 	private void insertLecture() {
-		lectureService.addLecture(lList, lectureFileName);
+		lectureService.addLecture(lList, pList, lectureFileName);
 		fileService.lSave(lectureFileName, lList);
 	}
 
