@@ -258,7 +258,7 @@ public class UniversityProgram implements Program {
 			scoreService.showStudentStandardScore(sList);
 			break;
 		case 2 : 	//각 강의별 성적 조회
-			scoreService.showStudentLectureScore(sList);
+			scoreService.showStudentLectureScore(sList, lList);
 			break;
 		case 3 : //뒤로 가기
 			break;

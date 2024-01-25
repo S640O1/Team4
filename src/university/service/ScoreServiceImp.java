@@ -69,7 +69,7 @@ public class ScoreServiceImp implements ScoreService {
 		
 		//학생 목록
 		studentService.printStudentList(sList);
-		System.out.println("학점을 볼 학생 선택 : ");
+		System.out.print("학점을 볼 학생 선택 : ");
 		
 		//해당 학생의 인덱스 Student 인스턴스 생성
 		index = UniversityProgram.scan.nextInt() - 1;
@@ -91,10 +91,11 @@ public class ScoreServiceImp implements ScoreService {
 			for(int j=0; j<stdL.size(); j++) {
 				if(std.getStudentId() == stdL.get(j).getStudentId()) {
 					sumScore += stdL.get(j).getScore();
-					System.out.println( stdL.get(j).getScore() + "점");
-					System.out.println( "전체" + sumScore + "점");
+//					System.out.println( stdL.get(j).getScore() + "점");
+//					System.out.println( "전체" + sumScore + "점");
 				}
 			}
+			
 		}
 		
 		//합계(sumScore) / 학생이 듣고있는 강의 개수(size)
@@ -104,16 +105,18 @@ public class ScoreServiceImp implements ScoreService {
 	
 	//각 강의 점수 조회
 	@Override
-	public void showStudentLectureScore(List<Student> sList) {
+	public void showStudentLectureScore(List<Student> sList, List<Lecture> lList) {
 
 		studentService.printStudentList(sList);
 		System.out.print("학점을 볼 학생 선택 : ");
 		index = UniversityProgram.scan.nextInt() - 1;
 		Student std = sList.get(index);
 		
-		//입력한 인덱스 학생의 각 강의의 학점 보여주기
+		//선택한 인덱스의 학생
+		System.out.println(std.getName() + " 학생의 각 강의 학점");
+		//선택한 학생의 각 강의별 학점 나오게 하기
 		for(int i=0;i<std.getLecture().size();i++) {
-			System.out.println(std.toString());
+			System.out.println(lList.get(i).getLectureName() + " : " + std.getScore());
 		}
 	}
 
