@@ -240,30 +240,26 @@ public class UniversityProgram implements Program {
 			}
 			break;
 		case 5: 	//성적조회
-				do {
-				printService.printScoreSubMenu();
-				menu = scan.nextInt();
-				}while(menu != 3);
-				
-				switch(menu) {
-				case 1 :	//평균학점
-					System.out.println("평균학점");
-					scoreService.showStudentStandardScore(sList);
-					break;
-				case 2 : 	//각 강의별 성적 조회
-					scoreService.showStudentLectureScore(sList);
-					break;
-				case 3 : //뒤로 가기
-					break;
-				}
-				break;
-			
-		case 6: //뒤로가기
+			do {
+			printService.printScoreSubMenu();
+			menu = scan.nextInt();
+			runViewScore(menu);
+			}while(menu != 3);
 			break;
-		default : 
-			throw new InputMismatchException();
-		}		
-		
+	}
+	
+	/** 성적 조회 */
+	private void runViewScore(int menu) {
+		switch(menu) {
+		case 1 :	//평균학점
+			scoreService.showStudentStandardScore(sList);
+			break;
+		case 2 : 	//각 강의별 성적 조회
+			scoreService.showStudentLectureScore(sList);
+			break;
+		case 3 : //뒤로 가기
+			break;
+			}
 	}
 
 	/** 수강신청 관리  : 손나영*/
@@ -724,12 +720,15 @@ public class UniversityProgram implements Program {
 		} catch (InputMismatchException e ) {
 			System.out.println("없는 메뉴입니다.");
 			scan.nextLine();
+		} catch (Exception e) {
+			System.out.println("올바른 성별을 입력하세요.");
 		}
 		}while(menu != STUDENT_EXIT);
 		
 	}
-	/** 런 학생 메뉴 */
-	private void runStudentMenu(int menu) {
+	/** 런 학생 메뉴 
+	 * @throws Exception */
+	private void runStudentMenu(int menu) throws Exception {
 		switch(menu) {
 		case 1 : 
 			studentService.insertStudent(dList, sList);

@@ -92,8 +92,8 @@ public class ScoreServiceImp implements ScoreService {
 		}
 		
 		//합계(sumScore) / 학생이 듣고있는 강의 개수(size)
-		int standardScore = sumScore / lList.size();
-		System.out.println(sList.get(index).getName() + "학생의 평균 점수는 " + standardScore + "점 입니다.");
+		double standardScore = sumScore / lList.size();
+		System.out.println(sList.get(index).getName() + " 학생의 평균 점수는 " + standardScore + "점 입니다.");
 	}
 	
 	//각 강의 점수 조회
@@ -107,7 +107,7 @@ public class ScoreServiceImp implements ScoreService {
 		
 		//입력한 인덱스 학생의 각 강의의 학점 보여주기
 		for(int i=0;i<std.getLecture().size();i++) {
-			System.out.println(((Student) sList.get(i).getLecture()).getScore());
+			System.out.println(std.toString());
 		}
 	}
 
