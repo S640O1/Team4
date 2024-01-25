@@ -47,37 +47,39 @@ public class LectureServiceImp implements LectureService {
 		System.out.print("담당 교수 번호를 입력하세요 : ");
 		int num = UniversityProgram.scan.nextInt();
 		
-		int index = -1;
+//		int index = -1;
 		boolean isP = false;
 		
 		for (int i = 0; i < pList.size(); i++) {
 			if (pList.get(i).getNum() == num) {
-				index = i;
+//				index = i;
 				isP = true;
 				break;
 			}
 		}
 	
-		if (isP = false) {
+		if (isP == false) {
 			System.out.println("등록되지 않은 교번입니다");
 			return null;
 		}
+		
+//		int nameIndex = -1;
 	
 		System.out.print("담당 교수를 입력하세요 : ");
 		String pName = UniversityProgram.scan.next();
 		
-		for (int i = 0; i < pList.size(); i++) {
-			if (pList.get(i).getName().equals(pName)) {
-				break;
-			}
-		}
-		
-		if (index < 0 || index >= pList.size()) {
-			System.out.println("등록되지 않은 교수입니다");
-			return null;
-		}
+//		for (int i = 0; i < pList.size(); i++) {
+//			if (pList.get(i).getName().equals(pName)) {
+//				nameIndex = i;
+//				break;
+//			}
+//		}
+//		
+//		if (nameIndex < 0 || nameIndex >= pList.size()) {
+//			System.out.println("등록되지 않은 교수입니다");
+//			return null;
+//		}
 
-		
 		
 		System.out.print("최대 수강 인원을 입력하세요 : ");
 		int maxNum = UniversityProgram.scan.nextInt();

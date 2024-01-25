@@ -193,7 +193,8 @@ public class UniversityProgram implements Program {
 			scoreService.addScore(sList, lList);
 			
 			break;
-		case 2: 	
+		case 2: 		// 성적 수정
+			scoreService.updateScore(sList, lList);
 			break;
 		case 3: 
 			break;
