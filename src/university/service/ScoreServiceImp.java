@@ -118,36 +118,43 @@ public class ScoreServiceImp implements ScoreService {
 	}
 
 
-
 	@Override
 	public void updateScore(List<Student> sList, List<Lecture> lList) {
 		
-		studentService.printStudentList(sList);
+		if(!lectureService.printLecture(lList)) {
+			return;
+		}
 		
-		System.out.print("성적을 등록할 학생을 선택하세요 : ");
+		//점수를 줄 강의 선택
+		System.out.print("점수를 수정할 강의를 선택하세요. : ");
+		int indexL = UniversityProgram.scan.nextInt() - 1;
+				
+		//해당 강의를 수강하는 학생리스트 출력
+		List<Student> stdList = lList.get(indexL).getStudents();
+		if(!studentService.printStudentList(stdList)) {
+			return;
+		}
+				
+		//점수를 수정할 학생 인덱스
+		System.out.print("성적을 수정할 학생을 선택하세요 : ");
 		int indexS = UniversityProgram.scan.nextInt() - 1;
 		
-		//학생이 듣고 있는 강의 목록 출력
-		lectureService.printLecture(sList.get(indexS).getLecture());
-		
-		//강의 선택
-		System.out.print("점수를 입력할 강의를 선택하세요. : ");
-		int indexL = UniversityProgram.scan.nextInt() - 1;
-		
-		//점수줄 강의의 학생 목록
-		List<Student> stdList = lList.get(indexL).getStudents();
-		
-		//수정할 점수입력
+		//수정할 점수 입력
 		System.out.print("수정할 점수를 입력하세요(4.5점 만점) : ");
-		double score = UniversityProgram.scan.nextInt();
+		double score = UniversityProgram.scan.nextDouble();
+		
 	
-		//점수 수정
-		for(int i=0; i<stdList.size(); i++) {
-			if(stdList.get(i).getStudentId() == sList.get(indexS).getStudentId()) {
-				stdList.get(i).setScore(score);
-			}
-		}
+		 for(int i=0; i<sList.size(); i++) {
+			 if(sList.get(i).getStudentId() == stdList.get(indexS).getStudentId()) {
+				 for(int j=0; j<sList.get(i).getLecture().size(); j++) {
+					 if(sList.get(i).getLecture().get(j).getLectureNum() == lList.get(indexL).getLectureNum()) {
+						 sList.get(i).getLecture().set(j, lList.get(indexL)); 
+						 break;
+					 }
+				 }
+			 }
+		 }
+		 studentService.printStudentList(lList.get(indexL).getStudents());
+		 
 	}
-
-
 }
