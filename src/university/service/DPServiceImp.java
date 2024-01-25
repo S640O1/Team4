@@ -115,14 +115,12 @@ public class DPServiceImp implements DPService {
 			System.out.println("등록된 학과가 없습니다.");
 			return false;
 		}
+		System.out.println(" 순번\t코드\t학과명");
+		System.out.println("---------------------------------------");
 		for(int i = 0; i<dList.size(); i++) {
 			System.out.println("[" +(i+1) + "] "+ dList.get(i).toString());
     	}
 		return true;
 	}
-	@Override
-	public List<Department> getAllDepartments() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 }

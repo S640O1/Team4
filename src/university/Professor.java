@@ -46,14 +46,14 @@ public class Professor implements Serializable {
 	public String toString() {
 		//조건연산자로 성별 출력
 		String type = gender==1 ? " 남성" : "여성";
-		String printNum = String.format("%05d", num);
+		String printNum = String.format("%5d", num);
 		String printdpName = String.format("%6s",  department.dpName );
 		String printName = String.format("%4s",  name );
 		String printType = String.format(" %s ",  type );
 		String printPhoneNum = String.format(" %13s ",  phoneFormatter(phoneNum) );
 		
 		
-		return  " [" + printNum + "] "+ printdpName + " " + printName + "  " + printType + "  " + printPhoneNum;
+		return  " [" + printNum + "]\t    "+ printdpName + "\t\t    " + printName + "   " + printType + "  " + printPhoneNum;
 	}
 
 	//교번, 성별, 이름, 연락처만 동일해도 같은 교수로 판별

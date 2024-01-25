@@ -259,7 +259,7 @@ public class UniversityProgram implements Program {
 			scoreService.showStudentStandardScore(sList);
 			break;
 		case 2 : 	//각 강의별 성적 조회
-			scoreService.showStudentLectureScore(sList);
+			scoreService.showStudentLectureScore(sList, lList);
 			break;
 		case 3 : //뒤로 가기
 			break;
@@ -404,14 +404,31 @@ public class UniversityProgram implements Program {
 		}
 		
 		//해당학생이 수강하고 있는 강의 목록 출력
+		lectureService.printLecture(sList.get(indexS).getLecture());
 		
 		//삭제하고 싶은 강의 목록 선택
+		int indexL = -1;	//강의인덱스
+		System.out.print("수강할 강의를 선택하세요 : ");
+		indexL = scan.nextInt() - 1;
 		
-		//강의 리스트에서 동일한 강의 인덱스 얻어오기(학수번호)
+		//강의 리스트에서 해당 학생정보를 삭제한다
+		for(int i=0; i<lList.size(); i++) {
+			//강의리스트에서 해당강의를 찾아
+			if(lList.get(i).getLectureNum() == sList.get(indexS).getLecture().get(indexL).getLectureNum()) {
+				//그 리스트안의 학생 리스트의 해당학생을 찾아 정보삭제
+				for(int j=0; j<lList.get(i).getStudents().size(); j++) {
+					if(sList.get(indexS).getStudentId() == lList.get(i).getStudents().get(j).getStudentId()) {
+						lList.get(i).getStudents().remove(j);
+					}
+				}
+				
+			}
+		}
 		
-		//해당 강의 리스트에서 강의 삭제하기 
+		//학생 리스트에서 해당 학생정보를 삭제한다
+		sList.get(indexS).getLecture().remove(indexL);
+		System.out.println("강의를 수강취소했습니다.");
 
-		//해당강의 학생 리스트에서도 삭제
 	}
 
 	/** 1. 학과 관리 : 신경재 */

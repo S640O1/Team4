@@ -48,7 +48,8 @@ public class LectureServiceImp implements LectureService {
 		int num = UniversityProgram.scan.nextInt();
 		
 //		int index = -1;
-		boolean isP = false;
+		
+		boolean isP=false;
 		
 		for (int i = 0; i < pList.size(); i++) {
 			if (pList.get(i).getNum() == num) {
