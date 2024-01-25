@@ -74,33 +74,36 @@ public class ScoreServiceImp implements ScoreService {
 		//해당 학생의 인덱스 Student 인스턴스 생성
 		index = UniversityProgram.scan.nextInt() - 1;
 		Student std =  sList.get(index);
+		
 		//수강하고 있는 강의 리스트
 		List<Lecture> lList = sList.get(index).getLecture();
 		
-		//입력한 인덱스 학생의 강의별 학점을 들고와서 강의 개수만큼 나눠서 학점 출력
-		//포문을 돌려서
-			//해당 학생의 모든 점수를 저장
 		//전체 합계 초기화
 		double sumScore=0;
-		// for 문으로 모두 합함 / lList.get(index).getLecture().size()		
 		
-		//평균점수 오류
+		//수강하고 있는 강의의
 		for(int i=0; i<lList.size(); i++) {
-			//강의 안에 해당 학생(덱스)의 스코어
-			List<Student> stdL = lList.get(i).getStudents();
-			for(int j=0; j<stdL.size(); j++) {
-				if(std.getStudentId() == stdL.get(j).getStudentId()) {
-					sumScore += stdL.get(j).getScore();
-//					System.out.println( stdL.get(j).getScore() + "점");
-//					System.out.println( "전체" + sumScore + "점");
+			//해당 학생의 학생id와 동일한 정보를 찾아서
+			for(int j=0; j<lList.get(i).getStudents().size(); j++) {
+				//해당 학생의 정보라면
+				//내가 수강하고 있는 i번째 강의의 학생목록 중 나는 j번째
+				if(std.getStudentId() == lList.get(i).getStudents().get(j).getStudentId()) {
+					System.out.println(lList.get(i).getLectureName() + " : " + lList.get(i).getStudents().get(j).getScore() + "점");
+					sumScore += lList.get(i).getStudents().get(j).getScore();
 				}
 			}
-			
 		}
+		//sumScore안에 자신의 전체 학점합이 저장된다.
 		
-		//합계(sumScore) / 학생이 듣고있는 강의 개수(size)
 		double standardScore = sumScore / lList.size();
+		
+		
 		System.out.println(sList.get(index).getName() + " 학생의 평균 점수는 " + standardScore + "점 입니다.");
+		
+		//학생정보에 평균점수 저장
+		
+
+		
 	}
 	
 	//각 강의 점수 조회
@@ -114,9 +117,14 @@ public class ScoreServiceImp implements ScoreService {
 		
 		//선택한 인덱스의 학생
 		System.out.println(std.getName() + " 학생의 각 강의 학점");
-		//선택한 학생의 각 강의별 학점 나오게 하기
-		for(int i=0;i<std.getLecture().size();i++) {
-			System.out.println(lList.get(i).getLectureName() + " : " + std.getScore());
+		
+		for(int i=0; i<lList.size(); i++) {
+			for(int j=0; j<lList.get(i).getStudents().size(); j++) {
+				if(std.getStudentId() == lList.get(i).getStudents().get(j).getStudentId()) {
+					System.out.println(std.getLecture().get(i).getLectureName() + " : "
+							+ std.getLecture().get(i).getStudents().get(j).getScore());
+				}
+			}
 		}
 	}
 
