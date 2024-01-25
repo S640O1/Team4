@@ -32,13 +32,14 @@ public class ScoreServiceImp implements ScoreService {
 		
 		//점수입력
 		System.out.print("점수를 입력하세요(4.5점 만점) : ");
-		double score = UniversityProgram.scan.nextInt();
+		double score = UniversityProgram.scan.nextDouble();
 		
 		//점수등록
 		//강의 = lLIst.get(index).
 		for(int i=0; i<stdList.size(); i++) {
 			if(stdList.get(i).getStudentId() == sList.get(indexS).getStudentId()) {
 				stdList.get(i).setScore(score);
+				//sList.get(i).setScore(score); -> 그 강의를 듣고있는 각 학생의 점수가 모두 동일하게 바뀐다.
 			}
 		}
 		
@@ -80,8 +81,8 @@ public class ScoreServiceImp implements ScoreService {
 		}
 		
 		//합계(sumScore) / 학생이 듣고있는 강의 개수(size)
-		int standardScore = sumScore / lList.size();
-		System.out.println(sList.get(index).getName() + "학생의 평균 점수는 " + standardScore + "점 입니다.");
+		double standardScore = sumScore / lList.size();
+		System.out.println(sList.get(index).getName() + " 학생의 평균 점수는 " + standardScore + "점 입니다.");
 	}
 	
 	//각 강의 점수 조회
@@ -95,7 +96,7 @@ public class ScoreServiceImp implements ScoreService {
 		
 		//입력한 인덱스 학생의 각 강의의 학점 보여주기
 		for(int i=0;i<std.getLecture().size();i++) {
-			System.out.println(((Student) sList.get(i).getLecture()).getScore());
+			System.out.println(std.toString());
 		}
 	}
 
