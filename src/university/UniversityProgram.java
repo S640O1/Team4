@@ -193,8 +193,7 @@ public class UniversityProgram implements Program {
 			scoreService.addScore(sList, lList);
 			
 			break;
-		case 2: 	//성적수정
-//			scoreService.~~();
+		case 2: 	
 			break;
 		case 3: 
 			break;
@@ -245,8 +244,10 @@ public class UniversityProgram implements Program {
 				printService.printScoreSubMenu();
 				menu = scan.nextInt();
 				}while(menu != 3);
+				
 				switch(menu) {
 				case 1 :	//평균학점
+					System.out.println("평균학점");
 					scoreService.showStudentStandardScore(sList);
 					break;
 				case 2 : 	//각 강의별 성적 조회
