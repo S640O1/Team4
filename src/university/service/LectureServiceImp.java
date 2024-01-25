@@ -48,17 +48,21 @@ public class LectureServiceImp implements LectureService {
 		int num = UniversityProgram.scan.nextInt();
 		
 		int index = -1;
-//		for (int i = 0; i < pList.size(); i++) {
-//			if (pList.get(i).getNum().equals(num)) {
-//				index = i;
-//				break;
-//			}
-//		}
-//		
-//		if (index < 0 || index >= pList.size()) {
-//			System.out.println("등록되지 않은 교번입니다");
-//			return null;
-//		}
+		
+		boolean isP=false;
+		
+		for (int i = 0; i < pList.size(); i++) {
+			if (pList.get(i).getNum() == num) {
+				index = i;
+				isP = true;
+				break;
+			}
+		}
+		
+		if (isP = false) {
+			System.out.println("등록되지 않은 교번입니다");
+			return null;
+		}
 	
 		
 		System.out.print("담당 교수를 입력하세요 : ");
