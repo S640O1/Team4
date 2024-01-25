@@ -8,6 +8,14 @@ import university.UniversityProgram;
 
 public class ScoreServiceImp implements ScoreService {
 	
+	/*
+	 * 5. 성적 조회 - 1. 학생 평균 학점 조회
+	 * -> 각 다른 강의에 각각의 학점을 입력했는데, 다른 강의에 동일한 학점이 저장
+	 * 
+	 * 5. 성적 조회 - 2. 학생 각 강의별 학점 조회
+	 * -> 점수를
+	 * */
+	
 	private StudentService studentService = new StudentServiceImp();
 	private LectureService lectureService = new LectureServiceImp();
 	private int index;
@@ -19,7 +27,7 @@ public class ScoreServiceImp implements ScoreService {
 			return;
 		}
 		
-		//점수를 줄 강의 선택
+		//점수를 줄 강의 B선택
 		System.out.print("점수를 입력할 강의를 선택하세요. : ");
 		int indexL = UniversityProgram.scan.nextInt() - 1;
 		
@@ -40,19 +48,33 @@ public class ScoreServiceImp implements ScoreService {
 		double score = UniversityProgram.scan.nextDouble();
 		
 		//점수 저장 (강의 안에 있는 학생 리스트의 학생 점수를 저장)
-		 lList.get(indexL).getStudents().get(indexS).setScore(score);
+		//강의 리스트 안에 indexL번째의 강의의 학생리스트의 해당 학생의 점수만 등록하고 싶다
+		lList.get(indexL).getStudents().get(indexS).setScore(score);
 		
-		 studentService.printStudentList(lList.get(indexL).getStudents());
-		//학생리스트에 업데이트 (학생정보 안에 있는 강의 리스트의 학생 리스트의 본인 점수 저장)
+
+		
 		 
-		 
+//		 //학생리스트에 업데이트 (학생정보 안에 있는 강의 리스트의 학생 리스트의 본인 점수 저장)
+//		 Student stdA = null;
 //		 //학생리스트에서 해당 학생을 찾기
 //		 for(int i=0; i<sList.size(); i++) {
-//			 //전체 학생 리스트 중 A학생의 id와 동일한 index값을 가져오기
-//			 if(sList.get(i).getStudentId() == )
-//			 
+//			 //전체 학생 리스트 중 A학생의 id와 동일한 A학생 인스턴트 가져오기
+//			 if(sList.get(i).getStudentId() == lList.get(indexL).getStudents().get(indexS).getStudentId()) {
+//				 stdA = sList.get(i);
+//				 break;
+//			 }
 //		 }
-
+//
+//		//A학생이 수강하고 있는 강의 중 B강의 찾기
+//		 for(int i=0; i<stdA.getLecture().size(); i++) {
+//			 if(stdA.getLecture().get(i).getLectureNum() == lList.get(indexL).getLectureNum()) {
+//				 stdA.getLecture().set(i, lList.get(indexL));
+//				 break;
+//			 }
+//		 }
+//		 
+		 
+		 
 		 for(int i=0; i<sList.size(); i++) {
 			 //만약 전체학생리스트 중 해당 학생의 학생id와 동일한 인스턴스가 있다면
 			 if(sList.get(i).getStudentId() == stdList.get(indexS).getStudentId()) {
@@ -67,7 +89,8 @@ public class ScoreServiceImp implements ScoreService {
 				 }
 			 }
 		 }
-		 
+		 studentService.printStudentList(lList.get(indexL).getStudents());
+//		 
 		
 	}
 
