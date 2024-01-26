@@ -29,6 +29,7 @@ public class UniversityProgram implements Program {
 	static String lectureFileName = "src/university/lectureList.txt";
 	static String studentFileName = "src/university/studentList.txt";
 	static String departmentFileName = "src/university/departmentList.txt";
+	static String scoreFileName = "src/university/scoreList.txt";
 	
 	//메뉴 종료 상수
 	static final int EXIT = 8;
@@ -55,6 +56,7 @@ public class UniversityProgram implements Program {
 	public static List<Department> dList = new ArrayList<Department>();
 	private List<Student> sList = new ArrayList<Student>();
 	public static List<Professor> pList = new ArrayList<Professor>();
+	public static List<Score> scoreList = new ArrayList<Score>();
 	Student student;
 	Lecture lecture;
 
@@ -101,6 +103,11 @@ public class UniversityProgram implements Program {
 		if (!(tmpL == null)) {
 			lList.addAll(tmpL);
 		}
+		//성적 정보 불러오기
+		List<Score> tmpScore = fileService.scoreLoad(scoreFileName);
+		if (!(tmpScore == null)) {
+			scoreList.addAll(tmpScore);
+		}
 		
 	}
 
@@ -125,10 +132,16 @@ public class UniversityProgram implements Program {
 			System.out.println("학생 정보 저장에 실패했습니다.");
 		}
 		
-		if(fileService.lSave(lectureFileName, lList)) {
+		if(fileService.lSave(scoreFileName, lList)) {
 			System.out.println("강의 정보 저장이 완료되었습니다.");
 		}else {
 			System.out.println("강의 정보 저장에 실패했습니다.");
+		}
+		
+		if(fileService.scoreSave(scoreFileName, scoreList)) {
+			System.out.println("성적 정보 저장이 완료되었습니다.");
+		}else {
+			System.out.println("성적 정보 저장에 실패했습니다.");
 		}
 		
 	}
@@ -192,7 +205,7 @@ public class UniversityProgram implements Program {
 		case 1:		//성적등록
 			scoreService.addScore(sList, lList);
 			break;
-		case 2: 		// 성적 수정
+		case 2: //성적수정
 			scoreService.updateScore(sList, lList);
 			break;
 		case 3: 
@@ -200,8 +213,8 @@ public class UniversityProgram implements Program {
 		default : 
 			throw new InputMismatchException();
 		}		
-//		fileService.lSave(lectureFileName, lList);
-//		fileService.sSave(studentFileName, sList);
+		fileService.scoreSave(scoreFileName, scoreList);
+		fileService.sSave(studentFileName, sList);
 		
 	}
 
@@ -290,7 +303,6 @@ public class UniversityProgram implements Program {
 			break;
 		case 2: //수강 취소
 			Withdrawal();
-//			enrolmentService.~~();
 			break;
 		case 3: 
 			break;
