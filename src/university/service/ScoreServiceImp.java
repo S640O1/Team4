@@ -7,15 +7,7 @@ import university.Student;
 import university.UniversityProgram;
 
 public class ScoreServiceImp implements ScoreService {
-	
-	/*
-	 * 5. 성적 조회 - 1. 학생 평균 학점 조회
-	 * -> 각 다른 강의에 각각의 학점을 입력했는데, 다른 강의에 동일한 학점이 저장
-	 * 
-	 * 5. 성적 조회 - 2. 학생 각 강의별 학점 조회
-	 * -> 점수를
-	 * */
-	
+
 	private StudentService studentService = new StudentServiceImp();
 	private LectureService lectureService = new LectureServiceImp();
 	private int index;
@@ -94,6 +86,11 @@ public class ScoreServiceImp implements ScoreService {
 		
 	}
 
+	/*
+	 * 5. 성적 조회 - 1. 학생 평균 학점 조회
+	 * -> 각 다른 강의에 각각의 학점을 입력했는데, 다른 강의에 동일한 학점이 저장
+	 *
+	 * */
 	
 
 	//강의 평균 점수
@@ -141,6 +138,11 @@ public class ScoreServiceImp implements ScoreService {
 
 		
 	}
+	
+	/*
+	 * 5. 성적 조회 - 2. 학생 각 강의별 학점 조회
+	 * -> 점수를
+	 * */
 	
 	//각 강의 점수 조회
 	@Override
