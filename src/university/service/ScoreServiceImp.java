@@ -173,6 +173,9 @@ public class ScoreServiceImp implements ScoreService {
 			if(scoreList.get(i).getStdId() == std.getStudentId()) {
 				//해당 점수 인스턴스를 학생점수list에 추가
 				stdScoreList.add(scoreList.get(i));
+			}else {
+				System.out.println("등록된 점수가 없습니다.");
+				return;
 			}
 		}
 		
