@@ -50,6 +50,7 @@ public class Student implements Serializable{
 	/* 학번 이름 성별 / 학과 : 학과명 / 연락처 : 01012345678 점수*/
 	@Override
 	public String toString() {
+		//scoreS를 평균으로 넣었는데 반영이 안됨.
 		String scoreS = String.format("%.2f", (float)averageScore);
 		return "학번 : " + studentId + " " + name + " " + gender + " / 학과 : " + department + " / 연락처 : " +
 				phoneNumber + " / " + scoreS + "점\n";

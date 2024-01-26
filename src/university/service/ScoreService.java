@@ -17,7 +17,7 @@ public interface ScoreService {
 	public void showStudentStandardScore(List<Student> sList, List<Lecture> lList);
 	
 	//강의 학점 조회
-	public void showStudentLectureScore(List<Student> sList, List<Lecture> lList);
+	public void showStudentLectureScore(List<Student> sList);
 	
 
 }
