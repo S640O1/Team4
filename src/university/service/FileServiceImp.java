@@ -9,6 +9,7 @@ import java.util.List;
 import university.Department;
 import university.Lecture;
 import university.Professor;
+import university.Score;
 import university.Student;
 import university.UniversityProgram;
 
@@ -111,6 +112,29 @@ public class FileServiceImp implements FileService {
 	public boolean lSave(String lectureFileName, List<Lecture> lList) {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(lectureFileName))) {
 			oos.writeObject(lList);
+			oos.flush();
+			return true;
+		} catch (Exception e) {
+			System.out.println("예외가 발생했습니다.");
+		}
+		return false;
+	}
+
+	@Override
+	public List<Score> scoreLoad(String scoreFileName) {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(scoreFileName))) {
+			System.out.println("성적 정보를 불러왔습니다.");
+			return (List<Score>)ois.readObject();
+		} catch (Exception e) {
+			System.out.println("성적을 등록해주세요.");
+		}
+		return null;
+	}
+
+	@Override
+	public boolean scoreSave(String scoreFileName, List<Score> scoreList) {
+		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(scoreFileName))) {
+			oos.writeObject(scoreList);
 			oos.flush();
 			return true;
 		} catch (Exception e) {
