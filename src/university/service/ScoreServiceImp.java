@@ -65,7 +65,7 @@ public class ScoreServiceImp implements ScoreService {
 		Score sObj = new Score(lList.get(indexL).getLectureNum(), sList.get(indexStd).getStudentId() , score, lList.get(indexL).getLectureName(), sList.get(indexStd).getName());
 		
 		//만약이미 해당 학생의 정보가 들어있다면(강의num과 학생id가 일치한 항목)
-		 if(!scoreList.equals(sObj)) {
+		 if(scoreList.equals(sObj)) {
 			 System.out.println("이미 점수를 등록했습니다.");
 			 return;
 		 }
