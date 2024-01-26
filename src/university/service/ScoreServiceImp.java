@@ -22,6 +22,9 @@ public class ScoreServiceImp implements ScoreService {
 
 	private StudentService studentService = new StudentServiceImp();
 	private LectureService lectureService = new LectureServiceImp();
+	private FileService fileService = new FileServiceImp();
+	
+	static String studentFileName = "src/university/studentList.txt";
 	private int index;
 	
 	@Override
@@ -159,6 +162,7 @@ public class ScoreServiceImp implements ScoreService {
 		
 		//학생정보에 평균점수 저장
 		sList.get(index).setAverageScore(standardScore);
+		fileService.sSave(studentFileName, sList);
 		
 	}
 	
