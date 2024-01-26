@@ -42,7 +42,7 @@ public class Score implements Serializable{
 		String printLectureName = String.format("%10s", lectureName);
 		String printStdName = String.format("%5s", stdName);
 		String printScore = String.format("%.2f", score);
-		return "[" + printLectureName + "] " + printStdName + " : " + printScore + "점";
+		return "[" + printLectureName + "] " +  " : " + printScore + "점";
 	}
 
 }

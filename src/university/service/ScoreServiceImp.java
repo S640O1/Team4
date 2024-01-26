@@ -135,13 +135,14 @@ public class ScoreServiceImp implements ScoreService {
 		
 		//해당 학생의 인덱스 Student 인스턴스 생성
 		index = UniversityProgram.scan.nextInt() - 1;
-		Student std =  sList.get(index);
+		Student std = sList.get(index);
 		
 		//전체 합계 초기화
 		double sumScore=0;
 		
-		//전체 점수list에서 해당 학생이 포함된 학생점수list만들기
+		//전체 점수list에서 해당 학생이 포함된 학생점수 list만들기
 		List<Score> stdScoreList = new ArrayList<Score>();
+		
 		for(int i=0; i<scoreList.size(); i++) {
 			//만약 성적 리스트에 본인 id정보가 있다면
 			if(scoreList.get(i).getStdId() == std.getStudentId()) {
@@ -165,16 +166,10 @@ public class ScoreServiceImp implements ScoreService {
 		fileService.sSave(studentFileName, sList);
 		
 	}
-	
-	/*
-	 * 5. 성적 조회 - 2. 학생 각 강의별 학점 조회
-	 * -> 점수를
-	 * */
 
 	//수강하고 있는 강의의 각 점수 조회
-
 	@Override
-	public void showStudentLectureScore(List<Student> sList, List<Lecture> lList) {
+	public void showStudentLectureScore(List<Student> sList) {
 
 		studentService.printStudentList(sList);
 		System.out.print("학점을 볼 학생 선택 : ");
@@ -196,6 +191,7 @@ public class ScoreServiceImp implements ScoreService {
 		}
 		
 		//각 강의 점수 출력
+		System.out.println("[" + sList.get(index).getName() + " 학생의 각 강의 학점]");
 		for(int i=0; i<stdScoreList.size(); i++) {
 			System.out.println(stdScoreList.get(i).toString());
 		}
