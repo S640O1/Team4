@@ -5,6 +5,7 @@ import java.util.List;
 import university.Department;
 import university.Lecture;
 import university.Professor;
+import university.Score;
 import university.Student;
 
 
@@ -23,6 +24,12 @@ public interface FileService {
 	/** 교수 파일정보 저장하기 : 손나영*/
 	boolean pSave(String professorFileName);
 	
+	/** 성적 파일정보 불러오기*/
+	List<Score>  scoreLoad(String scoreFileName);
+	
+	/** 성적 파일정보 저장하기*/
+	boolean scoreSave(String scoreFileName, List<Score> scoreList);
+
 	/** 학생 파일정보 불러오기 : 양선진*/
 	List<Student> sLoad(String studentFileName);
 	
