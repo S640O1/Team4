@@ -1,5 +1,10 @@
 package siteCafeManagement.membership;
 
-public class test {
+import java.util.Scanner;
 
+import siteCafeManagement.MainProgram;
+import university.UniversityProgram;
+
+public class test {
+	public static Scanner scan = MainProgram.scan;
 }
