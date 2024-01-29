@@ -152,7 +152,7 @@ public class ABProgram implements Program{
 	
 	/** 현재 잔액 조회 :  */
 	private void currentMoney() {
-		accountBookService.printCurrentMoney();
+		// accountBookService.printCurrentMoney();
 		
 	}
 	

@@ -14,17 +14,51 @@ public class UniversityMain {
 	 *     - 과 등록/수정/삭제
 	 *   - 강의 관리 
 	 *     - 강의 등록/수정/삭제
+	 *     
 	 *   - 수강 관리
-	 *     - 수강 신청/성적관리
+	 *      - 수강 신청
+	 *      	학생목록 보여주고
+	 *     		- 학번을 입력하세요 : num
+	 *     	//없는 학번이다 
+ *     			잘못된 학번입니다.
+	 *     			int index = -1;
+					for(int i=0; i<sList.size(); i++) {
+						if(sList.get(i).getStudentId()==num) {
+							index = i;
+							break;
+						}
+					}
+	 *     		- 강의목록 출력
+	 *     		- 강의 선택
+	 *     		- 만약 강의 리스트의 사이즈가 수강인원보다 적다면
+	 *     				//수강신청완료
+	 *     					Lecture lecture = new ~~
+	 *     			1. (강의) 강의안에 수강학생 리스트에 해당 학번 학생 인스턴스 추가
+	 *     			2. (교수) 해당 강의 교수 정보에 강의 정보 업데이트
+	 *     `		3. (학생) sList.get(index).getLecture.add(lecture); 해당 학번 학생 안 수강 강의 리스트에 해당 강의 인스턴스 추가
+	 *     				//아니면 불가 
+	 *      - 수강 취소
+	 *     
+	 *     3. - 성적관리
+					- 성적 등록
+					- 성적 수정
 	 *   - 조회
-	 *     - 성적 조회/학과 조회 등
+	 *     - 성적 조회
+	 *     -		- 학생 성적 조회
+	 *     				- 평균 학점 조회 (본인이 듣는 강의의 학점 평균 = 최종학점)
+	 *     				- 강의 학점 조회 
+	 *     학과 조회/학생 조회/강의 조회/교수 조회
+	 * 
 	 * - 추가 기능 구현 해도 됨
 	 * - 과에 학부 추가해도 됨
 	 * - 제출일 : 1월 26일. 상황봐서 변경될 수 있음.
 	 */
 	
+	/* 학과 > 교수 > 학생 > 강의(with 교수)> 수강신청*/
 	
 	/*
+	 * 
+	 * 학과>교수>학생>강의(교수함께등록)>수강신청
 	 
 	 [University]	//단어장
 	  ㄴ 교수
@@ -43,7 +77,8 @@ public class UniversityMain {
 	 
 	 */
 	public static void main(String[] args) {
-
+		UniversityProgram up = new UniversityProgram();
+		up.run();
 	}
 
 }

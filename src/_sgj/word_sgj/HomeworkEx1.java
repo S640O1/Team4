@@ -138,7 +138,6 @@ public class HomeworkEx1 {
 			return;
 		}
 		//있으면 이미 등록됐다고 알림
-	
 
 	private static void printMenu() {
 		System.out.println("----영어 단어장----");

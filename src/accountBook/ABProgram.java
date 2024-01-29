@@ -41,7 +41,7 @@ public class ABProgram implements Program{
 			list = new ArrayList<Item>();
 		}
 
-		do {
+		do { 
 			printMenu();
 			try {
 				menu = scan.nextInt();
@@ -163,26 +163,31 @@ public class ABProgram implements Program{
 			case 1 :	//수입, 지출 여부 변경
 				if(!accountBookService.runUpateInOut(index, list)) {
 					System.out.println("수정에 실패하였습니다.");
+					return;
 				};
 				break;
 			case 2 :	//일자수정
 				if(!accountBookService.runUpateInDate(index, list)) {
 					System.out.println("수정에 실패하였습니다.");
+					return;
 				};
 				break;
 			case 3 :	//금액수정
 				if(!accountBookService.runUpateInMoney(index, list)) {
 					System.out.println("수정에 실패하였습니다.");
+					return;
 				};
 				break;
 			case 4 :	//내역수정				
 				if(!accountBookService.runUpateInMemo(index, list)) {
 					System.out.println("수정에 실패하였습니다.");
+					return;
 				};
 				break;
 			case 5 : //전체수정
 				if(!accountBookService.runUpateInAll(index, list)) {;	
 				System.out.println("수정에 실패하였습니다.");
+				return;
 				}
 				break;
 			case 6 : System.out.println("뒤로가기");
