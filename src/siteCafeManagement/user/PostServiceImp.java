@@ -1,7 +1,12 @@
 package siteCafeManagement.user;
 
-public class PostServiceImp implements PostService{
+import java.util.Scanner;
 
+import siteCafeManagement.MainProgram;
+
+public class PostServiceImp implements PostService{
+	public static Scanner scan = MainProgram.scan;
+	
 	@Override
 	public void addPost() {
 		// TODO Auto-generated method stub
