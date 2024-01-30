@@ -24,6 +24,7 @@ public class MainProgram implements Program{
 	//EXIT
 	static final int EXIT = 4;
 	private static final int EXIT_MEMBERSHIP = 4;
+	private static final int EXIT_MANAGE = 3;
 	private static final int EXIT_MANAGE = 0; //원하는 숫자 넣기(넣고 지우기)
 	private static final int EXIT_USER = 5;
 	
@@ -43,6 +44,7 @@ public class MainProgram implements Program{
 	
 	//로그인 한 유저정보
 	static User user;	
+
 	
 	@Override
 	public void run() {
@@ -139,16 +141,52 @@ public class MainProgram implements Program{
 	
 	private void runManage(int menu) {
 		switch(menu) {
-		case 1 : 
+		case 1 :
 			break;
 		case 2 : 
+			System.out.println("카테고리 관리 구현 예정");
+			categoryManager();
 			break;
-		case 3 : 
+		case 3 : // 뒤로가기
 			break;
 		default : throw new InputMismatchException();
 		}
 	}
 
+	private void categoryManager() {
+		int menu = 0;
+		
+		System.out.println();
+		printService.printCategoryManager();
+		
+		try {
+			menu = scan.nextInt();
+			runCategory(menu);
+		} catch(InputMismatchException e) {
+			System.out.println("잘못된 메뉴입니다.");
+			scan.nextLine();
+		}
+		
+	}
+
+	private void runCategory(int menu) {
+		switch(menu) {
+		case 1 :
+			System.out.println("카테고리 등록 구현 예정");
+			break;
+		case 2 :
+			System.out.println("카테고리 수정 구현 예정");
+			break;
+		case 3 :
+			System.out.println("카테고리 삭제 구현 예정");
+			break;
+		case 4 :	// 뒤로가기
+			break;
+		default : throw new InputMismatchException();			
+		}
+	}
+
+	//사용자 관리 메뉴
 	//사용자 : 손나영
 	private void userMenu() {
 		int menu = 0;
