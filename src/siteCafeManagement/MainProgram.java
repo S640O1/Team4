@@ -24,7 +24,7 @@ public class MainProgram implements Program{
 	static final int EXIT = 4;
 	private static final int EXIT_MEMBERSHIP = 4;
 	private static final int EXIT_MANAGE = 0; //원하는 숫자 넣기(넣고 지우기)
-	private static final int EXIT_USER = 5;
+	
 	
 	//서비스
 	private PrintService printService = new PrintServiceImp(); 	//print
@@ -37,10 +37,12 @@ public class MainProgram implements Program{
 	
 	//File List
 	static List<User> userList = new ArrayList<User>();		//유저정보리스트
-	static List<Post> postList = new ArrayList<Post>();		//게시글정보리스트
+	public static List<Post> postList = new ArrayList<Post>();		//게시글정보리스트
+	//카테고리 리스트
+	//게시판 리스트
 	
 	//로그인 한 유저정보
-	static User user;	
+	public static User user;	
 	
 	@Override
 	public void run() {
@@ -150,7 +152,7 @@ public class MainProgram implements Program{
 	//사용자 : 손나영
 	private void userMenu() {
 		int menu = 0;
-		do {
+		
 			System.out.println();
 			printService.printUser();
 			try {
@@ -160,24 +162,25 @@ public class MainProgram implements Program{
 				System.out.println("잘못된 메뉴입니다.");
 				scan.nextLine();
 			}
-		}while(menu != EXIT_USER);
+			
 	}
 	
 	private void runUser(int menu) {
 		switch(menu) {
 		case 1 : //게시글 등록
-			postService.addPost();
+			postService.addPostService();
 			break;
 		case 2 : //게시글 조회
-			postService.psintPost();
+			postService.printPostService();
 			break;
 		case 3 : //게시글 수정
-			postService.setPost();
+			postService.setPostService();
 			break;
 		case 4 : //게시글 삭제
-			postService.deletePost();
+			postService.deletePostService();
 			break;
 		case 5 :	//뒤로가기
+			
 			break;
 		default : throw new InputMismatchException();
 		}

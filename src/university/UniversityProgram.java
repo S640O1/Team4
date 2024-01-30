@@ -258,6 +258,8 @@ public class UniversityProgram implements Program {
 			runViewScore(menu);
 			}while(menu != 3);
 			break;
+		case 6:
+			break;
 		default : 
 			throw new InputMismatchException();
 		}
