@@ -7,12 +7,15 @@ import java.util.InputMismatchException;
 import java.util.List;
 
 import university.Lecture;
+import university.Professor;
 import university.UniversityProgram;
 
 public class LectureServiceImp implements LectureService {
 	
 	private FileService fileService = new FileServiceImp();
 	private PrintService printService = new PrintServiceImp();
+	private ProfessorService professorService = new ProfessorServiceImp();
+
 	
 	Date date = new Date();
 	public static String pattern = "HH:mm";
@@ -20,9 +23,8 @@ public class LectureServiceImp implements LectureService {
 	
 	
 	/** 강의(리스트)에 내역을 추가하는 메소드 : 심아진 */
-	@SuppressWarnings("unlikely-arg-type")
 	@Override
-	public List<Lecture> addLecture(List<Lecture> lList, String lectureFileName) {
+	public List<Lecture> addLecture(List<Lecture> lList, List<Professor>pList, String lectureFileNames) {
 
 		if(lList == null) {
 			lList = new ArrayList<Lecture>();
@@ -38,16 +40,27 @@ public class LectureServiceImp implements LectureService {
 		String lectureName = UniversityProgram.scan.nextLine();
 		
 		//교수 리스트 출력
-//		if(!professorService.printProfessor()) {
-//			return;
-//		}
+		professorService.printProfessor();
 		
-		//교수가 있다면 입력 받고, 없으면 받지 않음 -> 교수 완성되면 실행
 		System.out.print("담당 교수 번호를 입력하세요 : ");
-		int pNum = UniversityProgram.scan.nextInt();
+		int num = UniversityProgram.scan.nextInt()-1;
+	
+		if (num < 0 || num >=pList.size()) {
+			System.out.println("일치하는 번호가 없습니다.");
+			return null;
+		}
+
 		
+//		int nameIndex = -1;
+	
 		System.out.print("담당 교수를 입력하세요 : ");
 		String pName = UniversityProgram.scan.next();
+		
+		if (!pList.get(num).getName().equals(pName)) {
+			System.out.println("등록된 교수가 없습니다.");
+			return null;
+		}
+
 		
 		System.out.print("최대 수강 인원을 입력하세요 : ");
 		int maxNum = UniversityProgram.scan.nextInt();
@@ -66,7 +79,7 @@ public class LectureServiceImp implements LectureService {
 		System.out.print("강의실을 입력하세요 : ");
 		String lectureRoom = UniversityProgram.scan.nextLine();
 		
-		Lecture lecture = new Lecture(lectureNum, maxNum, pNum, lectureName,  pName, lectureRoom, date, null);
+		Lecture lecture = new Lecture(lectureNum, maxNum, num, lectureName,  pName, lectureRoom, date, null);
 		// System.out.println(lecture);
 		
 		//강의 같으면 등록 X 코드 작성 => 같은 강의 등록해도 저장이 되는 오류
@@ -96,12 +109,13 @@ public class LectureServiceImp implements LectureService {
 		System.out.print("수정할 강의번호를 선택하세요. : ");
 		
 		int index = UniversityProgram.scan.nextInt()-1;
-		Lecture lec = lList.get(index);
 		
 		if (index < 0 || index >= lList.size() ) {
 			System.out.println("일치하는 번호가 없습니다.");
 			return;
 		}
+		
+		Lecture lec = lList.get(index);
 		
 		// 수정할 리스트만 보여줌
 		System.out.println();
@@ -139,7 +153,6 @@ public class LectureServiceImp implements LectureService {
 		case 2:
 			// 강의명 수정
 			System.out.print("수정할 강의명을 입력하세요 : ");
-			UniversityProgram.scan.nextLine();
 			String lectureName = UniversityProgram.scan.nextLine();
 			lec.setLectureName(lectureName);
 			System.out.println(lec.toString());
@@ -158,7 +171,6 @@ public class LectureServiceImp implements LectureService {
 		case 4:
 			// 담당 교수 이름 수정
 			System.out.print("수정할 교수 이름을 입력하세요 : ");
-			UniversityProgram.scan.nextLine();
 			String pName = UniversityProgram.scan.nextLine();
 			lec.setPName(pName);
 			System.out.println(lec.toString());

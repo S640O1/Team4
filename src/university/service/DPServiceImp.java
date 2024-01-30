@@ -15,7 +15,8 @@ public class DPServiceImp implements DPService {
         return departmentList;
     }
     /** 학과를 등록하는 메소드*/
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public List<Department> addDepartment(List<Department> departmentList) {
         System.out.println("새로운 학과를 등록합니다.");
 
@@ -42,7 +43,7 @@ public class DPServiceImp implements DPService {
         departmentList.add(newDepartment);
         System.out.println("학과가 성공적으로 등록되었습니다.");
 
-        return (List<Department>) newDepartment;
+        return departmentList;
     }
     /** 학과를 수정하는 메소드*/
     @Override
@@ -143,9 +144,12 @@ public class DPServiceImp implements DPService {
 			System.out.println("등록된 학과가 없습니다.");
 			return false;
 		}
+		System.out.println(" 순번\t코드\t학과명");
+		System.out.println("---------------------------------------");
 		for(int i = 0; i<dList.size(); i++) {
 			System.out.println("[" +(i+1) + "] "+ dList.get(i).toString());
     	}
 		return true;
 	}
+
 }

@@ -29,6 +29,7 @@ public class UniversityProgram implements Program {
 	static String lectureFileName = "src/university/lectureList.txt";
 	static String studentFileName = "src/university/studentList.txt";
 	static String departmentFileName = "src/university/departmentList.txt";
+	static String scoreFileName = "src/university/scoreList.txt";
 	
 	//메뉴 종료 상수
 	static final int EXIT = 8;
@@ -55,6 +56,7 @@ public class UniversityProgram implements Program {
 	public static List<Department> dList = new ArrayList<Department>();
 	private List<Student> sList = new ArrayList<Student>();
 	public static List<Professor> pList = new ArrayList<Professor>();
+	public static List<Score> scoreList = new ArrayList<Score>();
 	Student student;
 	Lecture lecture;
 
@@ -101,6 +103,11 @@ public class UniversityProgram implements Program {
 		if (!(tmpL == null)) {
 			lList.addAll(tmpL);
 		}
+		//성적 정보 불러오기
+		List<Score> tmpScore = fileService.scoreLoad(scoreFileName);
+		if (!(tmpScore == null)) {
+			scoreList.addAll(tmpScore);
+		}
 		
 	}
 
@@ -125,10 +132,16 @@ public class UniversityProgram implements Program {
 			System.out.println("학생 정보 저장에 실패했습니다.");
 		}
 		
-		if(fileService.lSave(lectureFileName, lList)) {
+		if(fileService.lSave(scoreFileName, lList)) {
 			System.out.println("강의 정보 저장이 완료되었습니다.");
 		}else {
 			System.out.println("강의 정보 저장에 실패했습니다.");
+		}
+		
+		if(fileService.scoreSave(scoreFileName, scoreList)) {
+			System.out.println("성적 정보 저장이 완료되었습니다.");
+		}else {
+			System.out.println("성적 정보 저장에 실패했습니다.");
 		}
 		
 	}
@@ -191,18 +204,17 @@ public class UniversityProgram implements Program {
 		switch(menu) {
 		case 1:		//성적등록
 			scoreService.addScore(sList, lList);
-			
 			break;
-		case 2: 	
+		case 2: //성적수정
+			scoreService.updateScore(sList, lList);
 			break;
 		case 3: 
 			break;
 		default : 
 			throw new InputMismatchException();
 		}		
-		fileService.lSave(lectureFileName, lList);
+		fileService.scoreSave(scoreFileName, scoreList);
 		fileService.sSave(studentFileName, sList);
-		fileService.pSave(professorFileName);
 		
 	}
 
@@ -255,7 +267,7 @@ public class UniversityProgram implements Program {
 	private void runViewScore(int menu) {
 		switch(menu) {
 		case 1 :	//평균학점
-			scoreService.showStudentStandardScore(sList);
+			scoreService.showStudentStandardScore(sList, lList);
 			break;
 		case 2 : 	//각 강의별 성적 조회
 			scoreService.showStudentLectureScore(sList);
@@ -291,7 +303,6 @@ public class UniversityProgram implements Program {
 			break;
 		case 2: //수강 취소
 			Withdrawal();
-//			enrolmentService.~~();
 			break;
 		case 3: 
 			break;
@@ -403,14 +414,31 @@ public class UniversityProgram implements Program {
 		}
 		
 		//해당학생이 수강하고 있는 강의 목록 출력
+		lectureService.printLecture(sList.get(indexS).getLecture());
 		
 		//삭제하고 싶은 강의 목록 선택
+		int indexL = -1;	//강의인덱스
+		System.out.print("수강할 강의를 선택하세요 : ");
+		indexL = scan.nextInt() - 1;
 		
-		//강의 리스트에서 동일한 강의 인덱스 얻어오기(학수번호)
+		//강의 리스트에서 해당 학생정보를 삭제한다
+		for(int i=0; i<lList.size(); i++) {
+			//강의리스트에서 해당강의를 찾아
+			if(lList.get(i).getLectureNum() == sList.get(indexS).getLecture().get(indexL).getLectureNum()) {
+				//그 리스트안의 학생 리스트의 해당학생을 찾아 정보삭제
+				for(int j=0; j<lList.get(i).getStudents().size(); j++) {
+					if(sList.get(indexS).getStudentId() == lList.get(i).getStudents().get(j).getStudentId()) {
+						lList.get(i).getStudents().remove(j);
+					}
+				}
+				
+			}
+		}
 		
-		//해당 강의 리스트에서 강의 삭제하기 
+		//학생 리스트에서 해당 학생정보를 삭제한다
+		sList.get(indexS).getLecture().remove(indexL);
+		System.out.println("강의를 수강취소했습니다.");
 
-		//해당강의 학생 리스트에서도 삭제
 	}
 
 	/** 1. 학과 관리 : 신경재 */
@@ -803,7 +831,7 @@ public class UniversityProgram implements Program {
 	
 	/** 4. 강의 등록 : 심아진*/
 	private void insertLecture() {
-		lectureService.addLecture(lList, lectureFileName);
+		lectureService.addLecture(lList, pList, lectureFileName);
 		fileService.lSave(lectureFileName, lList);
 	}
 

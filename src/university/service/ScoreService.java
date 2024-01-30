@@ -10,9 +10,14 @@ public interface ScoreService {
 	//성적 등록
 	public void addScore(List<Student> sList, List<Lecture> lList);
 	
+	// 성적 수정
+	public void updateScore(List<Student>sList, List<Lecture> lList);
+
 	//평균 학점 조회
-	public void showStudentStandardScore(List<Student> sList);
+	public void showStudentStandardScore(List<Student> sList, List<Lecture> lList);
 	
 	//강의 학점 조회
 	public void showStudentLectureScore(List<Student> sList);
+	
+
 }
