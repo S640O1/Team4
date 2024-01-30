@@ -1,6 +1,9 @@
 package siteCafeManagement.manager.category;
 
-public class Category {
+import java.io.Serializable;
+
+public class Category implements Serializable{
+	private static final long serialVersionUID = -3427417268942897922L;
 
 	
 }

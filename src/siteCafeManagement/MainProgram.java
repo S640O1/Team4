@@ -25,7 +25,6 @@ public class MainProgram implements Program{
 	static final int EXIT = 4;
 	private static final int EXIT_MEMBERSHIP = 4;
 	private static final int EXIT_MANAGE = 3;
-	private static final int EXIT_MANAGE = 0; //원하는 숫자 넣기(넣고 지우기)
 	private static final int EXIT_USER = 5;
 	
 	//서비스
@@ -36,6 +35,7 @@ public class MainProgram implements Program{
 	
 	//파일명
 	static String userFileName = "src/siteCafeManagement/userList.txt";
+	static String categoryFileName = "src/siteCafeManagement/categoryList.txt";
 	static String postFileName = "src/siteCafeManagement/postList.txt";
 	
 	//File List
