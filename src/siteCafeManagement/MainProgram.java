@@ -98,6 +98,7 @@ public class MainProgram implements Program{
 	private void managerMenu() {
 		int menu = 0;
 		do {
+			System.out.println();
 			printService.printManager();
 			try {
 				menu = scan.nextInt();
@@ -125,6 +126,7 @@ public class MainProgram implements Program{
 	private void userMenu() {
 		int menu = 0;
 		do {
+			System.out.println();
 			printService.printUser();
 			try {
 				menu = scan.nextInt();
