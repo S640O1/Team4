@@ -22,6 +22,7 @@ public class MainProgram implements Program{
 		int menu = 0;
 		//load(fileName); 구현 예정
 		do {
+			System.out.println();
 			printMenu();
 			try {
 				menu = scan.nextInt();
@@ -67,6 +68,7 @@ public class MainProgram implements Program{
 	private void membershipMenu() {
 		int menu = 0;
 		do {
+			System.out.println();
 			printService.printMembership();
 			try {
 				menu = scan.nextInt();
@@ -86,6 +88,9 @@ public class MainProgram implements Program{
 			break;
 		case 3 : System.out.println("회원가입 구현 예정");
 			break;
+		case 4 : 
+			break;
+		default : throw new InputMismatchException();
 		}
 	}
 
@@ -112,6 +117,7 @@ public class MainProgram implements Program{
 			break;
 		case 3 : 
 			break;
+		default : throw new InputMismatchException();
 		}
 	}
 
@@ -138,6 +144,7 @@ public class MainProgram implements Program{
 			break;
 		case 3 : 
 			break;
+		default : throw new InputMismatchException();
 		}
 	}
 
