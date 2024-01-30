@@ -112,13 +112,48 @@ public class MainProgram implements Program{
 	
 	private void runManage(int menu) {
 		switch(menu) {
-		case 1 : 
+		case 1 :
 			break;
 		case 2 : 
+			System.out.println("카테고리 관리 구현 예정");
+			categoryMenager();
 			break;
-		case 3 : 
+		case 3 : // 뒤로가기
 			break;
 		default : throw new InputMismatchException();
+		}
+	}
+
+	private void categoryMenager() {
+		int menu = 0;
+		
+		System.out.println();
+		printService.printCategoryManager();
+		
+		try {
+			menu = scan.nextInt();
+			runCategory(menu);
+		} catch(InputMismatchException e) {
+			System.out.println("잘못된 메뉴입니다.");
+			scan.nextLine();
+		}
+		
+	}
+
+	private void runCategory(int menu) {
+		switch(menu) {
+		case 1 :
+			System.out.println("카테고리 등록 구현 예정");
+			break;
+		case 2 :
+			System.out.println("카테고리 수정 구현 예정");
+			break;
+		case 3 :
+			System.out.println("카테고리 삭제 구현 예정");
+			break;
+		case 4 :	// 뒤로가기
+			break;
+		default : throw new InputMismatchException();			
 		}
 	}
 

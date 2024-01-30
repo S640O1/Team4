@@ -8,6 +8,9 @@ public interface PrintService {
 
 	//관리자 관리
 	void printManager();
+	
+	// 카테고리 관리
+	void printCategoryManager();
 
 	//사용자 관리
 	void printUser();
