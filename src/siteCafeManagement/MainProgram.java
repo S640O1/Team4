@@ -1,15 +1,20 @@
 package siteCafeManagement;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import program.Program;
+import siteCafeManagement.membership.MembershipImp;
 import siteCafeManagement.service.FileService;
 import siteCafeManagement.service.FileServiceImp;
 import siteCafeManagement.service.PrintService;
 import siteCafeManagement.service.PrintServiceImp;
+import siteCafeManagement.user.Post;
 import siteCafeManagement.user.PostService;
 import siteCafeManagement.user.PostServiceImp;
+import siteCafeManagement.user.User;
 
 
 
@@ -25,7 +30,19 @@ public class MainProgram implements Program{
 	//서비스
 	private PrintService printService = new PrintServiceImp(); 	//print
 	private FileService fileService = new FileServiceImp();
-	private PostServiceImp postService = new PostServiceImp();		//user
+	private MembershipImp membershipImp = new MembershipImp();	//membership
+	private PostServiceImp postService = new PostServiceImp();	//user
+	
+	//파일명
+	static String userFileName = "src/siteCafeManagement/userList.txt";
+	static String postFileName = "src/siteCafeManagement/postList.txt";
+	
+	//File List
+	static List<User> userList = new ArrayList<User>();		//유저정보리스트
+	static List<Post> postList = new ArrayList<Post>();		//게시글정보리스트
+	
+	//로그인 한 유저정보
+	static User user;	
 	
 	@Override
 	public void run() {
@@ -92,11 +109,11 @@ public class MainProgram implements Program{
 
 	private void runMembership(int menu) {
 		switch(menu) {
-		case 1 : System.out.println("로그인 구현 예정");
+		case 1 : membershipImp.logIn();
 			break;
-		case 2 : System.out.println("로그아웃 구현 예정");
+		case 2 : membershipImp.logOut();
 			break;
-		case 3 : System.out.println("회원가입 구현 예정");
+		case 3 : membershipImp.join();
 			break;
 		case 4 : 
 			break;
