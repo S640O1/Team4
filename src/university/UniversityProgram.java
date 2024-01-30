@@ -81,7 +81,7 @@ public class UniversityProgram implements Program {
 		
 	}
 
-	//불러오기 및 불러오기 판별
+	//불러오기
 	private void isLoad() {
 		//학과 정보 불러오기
 		List<Department> tmpD = fileService.dLoad(departmentFileName);
@@ -336,7 +336,7 @@ public class UniversityProgram implements Program {
 		int indexS  = -1;	//학생인덱스
 		boolean isStudent = false;
 		//학번이 동일한 학생을 찾는다.
-		for(int i=0; i<sList.size(); i++) {
+		for(int i=0; i<sList.size(); i++) {		//학번을 이용하여 학생 객체를 만들고 학생 리스트에서 indexOf를 이용하여 번지를 가져와서 활용하는 것이 편리해요.
 			if(sList.get(i).getStudentId()==id) {
 				indexS = i;
 				isStudent = true;
@@ -400,7 +400,7 @@ public class UniversityProgram implements Program {
 		
 		int indexS  = -1;	//학생인덱스
 		boolean isStudent = false;
-		//학번이 동일한 학생을 찾는다.
+		//학번이 동일한 학생을 찾는다.			//학번을 이용하여 학생 객체를 만들고 학생 리스트에서 indexOf를 이용하여 번지를 가져와서 활용하는 것이 편리해요.
 		for(int i=0; i<sList.size(); i++) {
 			if(sList.get(i).getStudentId()==id) {
 				indexS = i;
@@ -422,7 +422,7 @@ public class UniversityProgram implements Program {
 		indexL = scan.nextInt() - 1;
 		
 		//강의 리스트에서 해당 학생정보를 삭제한다
-		for(int i=0; i<lList.size(); i++) {
+		for(int i=0; i<lList.size(); i++) {	//강의번호를 이용하여 강의 객체를 만들고 학생 리스트에서 강의 리스트를 가져온 후 선택한 강의 객체를 삭제하면 코드를 효율적으로, 편리하게 작성할 수 있어요.
 			//강의리스트에서 해당강의를 찾아
 			if(lList.get(i).getLectureNum() == sList.get(indexS).getLecture().get(indexL).getLectureNum()) {
 				//그 리스트안의 학생 리스트의 해당학생을 찾아 정보삭제
@@ -540,13 +540,13 @@ public class UniversityProgram implements Program {
 		String dpName = scan.nextLine();
 		//만약 학과가 학과 리스트안에 없다면
 		int index=-1;
-		for(int i=0; i<dList.size(); i++) {
-			if(dList.get(i).dpName.equals(dpName)) {
-				index = i;
+		for(int i=0; i<dList.size(); i++) {				//학과명을 입력 받고, 학과명을 이용한 생성자로 학과 객체를 생성한 후,  
+			if(dList.get(i).dpName.equals(dpName)) {	//List 에서 제공하는 indexOf를 이용하면 학과가 있는지 없는지 쉽게 찾을 수 있어요.
+				index = i;								//가능한 이유는 Department 클래스에서 equals를 학과명을 기준으로 같다고 판별하도록 구현했기 때문이에요.
 				break;
 			}
 		}
-		if(index < 0 || index >= dList.size()) {
+		if(index < 0 || index >= dList.size()) { 
 			System.out.println("존재하지 않은 학과입니다.");	
 			return;
 		}
@@ -558,7 +558,8 @@ public class UniversityProgram implements Program {
 		String name = scan.next();
 		
 		int num = 0, gender=0, phoneNumInt=0;
-		boolean trueN = true, trueG = true, trueP = true; 
+		boolean trueN = true, trueG = true, trueP = true; 	
+		//변수를 이용하지 않고 무한 루프로 만든 후, 조건을 만족하면 break문으로 빠져 나오면 되지 않을까요? break는 이럴 때 사용해야 해요.
 		while(trueN) {
 			try {
 				System.out.print("교번 : ");
@@ -573,7 +574,7 @@ public class UniversityProgram implements Program {
 				scan.nextLine();
 			}
 		}
-		
+		//변수를 이용하지 않고 무한 루프로 만든 후, 조건을 만족하면 break문으로 빠져 나오면 되지 않을까요? break는 이럴 때 사용해야 해요.
 		while(trueG) {
 			try {
 				System.out.print("성별(남:1, 여:2) : ");
@@ -588,7 +589,7 @@ public class UniversityProgram implements Program {
 				scan.nextLine();
 			}
 		}
-		
+		//변수를 이용하지 않고 무한 루프로 만든 후, 조건을 만족하면 break문으로 빠져 나오면 되지 않을까요? break는 이럴 때 사용해야 해요.
 		String phonNum ="";
 		while(trueP) {
 			try {
@@ -625,7 +626,7 @@ public class UniversityProgram implements Program {
 			return;
 		}
 		boolean trueN =true;
-		int num = -1;
+		int num = -1; //변수를 이용하지 않고 무한 루프로 만든 후, 조건을 만족하면 break문으로 빠져 나오면 되지 않을까요? break는 이럴 때 사용해야 해요.
 		while(trueN) {
 			try {
 				System.out.print("수정할 교수의 교번을 입력하세요 : ");
@@ -641,9 +642,9 @@ public class UniversityProgram implements Program {
 			}
 		}
 		
-		
 		//해당 교번과 동일한 교수정보 인덱스를 찾아서 삭제진행
-		int index = -1;
+		//Professor클래스에서 equals를 수정한 후(아래 피드백 참고), 교번을 이용하여 Professor 객체를 생성. 생성한 객체를 List의 indexOf 메서드를 이용하여 위치를 찾아 활용하면 더 편리함.
+		int index = -1;			
 		for(int i=0; i<pList.size(); i++) {
 			if(pList.get(i).getNum()==num) {
 				index = i;
@@ -671,8 +672,8 @@ public class UniversityProgram implements Program {
 		} while (menu != SETPROFESSOR_EXIT);
 	}
 	
-			/** 교수 : 2. 교수 수정 메뉴실행 */
-	private void runSetProfessorMenu(int menu, int index) {
+			/** 교수 : 2. 교수 수정 메뉴실행 */ //매개변수로 index보단, Professor 객체를 넘겨주는 것이 좋아요.
+	private void runSetProfessorMenu(int menu, int index) {	//그렇게 되면 서비스에서 교수 리스트를 멤버로 가지지 않아도 구현이 가능하죠.
 		switch(menu) {
 		case 1: 	//교번
 			professorService.setNum(index);
