@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /*
-
+ 
 	사용자 : 아이디, 비밀번호
 	게시글 : 제목, 사용자 정보, 내용, 작성시간
 		ㄴ 게시글리스트.txt  
