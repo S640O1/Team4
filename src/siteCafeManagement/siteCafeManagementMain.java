@@ -19,6 +19,7 @@ public class siteCafeManagementMain {
 				-한글 및 특수문자가 있을 때 → 한글 또는 특수문자가 있습니다.
 		- 로그인
 			-관리자 아이디라면 -> 관리자
+				-id, pw 모두 Admin123으로 일치함.
 			-사용자 아이디라면 -> 사용자
 		- 로그아웃
 
@@ -51,6 +52,8 @@ public class siteCafeManagementMain {
 
 	public static void main(String[] args) {
 		
+		MainProgram mp = new MainProgram();
+		mp.run();
 	}
 
 }
