@@ -93,7 +93,7 @@ public class MainProgram implements Program{
 	private void managerMenu() {
 		int menu = 0;
 		do {
-			printService.printMembership();
+			printService.printManager();
 			try {
 				menu = scan.nextInt();
 				runManage(menu);				
@@ -119,7 +119,7 @@ public class MainProgram implements Program{
 	private void userMenu() {
 		int menu = 0;
 		do {
-			printService.printMembership();
+			printService.printUser();
 			try {
 				menu = scan.nextInt();
 				runUser(menu);				
