@@ -4,18 +4,28 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import program.Program;
+import siteCafeManagement.service.FileService;
+import siteCafeManagement.service.FileServiceImp;
 import siteCafeManagement.service.PrintService;
 import siteCafeManagement.service.PrintServiceImp;
+import siteCafeManagement.user.PostService;
+import siteCafeManagement.user.PostServiceImp;
+
+
 
 public class MainProgram implements Program{
 	public static Scanner scan = new Scanner(System.in);
-	//print
-	private PrintService printService = new PrintServiceImp();
+
 	//EXIT
 	static final int EXIT = 4;
 	private static final int EXIT_MEMBERSHIP = 4;
 	private static final int EXIT_MANAGE = 0; //원하는 숫자 넣기(넣고 지우기)
-	private static final int EXIT_USER = 0; //원하는 숫자 넣기(넣고 지우기)
+	private static final int EXIT_USER = 5;
+	
+	//서비스
+	private PrintService printService = new PrintServiceImp(); 	//print
+	private FileService fileService = new FileServiceImp();
+	private PostServiceImp postService = new PostServiceImp();		//user
 	
 	@Override
 	public void run() {
@@ -122,7 +132,7 @@ public class MainProgram implements Program{
 		}
 	}
 
-	//사용자 관리 메뉴
+	//사용자 : 손나영
 	private void userMenu() {
 		int menu = 0;
 		do {
@@ -140,11 +150,19 @@ public class MainProgram implements Program{
 	
 	private void runUser(int menu) {
 		switch(menu) {
-		case 1 : 
+		case 1 : //게시글 등록
+			postService.addPost();
 			break;
-		case 2 : 
+		case 2 : //게시글 조회
+			postService.psintPost();
 			break;
-		case 3 : 
+		case 3 : //게시글 수정
+			postService.setPost();
+			break;
+		case 4 : //게시글 삭제
+			postService.deletePost();
+			break;
+		case 5 :	//뒤로가기
 			break;
 		default : throw new InputMismatchException();
 		}
