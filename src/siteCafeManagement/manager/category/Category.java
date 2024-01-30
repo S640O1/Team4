@@ -1,5 +1,6 @@
 package siteCafeManagement.manager.category;
 
-public class test {
+public class Category {
 
+	
 }

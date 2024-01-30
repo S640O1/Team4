@@ -82,10 +82,10 @@ public class LectureServiceImp implements LectureService {
 		Lecture lecture = new Lecture(lectureNum, maxNum, num, lectureName,  pName, lectureRoom, date, null);
 		// System.out.println(lecture);
 		
-		//강의 같으면 등록 X 코드 작성 => 같은 강의 등록해도 저장이 되는 오류
+		//강의 같으면 등록 X 코드 작성 => 같은 강의 등록해도 저장이 되는 오류 => 비교 값을 lectureNum이 아니라 Lecture 클래스의 객체인 lecuture로 해야 정상 동작
 
 		for(int i=0; i<lList.size(); i++) {
-			if(lList.get(i).equals(lectureNum)) {
+			if(lList.get(i).equals(lecture)) {
 				System.out.println("이미 등록된 강의입니다.");
 				return lList;
 			}
