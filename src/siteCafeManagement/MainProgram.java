@@ -14,7 +14,7 @@ public class MainProgram implements Program{
 	//EXIT
 	static final int EXIT = 4;
 	private static final int EXIT_MEMBERSHIP = 4;
-	private static final int EXIT_MANAGE = 0; //원하는 숫자 넣기(넣고 지우기)
+	private static final int EXIT_MANAGE = 3; //원하는 숫자 넣기(넣고 지우기)
 	private static final int EXIT_USER = 0; //원하는 숫자 넣기(넣고 지우기)
 	
 	@Override
