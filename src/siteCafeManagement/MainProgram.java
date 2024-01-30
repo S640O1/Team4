@@ -1,21 +1,50 @@
 package siteCafeManagement;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import program.Program;
+import siteCafeManagement.membership.MembershipImp;
+import siteCafeManagement.service.FileService;
+import siteCafeManagement.service.FileServiceImp;
 import siteCafeManagement.service.PrintService;
 import siteCafeManagement.service.PrintServiceImp;
+import siteCafeManagement.user.Post;
+import siteCafeManagement.user.PostService;
+import siteCafeManagement.user.PostServiceImp;
+import siteCafeManagement.user.User;
+
+
 
 public class MainProgram implements Program{
 	public static Scanner scan = new Scanner(System.in);
-	//print
-	private PrintService printService = new PrintServiceImp();
+
 	//EXIT
 	static final int EXIT = 4;
 	private static final int EXIT_MEMBERSHIP = 4;
-	private static final int EXIT_MANAGE = 3; //원하는 숫자 넣기(넣고 지우기)
-	private static final int EXIT_USER = 0; //원하는 숫자 넣기(넣고 지우기)
+	private static final int EXIT_MANAGE = 3;
+	private static final int EXIT_MANAGE = 0; //원하는 숫자 넣기(넣고 지우기)
+	private static final int EXIT_USER = 5;
+	
+	//서비스
+	private PrintService printService = new PrintServiceImp(); 	//print
+	private FileService fileService = new FileServiceImp();
+	private MembershipImp membershipImp = new MembershipImp();	//membership
+	private PostServiceImp postService = new PostServiceImp();	//user
+	
+	//파일명
+	static String userFileName = "src/siteCafeManagement/userList.txt";
+	static String postFileName = "src/siteCafeManagement/postList.txt";
+	
+	//File List
+	static List<User> userList = new ArrayList<User>();		//유저정보리스트
+	static List<Post> postList = new ArrayList<Post>();		//게시글정보리스트
+	
+	//로그인 한 유저정보
+	static User user;	
+
 	
 	@Override
 	public void run() {
@@ -82,11 +111,11 @@ public class MainProgram implements Program{
 
 	private void runMembership(int menu) {
 		switch(menu) {
-		case 1 : System.out.println("로그인 구현 예정");
+		case 1 : membershipImp.logIn();
 			break;
-		case 2 : System.out.println("로그아웃 구현 예정");
+		case 2 : membershipImp.logOut();
 			break;
-		case 3 : System.out.println("회원가입 구현 예정");
+		case 3 : membershipImp.join();
 			break;
 		case 4 : 
 			break;
@@ -116,7 +145,7 @@ public class MainProgram implements Program{
 			break;
 		case 2 : 
 			System.out.println("카테고리 관리 구현 예정");
-			categoryMenager();
+			categoryManager();
 			break;
 		case 3 : // 뒤로가기
 			break;
@@ -124,7 +153,7 @@ public class MainProgram implements Program{
 		}
 	}
 
-	private void categoryMenager() {
+	private void categoryManager() {
 		int menu = 0;
 		
 		System.out.println();
@@ -158,6 +187,7 @@ public class MainProgram implements Program{
 	}
 
 	//사용자 관리 메뉴
+	//사용자 : 손나영
 	private void userMenu() {
 		int menu = 0;
 		do {
@@ -175,11 +205,19 @@ public class MainProgram implements Program{
 	
 	private void runUser(int menu) {
 		switch(menu) {
-		case 1 : 
+		case 1 : //게시글 등록
+			postService.addPost();
 			break;
-		case 2 : 
+		case 2 : //게시글 조회
+			postService.psintPost();
 			break;
-		case 3 : 
+		case 3 : //게시글 수정
+			postService.setPost();
+			break;
+		case 4 : //게시글 삭제
+			postService.deletePost();
+			break;
+		case 5 :	//뒤로가기
 			break;
 		default : throw new InputMismatchException();
 		}
