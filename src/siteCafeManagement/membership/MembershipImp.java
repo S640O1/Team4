@@ -38,10 +38,13 @@ public class MembershipImp implements MembershipService {
 		do {
 			System.out.print("생성할 아이디 입력 : ");
 			id = scan.nextLine();
-			//아이디 중복 ***중복이 안걸러짐!!!			
-				if(mList.contains(id)) {
-					System.out.println("이미 있는 아이디입니다.");
-				}
+			//아이디 중복 ***중복이 안걸러짐!!!
+			//contains는 앞 객체.와 (괄호 안의 객체)의 클래스를 비교, 아예 다른 클래스면 비교자체를 안함			
+			//mList와 new Membership(id)의 클래스가 같아야 비교를 함
+			//1. 생성자 추가 2. id를 이용한 equals로 오버라이딩
+			if(mList.contains(new Membership(id))) {
+				System.out.println("이미 있는 아이디입니다.");
+			}
 			//아이디 정규표현식
 			if(!Pattern.matches(idRegex, id)) {
 				System.out.println
