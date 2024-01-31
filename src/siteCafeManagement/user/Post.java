@@ -25,7 +25,7 @@ public class Post implements Serializable{
 		return  "카테고리 : " + category + "\n" +
 				"게시판 : " + board + "\n" +
 				"제목 : " + title + "\n" +
-				"작성자 : " + user.id + "\n" +
+				"작성자 : " + user.nickName + "\n" +
 				"작성일 : " + date + "\n" +
 				"내용 : " + content;
 	}
@@ -34,7 +34,7 @@ public class Post implements Serializable{
 	public String simpleToString() {
 		//제목 길이지정
 		//유저랑 날짜 형식지정
-		return "["+ category + board + "]" + title + user.id + date;
+		return "["+ category + board + "]" + title + user.nickName + date;
 		
 	}
 	

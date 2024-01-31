@@ -32,9 +32,12 @@ public class PostServiceImp implements PostService{
 		//게시판 선택
 		
 		//제목, 내용 입력받기
-		
+		System.out.print("제목을 입력하세요(1~20자) : ");
+		scan.nextLine();
+		String title = scan.nextLine();
 		//post 객체 생성
 		
+//		Post post = new Post();
 		//postList에 객체 추가
 		
 	}
@@ -87,14 +90,12 @@ public class PostServiceImp implements PostService{
 	 * */
 	@Override
 	public void printPostList() {
-		// TODO Auto-generated method stub
 		
 	}
 	
 	/** post한개를 조회하는 메소드*/
 	@Override
 	public void printPost() {
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -103,7 +104,6 @@ public class PostServiceImp implements PostService{
 	 * */
 	@Override
 	public void setPost() {
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -112,7 +112,6 @@ public class PostServiceImp implements PostService{
 	 * */
 	@Override
 	public void deletePost() {
-		// TODO Auto-generated method stub
 		
 	}
 	
