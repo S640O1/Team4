@@ -48,7 +48,7 @@ public class Membership implements Serializable {
 		return Objects.hash(id);
 	}
 	
-	//아이디 멤버변수
+	//아이디 메서드
 	public Membership(String id) {
 		this.id = id;
 	}
