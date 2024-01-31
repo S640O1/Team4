@@ -36,6 +36,18 @@ public class PrintServiceImp implements PrintService{
 		System.out.println("4. 뒤로가기");
 		System.out.print("메뉴 선택 : ");
 	}
+	
+	@Override
+	public void printBoardManager() {
+		System.out.println("[게시판 관리]");
+		System.out.println("1. 게시판 등록");
+		System.out.println("2. 게시판 수정");
+		System.out.println("3. 게시판 삭제");
+		System.out.println("4. 뒤로가기");
+		System.out.print("메뉴 선택 : ");
+	}
+	
+	
 
 	/**
 	 * 사용자 메뉴
@@ -50,5 +62,7 @@ public class PrintServiceImp implements PrintService{
 		System.out.println("4. 게시글 삭제");
 		System.out.print("메뉴 선택 : ");
 	}
+
+	
 
 }
