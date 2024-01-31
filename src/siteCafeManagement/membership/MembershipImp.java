@@ -29,8 +29,7 @@ public class MembershipImp implements MembershipService {
 	@Override
 	public void join() {
 		//아이디, 비밀번호 정규표현식
-		String idRegex = "^[a-zA-Z0-9!@#$%^&*]{8,12}$";
-		String pwRegex = "^[a-zA-Z0-9!@#$%^&*]{8,15}$";
+		String idRegex = "^[a-zA-Z0-9]{8,12}$";
 		
 		//mList에서 있는 아이디와 같은 아이디가 있다면 중복출력 후, 다른 아이디 입력
 		String id = null;
@@ -38,51 +37,25 @@ public class MembershipImp implements MembershipService {
 		do {
 			System.out.print("생성할 아이디 입력 : ");
 			id = scan.nextLine();
-			//아이디 중복 ***중복이 안걸러짐!!!
-			//contains는 앞 객체.와 (괄호 안의 객체)의 클래스를 비교, 아예 다른 클래스면 비교자체를 안함			
+			//아이디 중복 해결
+			//contains는 앞 객체.와 (괄호 안의 객체)의 "클래스" 를 비교, 아예 다른 클래스면 비교자체를 안함(false)
 			//mList와 new Membership(id)의 클래스가 같아야 비교를 함
-			//1. 생성자 추가 2. id를 이용한 equals로 오버라이딩
+			//1. 생성자 추가(new Membership(id)) 2. Membership 클래스에 메서드 추가 3. id를 이용한 equals로 오버라이딩
 			if(mList.contains(new Membership(id))) {
 				System.out.println("이미 있는 아이디입니다.");
 			}
 			//아이디 정규표현식
 			if(!Pattern.matches(idRegex, id)) {
 				System.out.println
-				("8자~12자 영어 대 · 소문자, 숫자, 특수문자(!@#$%^&*)만 사용할 수 있습니다.");
+				("8자~12자 영어 대 · 소문자, 숫자만 사용할 수 있습니다.");
 			}
-			// mList에 id가 포함되거나 아이디 정규표현식이 맞지 않을 동안 순환
+			// mList에 Membership의 멤버변수 id가 포함되거나 아이디 정규표현식이 맞지 않을 동안 순환
 			// = mList에 id가 포함되지 않거나 + 정규표현식이 맞으면 나옴.(개념 헷갈...)
 			// 하나만 false라도 다시 순환해야 함 -> || (&&을 쓰면 둘다 true거나 false여야 순환해서 계속 나왔음)
-		}while(mList.contains(id) || !Pattern.matches(idRegex, id));
-		
-//		이걸 쓸려면 메서드를 boolean으로 해야 함...
-//		//mList에서 있는 아이디와 같은 아이디가 있다면 중복출력 후, 다른 아이디 입력
-//		String id = null;
-//		int i = 0;
-//		scan.nextLine();
-//		do {
-//			System.out.print("생성할 아이디 입력 : ");
-//			id = scan.nextLine();
-//			//아이디 중복
-//			for(i=0;i<mList.size();i++) {
-//				if(mList.get(i).getId().contains(id)) {
-//					System.out.println("이미 있는 아이디입니다.");
-//					return false;
-//				}
-//			}
-//			//아이디 정규표현식
-//			if(!Pattern.matches(idRegex, id)) {
-//				System.out.println
-//				("8자~12자 영어 대 · 소문자, 숫자, 특수문자(!@#$%^&*)만 사용할 수 있습니다.");
-//				return false;
-//			}
-//			return true;
-//			// mList에 id가 포함되거나 아이디 정규표현식이 맞지 않을 동안 순환
-//			// = mList에 id가 포함되지 않거나 + 정규표현식이 맞으면 나옴.(개념 헷갈...)
-//			// 하나만 false라도 다시 순환해야 함 -> || (&&을 쓰면 둘다 true거나 false여야 순환해서 계속 나왔음)
-//		}while(mList.get(i).getId().contains(id) || !Pattern.matches(idRegex, id));
+		}while(mList.contains(new Membership(id)) || !Pattern.matches(idRegex, id));
 		
 		//비밀번호
+		String pwRegex = "^[a-zA-Z0-9!@#$%^&*]{8,15}$";
 		String pw = null;
 		do {
 			System.out.print("생성할 비밀번호 입력 : ");
@@ -103,14 +76,30 @@ public class MembershipImp implements MembershipService {
 			}
 		}while(!pw.equals(pwCheck));
 		
-		//이름
-		System.out.print("이름 : ");
-		String name = scan.nextLine();
+		//닉네임(정규표현식)
+		//2~10자 한글, 영어 사용 가능
+		String nickNameRegex = "^[a-zA-Zㄱ-힣]{2,10}$";
+		String nickName = null;
+		do {			
+			System.out.print("닉네임 : ");
+			nickName = scan.nextLine();
+			if(!Pattern.matches(nickNameRegex, nickName)) {
+				System.out.println("2~10자 이내의 한글, 영어만 가능합니다.");
+			}
+		}while(!Pattern.matches(nickNameRegex, nickName));
 		
-		//주민등록번호 앞 6자리-성별(남:1,3/여:2,4)
+		//생년월일(주민등록번호 앞 6자리)-성별(남:1,3/여:2,4)
 		//주민등록번호 앞 6자리
-		System.out.print("주민등록번호 앞 6자리 : ");
-		int idNumber = scan.nextInt();
+		String birthRegex = "^[0-9]{6}$";
+		String birth = null;
+		do {			
+			System.out.print("생년월일(주민등록번호 앞 6자리) : ");
+			birth = scan.nextLine();
+			if(!Pattern.matches(birthRegex, birth)) {
+				System.out.println("주민등록번호 앞 6자리를 입력하세요.");
+			}
+		}while(!Pattern.matches(birthRegex, birth));
+		
 		//성별
 		int gender = 0;
 		do {			
@@ -120,35 +109,36 @@ public class MembershipImp implements MembershipService {
 				//확인용
 				switch(gender) {
 				case 1, 3 : 
-					System.out.println(idNumber+"-"+gender);
+					System.out.println(birth+"-"+gender+"(남성)");
 				break;
 				case 2, 4 :
-					System.out.println(idNumber+"-"+gender);
+					System.out.println(birth+"-"+gender+"(여성)");
 				break;
 				default : throw new InputMismatchException();
 				}
 			} catch (InputMismatchException e) {
 				System.out.println("주민등록번호 뒤 1자리를 다시 입력하세요.");
 			}
-		}while(gender != 1 && gender != 2 && gender != 3 && gender != 4); //이것도 헷갈
+		//성별이 1, 2, 3, 4가 아니면 순환 / 성별이 1, 2, 3, 4 중 하나이면 나옴
+		}while(gender != 1 && gender != 2 && gender != 3 && gender != 4);
 		
 		//전화번호(01X-XXXX-XXXX)
-		String phoneRegex = "^01(?:[0-9])-\\d{4}-\\d{4}$";
+		String phoneRegex = "^01(?:[0-9])-[0-9]{4}-[0-9]{4}$";
 		String phoneNumber = null;
 		scan.nextLine();
 		do {			
 			System.out.print("전화번호 입력(양식 : 01X-XXXX-XXXX) : ");
 			phoneNumber = scan.nextLine();
 			if(!Pattern.matches(phoneRegex, phoneNumber)) {
-				System.out.println("전화번호 양식에 맞게 입력하세요.");
+				System.out.println("01X-XXXX-XXXX 양식으로 정수를 입력해주세요.");
 			}
 		}while(!Pattern.matches(phoneRegex, phoneNumber));
 		
 		//회원 인스턴스 생성
-		Membership membership = new Membership(id, pw, name, phoneNumber, idNumber, gender);
+		Membership member = new Membership(id, pw, nickName, phoneNumber, birth, gender);
 		//회원 list에 저장
-		mList.add(membership);
-		System.out.println(membership);
+		mList.add(member);
+		System.out.println(member);
 	}
 
 }
