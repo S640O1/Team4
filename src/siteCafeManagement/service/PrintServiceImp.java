@@ -21,8 +21,8 @@ public class PrintServiceImp implements PrintService{
 	@Override
 	public void printManager() {
 		System.out.println("[관리자 관리]");
-		System.out.println("1. 게시판 관리");
-		System.out.println("2. 카테고리 관리");
+		System.out.println("1. 카테고리 관리");
+		System.out.println("2. 게시판 관리");
 		System.out.println("3. 뒤로가기");
 		System.out.print("메뉴 선택 : ");
 		

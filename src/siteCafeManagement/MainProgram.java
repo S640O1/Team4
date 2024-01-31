@@ -153,6 +153,7 @@ public class MainProgram implements Program{
 		}
 	}
 
+	//게시판 관리 : 심아진
 	private void boardManager() {
 		int menu = 0;
 		
@@ -171,13 +172,13 @@ public class MainProgram implements Program{
 	private void runBoard(int menu) {
 		switch(menu) {
 		case 1 :
-			System.out.println("카테고리 등록 구현 예정");
+			System.out.println("게시판 등록 구현 예정");
 			break;
 		case 2 :
-			System.out.println("카테고리 수정 구현 예정");
+			System.out.println("게시판 수정 구현 예정");
 			break;
 		case 3 :
-			System.out.println("카테고리 삭제 구현 예정");
+			System.out.println("게시판 삭제 구현 예정");
 			break;
 		case 4 :	// 뒤로가기
 			break;
