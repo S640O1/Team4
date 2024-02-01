@@ -1,4 +1,11 @@
+DROP DATABASE IF EXISTS `cafe`;
+CREATE DATABASE IF NOT EXISTS `cafe`;
+
+USE `cafe`;
+
 DROP TABLE IF EXISTS `user`;
+
+
 
 CREATE TABLE `user` (
 	`u_id`	varchar(12)	primary key,
