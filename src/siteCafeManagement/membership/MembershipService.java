@@ -1,6 +1,6 @@
 package siteCafeManagement.membership;
 
-public interface MembershipInterface {
+public interface MembershipService {
 
 	void logIn();
 	void logOut();

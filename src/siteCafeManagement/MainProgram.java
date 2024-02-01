@@ -26,11 +26,9 @@ public class MainProgram implements Program{
 	private static final int EXIT_MEMBERSHIP = 4;
 	private static final int EXIT_MANAGE = 3;
 
-	
-	
 	//서비스
 	private PrintService printService = new PrintServiceImp(); 	//print
-	private FileService fileService = new FileServiceImp();
+	private FileService fileService = new FileServiceImp();		//file(load, save)
 	private MembershipImp membershipImp = new MembershipImp();	//membership
 	private PostServiceImp postService = new PostServiceImp();	//user
 	
@@ -45,7 +43,7 @@ public class MainProgram implements Program{
 	//게시판 리스트
 	
 	//로그인 한 유저정보
-	public static User user;	
+	public static User user;
 
 	@Override
 	public void run() {
