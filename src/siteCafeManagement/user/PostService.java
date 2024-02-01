@@ -7,10 +7,10 @@ public interface PostService {
 	void setPostService();
 	void deletePostService();
 	
-	void addPost();
+	void addPost(Post post);
 	void printPostList();
 	void printPost();
-	void setPost();
+	void setPost(int index, String title, String content);
 	void deletePost();
 	
 	
