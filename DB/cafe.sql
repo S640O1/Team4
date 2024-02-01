@@ -5,8 +5,6 @@ USE `cafe`;
 
 DROP TABLE IF EXISTS `user`;
 
-
-
 CREATE TABLE `user` (
 	`u_id`	varchar(12)	primary key,
 	`u_pw`	varchar(15)	NOT NULL,
