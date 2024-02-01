@@ -7,14 +7,14 @@ import java.util.Scanner;
 
 import program.Program;
 import siteCafeManagement.membership.MembershipImp;
+import siteCafeManagement.post.Post;
+import siteCafeManagement.post.PostService;
+import siteCafeManagement.post.PostServiceImp;
+import siteCafeManagement.post.User;
 import siteCafeManagement.service.FileService;
 import siteCafeManagement.service.FileServiceImp;
 import siteCafeManagement.service.PrintService;
 import siteCafeManagement.service.PrintServiceImp;
-import siteCafeManagement.user.Post;
-import siteCafeManagement.user.PostService;
-import siteCafeManagement.user.PostServiceImp;
-import siteCafeManagement.user.User;
 
 
 
@@ -41,7 +41,7 @@ public class MainProgram implements Program{
 	
 	//File List
 	static List<User> userList = new ArrayList<User>();		//유저정보리스트
-	public static List<Post> postList = new ArrayList<Post>();		//게시글정보리스트
+	public List<Post> postList = new ArrayList<Post>();		//게시글정보리스트
 	//카테고리 리스트
 	//게시판 리스트
 	
@@ -208,16 +208,16 @@ public class MainProgram implements Program{
 	private void runUser(int menu) {
 		switch(menu) {
 		case 1 : //게시글 등록
-			postService.addPostService();
+			postService.addPostService(postList);
 			break;
 		case 2 : //게시글 조회
-			postService.printPostService();
+			postService.printPostService(postList);
 			break;
 		case 3 : //게시글 수정
-			postService.setPostService();
+			postService.setPostService(postList);
 			break;
 		case 4 : //게시글 삭제
-			postService.deletePostService();
+			postService.deletePostService(postList);
 			break;
 		case 5 :	//뒤로가기
 			
