@@ -191,8 +191,7 @@ public class MainProgram implements Program{
 	//사용자 관리 메뉴
 	//사용자 : 손나영
 	private void userMenu() {
-		int menu = 0;
-		
+		int menu = 0;	
 			System.out.println();
 			printService.printUser();
 			try {
@@ -220,7 +219,6 @@ public class MainProgram implements Program{
 			postService.deletePostService(postList);
 			break;
 		case 5 :	//뒤로가기
-			
 			break;
 		default : throw new InputMismatchException();
 		}
