@@ -25,6 +25,8 @@ public class MainProgram implements Program{
 	static final int EXIT = 4;
 	private static final int EXIT_MEMBERSHIP = 4;
 	private static final int EXIT_MANAGE = 3;
+	private static final int EXIT_USER = 5;
+	
 
 	//서비스
 	private PrintService printService = new PrintServiceImp(); 	//print
@@ -34,6 +36,7 @@ public class MainProgram implements Program{
 	
 	//파일명
 	static String userFileName = "src/siteCafeManagement/userList.txt";
+	static String categoryFileName = "src/siteCafeManagement/categoryList.txt";
 	static String postFileName = "src/siteCafeManagement/postList.txt";
 	
 	//File List
@@ -143,8 +146,8 @@ public class MainProgram implements Program{
 		case 1 :
 			break;
 		case 2 : 
-			System.out.println("카테고리 관리 구현 예정");
-			categoryManager();
+			System.out.println("게시판 관리 구현 예정");
+			boardManager();
 			break;
 		case 3 : // 뒤로가기
 			break;
@@ -152,32 +155,32 @@ public class MainProgram implements Program{
 		}
 	}
 
-	private void categoryManager() {
+	//게시판 관리 : 심아진
+	private void boardManager() {
 		int menu = 0;
 		
 		System.out.println();
-		printService.printCategoryManager();
+		printService.printBoardManager();
 		
 		try {
 			menu = scan.nextInt();
-			runCategory(menu);
+			runBoard(menu);
 		} catch(InputMismatchException e) {
 			System.out.println("잘못된 메뉴입니다.");
 			scan.nextLine();
 		}
-		
-	}
+	} 
 
-	private void runCategory(int menu) {
+	private void runBoard(int menu) {
 		switch(menu) {
 		case 1 :
-			System.out.println("카테고리 등록 구현 예정");
+			System.out.println("게시판 등록 구현 예정");
 			break;
 		case 2 :
-			System.out.println("카테고리 수정 구현 예정");
+			System.out.println("게시판 수정 구현 예정");
 			break;
 		case 3 :
-			System.out.println("카테고리 삭제 구현 예정");
+			System.out.println("게시판 삭제 구현 예정");
 			break;
 		case 4 :	// 뒤로가기
 			break;
