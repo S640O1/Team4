@@ -1,4 +1,4 @@
-package siteCafeManagement.user;
+package siteCafeManagement.post;
 
 import java.io.Serializable;
 import java.time.LocalDate;

@@ -1,4 +1,4 @@
-package siteCafeManagement.user;
+package siteCafeManagement.post;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +19,6 @@ import siteCafeManagement.MainProgram;
  */
 public class PostServiceImp implements PostService{
 	public static Scanner scan = MainProgram.scan;
-	public static List<Post> postList = MainProgram.postList;
 	public static List<Post> postUserList = new ArrayList<Post>();
 	//카테고리 리스트
 	//게시판리스트
@@ -27,7 +26,7 @@ public class PostServiceImp implements PostService{
 	
 	
 	@Override
-	public void addPostService() {
+	public void addPostService(List<Post> postList) {
 		//카테고리 리스트 출력
 		//카테고리 선택
 //		Category category;
@@ -52,12 +51,12 @@ public class PostServiceImp implements PostService{
 		
 		//post 객체 생성
 		Post post = new Post(user, title, content,category, board, date);
-		addPost(post);
+		addPost(postList, post);
 		
 	}
 
 	@Override
-	public void printPostService() {
+	public void printPostService(List<Post> postList) {
 		//게시글 목록이 비어있다면
 			//return;
 		//게시글 목록이 비어있지않다면
@@ -65,7 +64,7 @@ public class PostServiceImp implements PostService{
 	}
 
 	@Override
-	public void setPostService() {
+	public void setPostService(List<Post> postList) {
 		//본인이 작성한 게시글 목록 출력
 		
 		//수정할 게시글 선택(무한루프, break사용)
@@ -85,7 +84,7 @@ public class PostServiceImp implements PostService{
 		scan.nextLine();
 		String content = scan.nextLine();
 		
-		setPost(index, title, content);
+		setPost(postList, index, title, content);
 		
 //		//새로운 객체 생선
 //		Post newPost = new Post(user, title, content, postList.get(index).getCategory(), postList.get(index).getBoard(), postList.get(index).getDate());
@@ -96,7 +95,7 @@ public class PostServiceImp implements PostService{
 	}
 
 	@Override
-	public void deletePostService() {
+	public void deletePostService(List<Post> postList) {
 		//본인이 작성한 게시글 목록 출력
 		
 		//삭제할 게시글 선택(무한루프, break사용)
@@ -110,7 +109,7 @@ public class PostServiceImp implements PostService{
 	 * 매개변수 : post 객체
 	 * */
 	@Override
-	public void addPost(Post post) {
+	public void addPost(List<Post> postList, Post post) {
 		//만약 postList가 비어있다면 => 해당 조건이 필요한가(선처리가 되어있는가 확인 필요)
 			//객체생성 
 		//postList에 객체 추가
@@ -120,7 +119,7 @@ public class PostServiceImp implements PostService{
 	/** postList 전체를 출력하는 메소드
 	 * */
 	@Override
-	public void printPostList() {
+	public void printPostList(List<Post> postList) {
 		for(Post p : postList) {
 			p.simpleToString();
 		}
@@ -128,7 +127,7 @@ public class PostServiceImp implements PostService{
 	
 	/** post한개를 조회하는 메소드*/
 	@Override
-	public void printPost() {
+	public void printPost(List<Post> postList) {
 		for(Post p : postList) {
 			p.toString();
 		}
@@ -138,7 +137,7 @@ public class PostServiceImp implements PostService{
 	 * 매개변수 : post 객체
 	 * */
 	@Override
-	public void setPost(int index, String title, String content) {
+	public void setPost(List<Post> postList, int index, String title, String content) {
 		postList.get(index).setTitle(title);
 		postList.get(index).setContent(content);
 	}
@@ -147,7 +146,7 @@ public class PostServiceImp implements PostService{
 	 * 매개변수 : post 객체
 	 * */
 	@Override
-	public void deletePost() {
+	public void deletePost(List<Post> postList) {
 		
 	}
 	
