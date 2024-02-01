@@ -41,7 +41,7 @@ public class MainProgram implements Program{
 	
 	//File List
 	static List<User> userList = new ArrayList<User>();		//유저정보리스트
-	public List<Post> postList = new ArrayList<Post>();		//게시글정보리스트
+	static List<Post> postList = new ArrayList<Post>();		//게시글정보리스트
 	//카테고리 리스트
 	//게시판 리스트
 	
