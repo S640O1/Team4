@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import siteCafeManagement.MainProgram;
+import siteCafeManagement.membership.Membership;
 
 
 /*
@@ -19,11 +20,10 @@ import siteCafeManagement.MainProgram;
  */
 public class PostServiceImp implements PostService{
 	public static Scanner scan = MainProgram.scan;
-	public static List<Post> postUserList = new ArrayList<Post>();
+	private static List<Post> postUserList = new ArrayList<Post>();
 	//카테고리 리스트
 	//게시판리스트
-	static User user = MainProgram.user;
-	
+	static Membership membership = MainProgram.membership;
 	
 	@Override
 	public void addPostService(List<Post> postList) {
@@ -50,7 +50,7 @@ public class PostServiceImp implements PostService{
 		
 		
 		//post 객체 생성
-		Post post = new Post(user, title, content,category, board, date);
+		Post post = new Post(Membership, title, content,category, board, date);
 		addPost(postList, post);
 		
 	}

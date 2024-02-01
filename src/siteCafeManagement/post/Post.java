@@ -7,6 +7,7 @@ import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import siteCafeManagement.membership.Membership;
 
 /*
 	게시글 : 게시판, 카테고리 제목, 사용자 정보, 내용, 작성시간
@@ -17,7 +18,7 @@ import lombok.Data;
 public class Post implements Serializable{
 
 	private static final long serialVersionUID = -5085627289207180741L;
-	User user;
+	Membership membership;
 	String title, content, category, board;
 //	Date date;
 	LocalDate date;
@@ -30,7 +31,7 @@ public class Post implements Serializable{
 		return  "카테고리 : " + category + "\n" +
 				"게시판 : " + board + "\n" +
 				"제목 : " + title + "\n" +
-				"작성자 : " + user.nickName + "\n" +
+				"작성자 : " + membership.getNickName() + "\n" +
 				"작성일 : " + date + "\n" +
 				"내용 : " + content;
 	}
@@ -41,13 +42,13 @@ public class Post implements Serializable{
 		//유저랑 날짜 형식지정
 		String dateFormat = setDateFormat(date);
 		
-		return "["+ category + board + "]" + title + user.nickName + dateFormat;
+		return "["+ category + board + "]" + title + membership.getNickName() + dateFormat;
 		
 	}
 
-	public Post(User user, String title, String content, String category, String board, LocalDate date) {
+	public Post(Membership membership, String title, String content, String category, String board, LocalDate date) {
 		super();
-		this.user = user;
+		this.membership = membership;
 		this.title = title;
 		this.content = content;
 		this.category = category;
