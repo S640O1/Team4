@@ -2,20 +2,24 @@ package siteCafeManagement.manager.category;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-import lombok.RequiredArgsConstructor;
-
-	@RequiredArgsConstructor
-	public class CategoryServiceImp implements CategoryService {
+public class CategoryServiceImp implements CategoryService {
     private final List<Category> categories = new ArrayList<>();
+    private final Scanner scanner = new Scanner(System.in); // Scanner 추가
 
     @Override
-    public void addCategory(String categoryName) {
+    public void addCategory() {
+        System.out.print("추가할 카테고리 이름을 입력하세요: ");
+        String categoryName = scanner.nextLine();
+        
         Category newCategory = new Category();
         newCategory.setCategoryName(categoryName);
         categories.add(newCategory);
+
         System.out.println("카테고리 " + categoryName + "가 추가되었습니다.");
     }
+    
 
     @Override
     public void updateCategory(String oldCategoryName, String newCategoryName) {
