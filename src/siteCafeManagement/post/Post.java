@@ -67,7 +67,7 @@ public class Post implements Serializable{
 	 */
 	public String setDateFormat(LocalDate date) {
 		// 출력 포맷 정의
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초");
         // 출력 포맷 적용
         String dateFormat = date.format(formatter);
 		return dateFormat;
