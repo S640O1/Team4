@@ -16,7 +16,7 @@ import siteCafeManagement.MainProgram;
  */
 public class PostServiceImp implements PostService{
 	public static Scanner scan = MainProgram.scan;
-	public static List<Post> postList = MainProgram.postList;
+//	public static List<Post> postList = MainProgram.postList;
 	public static List<Post> postUserList = new ArrayList<Post>();
 	//카테고리 리스트
 	//게시판리스트

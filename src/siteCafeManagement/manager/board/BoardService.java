@@ -1,15 +1,12 @@
 package siteCafeManagement.manager.board;
 
+import java.util.List;
+
 public interface BoardService {
 	
-	void addBoardService();
-	void updateBoardService();
-	void deleteBoardServiece();
-	void printBoardService();
-	
-	void addBoard();
-	void printBoardList();
-	void updateBoard();
-	void deleteBoard();
+	public void addBoardService(List<Board> boardList);
+	public void updateBoardService(List<Board> boardList, Board board);
+	public void deleteBoardServiece(List<Board> boardList, Board board);
+	public boolean printBoardService(List<Board> boardList);
 	
 }
