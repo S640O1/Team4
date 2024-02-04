@@ -56,7 +56,7 @@ public class MainProgram implements Program{
 	@Override
 	public void run() {
 		int menu = 0;
-		//load(fileName); 구현 예정
+		load();
 		do {
 			System.out.println();
 			printMenu();
@@ -69,8 +69,34 @@ public class MainProgram implements Program{
 				scan.nextLine();
 			}
 		}while(menu != EXIT);
-		//save(fileName); 구현 예정
+		save();
 	}
+
+
+	//파일 정보 불러오기
+	private void load() {
+
+
+		//게시글 정보 불러오기
+		List<Post> tmpP = fileService.postLoad(postFileName);
+		if(!(tmpP == null)) {
+			postList.addAll(tmpP);
+		}
+		
+	}
+	
+	
+	//파일 정보 저장하기
+	private void save() {
+		
+		if(fileService.postSave(postFileName, postList)) {
+			System.out.println("게시글 정보 저장이 완료되었습니다.");
+		}else {
+			System.out.println("게시글 정보 저장에 실패했습니다.");
+		}
+		
+	}
+
 
 	@Override
 	public void printMenu() {
@@ -193,8 +219,8 @@ public class MainProgram implements Program{
 		}
 	}
 
-	//사용자 관리 메뉴
-	//사용자 : 손나영
+	//게시글 관리 메뉴
+	//게시글 : 손나영
 	private void userMenu() {
 		int menu = 0;
 		
@@ -208,6 +234,7 @@ public class MainProgram implements Program{
 				scan.nextLine();
 			}
 			
+			fileService.postSave(postFileName, postList);
 	}
 	
 	private void runUser(int menu) {
@@ -225,7 +252,6 @@ public class MainProgram implements Program{
 			postService.deletePostService(postList);
 			break;
 		case 5 :	//뒤로가기
-			
 			break;
 		default : throw new InputMismatchException();
 		}

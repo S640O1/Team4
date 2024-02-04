@@ -65,7 +65,12 @@ public class PostServiceImp implements PostService{
 		LocalDate date = LocalDate.now();
 		
 		//게시글 번호 생성 (postList의 마지막 게시글의 postNum + 1 한 값)
-		int postNum = postList.get(postList.size()-1).getPostNum() + 1;
+		int postNum;
+		if(postList.size()==0) {
+			postNum = 1;
+		}else {
+			postNum = postList.get(postList.size()-1).getPostNum() + 1;
+		}
 		
 		//post 객체 생성
 		Post post = new Post(postNum, membership, title, content,category, board, date);
