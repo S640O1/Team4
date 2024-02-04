@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import program.Program;
+import siteCafeManagement.manager.board.Board;
+import siteCafeManagement.membership.Membership;
 import siteCafeManagement.membership.MembershipImp;
 import siteCafeManagement.post.Post;
 import siteCafeManagement.post.PostService;
@@ -32,7 +34,7 @@ public class MainProgram implements Program{
 	private PrintService printService = new PrintServiceImp(); 	//print
 	private FileService fileService = new FileServiceImp();		//file(load, save)
 	private MembershipImp membershipImp = new MembershipImp();	//membership
-	private PostServiceImp postService = new PostServiceImp();	//user
+	private PostServiceImp postService = new PostServiceImp();	//Post
 	
 	//파일명
 	static String userFileName = "src/siteCafeManagement/userList.txt";
@@ -40,13 +42,16 @@ public class MainProgram implements Program{
 	static String postFileName = "src/siteCafeManagement/postList.txt";
 	
 	//File List
-	static List<User> userList = new ArrayList<User>();		//유저정보리스트
 	public List<Post> postList = new ArrayList<Post>();		//게시글정보리스트
+	public List<Board> boardList = new ArrayList<Board>();	//게시판정보 리스트
+//	public List<Category> categoryList = new ArrayList<Category>();	//카테고리정보 리스트
+	
+	
 	//카테고리 리스트
 	//게시판 리스트
 	
 	//로그인 한 유저정보
-	public static User user;
+	public static Membership membership;
 
 	@Override
 	public void run() {
@@ -208,7 +213,7 @@ public class MainProgram implements Program{
 	private void runUser(int menu) {
 		switch(menu) {
 		case 1 : //게시글 등록
-			postService.addPostService(postList);
+			postService.addPostService(categoryList, boardList, postList);
 			break;
 		case 2 : //게시글 조회
 			postService.printPostService(postList);

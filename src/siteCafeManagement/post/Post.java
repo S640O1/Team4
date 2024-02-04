@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import siteCafeManagement.membership.Membership;
 
 /*
 	게시글 : 게시판, 카테고리 제목, 사용자 정보, 내용, 작성시간
@@ -17,7 +19,8 @@ import lombok.Data;
 public class Post implements Serializable{
 
 	private static final long serialVersionUID = -5085627289207180741L;
-	User user;
+	int postNum; //게시글 번호 : 1부터 시작되며 1씩 커진다
+	Membership membership;
 	String title, content, category, board;
 //	Date date;
 	LocalDate date;
@@ -30,7 +33,7 @@ public class Post implements Serializable{
 		return  "카테고리 : " + category + "\n" +
 				"게시판 : " + board + "\n" +
 				"제목 : " + title + "\n" +
-				"작성자 : " + user.nickName + "\n" +
+				"작성자 : " + membership.getNickName() + "\n" +
 				"작성일 : " + date + "\n" +
 				"내용 : " + content;
 	}
@@ -41,13 +44,17 @@ public class Post implements Serializable{
 		//유저랑 날짜 형식지정
 		String dateFormat = setDateFormat(date);
 		
-		return "["+ category + board + "]" + title + user.nickName + dateFormat;
+		return postNum + ":: ["+ category + board + "]" + title + membership.getNickName() + dateFormat;
 		
 	}
 
-	public Post(User user, String title, String content, String category, String board, LocalDate date) {
+	
+	
+	
+	public Post(int postNum, Membership membership, String title, String content, String category, String board, LocalDate date) {
 		super();
-		this.user = user;
+		this.postNum = postNum;	
+		this.membership = membership;
 		this.title = title;
 		this.content = content;
 		this.category = category;
@@ -65,6 +72,29 @@ public class Post implements Serializable{
         String dateFormat = date.format(formatter);
 		return dateFormat;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Post other = (Post) obj;
+		return postNum == other.postNum;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(postNum);
+	}
+
+	public Post(int postNum) {
+		super();
+		this.postNum = postNum;
+	}
+	
 	
 	
 	
