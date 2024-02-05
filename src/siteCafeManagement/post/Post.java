@@ -19,7 +19,9 @@ import siteCafeManagement.membership.Membership;
 public class Post implements Serializable{
 
 	private static final long serialVersionUID = -5085627289207180741L;
+
 	int postNum; //게시글 번호 : 1부터 시작되며 1씩 커진다
+
 	Membership membership;
 	String title, content, category, board;
 //	Date date;
@@ -43,9 +45,7 @@ public class Post implements Serializable{
 		//제목 길이지정
 		//유저랑 날짜 형식지정
 		String dateFormat = setDateFormat(date);
-		
-		return postNum + ":: ["+ category + board + "]" + title + membership.getNickName() + dateFormat;
-		
+		return postNum + ":: ["+ category + board + "]" + title + membership.getNickName() + dateFormat;	
 	}
 
 	

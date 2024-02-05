@@ -28,10 +28,13 @@ import siteCafeManagement.membership.Membership;
  			(아이디 변경 불가능하니까 아이디만 넣는것도 나쁘지 않을것 같음(정보변경대비)
  */
 public class PostServiceImp implements PostService{
+
 	static Scanner scan = MainProgram.scan;
+
 	//카테고리 리스트
 	
 	//게시판리스트
+
 	
 	//로그인 유저 정보
 	static Membership membership = MainProgram.membership;
@@ -74,8 +77,8 @@ public class PostServiceImp implements PostService{
 		
 		//post 객체 생성
 		Post post = new Post(postNum, membership, title, content,category, board, date);
+
 		addPost(postList, post);
-		
 	}
 	
 	/** 2. 게시글 조회 */

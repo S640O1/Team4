@@ -45,8 +45,7 @@ public class MainProgram implements Program{
 	public List<Post> postList = new ArrayList<Post>();		//게시글정보리스트
 	public List<Board> boardList = new ArrayList<Board>();	//게시판정보 리스트
 //	public List<Category> categoryList = new ArrayList<Category>();	//카테고리정보 리스트
-	
-	
+
 	//카테고리 리스트
 	//게시판 리스트
 	
@@ -222,8 +221,7 @@ public class MainProgram implements Program{
 	//게시글 관리 메뉴
 	//게시글 : 손나영
 	private void userMenu() {
-		int menu = 0;
-		
+		int menu = 0;	
 			System.out.println();
 			printService.printUser();
 			try {
