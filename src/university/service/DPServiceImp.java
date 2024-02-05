@@ -11,7 +11,7 @@ public class DPServiceImp implements DPService {
     @Override
     public List<Department> getAllDepartments(List<Department> departmentList) {
         // 학과 목록 조회
-    	
+    		
         return departmentList;
     }
     /** 학과를 등록하는 메소드*/
@@ -32,12 +32,12 @@ public class DPServiceImp implements DPService {
 
         // 중복된 학과 시 
 
-      		for(int i=0; i<departmentList.size(); i++) {
-      			if(departmentList.get(i).equals(dpNum)) {
-      				System.out.println("이미 등록된 강의입니다.");
-      				return departmentList;
-      			}
-      		}
+  		for(int i=0; i<departmentList.size(); i++) {
+  			if(departmentList.get(i).equals(dpNum)) {
+  				System.out.println("이미 등록된 강의입니다.");
+  				return departmentList;
+  			}
+  		}
       		
         // 리스트에 추가
         departmentList.add(newDepartment);
@@ -49,7 +49,35 @@ public class DPServiceImp implements DPService {
     @Override
     public boolean editDepartment(List<Department> departmentList) {
         System.out.println("학과를 수정합니다.");
+        
+        //학과리스트 출력
+        
+        //사용자로부터 수정할 학과 선택 받기
+        
+        int index = UniversityProgram.scan.nextInt() - 1;
+        
+        //인덱스값이 맞는지 확인
+        if(index <= 0 || index >departmentList.size()) {
+        	//잘못된 값이라고 알려주고
+        	return false;
+        }
+        
+        //수정할 내용 입력 받기
+        
+        //입력받은 내용으로 수정
+        departmentList.get(index).setDpNum(0);
+        departmentList.get(index).setDpName(null);
+        
+        System.out.println("학과가 성공적으로 등록되었습니다.");
+        
+        //
+//        Department targetDepartment = new Department(0, null, null, null);
+//        departmentList.get(index).setDpName(targetDepartment.getDpName());
+        
 
+        
+        
+        
         // 사용자로부터 수정할 학과명 입력 받기
         System.out.print("수정할 학과명: ");
         UniversityProgram.scan.nextLine();
