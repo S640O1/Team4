@@ -9,6 +9,7 @@ import program.Program;
 
 import siteCafeManagement.manager.board.Board;
 import siteCafeManagement.manager.board.BoardServiceImp;
+import siteCafeManagement.membership.Membership;
 import siteCafeManagement.membership.MembershipImp;
 
 import siteCafeManagement.post.Post;
@@ -81,7 +82,7 @@ public class MainProgram implements Program{
 	// 불러오기
 	public void isLoad() {
 		// 게시판 정보 불러오기
-		List<Board> tmpB = fileService.bLoad(boardFileName);
+		List<Board> tmpB = fileService.boardLoad(boardFileName);
 		if (!(tmpB == null)) {
 			boardList.addAll(tmpB);
 		}
@@ -96,7 +97,7 @@ public class MainProgram implements Program{
 	// 저장하기
 	public void isSave() {
 		// 게시판 정보 저장하기
-		if (fileService.bSave(boardFileName, boardList)) {
+		if (fileService.boardSave(boardFileName, boardList)) {
 			System.out.println("게시판 정보 저장이 완료되었습니다.");
 		} else {
 			System.out.println("게시판 정보 저장에 실패했습니다.");
@@ -207,26 +208,26 @@ public class MainProgram implements Program{
 			System.out.println("잘못된 메뉴입니다.");
 			scan.nextLine();
 		}
-		fileService.bSave(boardFileName, boardList);
+		fileService.boardSave(boardFileName, boardList);
 	} 
 
 	private void runBoard(int menu) {
 		switch(menu) {
 		case 1 :	// 게시글 추가
 			boardService.addBoardService(boardList);
-			fileService.bSave(boardFileName, boardList);
+			fileService.boardSave(boardFileName, boardList);
 			break;	
 		case 2 :	// 게시글 수정
 			boardService.updateBoardService(boardList, board);
-			fileService.bSave(boardFileName, boardList);
+			fileService.boardSave(boardFileName, boardList);
 			break;
 		case 3 :	// 게시글 삭제
 			boardService.deleteBoardServiece(boardList, board);
-			fileService.bSave(boardFileName, boardList);
+			fileService.boardSave(boardFileName, boardList);
 			break;
 		case 4 :	// 게시글 조회
 			boardService.printBoardService(boardList);
-			fileService.bSave(boardFileName, boardList);
+			fileService.boardSave(boardFileName, boardList);
 		case 5 :	// 뒤로가기
 			break;
 		default : throw new InputMismatchException();			
@@ -253,7 +254,7 @@ public class MainProgram implements Program{
 	private void runUser(int menu) {
 		switch(menu) {
 		case 1 : //게시글 등록
-			postService.addPostService(categoryList, boardList, postList);
+//			postService.addPostService(categoryList, boardList, postList);
 			break;
 		case 2 : //게시글 조회
 			postService.printPostService(postList);

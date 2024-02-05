@@ -57,6 +57,12 @@ public class FileServiceImp implements FileService {
 	public boolean postSave(String postFileName, List<Post> postList) {
 		try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(postFileName))) {
 			oos.writeObject(postList);
+			
+			oos.flush();
+			return true;
+		} catch (Exception e) {
+			System.out.println("예외가 발생했습니다.");
 		}
-	}
+		return false;
+		}
 }
