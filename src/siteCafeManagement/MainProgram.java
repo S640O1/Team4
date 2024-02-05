@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import program.Program;
+import siteCafeManagement.manager.board.Board;
+import siteCafeManagement.membership.Membership;
 import siteCafeManagement.membership.MembershipImp;
 import siteCafeManagement.post.Post;
 import siteCafeManagement.post.PostService;
@@ -32,7 +34,7 @@ public class MainProgram implements Program{
 	private PrintService printService = new PrintServiceImp(); 	//print
 	private FileService fileService = new FileServiceImp();		//file(load, save)
 	private MembershipImp membershipImp = new MembershipImp();	//membership
-	private PostServiceImp postService = new PostServiceImp();	//user
+	private PostServiceImp postService = new PostServiceImp();	//Post
 	
 	//파일명
 	static String userFileName = "src/siteCafeManagement/userList.txt";
@@ -40,18 +42,20 @@ public class MainProgram implements Program{
 	static String postFileName = "src/siteCafeManagement/postList.txt";
 	
 	//File List
-	static List<User> userList = new ArrayList<User>();		//유저정보리스트
-	static List<Post> postList = new ArrayList<Post>();		//게시글정보리스트
+	public List<Post> postList = new ArrayList<Post>();		//게시글정보리스트
+	public List<Board> boardList = new ArrayList<Board>();	//게시판정보 리스트
+//	public List<Category> categoryList = new ArrayList<Category>();	//카테고리정보 리스트
+
 	//카테고리 리스트
 	//게시판 리스트
 	
 	//로그인 한 유저정보
-	public static User user;
+	public static Membership membership;
 
 	@Override
 	public void run() {
 		int menu = 0;
-		//load(fileName); 구현 예정
+		load();
 		do {
 			System.out.println();
 			printMenu();
@@ -64,8 +68,34 @@ public class MainProgram implements Program{
 				scan.nextLine();
 			}
 		}while(menu != EXIT);
-		//save(fileName); 구현 예정
+		save();
 	}
+
+
+	//파일 정보 불러오기
+	private void load() {
+
+
+		//게시글 정보 불러오기
+		List<Post> tmpP = fileService.postLoad(postFileName);
+		if(!(tmpP == null)) {
+			postList.addAll(tmpP);
+		}
+		
+	}
+	
+	
+	//파일 정보 저장하기
+	private void save() {
+		
+		if(fileService.postSave(postFileName, postList)) {
+			System.out.println("게시글 정보 저장이 완료되었습니다.");
+		}else {
+			System.out.println("게시글 정보 저장에 실패했습니다.");
+		}
+		
+	}
+
 
 	@Override
 	public void printMenu() {
@@ -188,8 +218,8 @@ public class MainProgram implements Program{
 		}
 	}
 
-	//사용자 관리 메뉴
-	//사용자 : 손나영
+	//게시글 관리 메뉴
+	//게시글 : 손나영
 	private void userMenu() {
 		int menu = 0;	
 			System.out.println();
@@ -202,12 +232,13 @@ public class MainProgram implements Program{
 				scan.nextLine();
 			}
 			
+			fileService.postSave(postFileName, postList);
 	}
 	
 	private void runUser(int menu) {
 		switch(menu) {
 		case 1 : //게시글 등록
-			postService.addPostService(postList);
+			postService.addPostService(categoryList, boardList, postList);
 			break;
 		case 2 : //게시글 조회
 			postService.printPostService(postList);
