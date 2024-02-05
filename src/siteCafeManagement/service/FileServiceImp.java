@@ -8,11 +8,24 @@ import java.util.List;
 
 
 import siteCafeManagement.manager.board.Board;
+import siteCafeManagement.manager.category.Category;
 import siteCafeManagement.post.Post;
 import university.Department;
 
 public class FileServiceImp implements FileService {
 
+	/** 카테고리 파일 정보 불러오기 : 신경재 */
+	@Override
+	public List<Category> categoryLoad(String categoryFileName) {
+		try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(categoryFileName))) { 
+			System.out.println("카테고리를 불러왔습니다.");
+			return (List<Category>)ois.readObject();
+		} catch (Exception e) {
+			System.out.println("카테고리를 등록해주세요.");
+		}
+		return null;
+	}
+	
 	// 게시판 파일 정보 불러오기
 	@Override
 	public List<Board> boardLoad(String boardFileName) {
@@ -36,6 +49,20 @@ public class FileServiceImp implements FileService {
 		}
 		return null;
 
+	}
+	
+	/** 카테고리 파일 정보 저장하기 : 신경재 */
+	@Override
+	public boolean categorySave(String categoryFileName, List<Category> categoryList) {
+		try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(categoryFileName))) {
+			oos.writeObject(categoryList);
+
+			oos.flush();
+			return true;
+		} catch (Exception e) {
+			System.out.println("예외가 발생했습니다.");
+		}
+		return false;
 	}
 
 	// 게시판 파일 정보 저장하기
