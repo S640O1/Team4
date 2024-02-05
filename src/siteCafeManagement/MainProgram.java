@@ -7,11 +7,13 @@ import java.util.Scanner;
 
 import program.Program;
 import siteCafeManagement.manager.board.Board;
+import siteCafeManagement.manager.board.BoardServiceImp;
+import siteCafeManagement.manager.category.Category;
 import siteCafeManagement.manager.category.CategoryService;
+import siteCafeManagement.manager.category.CategoryServiceImp;
 import siteCafeManagement.membership.Membership;
 import siteCafeManagement.membership.MembershipImp;
 import siteCafeManagement.post.Post;
-import siteCafeManagement.post.PostService;
 import siteCafeManagement.post.PostServiceImp;
 import siteCafeManagement.post.User;
 import siteCafeManagement.service.FileService;
