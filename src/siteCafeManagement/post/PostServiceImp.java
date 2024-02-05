@@ -23,7 +23,7 @@ public class PostServiceImp implements PostService{
 	private static List<Post> postUserList = new ArrayList<Post>();
 	//카테고리 리스트
 	//게시판리스트
-	static Membership membership = MainProgram.membership;
+//	static Membership membership = MainProgram.membership;
 	
 	@Override
 	public void addPostService(List<Post> postList) {
