@@ -1,7 +1,20 @@
 package siteCafeManagement.service;
 
 public class PrintServiceImp implements PrintService{
-
+	
+	/**
+	 *  메인 메뉴
+	 */
+	@Override
+	public void printMainMenu() {
+		System.out.println("[카페 관리 프로그램]");
+		System.out.println("1. 회원 관리");
+		System.out.println("2. 관리자 관리");
+		System.out.println("3. 사용자 관리");
+		System.out.println("4. 종료");
+		System.out.print("메뉴 선택 : ");
+	}
+	
 	/**
 	 * 회원관리 메뉴
 	 */
@@ -43,10 +56,20 @@ public class PrintServiceImp implements PrintService{
 		System.out.println("1. 게시판 등록");
 		System.out.println("2. 게시판 수정");
 		System.out.println("3. 게시판 삭제");
-		System.out.println("4. 뒤로가기");
+		System.out.println("4. 게시판 조회");
+		System.out.println("5. 뒤로가기");
 		System.out.print("메뉴 선택 : ");
 	}
 	
+	
+	@Override
+	public void printBoardUpdate() {
+		System.out.println("[게시판 수정]");
+		System.out.println("1. 게시판 카테고리 수정");
+		System.out.println("2. 게시판 제목 수정");
+		System.out.println("3. 뒤로가기");
+		System.out.print("메뉴 선택 : ");
+	}
 	
 
 	/**
