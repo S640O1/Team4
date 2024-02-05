@@ -1,5 +1,5 @@
 package cafe.model.vo;
 
-public class Member {
+public class User {
 
 }
