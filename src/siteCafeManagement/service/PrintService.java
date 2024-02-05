@@ -14,4 +14,6 @@ public interface PrintService {
 
 	//사용자 관리
 	void printUser();
+	
+	void printBoardManager();
 }

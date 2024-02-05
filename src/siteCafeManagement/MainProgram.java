@@ -224,10 +224,11 @@ public class MainProgram implements Program{
 	    	categoryService.addCategory();
 	    	break;
 	    case 2 :
-	    	categoryService.updateCategory();
+	    	categoryService.updateCategoryService();
+	    	
 	       	break;
 	    case 3 :
-	    	CategoryService.deleteCategory();
+	    	categoryService.deleteCategoryService();
 	    	break;
 	    case 4 :   // 뒤로가기
 	    	break;

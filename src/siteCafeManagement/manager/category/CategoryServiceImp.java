@@ -18,8 +18,26 @@ public class CategoryServiceImp implements CategoryService {
         categories.add(newCategory);
 
         System.out.println("카테고리 " + categoryName + "가 추가되었습니다.");
-    }
+	}
     
+    @Override
+	public void updateCategoryService() {
+    	System.out.print("바꿀 카탈로그 이름을 입력 하세요 : ");
+        String oldCategoryName = scanner.nextLine();
+        System.out.print("새로운 카탈로그 이름을 입력 하세요 : ");
+        String newCategoryName = scanner.nextLine();
+    	
+		updateCategory(oldCategoryName, newCategoryName);
+		
+	}
+    
+	@Override
+	public void deleteCategoryService() {
+		System.out.print("삭제할 카탈로그 이름을 입력 하세요 : ");
+        String categoryName = scanner.nextLine();
+		deleteCategory(categoryName);
+	}
+
 
     @Override
     public void updateCategory(String oldCategoryName, String newCategoryName) {
@@ -28,8 +46,8 @@ public class CategoryServiceImp implements CategoryService {
                 category.setCategoryName(newCategoryName);
                 System.out.println("카테고리가 수정되었습니다.");
                 return;
-            }
-        }System.out.println("해당하는 카테고리가 없습니다.");
+            	}
+    	}System.out.println("해당하는 카테고리가 없습니다.");
     }
 
     @Override
@@ -49,4 +67,8 @@ public class CategoryServiceImp implements CategoryService {
             }
         }
     }
+
+
+
+	
 }
