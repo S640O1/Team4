@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Objects;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,9 @@ import siteCafeManagement.membership.Membership;
 public class Post implements Serializable{
 
 	private static final long serialVersionUID = -5085627289207180741L;
+
+	int postNum; //게시글 번호 : 1부터 시작되며 1씩 커진다
+
 	Membership membership;
 	String title, content, category, board;
 //	Date date;
@@ -41,13 +45,15 @@ public class Post implements Serializable{
 		//제목 길이지정
 		//유저랑 날짜 형식지정
 		String dateFormat = setDateFormat(date);
-		
-		return "["+ category + board + "]" + title + membership.getNickName() + dateFormat;
-		
+		return postNum + ":: ["+ category + board + "]" + title + membership.getNickName() + dateFormat;	
 	}
 
-	public Post(Membership membership, String title, String content, String category, String board, LocalDate date) {
+	
+	
+	
+	public Post(int postNum, Membership membership, String title, String content, String category, String board, LocalDate date) {
 		super();
+		this.postNum = postNum;	
 		this.membership = membership;
 		this.title = title;
 		this.content = content;
@@ -61,11 +67,34 @@ public class Post implements Serializable{
 	 */
 	public String setDateFormat(LocalDate date) {
 		// 출력 포맷 정의
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분 ss초");
         // 출력 포맷 적용
         String dateFormat = date.format(formatter);
 		return dateFormat;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Post other = (Post) obj;
+		return postNum == other.postNum;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(postNum);
+	}
+
+	public Post(int postNum) {
+		super();
+		this.postNum = postNum;
+	}
+	
 	
 	
 	
