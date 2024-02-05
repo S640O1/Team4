@@ -6,56 +6,63 @@ import java.util.List;
 import java.util.Scanner;
 
 import program.Program;
+
 import siteCafeManagement.manager.board.Board;
+import siteCafeManagement.manager.board.BoardServiceImp;
 import siteCafeManagement.membership.Membership;
 import siteCafeManagement.membership.MembershipImp;
+
 import siteCafeManagement.post.Post;
 import siteCafeManagement.post.PostService;
 import siteCafeManagement.post.PostServiceImp;
 import siteCafeManagement.post.User;
+
 import siteCafeManagement.service.FileService;
 import siteCafeManagement.service.FileServiceImp;
 import siteCafeManagement.service.PrintService;
 import siteCafeManagement.service.PrintServiceImp;
 
-
-
 public class MainProgram implements Program{
 	public static Scanner scan = new Scanner(System.in);
 
-	//EXIT
+	// EXIT
 	static final int EXIT = 4;
 	private static final int EXIT_MEMBERSHIP = 4;
 	private static final int EXIT_MANAGE = 3;
 	private static final int EXIT_USER = 5;
 	
+	// 서비스
+	private PrintService printService = new PrintServiceImp(); 		// print
+	private FileService fileService = new FileServiceImp();			// file(load, save)
+	private MembershipImp membershipImp = new MembershipImp();		// membership
+	private BoardServiceImp boardService = new BoardServiceImp(); 	// board
+	private PostServiceImp postService = new PostServiceImp();		// user
 
-	//서비스
-	private PrintService printService = new PrintServiceImp(); 	//print
-	private FileService fileService = new FileServiceImp();		//file(load, save)
-	private MembershipImp membershipImp = new MembershipImp();	//membership
-	private PostServiceImp postService = new PostServiceImp();	//Post
 	
-	//파일명
+	// 파일명
 	static String userFileName = "src/siteCafeManagement/userList.txt";
 	static String categoryFileName = "src/siteCafeManagement/categoryList.txt";
+	static String boardFileName = "src/siteCafeManagement/boardList.txt";
 	static String postFileName = "src/siteCafeManagement/postList.txt";
 	
+
 	//File List
+	static List<User> userList = new ArrayList<User>();		// 유저정보리스트
 	public List<Post> postList = new ArrayList<Post>();		//게시글정보리스트
 	public List<Board> boardList = new ArrayList<Board>();	//게시판정보 리스트
 //	public List<Category> categoryList = new ArrayList<Category>();	//카테고리정보 리스트
-
-	//카테고리 리스트
-	//게시판 리스트
 	
 	//로그인 한 유저정보
 	public static Membership membership;
 
+	Board board;
+	
 	@Override
 	public void run() {
 		int menu = 0;
-		load();
+		
+		isLoad();
+
 		do {
 			System.out.println();
 			printMenu();
@@ -68,43 +75,46 @@ public class MainProgram implements Program{
 				scan.nextLine();
 			}
 		}while(menu != EXIT);
-		save();
+
+		isSave();
 	}
-
-
-	//파일 정보 불러오기
-	private void load() {
-
+	
+	// 불러오기
+	public void isLoad() {
+		// 게시판 정보 불러오기
+		List<Board> tmpB = fileService.boardLoad(boardFileName);
+		if (!(tmpB == null)) {
+			boardList.addAll(tmpB);
+		}
 
 		//게시글 정보 불러오기
 		List<Post> tmpP = fileService.postLoad(postFileName);
 		if(!(tmpP == null)) {
 			postList.addAll(tmpP);
 		}
-		
 	}
 	
-	
-	//파일 정보 저장하기
-	private void save() {
+	// 저장하기
+	public void isSave() {
+		// 게시판 정보 저장하기
+		if (fileService.boardSave(boardFileName, boardList)) {
+			System.out.println("게시판 정보 저장이 완료되었습니다.");
+		} else {
+			System.out.println("게시판 정보 저장에 실패했습니다.");
+		}
 		
 		if(fileService.postSave(postFileName, postList)) {
 			System.out.println("게시글 정보 저장이 완료되었습니다.");
 		}else {
 			System.out.println("게시글 정보 저장에 실패했습니다.");
 		}
-		
+
 	}
 
 
 	@Override
 	public void printMenu() {
-		System.out.println("[카페 관리 프로그램]");
-		System.out.println("1. 회원 관리");
-		System.out.println("2. 관리자 관리");
-		System.out.println("3. 사용자 관리");
-		System.out.println("4. 종료");
-		System.out.print("메뉴 선택 : ");
+		printService.printMainMenu();
 	}
 
 	@Override
@@ -176,7 +186,6 @@ public class MainProgram implements Program{
 		case 1 :
 			break;
 		case 2 : 
-			System.out.println("게시판 관리 구현 예정");
 			boardManager();
 			break;
 		case 3 : // 뒤로가기
@@ -199,20 +208,27 @@ public class MainProgram implements Program{
 			System.out.println("잘못된 메뉴입니다.");
 			scan.nextLine();
 		}
+		fileService.boardSave(boardFileName, boardList);
 	} 
 
 	private void runBoard(int menu) {
 		switch(menu) {
-		case 1 :
-			System.out.println("게시판 등록 구현 예정");
+		case 1 :	// 게시글 추가
+			boardService.addBoardService(boardList);
+			fileService.boardSave(boardFileName, boardList);
+			break;	
+		case 2 :	// 게시글 수정
+			boardService.updateBoardService(boardList, board);
+			fileService.boardSave(boardFileName, boardList);
 			break;
-		case 2 :
-			System.out.println("게시판 수정 구현 예정");
+		case 3 :	// 게시글 삭제
+			boardService.deleteBoardServiece(boardList, board);
+			fileService.boardSave(boardFileName, boardList);
 			break;
-		case 3 :
-			System.out.println("게시판 삭제 구현 예정");
-			break;
-		case 4 :	// 뒤로가기
+		case 4 :	// 게시글 조회
+			boardService.printBoardService(boardList);
+			fileService.boardSave(boardFileName, boardList);
+		case 5 :	// 뒤로가기
 			break;
 		default : throw new InputMismatchException();			
 		}
@@ -238,7 +254,7 @@ public class MainProgram implements Program{
 	private void runUser(int menu) {
 		switch(menu) {
 		case 1 : //게시글 등록
-			postService.addPostService(categoryList, boardList, postList);
+//			postService.addPostService(categoryList, boardList, postList);
 			break;
 		case 2 : //게시글 조회
 			postService.printPostService(postList);
