@@ -1,24 +1,38 @@
 package cafe.main;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import cafe.controller.BoardController;
+import cafe.controller.CategoryController;
+import cafe.controller.PostController;
 import cafe.controller.UserController;
 
 public class Main {
 
 	private static final int EXIT = 3;
 	private static UserController userController;
+	private static CategoryController categoryController;
+	private static BoardController boardController;
+	private static PostController postController;
+	public static Scanner scan = new Scanner(System.in);
 	
 	public static void main(String[] args) {
 		
-		int menu;
-		Scanner sc = new Scanner(System.in);
-		userController = new UserController(sc);
+		int menu = 0;
+		userController = new UserController(scan);
 		
 		do {
+			System.out.println();
 			printPreLogInMenu();
-			menu = sc.nextInt();
-			runPreLogInMenu(menu);
+			try {
+				menu = scan.nextInt();
+				runPreLogInMenu(menu);
+			}
+			catch(InputMismatchException e) {
+				System.out.println("잘못된 메뉴입니다.");
+				scan.nextLine();
+			}
 		}while(menu != EXIT);
 	}
 
@@ -33,7 +47,7 @@ public class Main {
 
 	private static void runPreLogInMenu(int menu) {
 		switch(menu) {
-		case 1 : //userController.logIn();
+		case 1 : userController.logIn();
 			break;
 		case 2 : userController.join();
 			break;

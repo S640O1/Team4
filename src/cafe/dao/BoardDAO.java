@@ -1,5 +1,5 @@
 package cafe.dao;
 
-public class BoardDAO {
+public interface BoardDAO {
 
 }

@@ -327,7 +327,7 @@ public class MainProgram implements Program{
 	private void runUser(int menu) {
 		switch(menu) {
 		case 1 : //게시글 등록
-			postService.addPostService(categoryList, boardList, postList);
+//			postService.addPostService(categoryList, boardList, postList);
 			break;
 		case 2 : //게시글 조회
 			postService.printPostService(postList);

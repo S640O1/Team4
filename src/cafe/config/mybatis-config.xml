@@ -15,6 +15,9 @@
     </environment>
   </environments>
   <mappers>
-    <mapper resource="kr/kh/account/dao/AccountMapper.xml"/>
+    <mapper resource="cafe/dao/UserMapper.xml"/>
+    <mapper resource="cafe/dao/BoardMapper.xml"/>
+    <mapper resource="cafe/dao/CategoryMapper.xml"/>
+    <mapper resource="cafe/dao/PostMapper.xml"/>
   </mappers>
 </configuration>
