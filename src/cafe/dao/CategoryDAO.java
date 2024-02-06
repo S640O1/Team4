@@ -1,5 +1,5 @@
 package cafe.dao;
 
-public class CategoryDAO {
+public interface CategoryDAO {
 
 }

@@ -1,5 +1,5 @@
 package cafe.dao;
 
-public class PostDAO {
+public interface PostDAO {
 
 }

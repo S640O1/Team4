@@ -34,7 +34,6 @@ public class PostServiceImp implements PostService{
 	//카테고리 리스트
 	
 	//게시판리스트
-
 	
 	//로그인 유저 정보
 	static Membership membership = MainProgram.membership;
