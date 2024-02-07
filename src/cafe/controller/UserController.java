@@ -18,11 +18,12 @@ public class UserController {
 	private Scanner sc;
 	private Main main;
 	private UserService userService;
-	private CategoryService categoryService;
-	private BoardService boardService;
-	private PostService postService;
-	ArrayList<User> uList = userService.getUserList();
 	
+	//controller
+	private CategoryController categoryController;
+	private BoardController boardController;
+	private PostController postController;
+
 	public UserController(Scanner sc) {
 		if(sc == null) {
 			sc = new Scanner(System.in);
@@ -31,6 +32,38 @@ public class UserController {
 		userService = new UserServiceImp();
 	}
 
+	/**
+	 * 1. 로그인
+	 * @param id : user 아이디
+	 * @param pw : user 비밀번호
+	 */
+	ArrayList<User> uList = userService.getUserList();
+	public void logIn(String id, String pw) {
+		//user 클래스의 id, pw
+		User user = new User(id, pw);
+		//user list 안에 있는 id가 포함된다면
+		if(uList.contains(user)) {
+			//id가 admin123과 같으면 관리자 모드
+			//관리자모드(카테고리 컨트롤러 + 보드 컨트롤러)
+			if(user.getU_id().equals("admin123") && user.getU_pw().equals("admin123")) {
+				//categoryController.카테고리run();
+				//boardController.게시판run();
+				
+			}
+			//회원모드(게시글 컨트롤러)
+			else if(!user.getU_id().equals("admin123") 
+					&& user.getU_id().contains(id)
+					&& user.getU_pw().equals(pw)) {
+				postController.run();
+			}
+			//아이디나 비밀번호가 다를 때
+			else {
+				System.out.println("아이디나 비밀번호를 다시 입력하세요.");
+				return;
+			}
+		}
+	}
+	
 	/**
 	 * 2. 회원가입
 	 */
@@ -44,6 +77,7 @@ public class UserController {
 	}
 		
 	public User joinInput() {
+		ArrayList<User> uList = userService.getUserList();
 		String idRegex = "^[a-zA-Z0-9]{8,12}$";
 		
 		//아이디 : uList에서 있는 아이디와 같은 아이디가 있다면 중복출력 후, 다른 아이디 입력
@@ -151,23 +185,7 @@ public class UserController {
 	}
 
 
-
-	public void logIn(String id) {
-		//로그인 됐다면
-		//관리자 아이디일경우
-		//user 클래스의 id
-		User user = new User(id);
-		//user list 안에 있는 id가 포함된다면
-		if(uList.contains(user)) {
-			//id가 admin123과 같으면 관리자 모드
-			if(user.equals("admin123")) {
-				//관리자모드(카테고리 컨트롤러 + 보드 컨트롤러)
-			}
-			else {
-				//회원모드(게시글 컨트롤러)
-			}
-		}
-	}
+	
 	
 	private void adminService() {
 		int menu = 0;
