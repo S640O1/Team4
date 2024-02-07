@@ -36,7 +36,7 @@ public class Main {
 		}while(menu != EXIT);
 	}
 
-	private static void printPreLogInMenu() {
+	public static void printPreLogInMenu() {
 		System.out.println("[KH Cafe]");
 		System.out.println("1. 로그인");
 		System.out.println("2. 회원가입");
@@ -53,7 +53,7 @@ public class Main {
 			break;
 		case 3 : System.out.println("카페를 나갑니다.");
 			break;
-		default : System.out.println("없는 메뉴입니다.");
+		default : throw new InputMismatchException();
 		}
 	}
 
