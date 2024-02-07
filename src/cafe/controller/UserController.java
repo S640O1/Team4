@@ -1,19 +1,27 @@
  package cafe.controller;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import cafe.main.Main;
 import cafe.model.vo.User;
+import cafe.service.BoardService;
+import cafe.service.CategoryService;
+import cafe.service.PostService;
 import cafe.service.UserService;
 import cafe.service.UserServiceImp;
 
 public class UserController {
 
 	private Scanner sc;
+	private Main main;
 	private UserService userService;
+	private CategoryService categoryService;
+	private BoardService boardService;
+	private PostService postService;
+	ArrayList<User> uList = userService.getUserList();
 	
 	public UserController(Scanner sc) {
 		if(sc == null) {
@@ -24,7 +32,7 @@ public class UserController {
 	}
 
 	/**
-	 * 회원가입
+	 * 2. 회원가입
 	 */
 	public void join() {
 		User user = joinInput();
@@ -35,38 +43,27 @@ public class UserController {
 		}
 	}
 		
-	
 	public User joinInput() {
-		  ArrayList<User> uList = userService.getUserList();
-		//아이디, 비밀번호 정규표현식
 		String idRegex = "^[a-zA-Z0-9]{8,12}$";
 		
-		//mList에서 있는 아이디와 같은 아이디가 있다면 중복출력 후, 다른 아이디 입력
+		//아이디 : uList에서 있는 아이디와 같은 아이디가 있다면 중복출력 후, 다른 아이디 입력
 		String id = null;
 		sc.nextLine();
-		boolean idTrue = true;
 		do {
+			//아이디 중복
+			//문제점 : 이미 있는 아이디를 입력할 때 다음에 중복안된 아이디를 입력해도 계속 생성할 아이디 입력이 뜬다.
+			// -> 해결 : boolean을 빼고 원래 쓰던 문법을 while문에 넣음
 			System.out.print("생성할 아이디 입력 : ");
 			id = sc.nextLine();
-			//아이디 중복 해결
-			//contains는 앞 객체.와 (괄호 안의 객체)의 "클래스" 를 비교, 아예 다른 클래스면 비교자체를 안함(false)
-			//mList와 new Membership(id)의 클래스가 같아야 비교를 함
-			//1. 생성자 추가(new Membership(id)) 2. Membership 클래스에 메서드 추가 3. id를 이용한 equals로 오버라이딩
-			User user = new User(id);
 			if(uList.contains(new User(id))) {
 				System.out.println("이미 있는 아이디입니다.");
-				idTrue = false;
 			}
 			//아이디 정규표현식
 			if(!Pattern.matches(idRegex, id)) {
 				System.out.println
 				("8자~12자 영어 대 · 소문자, 숫자만 사용할 수 있습니다.");
-				idTrue = false;
 			}
-			// mList에 Membership의 멤버변수 id가 포함되거나 아이디 정규표현식이 맞지 않을 동안 순환
-			// = mList에 id가 포함되지 않거나 + 정규표현식이 맞으면 나옴.(개념 헷갈...)
-			// 하나만 false라도 다시 순환해야 함 -> || (&&을 쓰면 둘다 true거나 false여야 순환해서 계속 나왔음)
-		}while(!idTrue);
+		}while(uList.contains(new User(id)) || !Pattern.matches(idRegex, id));
 		
 		//비밀번호
 		String pwRegex = "^[a-zA-Z0-9!@#$%^&*]{8,15}$";
@@ -155,19 +152,23 @@ public class UserController {
 
 
 
-	public void logIn() {
-
+	public void logIn(String id) {
 		//로그인 됐다면
 		//관리자 아이디일경우
-			adminService();
-		
-		//아닐경우
-			//게시판 컨트롤러 메소드 불러오기
-
-		
-		
+		//user 클래스의 id
+		User user = new User(id);
+		//user list 안에 있는 id가 포함된다면
+		if(uList.contains(user)) {
+			//id가 admin123과 같으면 관리자 모드
+			if(user.equals("admin123")) {
+				//관리자모드(카테고리 컨트롤러 + 보드 컨트롤러)
+			}
+			else {
+				//회원모드(게시글 컨트롤러)
+			}
+		}
 	}
-
+	
 	private void adminService() {
 		int menu = 0;
 		
@@ -183,18 +184,33 @@ public class UserController {
 				sc.nextLine();
 			}
 		}while(menu != 5);
-		
 	}
-
+	
 	private void runAdminMenu(int menu) {
 		switch(menu) {
 		
 		}
 		
 	}
+	
+	/**
+	 * 로그아웃
+	 */
+	private void logOut() {
+		System.out.println("로그아웃 합니다.");
+		main.printPreLogInMenu();
+	}
+
+	
+
+	
 
 	private void printAdminMenu() {
+		CategoryService categoryService;
+		private BoardService boardService;
+		private PostService postService;
 		// 1. 카테고리 관리
+		
 		// 2. 게시판 관리
 	}
 
