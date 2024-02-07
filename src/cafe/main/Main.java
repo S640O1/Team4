@@ -7,15 +7,22 @@ import cafe.controller.BoardController;
 import cafe.controller.CategoryController;
 import cafe.controller.PostController;
 import cafe.controller.UserController;
+import cafe.service.PrintService;
+import cafe.service.PrintServiceImp;
 
 public class Main {
+	public static Scanner scan = new Scanner(System.in);
 
 	private static final int EXIT = 3;
+	
+	//컨트롤러
 	private static UserController userController;
 	private static CategoryController categoryController;
 	private static BoardController boardController;
 	private static PostController postController;
-	public static Scanner scan = new Scanner(System.in);
+	
+	//서비스
+	private PrintService printService = new PrintServiceImp();
 	
 	public static void main(String[] args) {
 		
