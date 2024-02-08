@@ -37,4 +37,9 @@ public class Board {
 	public Board(int b_num) {
 		this.b_num = b_num;
 	}
+
+	public Board(int b_c_num, String b_title) {
+		this.b_c_num = b_c_num;
+		this.b_title = b_title;
+	}
 }

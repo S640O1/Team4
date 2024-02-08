@@ -72,6 +72,7 @@ public class BoardController {
 
 		Board board = boardInput();
 		if(boardService.insertBoard(board)) {
+			System.out.println(board.toString());
 			System.out.println("내역을 추가하였습니다.");
 		} else {
 			System.out.println("내역을 추가하지 못했습니다.");
@@ -80,8 +81,17 @@ public class BoardController {
 
 	private Board boardInput() {
 		// 게시판 추가할 카테고리 선택
-		int b_c_num = scan.nextInt();
-		return null;
+		// int b_c_num = scan.nextInt();
+		int b_c_num = 1;
+		
+		// 정규 표현식 (제목 1-20자)
+		System.out.print("제목을 입력하세요(1~20자) : ");
+		scan.nextLine();
+		String b_title = scan.nextLine();
+		
+		Board board = new Board(b_c_num, b_title);
+		
+		return board;
 	}
 
 	private void printBoardService() {
