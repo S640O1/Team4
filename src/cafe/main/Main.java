@@ -19,7 +19,7 @@ public class Main {
 	private static UserController userController;
 	private static CategoryController categoryController;
 	private static BoardController boardController;
-	private static PostController postController;
+	private static PostController postController = new PostController(scan, null);
 	
 	//서비스
 	private PrintService printService = new PrintServiceImp();

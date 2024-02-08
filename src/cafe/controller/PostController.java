@@ -16,6 +16,10 @@ public class PostController {
 	private Scanner scan;
 	private PostService postService;
 	private PrintService printService = new PrintServiceImp();
+	
+	//게시판 리스트 불러오기
+	//ArrayList<Board> bList = boardService.get~();
+	
 	User user;
 	
 	private static final int EXIT_POST = 5;
@@ -70,7 +74,11 @@ public class PostController {
 	
 	/** 2. 게시글 조회*/
 	private void printPostService() {
+		//전체 게시글 조회
 		
+		//상세 게시글 조회
+		
+		//내가 쓴 글 조회
 	}
 
 	/** 1. 게시글 등록*/
@@ -92,12 +100,12 @@ public class PostController {
 		
 		//카테고리와 게시판 출력
 		
-		//게시판 선택 : while
+		//게시판 선택 : while //조건문 : 없는 값이라면~
 		System.out.print("게시판을 선택하세요 : ");
 		int p_b_num = scan.nextInt();
 		
 		// + 정규표현식
-		//제목, 내용 입력받기 : while
+		//제목, 내용 입력받기 : while문으로 정규표현식 체크
 		System.out.print("제목을 입력하세요(1~20자) : ");
 		scan.nextLine();
 		String title = scan.nextLine();
