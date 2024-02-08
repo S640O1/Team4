@@ -87,11 +87,13 @@ public class PostController {
 		/** 1 - 1. 게시글 정보 입력받기*/
 	private Post postInput() {
 		//아이디 
-		String p_u_id = user.getU_id();
+//		String p_u_id = user.getU_id();
+		String p_u_id = "qwerty123";
 		
 		//카테고리와 게시판 출력
 		
 		//게시판 선택 : while
+		System.out.print("게시판을 선택하세요 : ");
 		int p_b_num = scan.nextInt();
 		
 		// + 정규표현식
@@ -104,9 +106,11 @@ public class PostController {
 		
 		//날짜 받아오기
 		Date date = new Date();	//날짜, 시간 다 받아오기
+		System.out.println("시간을 받아왔습니다.");
 				
 		Post post = new Post(p_b_num, title, p_u_id, content, date);
-		return null;
+		System.out.println(post.toString());
+		return post;
 	}
 
 

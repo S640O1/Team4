@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cafe.dao.PostDAO">
 	<insert id="insertPost">
-		insert into post()
-		values (#{post.})
+		insert into post(p_title, p_date, p_content, p_b_num, p_u_id)
+		values(#{post.p_title}, #{post.p_date},#{post.p_content},#{post.p_b_num},#{post.p_u_id})
 	</insert>
 </mapper>
