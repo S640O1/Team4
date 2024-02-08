@@ -18,7 +18,7 @@ public class Main {
 	//컨트롤러
 	private static UserController userController;
 	private static CategoryController categoryController;
-	private static BoardController boardController;
+	private static BoardController boardController = new BoardController(scan);
 	private static PostController postController;
 	
 	//서비스
@@ -54,9 +54,10 @@ public class Main {
 
 	private static void runPreLogInMenu(int menu) {
 		switch(menu) {
-		case 1 : userController.logIn();
+		case 1 : //userController.logIn();
+			boardController.run();
 			break;
-		case 2 : userController.join();
+		case 2 : // userController.join();
 			break;
 		case 3 : System.out.println("카페를 나갑니다.");
 			break;

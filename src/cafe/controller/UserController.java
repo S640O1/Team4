@@ -21,7 +21,7 @@ public class UserController {
 	private CategoryService categoryService;
 	private BoardService boardService;
 	private PostService postService;
-	ArrayList<User> uList = userService.getUserList();
+//	ArrayList<User> uList = userService.getUserList();
 	
 	public UserController(Scanner sc) {
 		if(sc == null) {
@@ -207,9 +207,9 @@ public class UserController {
 
 	private void printAdminMenu() {
 		CategoryService categoryService;
-		private BoardService boardService;
-		private PostService postService;
-		// 1. 카테고리 관리
+//		private BoardService boardService;
+//		private PostService postService;
+//		// 1. 카테고리 관리
 		
 		// 2. 게시판 관리
 	}

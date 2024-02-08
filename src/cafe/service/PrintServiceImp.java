@@ -2,6 +2,19 @@ package cafe.service;
 
 public class PrintServiceImp implements PrintService {
 
+	
+	@Override
+	public void printBoardMenu() {
+		System.out.println();
+		System.out.println("[게시판 관리]");
+		System.out.println("1. 게시판 등록");
+		System.out.println("2. 게시판 수정");
+		System.out.println("3. 게시판 삭제");
+		System.out.println("4. 게시판 조회");
+		System.out.println("5. 뒤로가기");
+		System.out.print("메뉴 선택 : ");
+	}
+	
 	/** Post 메뉴 출력 */
 	@Override
 	public void printPostMenu() {
@@ -13,5 +26,6 @@ public class PrintServiceImp implements PrintService {
 		System.out.println("4. 게시글 삭제");
 		System.out.print("메뉴 선택 : ");		
 	}
+	
 
 }
