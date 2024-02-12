@@ -2,6 +2,7 @@ package cafe.service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -9,7 +10,6 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import cafe.dao.PostDAO;
-import cafe.dao.UserDAO;
 import cafe.model.vo.Post;
 
 public class PostServiceImp implements PostService {
@@ -23,6 +23,7 @@ public class PostServiceImp implements PostService {
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
 			SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+//			sessionFactory.getConfiguration( ).addMapper( PostDAO.class );
 			session = sessionFactory.openSession(true);
 			postDao = session.getMapper(PostDAO.class);
 		} catch (IOException e) {
@@ -39,6 +40,39 @@ public class PostServiceImp implements PostService {
 		System.out.println("postDao호출");
 		return postDao.insertPost(post);
 	}
+
+	@Override
+	public ArrayList<Post> getPostList() {
+		return postDao.selectPostList();
+	}
+	
+	@Override
+	public ArrayList<Post> getMyPostList(String u_id) {
+		return postDao.selectMyPostList(u_id);
+	}
+	
+
+	/** post 1개를 가져오는 메소드*/
+	@Override
+	public Post getPost(int p_num) {
+		return postDao.selectPost(p_num);
+	}
+
+	@Override
+	public boolean updatePost(Post newPost) {
+		
+		if(newPost == null) {
+			return false;
+		}
+		
+		return postDao.updatePost(newPost);
+	}
+
+	@Override
+	public boolean deletePost(int p_num) {
+		return postDao.deletePost(p_num);
+	}
+
 
 
 }
