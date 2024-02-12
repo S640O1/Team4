@@ -43,7 +43,7 @@ public class UserController {
 		User user = new User(id, pw);
 		//user list 안에 있는 id가 포함된다면
 		if(uList.contains(user)) {
-			//id가 admin123과 같으면 관리자 모드
+			//id와 pw가 admin123과 같으면 관리자 모드
 			//관리자모드(카테고리 컨트롤러 + 보드 컨트롤러)
 			if(user.getU_id().equals("admin123") && user.getU_pw().equals("admin123")) {
 				//categoryController.카테고리run();
@@ -183,33 +183,6 @@ public class UserController {
 		return user;
 				
 	}
-
-
-	
-	
-	private void adminService() {
-		int menu = 0;
-		
-		do {
-			System.out.println();
-			printAdminMenu();
-			try {
-				menu = sc.nextInt();
-				runAdminMenu(menu);
-			}
-			catch(InputMismatchException e) {
-				System.out.println("잘못된 메뉴입니다.");
-				sc.nextLine();
-			}
-		}while(menu != 5);
-	}
-	
-	private void runAdminMenu(int menu) {
-		switch(menu) {
-		
-		}
-		
-	}
 	
 	/**
 	 * 로그아웃
@@ -217,19 +190,6 @@ public class UserController {
 	private void logOut() {
 		System.out.println("로그아웃 합니다.");
 		main.printPreLogInMenu();
-	}
-
-	
-
-	
-
-	private void printAdminMenu() {
-		CategoryService categoryService;
-		private BoardService boardService;
-		private PostService postService;
-		// 1. 카테고리 관리
-		
-		// 2. 게시판 관리
 	}
 
 }
