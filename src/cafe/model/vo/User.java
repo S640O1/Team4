@@ -49,11 +49,17 @@ public class User {
 		this.u_id = u_id;
 	}
 	
-	//회원가입 시 완료 시 뜨는 창s
+	//회원가입 시 완료 시 뜨는 창
 	//양선진(qwer1234)님 회원가입이 완료되었습니다.
 	@Override
 	public String toString() {
 		return u_nickname+"("+u_id+")"+"님"+ " 회원가입이 완료되었습니다.";
+	}
+
+	//로그인 시 아이디와 패스워드 일치
+	public User(String u_id, String u_pw) {
+		this.u_id = u_id;
+		this.u_pw = u_pw;
 	}
 
 }

@@ -7,6 +7,7 @@ import cafe.controller.BoardController;
 import cafe.controller.CategoryController;
 import cafe.controller.PostController;
 import cafe.controller.UserController;
+import cafe.model.vo.User;
 import cafe.service.PrintService;
 import cafe.service.PrintServiceImp;
 
@@ -18,8 +19,10 @@ public class Main {
 	//컨트롤러
 	private static UserController userController;
 	private static CategoryController categoryController;
-	private static BoardController boardController = new BoardController(scan);
-	private static PostController postController;
+
+	private static BoardController boardController;
+	private static PostController postController = new PostController(scan, null);
+
 	
 	//서비스
 	private PrintService printService = new PrintServiceImp();
@@ -52,10 +55,9 @@ public class Main {
 		
 	}
 
-	private static void runPreLogInMenu(int menu) {
+	private static void runPreLogInMenu(int menu) {		
 		switch(menu) {
-		case 1 : //userController.logIn();
-			boardController.run();
+		case 1 : userController.logIn(null, null);
 			break;
 		case 2 : // userController.join();
 			break;

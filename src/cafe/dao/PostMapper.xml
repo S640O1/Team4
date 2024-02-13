@@ -2,7 +2,63 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="cafe.dao.PostDAO">
+<mapper namespace="cafe.dao.PostDAO">	
+	<!-- 삭제 -->
+	<delete id="deletePost">
+		Delete
+		FROM post
+		WHERE p_num = #{p_num}
+	</delete>
+	<!-- 수정 -->
+	<update id="updatePost">
+		update post
+		set
+			p_b_num = #{post.p_b_num},
+			p_title = #{post.p_title},
+			p_content = #{post.p_content}
+		where
+			p_num = #{post.p_num}
+	</update>
+	
+	<!-- 전체조회 -->
+	<select id="selectPostList" resultType="cafe.model.vo.Post">
+		<!--  SELECT * from post -->
+		<!-- -->
+		SELECT 
+    		post.*, c_title AS p_c_title, b_title AS p_b_title
+		FROM
+   			post
+        		JOIN
+				    board ON b_num = p_b_num
+				        JOIN
+				    category ON b_c_num = c_num 
+		 <!--  -->
+	</select>
+	<select id="selectMyPostList"  resultType="cafe.model.vo.Post">
+		SELECT 
+    		post.*, c_title AS p_c_title, b_title AS p_b_title
+		FROM
+   			post
+        		JOIN
+				    board ON b_num = p_b_num
+				JOIN
+				    category ON c_num = b_c_num 
+		where
+			p_u_id = #{u_id} 
+	</select>
+	<select id="selectPost" resultType="cafe.model.vo.Post">
+		SELECT 
+	    		post.*, c_title AS p_c_title, b_title AS p_b_title
+			FROM
+	   			post
+	        		JOIN
+					    board ON b_num = p_b_num
+					JOIN
+					    category ON c_num = b_c_num 
+			where
+				p_num = #{p_num} 
+	</select>
+	<!-- 게시글 등록 -->
 	<insert id="insertPost">
 		insert into post(p_title, p_date, p_content, p_b_num, p_u_id)
 		values(#{post.p_title}, #{post.p_date},#{post.p_content},#{post.p_b_num},#{post.p_u_id})
