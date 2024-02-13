@@ -12,5 +12,6 @@ public interface BoardDAO {
 
 	boolean insertBoard(@Param("board")Board board);
 
+	
 
 }
