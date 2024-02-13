@@ -7,4 +7,6 @@ public interface PrintService {
 	/** [ Post ] 조회 메뉴 출력 */
 	void printViewPostMenu();
 
+	void printBoardMenu();
+
 }

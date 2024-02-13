@@ -200,4 +200,4 @@ public class UserController {
 		
 		// 2. 게시판 관리
 	}
-
+}
