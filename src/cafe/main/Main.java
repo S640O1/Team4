@@ -21,7 +21,7 @@ public class Main {
 	private static CategoryController categoryController;
 
 	private static BoardController boardController;
-	private static PostController postController = new PostController(scan, null);
+
 
 	
 	//서비스
@@ -57,7 +57,7 @@ public class Main {
 
 	private static void runPreLogInMenu(int menu) {		
 		switch(menu) {
-		case 1 : userController.logIn(null, null);
+		case 1 : userController.logIn();
 			break;
 		case 2 : // userController.join();
 			break;
