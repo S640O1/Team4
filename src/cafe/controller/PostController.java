@@ -18,13 +18,14 @@ public class PostController {
 	private Scanner scan;
 	private PostService postService;
 	private PrintService printService = new PrintServiceImp();
+	private UserController userController; 
 	
 	//게시판 리스트 불러오기
 	//ArrayList<Board> bList = boardService.get~();
 	
 	User user;
 	
-	private static final int EXIT_POST = 5;
+	private static final int EXIT_POST = 6;
 	private static final int EXIT_SELECT_POST = 3;
 	
 	public PostController(Scanner scan, User user) {
@@ -60,6 +61,9 @@ public class PostController {
 			deletePostService();
 			break;
 		case 5 :	//뒤로가기
+			break;
+		case 6 :	//로그아웃
+			userController.logOut();
 			break;
 		default : throw new InputMismatchException();
 		}
@@ -194,7 +198,8 @@ public class PostController {
 			//선택하기
 		
 		//전체 글 가져오기 
-		ArrayList<Post> postList = postService.getPostList();
+		ArrayList<Post> postList = new ArrayList<Post>();
+		postList = postService.getPostList();
 		if(!printPostList(postList)) {
 			System.out.println("조회할 게시글이 없습니다.");
 			return;
@@ -228,7 +233,7 @@ public class PostController {
 
 		/** (1) postList 전체를 출력하는 메소드(심플)*/	
 	private boolean printPostList(List<Post> postList) {
-		if(!postList.isEmpty()) {
+		if(postList.isEmpty()) {
 			return false;
 		}
 		for(Post p : postList) {
