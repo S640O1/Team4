@@ -182,8 +182,7 @@ public class PostController {
 	
 	/** 2-2. 내가 쓴 글 조회*/
 	private void ViewMyPost() {
-//		ArrayList<Post> myPostList = postService.getMyPostList(user.getU_id());
-		ArrayList<Post> myPostList = postService.getMyPostList("qwerty123");
+		ArrayList<Post> myPostList = postService.getMyPostList(user.getU_id());
 		if(!printPostList(myPostList)) {
 			System.out.println("작성한 게시글이 없습니다.");
 			return;
