@@ -39,4 +39,17 @@ public class BoardServiceImp implements BoardService {
 	public boolean insertBoard(Board board) {
 		return boardDao.insertBoard(board);
 	}
+
+	@Override
+	public boolean updateBoard(Board newBoard) {
+		if(newBoard == null) {
+			return false;
+		}
+		return boardDao.updateBoard(newBoard);
+	}
+
+	@Override
+	public boolean deleteBoard(int b_num) {
+		return boardDao.deleteBoard(b_num);
+	}
 }
