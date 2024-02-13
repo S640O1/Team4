@@ -247,6 +247,7 @@ public class UserController {
 	 * 로그아웃
 	 */
 	public boolean logOut() {
+		//user를 null값으로 만들기? -> nullpointer예외 계속 발생
 		ArrayList<User> uList = new ArrayList<User>();
 		System.out.print("로그아웃 하시겠습니까?(하실려면 본인 아이디 입력) ");
 		String id = sc.next();
@@ -281,7 +282,7 @@ public class UserController {
 //			return;
 //		}
 //		
-//		//user를 null값으로 만들기?
+//		
 ////		System.out.println("로그아웃 합니다.");
 ////		ArrayList<User> uList = userService.getUserList();
 ////		uList.remove(new User(null, null));
