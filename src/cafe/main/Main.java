@@ -7,6 +7,7 @@ import cafe.controller.BoardController;
 import cafe.controller.CategoryController;
 import cafe.controller.PostController;
 import cafe.controller.UserController;
+import cafe.model.vo.User;
 import cafe.service.PrintService;
 import cafe.service.PrintServiceImp;
 
@@ -52,9 +53,9 @@ public class Main {
 		
 	}
 
-	private static void runPreLogInMenu(int menu) {
+	private static void runPreLogInMenu(int menu) {		
 		switch(menu) {
-		case 1 : userController.logIn();
+		case 1 : userController.logIn(null, null);
 			break;
 		case 2 : userController.join();
 			break;
