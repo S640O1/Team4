@@ -41,6 +41,8 @@ public class UserController {
 	 * @param id : user 아이디
 	 * @param pw : user 비밀번호
 	 */
+	ArrayList<User> uList = new ArrayList<User>();
+
 	public void logIn() {
 		ArrayList<User> uList = userService.getUserList();
 		User user = logInInput();	//받아온 아이디, 비번
