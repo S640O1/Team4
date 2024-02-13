@@ -15,14 +15,9 @@ import cafe.service.UserServiceImp;
 
 public class UserController {
 
-	private Scanner sc;
+	private static Scanner sc;
 	private Main main;
 	private UserService userService;
-
-	//controller
-	private CategoryController categoryController;
-	private BoardController boardController;
-	private PostController postController;
 
 	public UserController(Scanner sc) {
 		if(sc == null) {
@@ -31,6 +26,12 @@ public class UserController {
 		this.sc = sc;
 		userService = new UserServiceImp();
 	}
+	
+	//controller
+	private CategoryController categoryController = new CategoryController();
+	private BoardController boardController = new BoardController(sc);
+	private static PostController postController = new PostController(sc, null);
+	
 
 	/**
 	 * 1. 로그인
@@ -38,32 +39,53 @@ public class UserController {
 	 * @param pw : user 비밀번호
 	 */
 	ArrayList<User> uList = new ArrayList<User>();
-	public void logIn(String id, String pw) {
+
+	public void logIn() {
+		uList = userService.getUserList();
+		User user = logInInput();	//받아온 아이디
+		
 		//user 클래스의 id, pw
-		User user = new User(id, pw);
+		int index = uList.indexOf(new User(user.getU_id()));
+
 		//user list 안에 있는 id가 포함된다면
 		if(uList.contains(user)) {
 			//id와 pw가 admin123과 같으면 관리자 모드
 			//관리자모드(카테고리 컨트롤러 + 보드 컨트롤러)
 			if(user.getU_id().equals("admin123") && user.getU_pw().equals("admin123")) {
-				//categoryController.카테고리run();
-				//boardController.게시판run();
+				//선택지 추가
+				//메뉴출력
+				//메뉴선택
+	//				categoryController.카테고리run();
+					boardController.run();
 				
 			}
 			//회원모드(게시글 컨트롤러)
+			//아이디만 일치하면 통과됨
 			else if(!user.getU_id().equals("admin123") 
-					&& user.getU_id().contains(id)
-					&& user.getU_pw().equals(pw)) {
+					&& user.getU_id().equals(uList.get(index).getU_id())
+					&& user.getU_pw().equals(uList.get(index).getU_pw())) {
 				postController.run();
 			}
 			//아이디나 비밀번호가 다를 때
 			else {
-				System.out.println("아이디나 비밀번호를 다시 입력하세요.");
+				System.out.println("비밀번호를 다시 입력하세요.");
 				return;
 			}
 		}
+		System.out.println("아이디나 비밀번호를 다시 입력하세요.");
 	}
 	
+	private User logInInput() {
+		System.out.print("아이디 : ");
+		String id = sc.next();
+		System.out.print("비번 : ");
+		String pw = sc.next();
+		
+		User user = new User(id,pw);
+		
+		return user;
+	}
+
 	/**
 	 * 2. 회원가입
 	 */
@@ -187,8 +209,10 @@ public class UserController {
 	/**
 	 * 로그아웃
 	 */
-	private void logOut() {
+	public void logOut() {
 		System.out.println("로그아웃 합니다.");
+		//user를 null값으로 만들기?
+		//로그아웃 dao로 mapper 0213 교육 내용 참고
 		main.printPreLogInMenu();
 	}
 

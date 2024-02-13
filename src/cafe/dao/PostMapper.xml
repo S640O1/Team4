@@ -22,8 +22,8 @@
 	
 	<!-- 전체조회 -->
 	<select id="selectPostList" resultType="cafe.model.vo.Post">
-		<!--  SELECT * from post -->
-		<!-- -->
+		 <!-- SELECT * from post -->
+
 		SELECT 
     		post.*, c_title AS p_c_title, b_title AS p_b_title
 		FROM
@@ -32,7 +32,7 @@
 				    board ON b_num = p_b_num
 				        JOIN
 				    category ON b_c_num = c_num 
-		 <!--  -->
+
 	</select>
 	<select id="selectMyPostList"  resultType="cafe.model.vo.Post">
 		SELECT 
