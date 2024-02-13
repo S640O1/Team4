@@ -5,6 +5,8 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import javax.naming.directory.AttributeInUseException;
+
 import cafe.main.Main;
 import cafe.model.vo.User;
 import cafe.service.BoardService;
@@ -18,6 +20,7 @@ public class UserController {
 	private static Scanner sc;
 	private Main main;
 	private UserService userService;
+	private static final int LOGOUT_ADMIN = 3;
 
 	public UserController(Scanner sc) {
 		if(sc == null) {
@@ -38,42 +41,76 @@ public class UserController {
 	 * @param id : user 아이디
 	 * @param pw : user 비밀번호
 	 */
-	ArrayList<User> uList = new ArrayList<User>();
 	public void logIn() {
-		uList = userService.getUserList();
-		User user = logInInput();	//받아온 아이디
+		ArrayList<User> uList = userService.getUserList();
+		User user = logInInput();	//받아온 아이디, 비번
 		
 		//user 클래스의 id, pw
 		int index = uList.indexOf(new User(user.getU_id()));
 
+		int menu = 0;
 		//user list 안에 있는 id가 포함된다면
 		if(uList.contains(user)) {
 			//id와 pw가 admin123과 같으면 관리자 모드
 			//관리자모드(카테고리 컨트롤러 + 보드 컨트롤러)
 			if(user.getU_id().equals("admin123") && user.getU_pw().equals("admin123")) {
-				//선택지 추가
-				//메뉴출력
-				//메뉴선택
-	//				categoryController.카테고리run();
-					boardController.run();
-				
+				do {
+					System.out.println();
+					printAdminMenu();
+					try {
+						menu = sc.nextInt();
+						runAdminMenu(menu);
+					}
+					catch(InputMismatchException e) {
+						System.out.println("잘못된 메뉴입니다.");
+						sc.nextLine();
+					}
+				}while(menu != LOGOUT_ADMIN);
 			}
+			
 			//회원모드(게시글 컨트롤러)
 			//아이디만 일치하면 통과됨
 			else if(!user.getU_id().equals("admin123") 
+					//user(스캔한 user)와 같다(uList의 인덱스에서 가져온 id)
 					&& user.getU_id().equals(uList.get(index).getU_id())
 					&& user.getU_pw().equals(uList.get(index).getU_pw())) {
 				postController.run();
 			}
+			
 			//아이디나 비밀번호가 다를 때
 			else {
 				System.out.println("비밀번호를 다시 입력하세요.");
 				return;
 			}
 		}
-		System.out.println("아이디나 비밀번호를 다시 입력하세요.");
+		System.out.println("아이디를 다시 입력하세요.");
+		return;
 	}
 	
+	private void printAdminMenu() {
+		System.out.println("[KH Cafe 관리자 모드]");
+		System.out.println("1. 카테고리 관리");
+		System.out.println("2. 게시판 관리");
+		System.out.println("3. 로그아웃");
+		System.out.print("메뉴 선택 : ");
+	}
+	
+	private void runAdminMenu(int menu) {
+		switch(menu) {
+		case 1 : 
+			//categoryController.run();
+			break;
+		case 2 : 
+			boardController.run();
+			break;
+		case 3 : 
+			logOut();
+			break;
+		default : throw new InputMismatchException();
+		}
+		
+	}
+
 	private User logInInput() {
 		System.out.print("아이디 : ");
 		String id = sc.next();
@@ -81,7 +118,6 @@ public class UserController {
 		String pw = sc.next();
 		
 		User user = new User(id,pw);
-		
 		return user;
 	}
 
@@ -215,12 +251,4 @@ public class UserController {
 		main.printPreLogInMenu();
 	}
 
-	private void printAdminMenu() {
-		CategoryService categoryService;
-//		private BoardService boardService;
-//		private PostService postService;
-//		// 1. 카테고리 관리
-		
-		// 2. 게시판 관리
-	}
 }
