@@ -37,7 +37,7 @@ public class UserController {
 	 * @param id : user 아이디
 	 * @param pw : user 비밀번호
 	 */
-	ArrayList<User> uList = userService.getUserList();
+	ArrayList<User> uList = new ArrayList<User>();
 	public void logIn(String id, String pw) {
 		//user 클래스의 id, pw
 		User user = new User(id, pw);
