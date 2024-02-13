@@ -6,4 +6,10 @@
 	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="board.b_num">
 		insert into board(b_c_num, b_title) values(#{board.b_c_num}, #{board.b_title})
 	</insert>
+	<select id="selectBoardList" resultType="cafe.model.vo.Board">
+		SELECT 
+			*
+		FROM
+   			board;	
+	</select>
 </mapper>

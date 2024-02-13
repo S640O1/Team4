@@ -1,5 +1,6 @@
 package cafe.controller;
 
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -95,7 +96,30 @@ public class BoardController {
 	}
 
 	private void printBoardService() {
+		// 카테고리 리스트 출력
+		// 카테고리 선택
+		// 카테고리에 해당하는 게시판 출력
+		printBoardList();
 		
+		
+	}
+
+	private void printBoardList() {
+		ArrayList<Board> boardList = boardService.getBoardList();
+		if(!printBoardList(boardList)) {
+			System.out.println("조회할 게시판이 없습니다.");
+			return;
+		}
+	}
+
+	private boolean printBoardList(ArrayList<Board> boardList) {
+		if(boardList.isEmpty()) {
+			return false;
+		}
+		for (Board b : boardList) {
+			System.out.println(b.toString());
+		}
+		return true;
 	}
 
 	private void updateBoardService() {
