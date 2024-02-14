@@ -20,7 +20,7 @@ public class UserController {
 	//controller
 	private CategoryController categoryController = new CategoryController();
 	private BoardController boardController = new BoardController(sc);
-	private static PostController postController = new PostController(sc, null);
+	private static PostController postController;
 	
 	public UserController(Scanner sc) {
 		if(sc == null) {
@@ -69,6 +69,7 @@ public class UserController {
 					//user(스캔한 user)와 같다(uList의 인덱스에서 가져온 id)
 					&& user.getU_id().equals(uList.get(index).getU_id())
 					&& user.getU_pw().equals(uList.get(index).getU_pw())) {
+				postController = new PostController(sc, user);
 				postController.run();
 			}
 			

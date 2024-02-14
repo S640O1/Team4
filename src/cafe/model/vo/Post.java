@@ -32,6 +32,15 @@ public class Post {
 		this.p_date = p_date;
 	}
 	
+	//수정 시 사용되는 생성자
+	public Post(int p_num, int p_b_num, String p_title, String p_content) {
+		super();
+		this.p_num = p_num;
+		this.p_b_num = p_b_num;
+		this.p_title = p_title;
+		this.p_content = p_content;
+	}
+	
 	
 	
 	@Override
@@ -89,6 +98,7 @@ public class Post {
 	public int hashCode() {
 		return Objects.hash(p_num);
 	}
+
 	
 	
 	

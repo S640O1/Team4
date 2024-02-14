@@ -59,13 +59,12 @@ public class PostServiceImp implements PostService {
 	}
 
 	@Override
-	public boolean updatePost(Post newPost) {
-		
-		if(newPost == null) {
+	public boolean updatePost(Post setPost) {
+		if(setPost == null) {
 			return false;
 		}
 		
-		return postDao.updatePost(newPost);
+		return postDao.updatePost(setPost);
 	}
 
 	@Override
