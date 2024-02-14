@@ -22,8 +22,6 @@
 	
 	<!-- 전체조회 -->
 	<select id="selectPostList" resultType="cafe.model.vo.Post">
-		 <!-- SELECT * from post -->
-
 		SELECT 
     		post.*, c_title AS p_c_title, b_title AS p_b_title
 		FROM
@@ -34,6 +32,8 @@
 				    category ON b_c_num = c_num 
 
 	</select>
+	<!-- 내가 작성한 게시글 조회 -->
+	<!-- 시간순으로 정렬하기 -->
 	<select id="selectMyPostList"  resultType="cafe.model.vo.Post">
 		SELECT 
     		post.*, c_title AS p_c_title, b_title AS p_b_title

@@ -1,5 +1,6 @@
 package cafe.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
@@ -182,8 +183,7 @@ public class PostController {
 	
 	/** 2-2. 내가 쓴 글 조회*/
 	private void ViewMyPost() {
-//		ArrayList<Post> myPostList = postService.getMyPostList(user.getU_id());
-		ArrayList<Post> myPostList = postService.getMyPostList("qwerty123");
+		ArrayList<Post> myPostList = postService.getMyPostList(user.getU_id());
 		if(!printPostList(myPostList)) {
 			System.out.println("작성한 게시글이 없습니다.");
 			return;
@@ -275,6 +275,8 @@ public class PostController {
 		
 		//날짜 받아오기
 		Date date = new Date();	//날짜, 시간 다 받아오기
+		
+
 		System.out.println("시간을 받아왔습니다.");
 				
 		Post post = new Post(p_b_num, title, p_u_id, content, date);
