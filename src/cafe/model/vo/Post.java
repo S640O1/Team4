@@ -41,8 +41,7 @@ public class Post {
 		this.p_content = p_content;
 	}
 	
-	
-	
+
 	@Override
 	public String toString() {
 		String dateFormat = setDateFormat(p_date);
