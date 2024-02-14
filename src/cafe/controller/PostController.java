@@ -73,7 +73,7 @@ public class PostController {
 	/** 4. 게시글 삭제*/
 	private void deletePostService() {
 		//내가 작성한 글 조회
-		ArrayList<Post> myPostList = postService.getMyPostList("qwerty123");
+		ArrayList<Post> myPostList = postService.getMyPostList(user.getU_id());
 		if(!printPostList(myPostList)) {
 			System.out.println("작성한 게시글이 없습니다.");
 			return;
@@ -250,8 +250,7 @@ public class PostController {
 		/** 1 - 1. 게시글 정보 입력받기*/
 	private Post postInput() {
 		//아이디 
-//		String p_u_id = user.getU_id();
-		String p_u_id = "qwerty123";
+		String p_u_id = user.getU_id();
 		
 		//카테고리와 게시판 출력
 		
