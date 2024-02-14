@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import cafe.model.vo.Category;
 import cafe.service.CategoryService;
+import cafe.service.CategoryServiceImp;
 import cafe.service.PrintService;
 import cafe.service.PrintServiceImp;
 
@@ -17,13 +18,21 @@ public class CategoryController {
 	
 	private static final int EXIT_CATEGORY = 5;
 	
+	public CategoryController(Scanner sc) {
+		if(sc == null) {
+			sc = new Scanner(System.in);
+		}
+		this.scan = sc;
+		categoryService = new CategoryServiceImp();
+	}
+	
 	public void run() {
 		int menu;
 		do {
 			prinCategoryMenu();
 			menu = scan.nextInt();
 			runCategoryMenu(menu);
-		}while(menu != 5);
+		}while(menu != EXIT_CATEGORY);
 	}
 
 	private void prinCategoryMenu() {
@@ -54,6 +63,7 @@ public class CategoryController {
 			break;
 		case 5:
 			System.out.println("뒤로 돌아갑니다.");
+			break;
 		default:
 			System.out.println("잘못된 메뉴입니다.");
 		}

@@ -18,7 +18,7 @@ public class UserController {
 	private static final int LOGOUT_ADMIN = 3;
 
 	//controller
-	private CategoryController categoryController = new CategoryController();
+	private CategoryController categoryController = new CategoryController(sc);
 	private BoardController boardController = new BoardController(sc);
 	private static PostController postController;
 	
@@ -61,6 +61,7 @@ public class UserController {
 						sc.nextLine();
 					}
 				}while(menu != LOGOUT_ADMIN);
+				return;
 			}
 			
 			//회원모드(게시글 컨트롤러)
@@ -71,6 +72,7 @@ public class UserController {
 					&& user.getU_pw().equals(uList.get(index).getU_pw())) {
 				postController = new PostController(sc, user);
 				postController.run();
+				return;
 			}
 			
 			//아이디나 비밀번호가 다를 때
@@ -94,7 +96,7 @@ public class UserController {
 	private void runAdminMenu(int menu) {
 		switch(menu) {
 		case 1 : 
-			//categoryController.run();
+			categoryController.run();
 			break;
 		case 2 : 
 			boardController.run();
@@ -104,7 +106,6 @@ public class UserController {
 			break;
 		default : throw new InputMismatchException();
 		}
-		
 	}
 
 	private User logInInput() {
@@ -243,7 +244,7 @@ public class UserController {
 	// 현재 로그인된 아이디를 가져와서.equals 지금 입력한 아이디랑 같으면 로그아웃? -> 현재 로그인된 아이디는 어떻게 가져오나?
 	public void logOut() {
 		System.out.println("로그아웃 되었습니다.");
-		Main.main(null);
+//		Main.main(null);
 	}
 		
 //		ArrayList<User> uList = new ArrayList<User>();	
