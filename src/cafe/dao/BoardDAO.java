@@ -12,6 +12,10 @@ public interface BoardDAO {
 
 	boolean insertBoard(@Param("board")Board board);
 
+	boolean updateBoard(@Param("board")Board newBoard);
+
+	boolean deleteBoard(@Param("b_num")int b_num);
+
 	
 
 }
