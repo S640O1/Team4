@@ -10,7 +10,7 @@ public interface CategoryService {
 
 	boolean deleteCategory(int c_num);
 
-	boolean updateCategory(Category updatedCategory);
+	boolean updateCategory(int c_num, String c_title);
 
 	boolean insertCategory(Category category);
 }

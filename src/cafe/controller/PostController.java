@@ -1,5 +1,6 @@
 package cafe.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
@@ -18,12 +19,12 @@ public class PostController {
 	private Scanner scan;
 	private PostService postService;
 	private PrintService printService = new PrintServiceImp();
-	private UserController userController; 
+	private UserController userController = new UserController(scan); 
 	
 	//게시판 리스트 불러오기
 	//ArrayList<Board> bList = boardService.get~();
 	
-	User user;
+	private static User user;
 	
 	private static final int EXIT_POST = 6;
 	private static final int EXIT_SELECT_POST = 3;
@@ -46,7 +47,7 @@ public class PostController {
 		}while(menu != EXIT_POST);		
 	}
 
-	private void runMenu(int menu) {
+	public void runMenu(int menu) {
 		switch(menu) {
 		case 1 : //게시글 등록
 			addPostService();
@@ -100,28 +101,27 @@ public class PostController {
 	/** 3. 게시글 수정*/
 	private void setPostService() {
 		//내가 작성한 글 조회
-		ArrayList<Post> myPostList = postService.getMyPostList("qwerty123");
+		ArrayList<Post> myPostList = postService.getMyPostList(user.getU_id());
 		if(!printPostList(myPostList)) {
 			System.out.println("작성한 게시글이 없습니다.");
 			return;
 		}
 		 
 		//수정할 글 선택
-		int p_num, index;
+		int p_num;
 		while(true) {
 			System.out.print("수정할 게시글 번호를 선택하세요 : ");
 			p_num = scan.nextInt();
 			if(myPostList.contains(new Post(p_num))) {
-				index = myPostList.indexOf(new Post(p_num));
+//				index = myPostList.indexOf(new Post(p_num));
 				break;
 			}
 			System.out.println("잘못된 번호입니다.");
 		}
 		
 		//수정할 값 입력받기
-		Post newPost = postSetInput(myPostList.get(index));
-		newPost.setP_b_num(p_num);
-		if(postService.updatePost(newPost)) {
+		Post setPost = postSetInput(p_num);
+		if(postService.updatePost(setPost)) {
 			System.out.println("내역을 수정하였습니다.");			
 		}else {
 			System.out.println("내역을 수정하지 못했습니다.");
@@ -130,11 +130,7 @@ public class PostController {
 	}
 	
 		/** (1) 수정사항 입력받기*/
-	private Post postSetInput(Post post) {
-		//아이디 
-//		String p_u_id = user.getU_id();
-		String p_u_id = "qwerty123";
-		
+	private Post postSetInput(int p_num) {		
 		//카테고리와 게시판 출력
 		
 		//게시판 선택 : while //조건문 : 없는 값이라면~
@@ -149,9 +145,8 @@ public class PostController {
 		System.out.print("내용을 입력하세요 : ");
 		String content = scan.nextLine();
 				
-		Post newPost = new Post(p_b_num, title, p_u_id, content, post.getP_date());
-		System.out.println(newPost.toString());
-		return newPost;
+		Post setPost = new Post(p_num, p_b_num, title, content);
+		return setPost;
 	}
 
 	/** 2. 게시글 조회*/
@@ -182,8 +177,7 @@ public class PostController {
 	
 	/** 2-2. 내가 쓴 글 조회*/
 	private void ViewMyPost() {
-//		ArrayList<Post> myPostList = postService.getMyPostList(user.getU_id());
-		ArrayList<Post> myPostList = postService.getMyPostList("qwerty123");
+		ArrayList<Post> myPostList = postService.getMyPostList(user.getU_id());
 		if(!printPostList(myPostList)) {
 			System.out.println("작성한 게시글이 없습니다.");
 			return;
@@ -275,6 +269,8 @@ public class PostController {
 		
 		//날짜 받아오기
 		Date date = new Date();	//날짜, 시간 다 받아오기
+		
+
 		System.out.println("시간을 받아왔습니다.");
 				
 		Post post = new Post(p_b_num, title, p_u_id, content, date);

@@ -48,7 +48,7 @@ public class CategoryServiceImp implements CategoryService {
 	}
 
 	@Override
-	public boolean updateCategory(Category updatedCategory) {
+	public boolean updateCategory(int c_num, String c_title) {
 		try {
             return categoryDao.updateCategory(categoryDao) > 0;
         } catch (Exception e) {

@@ -17,7 +17,7 @@ public interface PostDAO {
 
 	ArrayList<Post> selectMyPostList(@Param("u_id")String u_id);
 
-	boolean updatePost(@Param("post")Post newPost);
+	boolean updatePost(@Param("post")Post setPost);
 
 	boolean deletePost(@Param("p_num")int p_num);
 

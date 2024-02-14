@@ -14,7 +14,7 @@ public interface PostService {
 
 	ArrayList<Post> getMyPostList(String u_id);
 
-	boolean updatePost(Post newPost);
+	boolean updatePost(Post setPost);
 
 	boolean deletePost(int p_num);
 

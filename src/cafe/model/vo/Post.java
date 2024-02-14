@@ -32,6 +32,15 @@ public class Post {
 		this.p_date = p_date;
 	}
 	
+	//수정 시 사용되는 생성자
+	public Post(int p_num, int p_b_num, String p_title, String p_content) {
+		super();
+		this.p_num = p_num;
+		this.p_b_num = p_b_num;
+		this.p_title = p_title;
+		this.p_content = p_content;
+	}
+	
 	
 	
 	@Override
@@ -50,17 +59,16 @@ public class Post {
 		//제목 길이지정
 		//유저랑 날짜 형식지정
 		String dateFormat = setDateFormat(p_date);
-		return p_num + ":: ["+  "p_c_title : p_b_title]" + p_title + p_u_id + dateFormat;	
+		return p_num + "번 :: ["+  p_c_title +" : " +  p_b_title + "] " + p_title + " (" + p_u_id + ")" + dateFormat;	
 	}
 	
 	/** 현재 시간을 시간 출력 포맷을 지정해서 반환하는 메소드*/
 	public String setDateFormat(Date date) {
 		// 출력 포맷 정의
-		DateFormat formatter = new SimpleDateFormat("yyyy년 MM월 dd일 HH:mm:ss");
-       
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		
        // 출력 포맷 적용
-       String dateFormat = formatter.format(date.getTime());
-		return dateFormat;
+		return format.format(date);
 	}
 
 
@@ -90,6 +98,7 @@ public class Post {
 	public int hashCode() {
 		return Objects.hash(p_num);
 	}
+
 	
 	
 	

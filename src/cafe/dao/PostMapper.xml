@@ -3,12 +3,14 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cafe.dao.PostDAO">	
+
 	<!-- 삭제 -->
 	<delete id="deletePost">
 		Delete
 		FROM post
 		WHERE p_num = #{p_num}
 	</delete>
+	
 	<!-- 수정 -->
 	<update id="updatePost">
 		update post
@@ -22,8 +24,6 @@
 	
 	<!-- 전체조회 -->
 	<select id="selectPostList" resultType="cafe.model.vo.Post">
-		 <!-- SELECT * from post -->
-
 		SELECT 
     		post.*, c_title AS p_c_title, b_title AS p_b_title
 		FROM
@@ -32,8 +32,10 @@
 				    board ON b_num = p_b_num
 				        JOIN
 				    category ON b_c_num = c_num 
-
+		order by p_date desc
 	</select>
+	<!-- 내가 작성한 게시글 조회 -->
+	<!-- 시간순으로 정렬하기 -->
 	<select id="selectMyPostList"  resultType="cafe.model.vo.Post">
 		SELECT 
     		post.*, c_title AS p_c_title, b_title AS p_b_title
@@ -45,6 +47,7 @@
 				    category ON c_num = b_c_num 
 		where
 			p_u_id = #{u_id} 
+		order by p_date desc
 	</select>
 	<select id="selectPost" resultType="cafe.model.vo.Post">
 		SELECT 
