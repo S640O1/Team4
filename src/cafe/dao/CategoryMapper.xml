@@ -3,10 +3,28 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cafe.dao.CategoryDAO">
+	<!-- 등록 -->
 	<insert id = "insertCategory">
-		insert into category(c_num, c_title) values(#{category.c_num}, #{category.c_title})
+		insert into category(c_title) values(#{category.c_title})
 	</insert>
+	<!-- 조회 -->
 	<select id = "selectCategoryList" resultType = "cafe.model.vo.Category">
 		select * from category
 	</select>
+	<!-- 수정 -->
+	<update id="updateCategory" >
+		update category
+		set
+			c_title = #{input_c_title}
+		where
+			c_num = #{input_c_num}
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="deleteCategory">
+		delete
+			from category
+			where c_num = #{input_c_num}
+	</delete>
+	
 </mapper>

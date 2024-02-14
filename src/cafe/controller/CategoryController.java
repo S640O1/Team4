@@ -71,7 +71,7 @@ public class CategoryController {
 
 	/** 4. 카테고리 전체 조회하는 메서드*/
 	private void printCategory() {
-
+		//번호 없이 출력
 		cList = categoryService.getCategoryList();
 		if(cList.size() == 0) {
 
@@ -79,12 +79,13 @@ public class CategoryController {
 			return;
 		}
 		for(Category c : cList) {
-			System.out.println(c);
+			System.out.println(c.toString());
 		}
 	}
 	
 	/** 3. 카테고리 삭제하는 메서드*/
 	private void deleteCategory() {
+		printNumCategory();
 		System.out.println("삭제할 카테고리 번호를 입력하세요: ");
 		 int c_num = scan.nextInt();
 		 
@@ -98,15 +99,13 @@ public class CategoryController {
 	
 	/** 2. 카테고리 수정하는 메서드*/
 	private void updateCategory() {
-
+		printNumCategory();
 		System.out.println("수정할 카테고리 번호를 입력하세요: ");
 		int c_num = scan.nextInt();
-
 
         System.out.println("수정할 카테고리 이름을 입력하세요: ");
         String c_title = scan.next();
         
-//        Category updatedCategory = new Category(c_num, c_title);
         
         //c_num과 c_title을 따로 넘겨주어 수정 필요
         /* 다음처럼 mapper작성 필요
@@ -124,12 +123,31 @@ public class CategoryController {
         }
 	}
 	
+	private void printNumCategory() {
+		cList = categoryService.getCategoryList();
+		if(cList.size() == 0) {
+
+			System.out.println("등록된 카테고리가 없습니다.");
+			return;
+		}
+		for(Category c : cList) {
+			System.out.println(c.toNumString());
+		}		
+	}
+
 	/** 1. 카테고리 등록하는 메서드*/
 	private void insertCategory() {
+		//정규표현식 체크
+		
 		System.out.println("카테고리 이름 : ");
 		String c_title = scan.next();
 		
+		
 		Category category = new Category(c_title);
+	
+		//카테고리명 중복체크(중복 시 등록불가)
+	
+		
 		
 		//c_num의 경우 AUTO_INCREMENT로 자동생성되기 때문에 등록할 때 필요없습니다.
 		//mapper에서 입력하지 않아도 문제가 없습니다.(또는 null입력 시 자동으로 번호가 매겨짐)

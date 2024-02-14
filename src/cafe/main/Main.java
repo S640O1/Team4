@@ -49,7 +49,6 @@ public class Main {
 		System.out.println("1. 로그인");
 		System.out.println("2. 회원가입");
 		System.out.println("3. 나가기");
-		System.out.println("※ 나가기 오류 시 1,2,3 제외한 아무키를 누른 후 나가기 클릭");
 		System.out.print("메뉴 선택 : ");
 		
 	}
