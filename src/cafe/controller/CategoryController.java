@@ -74,6 +74,7 @@ public class CategoryController {
 
 		cList = categoryService.getCategoryList();
 		if(cList.size() == 0) {
+
 			System.out.println("등록된 카테고리가 없습니다.");
 			return;
 		}
@@ -97,12 +98,13 @@ public class CategoryController {
 	
 	/** 2. 카테고리 수정하는 메서드*/
 	private void updateCategory() {
+
 		System.out.println("수정할 카테고리 번호를 입력하세요: ");
 		int c_num = scan.nextInt();
 
+
         System.out.println("수정할 카테고리 이름을 입력하세요: ");
         String c_title = scan.next();
-
         
 //        Category updatedCategory = new Category(c_num, c_title);
         
@@ -113,6 +115,7 @@ public class CategoryController {
 			where
 				c_num = #{c_num}
          */
+
 
         if (categoryService.updateCategory(c_num, c_title)) {
             System.out.println("카테고리를 수정하였습니다.");

@@ -65,11 +65,6 @@ public class BoardController {
 	private void addBoardService() {
 		
 //		// 카테고리 리스트 출력
-//		
-
-//		
-//		// 게시판 제목 입력 받기
-//		int b_num = -1;
 
 		Board board = boardInput();
 		if(boardService.insertBoard(board)) {
@@ -122,11 +117,74 @@ public class BoardController {
 		return true;
 	}
 
+	
 	private void updateBoardService() {
+		// 카테고리 리스트 선택
 		
+		// 게시판 리스트 출력
+		ArrayList<Board> boardList = boardService.getBoardList();	
+		if(!printBoardList(boardList)) {
+			System.out.println("게시판이 없습니다.");
+			return;
+		}
+		
+		int b_num, index;
+		while(true) {
+			System.out.print("수정할 게시판 번호를 선택하세요 : ");
+			b_num = scan.nextInt();
+			if(boardList.contains(new Board(b_num))) {
+				index = boardList.indexOf(new Board(b_num));
+				break;
+			}
+			System.out.println("잘못된 번호입니다.");
+		}
+		
+		Board newBoard = boardUpdateInput(boardList.get(index));
+		newBoard.setB_num(b_num);
+		if(boardService.updateBoard(newBoard)) {
+			System.out.println(newBoard.toString());
+			System.out.println("게시판 제목을 수정하였습니다.");
+		} else {
+			System.out.println("게시판 제목을 수정하지 못했습니다.");
+		}
+	}
+
+	private Board boardUpdateInput(Board board) {
+		// 카테고리 출력
+		// 카테고리 선택
+		System.out.print("수정할 카테고리를 선택하세요 : ");
+		int b_c_num = scan.nextInt();
+		
+		System.out.print("수정할 제목을 입력하세요(1~20자) : ");
+		scan.nextLine();
+		String b_title = scan.nextLine();
+		
+		Board newBoard = new Board(b_c_num, b_title);
+		System.out.println(newBoard.toString());
+		return newBoard;
 	}
 
 	private void deleteBoardServiece() {
+		ArrayList<Board> boardList = boardService.getBoardList();	
+		if(!printBoardList(boardList)) {
+			System.out.println("게시판이 없습니다.");
+			return;
+		}
 		
+		int b_num, index;
+		while(true) {
+			System.out.print("삭제할 게시판 번호를 선택하세요 : ");
+			b_num = scan.nextInt();
+			if(boardList.contains(new Board(b_num))) {
+				index = boardList.indexOf(new Board(b_num));
+				break;
+			}
+			System.out.println("잘못된 번호입니다.");
+		}
+		if(boardService.deleteBoard(b_num)) {
+			System.out.println("게시판을 삭제하였습니다.");	
+		} else {
+			System.out.println("게시판을 삭제하지 못했습니다.");
+		}
 	}
 }
