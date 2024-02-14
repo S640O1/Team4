@@ -12,4 +12,6 @@ public interface UserDAO {
 
 	ArrayList<User> selectUserList();
 
+	ArrayList<User> selectUserId(String id);
+
 }

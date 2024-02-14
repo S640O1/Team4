@@ -19,7 +19,6 @@ public class Main {
 	//컨트롤러
 	private static UserController userController;
 	private static CategoryController categoryController;
-
 	private static BoardController boardController;
 
 
@@ -59,7 +58,7 @@ public class Main {
 		switch(menu) {
 		case 1 : userController.logIn();
 			break;
-		case 2 : // userController.join();
+		case 2 : userController.join();
 			break;
 		case 3 : System.out.println("카페를 나갑니다.");
 			break;

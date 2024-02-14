@@ -6,6 +6,9 @@
 <select id="selectUserList" resultType="cafe.model.vo.User">
 	select * from user
 </select>
+<select id="selectUserId" resultType="cafe.model.vo.User">
+	select u_id from user
+</select>
  <insert id="insertUser">
  	insert into user(u_id, u_pw, u_nickname, u_phone, u_birth, u_gender) 
 	values (#{user.u_id},#{user.u_pw},#{user.u_nickname},#{user.u_phone},#{user.u_birth},#{user.u_gender})
