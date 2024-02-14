@@ -26,7 +26,7 @@ public class PostController {
 	
 	private static User user;
 	
-	private static final int EXIT_POST = 6;
+	private static final int EXIT_POST = 5;
 	private static final int EXIT_SELECT_POST = 3;
 	
 	public PostController(Scanner scan, User user) {
@@ -39,11 +39,17 @@ public class PostController {
 	}
 	
 	public void run() {
-		int menu;
+		int menu = 0;
 		do {
 			printService.printPostMenu();
-			menu = scan.nextInt();
-			runMenu(menu);
+			try {
+				menu = scan.nextInt();
+				runMenu(menu);
+			}
+			catch(InputMismatchException e) {
+				System.out.println("잘못된 메뉴입니다.");
+				scan.nextLine();
+			}
 		}while(menu != EXIT_POST);		
 	}
 
@@ -61,9 +67,7 @@ public class PostController {
 		case 4 : //게시글 삭제
 			deletePostService();
 			break;
-		case 5 :	//뒤로가기
-			break;
-		case 6 :	//로그아웃
+		case 5 :	//로그아웃
 			userController.logOut();
 			break;
 		default : throw new InputMismatchException();

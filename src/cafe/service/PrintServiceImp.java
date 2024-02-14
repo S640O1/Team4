@@ -25,8 +25,7 @@ public class PrintServiceImp implements PrintService {
 		System.out.println("2. 게시글 조회");
 		System.out.println("3. 게시글 수정");
 		System.out.println("4. 게시글 삭제");		
-		System.out.println("5. 뒤로가기");
-		System.out.println("6. 로그아웃");
+		System.out.println("5. 로그아웃");
 		System.out.print("메뉴 선택 : ");		
 	}
 	

@@ -21,6 +21,7 @@ public class UserController {
 	private CategoryController categoryController = new CategoryController(sc);
 	private BoardController boardController = new BoardController(sc);
 	private static PostController postController;
+	private static User loginUser;
 	
 	public UserController(Scanner sc) {
 		if(sc == null) {
@@ -49,6 +50,7 @@ public class UserController {
 			//id와 pw가 admin123과 같으면 관리자 모드
 			//관리자모드(카테고리 컨트롤러 + 보드 컨트롤러)
 			if(user.getU_id().equals("admin123") && user.getU_pw().equals("admin123")) {
+				loginUser = user;
 				do {
 					System.out.println();
 					printAdminMenu();
@@ -70,6 +72,7 @@ public class UserController {
 					//user(스캔한 user)와 같다(uList의 인덱스에서 가져온 id)
 					&& user.getU_id().equals(uList.get(index).getU_id())
 					&& user.getU_pw().equals(uList.get(index).getU_pw())) {
+				loginUser = user;
 				postController = new PostController(sc, user);
 				postController.run();
 				return;
@@ -244,7 +247,7 @@ public class UserController {
 	// 현재 로그인된 아이디를 가져와서.equals 지금 입력한 아이디랑 같으면 로그아웃? -> 현재 로그인된 아이디는 어떻게 가져오나?
 	public void logOut() {
 		System.out.println("로그아웃 되었습니다.");
-//		Main.main(null);
+		loginUser = null;
 	}
 		
 //		ArrayList<User> uList = new ArrayList<User>();	

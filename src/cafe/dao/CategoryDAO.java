@@ -12,7 +12,7 @@ public interface CategoryDAO {
 
 	ArrayList<Category> selectCategoryList();
 
-	int deleteCategory(int c_num); //@param 부터 작업 필요
+	int deleteCategory(@Param("input_c_num")int c_num); //@param 부터 작업 필요
 
-	int updateCategory(CategoryDAO categoryDao); //@param 부터 작업 필요
+	int updateCategory(@Param("input_c_num")int c_num, @Param("input_c_title")String c_title); //@param 부터 작업 필요
 }
