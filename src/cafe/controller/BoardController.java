@@ -117,6 +117,7 @@ public class BoardController {
 		return true;
 	}
 
+	
 	private void updateBoardService() {
 		// 카테고리 리스트 선택
 		
@@ -141,6 +142,7 @@ public class BoardController {
 		Board newBoard = boardUpdateInput(boardList.get(index));
 		newBoard.setB_num(b_num);
 		if(boardService.updateBoard(newBoard)) {
+			System.out.println(newBoard.toString());
 			System.out.println("게시판 제목을 수정하였습니다.");
 		} else {
 			System.out.println("게시판 제목을 수정하지 못했습니다.");
