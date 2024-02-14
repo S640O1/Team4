@@ -46,7 +46,7 @@ public class PostController {
 		}while(menu != EXIT_POST);		
 	}
 
-	private void runMenu(int menu) {
+	public void runMenu(int menu) {
 		switch(menu) {
 		case 1 : //게시글 등록
 			addPostService();

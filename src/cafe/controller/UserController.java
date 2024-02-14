@@ -5,20 +5,15 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import javax.naming.directory.AttributeInUseException;
-
 import cafe.main.Main;
 import cafe.model.vo.User;
-import cafe.service.BoardService;
-import cafe.service.CategoryService;
-import cafe.service.PostService;
 import cafe.service.UserService;
 import cafe.service.UserServiceImp;
 
 public class UserController {
 
 	private static Scanner sc;
-	private Main main;
+	private Main main = new Main();
 	private UserService userService;
 	private static final int LOGOUT_ADMIN = 3;
 
@@ -40,13 +35,11 @@ public class UserController {
 	 * @param id : user 아이디
 	 * @param pw : user 비밀번호
 	 */
-	ArrayList<User> uList = new ArrayList<User>();
-
+	ArrayList<User> uList = new ArrayList<User>();	
 	public void logIn() {
 		uList = userService.getUserList();
 		//scan한 id, pw
-		User user = logInInput();	
-		
+		User user = logInInput();
 		//uList의 인덱스에서 user 생성자 getU_id
 		int index = uList.indexOf(new User(user.getU_id()));
 
@@ -246,30 +239,79 @@ public class UserController {
 	/**
 	 * 로그아웃
 	 */
-	public boolean logOut() {
-		//user를 null값으로 만들기? -> nullpointer예외 계속 발생
-		ArrayList<User> uList = new ArrayList<User>();
-		System.out.print("로그아웃 하시겠습니까?(하실려면 본인 아이디 입력) ");
-		String id = sc.next();
-		User user = new User(id);
-		int index = uList.indexOf(new User(user.getU_id()));
-		if(user.getU_id().equals(uList.get(index).getU_id())) {
-			System.out.println("로그아웃 되었습니다.");
-			main.printPreLogInMenu();
-			return true;
-		}
-		else {
-			System.out.println("잘못 입력하셨습니다.");
-			return false;
-		}
+	// 현재 로그인된 아이디를 가져와서.equals 지금 입력한 아이디랑 같으면 로그아웃? -> 현재 로그인된 아이디는 어떻게 가져오나?
+	public void logOut() {
+		System.out.println("로그아웃 되었습니다.");
+		Main.main(null);
 	}
+		
+//		ArrayList<User> uList = new ArrayList<User>();	
+//		uList = userService.getUserList();
+//		try {
+//			System.out.print("로그아웃 하시겠습니까? (하려면 본인 아이디 입력) ");
+//			String id = sc.next();
+//			User user = new User(id);
+//			int index = uList.indexOf(new User(user.getU_id()));
+//			if(id.equals(uList.get(index).getU_id())) {
+//				System.out.println("로그아웃 되었습니다.");
+//				user = new User(null, null);
+//				Main.main(null);
+//			} else if(!id.equals(uList.get(index).getU_id())) {
+//				System.out.println("아이디를 잘못 입력하였습니다.");
+//				return;
+//			} else {
+//				System.out.println("else문");
+//			}
+//		}catch(Exception e) {
+//			e.setStackTrace(null);
+//		}finally {
+//			System.out.println("finally");
+//		}
+//	}
+
+//	public boolean logOut() {
+//		//user를 null값으로 만들기? -> nullpointer예외 계속 발생
+//		ArrayList<User> uList = new ArrayList<User>();
+//		System.out.print("로그아웃 하시겠습니까?(하실려면 본인 아이디 입력) ");
+//		String id = sc.next();
+//		User user = new User(id);
+//		int index = uList.indexOf(new User(user.getU_id()));
+//		if(user.getU_id().equals(uList.get(index).getU_id())) {
+//			System.out.println("로그아웃 되었습니다.");
+//			main.printPreLogInMenu();
+//			return true;
+//		}
+//		else {
+//			System.out.println("잘못 입력하셨습니다.");
+//			return false;
+//		}
+//	}
+
+//	public boolean logOut() {
+//		//user를 null값으로 만들기? -> nullpointer예외 계속 발생
+//		ArrayList<User> uList = new ArrayList<User>();
+//		System.out.print("로그아웃 하시겠습니까?(하실려면 본인 아이디 입력) ");
+//		String id = sc.next();
+//		User user = new User(id);
+//		int index = uList.indexOf(new User(user.getU_id()));
+//		if(user.getU_id().equals(uList.get(index).getU_id())) {
+//			System.out.println("로그아웃 되었습니다.");
+//			main.printPreLogInMenu();
+//			return true;
+//		}
+//		else {
+//			System.out.println("잘못 입력하셨습니다.");
+//			return false;
+//		}
+//	}
+	
 //	int areYouLogOut = 1;
 //	public void logOut() {
 //		logOutInput(areYouLogOut);
 //	}
 //	
-//	public void logOutInput(int areYouLogOut) {
-//		areYouLogOut = 1;
+//	public void logOut() {
+//		int areYouLogOut = 1;
 //		System.out.println("로그아웃 하시겠습니까?(1:네 / 2:아니오)");
 //		if(areYouLogOut == 1) {
 //			System.out.println("로그아웃 되었습니다.");

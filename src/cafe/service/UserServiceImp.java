@@ -42,6 +42,14 @@ public class UserServiceImp implements UserService {
 	public ArrayList<User> getUserList() {
 		return userDao.selectUserList();
 	}
+
+	@Override
+	public ArrayList<User> getUserId(String id) {
+		if(id == null) {
+			return null;
+		}
+		return userDao.selectUserId(id);
+	}
 	
 	
 }

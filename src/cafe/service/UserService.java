@@ -10,5 +10,7 @@ public interface UserService {
 
 	ArrayList<User> getUserList();
 
+	ArrayList<User> getUserId(String id);
+
 	
 }

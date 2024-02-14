@@ -19,7 +19,6 @@ public class Main {
 	//컨트롤러
 	private static UserController userController;
 	private static CategoryController categoryController;
-
 	private static BoardController boardController;
 
 
