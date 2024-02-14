@@ -18,7 +18,7 @@ public class PostController {
 	private Scanner scan;
 	private PostService postService;
 	private PrintService printService = new PrintServiceImp();
-	private UserController userController; 
+	private UserController userController = new UserController(scan); 
 	
 	//게시판 리스트 불러오기
 	//ArrayList<Board> bList = boardService.get~();
