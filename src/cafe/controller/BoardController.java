@@ -99,7 +99,7 @@ public class BoardController {
 		
 	}
 
-	private void printBoardList() {
+	public void printBoardList() {
 		ArrayList<Board> boardList = boardService.getBoardList();
 		if(!printBoardList(boardList)) {
 			System.out.println("조회할 게시판이 없습니다.");
@@ -107,7 +107,7 @@ public class BoardController {
 		}
 	}
 
-	private boolean printBoardList(ArrayList<Board> boardList) {
+	public boolean printBoardList(ArrayList<Board> boardList) {
 		if(boardList.isEmpty()) {
 			return false;
 		}
@@ -187,4 +187,17 @@ public class BoardController {
 			System.out.println("게시판을 삭제하지 못했습니다.");
 		}
 	}
+	
+	public boolean containsBoardServiece(int b_num) {
+		ArrayList<Board> boardList = boardService.getBoardList();
+		if(boardList.contains(new Board(b_num))) {
+			return true;
+		}
+		return false;
+	}
+
+	public ArrayList<Board> getBoardList() {
+		return boardService.getBoardList();
+	}
+	
 }

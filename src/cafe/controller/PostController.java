@@ -84,12 +84,11 @@ public class PostController {
 		}
 		
 		//삭제할 글 선택
-		int p_num, index;
+		int p_num;
 		while(true) {
 			System.out.print("삭제할 게시글 번호를 선택하세요 : ");
 			p_num = scan.nextInt();
 			if(myPostList.contains(new Post(p_num))) {
-				index = myPostList.indexOf(new Post(p_num));
 				break;
 			}
 			System.out.println("잘못된 번호입니다.");
@@ -117,7 +116,6 @@ public class PostController {
 			System.out.print("수정할 게시글 번호를 선택하세요 : ");
 			p_num = scan.nextInt();
 			if(myPostList.contains(new Post(p_num))) {
-//				index = myPostList.indexOf(new Post(p_num));
 				break;
 			}
 			System.out.println("잘못된 번호입니다.");
