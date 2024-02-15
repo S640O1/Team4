@@ -15,4 +15,7 @@ public interface BoardService {
 	boolean deleteBoard(int b_num);
 
 	ArrayList<Board> selectCaBoardList(int b_c_num);
+
+	ArrayList<Board> getCBoradList(int i);
+
 }

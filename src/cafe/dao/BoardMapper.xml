@@ -16,6 +16,15 @@
    			board;	
 	</select>
 	
+	<select id="selectCBoardList">
+		SELECT 
+			*
+		FROM
+   			board
+   		WHERE b_c_num = #{b_c_num};	
+	
+	</select>
+	
 	<!-- 카테고리에 포한된 게시판 조회 -->
 	<select id="selectCaBoardList" resultType="cafe.model.vo.Board">
 		SELECT *
