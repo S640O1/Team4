@@ -32,7 +32,7 @@ public class PostController {
 	private static User user;
 	
 	private static final int EXIT_POST = 5;
-	private static final int EXIT_SELECT_POST = 3;
+	private static final int EXIT_SELECT_POST = 4;
 	
 	public PostController(Scanner scan, User user) {
 		if(scan == null) {
@@ -155,29 +155,27 @@ public class PostController {
 			System.out.println("잘못된 게시판 번호입니다.");
 		}
 		
-		//제목, 내용 입력받기 : while문으로 정규표현식 체크
-		
-		String titleRegex = "/[^?a-zA-Z0-9/]{1,50}$/";
+		//제목, 내용 입력받기 : while문으로 체크
 		String title = null;
 		scan.nextLine();
 		while(true) {
 			System.out.print("제목을 입력하세요(1~50자) : ");
 			title = scan.nextLine();
-			if(!Pattern.matches(titleRegex, title)) {
-				System.out.println("제목은 1~50자리 공백을 포함한 한글, 영어 대소문자, 숫자, 특수문자만 가능합니다.");
+			if(title.length()<=50 && title.length()>0) {
 				break;
 			}
+			System.out.println("제목은 1~50자리만 가능합니다.");
 		}
-		String contentRegex = "/[^?a-zA-Z0-9/]*$/";
 		String content = null;
 		while(true) {
 			System.out.print("내용을 입력하세요 : ");
 			content = scan.nextLine();
-			if(!Pattern.matches(contentRegex, content)) {
-				System.out.println("제목은 공백을 포함한 한글, 영어 대소문자, 숫자, 특수문자만 가능합니다.");				
+			if(!(content == null)) {
 				break;
 			}			
+			System.out.println("내용을 입력하세요");				
 		}
+		
 				
 		Post setPost = new Post(p_num, p_b_num, title, content);
 		return setPost;
@@ -374,7 +372,7 @@ public class PostController {
 			System.out.println("잘못된 게시판 번호입니다.");
 		}
 		
-		//제목, 내용 입력받기 : while문으로 정규표현식 체크
+		//제목, 내용 입력받기 : while문으로 체크
 		
 		String title = null;
 		scan.nextLine();
