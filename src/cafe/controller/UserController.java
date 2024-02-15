@@ -134,7 +134,7 @@ public class UserController {
 		if(userService.insertUser(user)) {
 			System.out.println(user);
 		}else {
-			System.out.println("내역을 추가하지 못했습니다.");
+			System.out.println("회원가입에 실패했습니다.");
 		}
 	}
 		
