@@ -51,6 +51,7 @@ public class UserController {
 			//관리자모드(카테고리 컨트롤러 + 보드 컨트롤러)
 			if(user.getU_id().equals("admin123") && user.getU_pw().equals("admin123")) {
 				loginUser = user;
+				System.out.println("관리자(admin123)님이 로그인했습니다.");
 				do {
 					System.out.println();
 					printAdminMenu();
@@ -74,6 +75,8 @@ public class UserController {
 					&& user.getU_pw().equals(uList.get(index).getU_pw())) {
 				loginUser = user;
 				postController = new PostController(sc, user);
+				String nickname = uList.get(index).getU_nickname();
+				System.out.println(nickname + user.logInSuccess());
 				postController.run();
 				return;
 			}
@@ -89,11 +92,13 @@ public class UserController {
 	}
 	
 	private void printAdminMenu() {
-		System.out.println("[KH Cafe 관리자 모드]");
-		System.out.println("1. 카테고리 관리");
-		System.out.println("2. 게시판 관리");
-		System.out.println("3. 로그아웃");
-		System.out.print("메뉴 선택 : ");
+		System.out.println("╭───────────────╮");
+		System.out.println("│　꒰ 관리자 모드 ꒱　│");
+		System.out.println("╰───────────────╯");
+		System.out.println("[1] 카테고리 관리");
+		System.out.println("[2] 게시판 관리");
+		System.out.println("[3] 로그아웃");
+		System.out.print("[메뉴 선택] ");
 	}
 	
 	private void runAdminMenu(int menu) {
@@ -112,9 +117,9 @@ public class UserController {
 	}
 
 	private User logInInput() {
-		System.out.print("아이디 : ");
+		System.out.print("ID : ");
 		String id = sc.next();
-		System.out.print("비번 : ");
+		System.out.print("Password : ");
 		String pw = sc.next();
 		
 		User user = new User(id,pw);
@@ -127,7 +132,7 @@ public class UserController {
 	public void join() {
 		User user = joinInput();
 		if(userService.insertUser(user)) {
-			System.out.println("내역을 추가했습니다.");
+			System.out.println(user);
 		}else {
 			System.out.println("내역을 추가하지 못했습니다.");
 		}

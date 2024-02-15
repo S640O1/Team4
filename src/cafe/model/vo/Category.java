@@ -16,11 +16,11 @@ public class Category {
 
 	@Override
 	public String toString() {
-		return "Category [c_title=" + c_title + "]";
+		return "[" + c_title + "]";
 	}
 	
 	public String toNumString() {
-		return c_num + "[c_title=" + c_title + "]";
+		return c_num + ". [" + c_title + "]";
 	}
 	
 	

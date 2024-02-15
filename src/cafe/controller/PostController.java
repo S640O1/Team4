@@ -41,6 +41,7 @@ public class PostController {
 	public void run() {
 		int menu = 0;
 		do {
+			System.out.println();
 			printService.printPostMenu();
 			try {
 				menu = scan.nextInt();
@@ -158,6 +159,7 @@ public class PostController {
 		//조회 메뉴
 		int selectMenu;
 		do {
+			System.out.println();
 			printService.printViewPostMenu();
 			selectMenu = scan.nextInt();
 			runViewPostMenu(selectMenu);
