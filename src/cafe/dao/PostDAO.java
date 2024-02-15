@@ -21,4 +21,6 @@ public interface PostDAO {
 
 	boolean deletePost(@Param("p_num")int p_num);
 
+	ArrayList<Post> selectBoardPostList(@Param("p_b_num")int p_b_num);
+
 }

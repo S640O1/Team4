@@ -44,21 +44,26 @@ public class Post {
 
 	@Override
 	public String toString() {
+		
 		String dateFormat = setDateFormat(p_date);
-		return  "카테고리 : " + p_c_title + "\n" +
-				"게시판 : " + p_b_title + "\n" +
-				"제목 : " + p_title + "\n" +
-				"작성자 : " + p_u_id + "\n" +
-				"작성일 : " + dateFormat + "\n" +
-				"내용 : " + p_content;
+		
+		return  "[카테고리] " + p_c_title + "\n" +
+				"[게 시 판] " + p_b_title + "\n" +
+				"[제    목] " + p_title + "\n" +
+				"[작 성 자] " + p_u_id + "\n" +
+				"[작 성 일] " + dateFormat + "\n" +
+				"[내    용]\n" + p_content;
 	}
 	
 	//일자 제목 작성자
 	public String simpleToString() {
-		//제목 길이지정
-		//유저랑 날짜 형식지정
+		String pNumFormat = String.format("%4d", p_num);
+		String boardTitleFormat =  String.format("%6s",boardTitleEllipsis(p_b_title)); 
+		String titleFormat = String.format("%-20s",titleEllipsis(p_title));
 		String dateFormat = setDateFormat(p_date);
-		return p_num + "번 :: ["+  p_c_title +" : " +  p_b_title + "] " + p_title + " (" + p_u_id + ")" + dateFormat;	
+		String userIdFormat = String.format("%8s", p_u_id);
+
+		return pNumFormat + "번 :: ["+ boardTitleFormat + "] " + titleFormat + " : " + userIdFormat + " : " + dateFormat;	
 	}
 	
 	/** 현재 시간을 시간 출력 포맷을 지정해서 반환하는 메소드*/
@@ -70,7 +75,33 @@ public class Post {
 		return format.format(date);
 	}
 
-
+	//제목 길이 지정
+	private String titleEllipsis(String p_title) {
+		String printTitle = null;
+		int limit = 20;
+		StringBuffer sb = new StringBuffer(p_title);
+		if(sb.length()>limit) {
+			sb.setLength(limit);
+			sb.append("...");
+		}
+		printTitle = sb.toString();
+		
+		return printTitle;
+	}
+	
+	//게시판 제목 길이 지정
+	private String boardTitleEllipsis(String p_b_title) {
+		String printBoardTitle = null;
+		int limit = 6;
+		StringBuffer sb = new StringBuffer(p_b_title);
+		if(sb.length()>limit) {
+			sb.setLength(limit);
+			sb.append("...");
+		}
+		printBoardTitle = sb.toString();
+		
+		return printBoardTitle;
+	}
 
 	public Post(int p_num) {
 		super();
@@ -97,6 +128,8 @@ public class Post {
 	public int hashCode() {
 		return Objects.hash(p_num);
 	}
+	
+
 
 	
 	
