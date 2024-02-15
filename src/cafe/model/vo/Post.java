@@ -49,10 +49,10 @@ public class Post {
 
 		return  "[카테고리] " + p_c_title + "\n" +
 				"[게 시 판] " + p_b_title + "\n" +
-				"[제    목] " + p_title + "\n" +
+				"[제  　목] " + p_title + "\n" +
 				"[작 성 자] " + p_u_id + "\n" +
 				"[작 성 일] " + dateFormat + "\n" +
-				"[내    용]\n" + p_content;
+				"[내  　용]\n" + p_content;
 	}
 	
 	//일자 제목 작성자
