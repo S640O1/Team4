@@ -9,6 +9,8 @@ import cafe.model.vo.Board;
 public interface BoardDAO {
 
 	ArrayList<Board> selectBoardList();
+	
+	ArrayList<Board> selectCaBoardList(@Param("b_c_num") int b_c_num);
 
 	boolean insertBoard(@Param("board")Board board);
 

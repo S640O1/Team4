@@ -75,9 +75,11 @@ public class CategoryController {
 			System.out.println("잘못된 메뉴입니다.");
 		}
 	}
+	
+	
 
 	/** 4. 카테고리 전체 조회하는 메서드*/
-	private void printCategory() {
+	public void printCategory() {
 		//번호 없이 출력
 		cList = categoryService.getCategoryList();
 		if(cList.size() == 0) {
@@ -163,5 +165,13 @@ public class CategoryController {
 		}else {
 			System.out.println("카테고리 등록에 실패했습니다.");
 		}
+	}
+
+	public boolean contains(int b_c_num) {
+		cList = categoryService.getCategoryList();
+		if(cList.contains(new Category(b_c_num))) {
+			return true;
+		}
+		return false;
 	}
 }
