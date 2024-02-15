@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 
 public class Board {
 
-	private int b_num;	// 게시판 번호 AI
-	private String b_title; // 게시판 제목
-	private int b_c_num; // 카테고리 번호
+	private int b_num;		// 게시판 번호 AI
+	private String b_title; 	// 게시판 제목
+	private int b_c_num; 	// 카테고리 번호
 	
 	// 게시판 번호 같을 때 등록 X
 	@Override
@@ -42,4 +42,17 @@ public class Board {
 		this.b_c_num = b_c_num;
 		this.b_title = b_title;
 	}
+
+	public String simpleString() { // b_num 없는 버전 조회 시
+		return "\t ㄴ " + b_num + ". " + b_title;
+	}
+
+	@Override
+	public String toString() {  // b_num 있는 버전 수정 삭제 시 선택할 때
+		return "ㄴ " + b_num + ". " + b_title;
+	}
+	
+
+	
+	
 }

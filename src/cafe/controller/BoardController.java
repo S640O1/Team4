@@ -7,12 +7,16 @@ import java.util.Scanner;
 import cafe.model.vo.Board;
 import cafe.service.BoardService;
 import cafe.service.BoardServiceImp;
+import cafe.service.CategoryService;
+import cafe.service.CategoryServiceImp;
 import cafe.service.PrintService;
 import cafe.service.PrintServiceImp;
 
 public class BoardController {
 	private Scanner scan;
 	private BoardService boardService;
+	private CategoryController categoryController = new CategoryController(scan);
+	private CategoryService categoryService = new CategoryServiceImp();
 	public PrintService printService = new PrintServiceImp();
 	
 	private static final int EXIT_BOARD = 5;
@@ -63,9 +67,6 @@ public class BoardController {
 	}
 
 	private void addBoardService() {
-		
-//		// 카테고리 리스트 출력
-
 		Board board = boardInput();
 		if(boardService.insertBoard(board)) {
 			System.out.println(board.toString());
@@ -76,9 +77,20 @@ public class BoardController {
 	}
 
 	private Board boardInput() {
+		// 카테고리 리스트 출력
+		categoryController.printCategory();
+		
 		// 게시판 추가할 카테고리 선택
-		// int b_c_num = scan.nextInt();
-		int b_c_num = 1;
+		int b_c_num;
+		
+		while(true) {
+			System.out.print("카테고리를 선택하세요 : ");
+			b_c_num = scan.nextInt();
+			if (categoryController.contains(b_c_num)) {	
+				break;
+			}
+			System.out.println("잘못된 번호입니다.");
+		}
 		
 		// 정규 표현식 (제목 1-20자)
 		System.out.print("제목을 입력하세요(1~20자) : ");
@@ -88,10 +100,12 @@ public class BoardController {
 		Board board = new Board(b_c_num, b_title);
 		
 		return board;
+		
 	}
 
 	private void printBoardService() {
 		// 카테고리 리스트 출력
+		
 		// 카테고리 선택
 		// 카테고리에 해당하는 게시판 출력
 		printBoardList();
@@ -119,11 +133,24 @@ public class BoardController {
 
 	
 	private void updateBoardService() {
-		// 카테고리 리스트 선택
+		// 카테고리 리스트 출력
+		categoryController.printCategory();
 		
-		// 게시판 리스트 출력
-		ArrayList<Board> boardList = boardService.getBoardList();	
-		if(!printBoardList(boardList)) {
+		// 게시판 수정할 카테고리 선택
+		int b_c_num;
+		
+		while(true) {
+			System.out.print("카테고리를 선택하세요 : ");
+			b_c_num = scan.nextInt();
+			if (categoryController.contains(b_c_num)) {	
+				break;
+			}
+			System.out.println("잘못된 번호입니다.");
+		}
+		
+		// 카테고리에 포함된 게시판 리스트 출력
+		ArrayList<Board> caBoardList = boardService.selectCaBoardList(b_c_num);
+		if(!printBoardList(caBoardList)) {
 			System.out.println("게시판이 없습니다.");
 			return;
 		}
@@ -132,14 +159,15 @@ public class BoardController {
 		while(true) {
 			System.out.print("수정할 게시판 번호를 선택하세요 : ");
 			b_num = scan.nextInt();
-			if(boardList.contains(new Board(b_num))) {
-				index = boardList.indexOf(new Board(b_num));
+			if(caBoardList.contains(new Board(b_num))) {
+				index = caBoardList.indexOf(new Board(b_num));
 				break;
 			}
 			System.out.println("잘못된 번호입니다.");
 		}
 		
-		Board newBoard = boardUpdateInput(boardList.get(index));
+		Board newBoard = boardUpdateInput(caBoardList.get(index));
+		
 		newBoard.setB_num(b_num);
 		if(boardService.updateBoard(newBoard)) {
 			System.out.println(newBoard.toString());
@@ -150,6 +178,7 @@ public class BoardController {
 	}
 
 	private Board boardUpdateInput(Board board) {
+
 		// 카테고리 출력
 		// 카테고리 선택
 		System.out.print("수정할 카테고리를 선택하세요 : ");
@@ -160,27 +189,47 @@ public class BoardController {
 		String b_title = scan.nextLine();
 		
 		Board newBoard = new Board(b_c_num, b_title);
-		System.out.println(newBoard.toString());
 		return newBoard;
 	}
+	
+	
 
 	private void deleteBoardServiece() {
-		ArrayList<Board> boardList = boardService.getBoardList();	
-		if(!printBoardList(boardList)) {
-			System.out.println("게시판이 없습니다.");
-			return;
-		}
 		
-		int b_num, index;
+		// 카테고리 리스트 출력
+		categoryController.printCategory();
+		
+		// 게시판 수정할 카테고리 선택
+		int b_c_num;
+		
 		while(true) {
-			System.out.print("삭제할 게시판 번호를 선택하세요 : ");
-			b_num = scan.nextInt();
-			if(boardList.contains(new Board(b_num))) {
-				index = boardList.indexOf(new Board(b_num));
+			System.out.print("카테고리를 선택하세요 : ");
+			b_c_num = scan.nextInt();
+			if (categoryController.contains(b_c_num)) {	
 				break;
 			}
 			System.out.println("잘못된 번호입니다.");
 		}
+		
+		// 카테고리에 포함된 게시판 리스트 출력
+		ArrayList<Board> caBoardList = boardService.selectCaBoardList(b_c_num);
+		if(!printBoardList(caBoardList)) {
+			System.out.println("게시판이 없습니다.");
+			return;
+		}
+				
+		int b_num, index;
+		
+		while(true) {
+			System.out.print("삭제할 게시판 번호를 선택하세요 : ");
+			b_num = scan.nextInt();
+			if(caBoardList.contains(new Board(b_num))) {
+				index = caBoardList.indexOf(new Board(b_num));
+				break;
+			}
+			System.out.println("잘못된 번호입니다.");
+		}
+		
 		if(boardService.deleteBoard(b_num)) {
 			System.out.println("게시판을 삭제하였습니다.");	
 		} else {

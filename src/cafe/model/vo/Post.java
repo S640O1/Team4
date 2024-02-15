@@ -46,7 +46,7 @@ public class Post {
 	public String toString() {
 		
 		String dateFormat = setDateFormat(p_date);
-		
+
 		return  "[카테고리] " + p_c_title + "\n" +
 				"[게 시 판] " + p_b_title + "\n" +
 				"[제    목] " + p_title + "\n" +
