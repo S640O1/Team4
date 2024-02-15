@@ -45,9 +45,7 @@ public class Post {
 	@Override
 	public String toString() {
 		String dateFormat = setDateFormat(p_date);
-		return  "카테고리 : " + p_c_title + "\n" +
-				"게시판 : " + p_b_title + "\n" +
-				"제목 : " + p_title + "\n" +
+		return  "제목 : " + p_title + "\n" +
 				"작성자 : " + p_u_id + "\n" +
 				"작성일 : " + dateFormat + "\n" +
 				"내용 : " + p_content;
