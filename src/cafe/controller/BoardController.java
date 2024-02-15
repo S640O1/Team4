@@ -5,7 +5,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import cafe.model.vo.Board;
-import cafe.model.vo.Category;
 import cafe.service.BoardService;
 import cafe.service.BoardServiceImp;
 import cafe.service.CategoryService;
@@ -190,7 +189,6 @@ public class BoardController {
 		String b_title = scan.nextLine();
 		
 		Board newBoard = new Board(b_c_num, b_title);
-		System.out.println(newBoard.toString());
 		return newBoard;
 	}
 	
