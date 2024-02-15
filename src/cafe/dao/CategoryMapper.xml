@@ -10,7 +10,7 @@
 	<!-- 조회 -->
 	<select id = "selectCategoryList" resultType = "cafe.model.vo.Category">
 		select * from category
-	</select>
+	</select>	
 	<!-- 수정 -->
 	<update id="updateCategory" >
 		update category

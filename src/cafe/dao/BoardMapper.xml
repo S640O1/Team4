@@ -16,6 +16,13 @@
    			board;	
 	</select>
 	
+	<!-- 카테고리에 포한된 게시판 조회 -->
+	<select id="selectCaBoardList" resultType="cafe.model.vo.Board">
+		SELECT *
+		FROM BOARD
+		WHERE B_C_NUM = #{b_c_num};
+	</select>
+	
 	<!-- 수정 -->
 	<update id="updateBoard" useGeneratedKeys="true" keyProperty="board.b_num">
 		update board
