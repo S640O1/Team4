@@ -36,7 +36,6 @@ public class PostServiceImp implements PostService {
 			System.out.println("Null");
 			return false;
 		}
-		System.out.println("postDao호출");
 		return postDao.insertPost(post);
 	}
 
@@ -69,6 +68,11 @@ public class PostServiceImp implements PostService {
 	@Override
 	public boolean deletePost(int p_num) {
 		return postDao.deletePost(p_num);
+	}
+
+	@Override
+	public ArrayList<Post> getBoardPostList(int p_b_num) {
+		return postDao.selectBoardPostList(p_b_num);
 	}
 
 

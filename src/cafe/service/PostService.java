@@ -18,6 +18,8 @@ public interface PostService {
 
 	boolean deletePost(int p_num);
 
+	ArrayList<Post> getBoardPostList(int p_b_num);
+
 
 
 }

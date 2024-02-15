@@ -245,8 +245,13 @@ public class BoardController {
 		return false;
 	}
 
-	public ArrayList<Board> getBoardList() {
-		return boardService.getBoardList();
+	public boolean printBoardListBoolean() {
+		ArrayList<Board> boardList = boardService.getBoardList();
+		if(!printBoardList(boardList)) {
+			System.out.println("입력 가능한 게시판이 없습니다.");
+			return false;
+		}
+		return true;
 	}
 	
 }
