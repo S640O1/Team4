@@ -93,7 +93,7 @@ public class UserController {
 	
 	private void printAdminMenu() {
 		System.out.println("╭───────────────╮");
-		System.out.println("│　꒰ 관리자 모드 ꒱　│");
+		System.out.println("│　꒰　관리자 모드 ꒱│");
 		System.out.println("╰───────────────╯");
 		System.out.println("[1] 카테고리 관리");
 		System.out.println("[2] 게시판 관리");

@@ -46,8 +46,8 @@ public class Main {
 
 	public static void printPreLogInMenu() {
 		System.out.println("╔═════ °• 💻 •° ═════╗");
-		System.out.println("│   W E L C O M E　 　│");
-		System.out.println("│  　꒰ KH Cafe ꒱ 　　 │");
+		System.out.println("│    W E L C O M E  　│");
+		System.out.println("│  　 ꒰ KH Cafe ꒱    │");
 		System.out.println("╚═════ °• 💻 •° ═════╝");
 		System.out.println("[1] LogIn");
 		System.out.println("[2] Join");

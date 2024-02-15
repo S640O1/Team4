@@ -6,7 +6,7 @@ public class PrintServiceImp implements PrintService {
 	public void printBoardMenu() {
 		System.out.println();
 		System.out.println("╭───────────────╮");
-		System.out.println("│　꒰ 게시판 관리 ꒱　│");
+		System.out.println("│　꒰　게시판 관리 ꒱│");
 		System.out.println("╰───────────────╯");
 		System.out.println("[1] 게시판 등록");
 		System.out.println("[2] 게시판 조회");
@@ -37,7 +37,7 @@ public class PrintServiceImp implements PrintService {
 	@Override
 	public void printViewPostMenu() {
 		System.out.println("╭───────────────╮");
-		System.out.println("│　꒰ 게시글 조회 ꒱　│");
+		System.out.println("│　꒰　게시글 조회 ꒱│");
 		System.out.println("╰───────────────╯");
 		System.out.println("[1] 전체 게시글 조회");
     System.out.println("[2] 게시글 선택 조회");

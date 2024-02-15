@@ -44,9 +44,9 @@ public class CategoryController {
 	}
 
 	private void prinCategoryMenu() {
-		System.out.println("╭────────────────╮");
+		System.out.println("╭─────────────────╮");
 		System.out.println("│　꒰ 카테고리 관리 ꒱ │");
-		System.out.println("╰────────────────╯");
+		System.out.println("╰─────────────────╯");
 		System.out.println("[1] 카테고리 등록");
 		System.out.println("[2] 카테고리 수정");
 		System.out.println("[3] 카테고리 조회");
