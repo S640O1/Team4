@@ -5,14 +5,17 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import cafe.model.vo.Board;
+import cafe.model.vo.Category;
 import cafe.service.BoardService;
 import cafe.service.BoardServiceImp;
+import cafe.service.CategoryService;
 import cafe.service.PrintService;
 import cafe.service.PrintServiceImp;
 
 public class BoardController {
 	private Scanner scan;
 	private BoardService boardService;
+	private CategoryService categoryService;
 	public PrintService printService = new PrintServiceImp();
 	
 	private static final int EXIT_BOARD = 5;
@@ -63,9 +66,6 @@ public class BoardController {
 	}
 
 	private void addBoardService() {
-		
-//		// 카테고리 리스트 출력
-
 		Board board = boardInput();
 		if(boardService.insertBoard(board)) {
 			System.out.println(board.toString());
@@ -75,8 +75,31 @@ public class BoardController {
 		}
 	}
 
+	/*
+	if(!printBoardList(boardList)) {
+		System.out.println("게시판이 없습니다.");
+		return;
+	}
+	
+	int b_num, index;
+	while(true) {
+		System.out.print("수정할 게시판 번호를 선택하세요 : ");
+		b_num = scan.nextInt();
+		if(boardList.contains(new Board(b_num))) {
+			index = boardList.indexOf(new Board(b_num));
+			break;
+		}
+		System.out.println("잘못된 번호입니다.");
+	}
+	*/
+	
 	private Board boardInput() {
+		// 카테고리 리스트 출력
+		ArrayList<Category> categoryList = categoryService.getCategoryList();
+		
 		// 게시판 추가할 카테고리 선택
+		
+		
 		// int b_c_num = scan.nextInt();
 		int b_c_num = 1;
 		
@@ -92,6 +115,7 @@ public class BoardController {
 
 	private void printBoardService() {
 		// 카테고리 리스트 출력
+		
 		// 카테고리 선택
 		// 카테고리에 해당하는 게시판 출력
 		printBoardList();
@@ -172,6 +196,7 @@ public class BoardController {
 		}
 		
 		int b_num, index;
+		
 		while(true) {
 			System.out.print("삭제할 게시판 번호를 선택하세요 : ");
 			b_num = scan.nextInt();
@@ -181,6 +206,7 @@ public class BoardController {
 			}
 			System.out.println("잘못된 번호입니다.");
 		}
+		
 		if(boardService.deleteBoard(b_num)) {
 			System.out.println("게시판을 삭제하였습니다.");	
 		} else {

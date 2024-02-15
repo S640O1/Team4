@@ -68,6 +68,8 @@ public class CategoryController {
 			System.out.println("잘못된 메뉴입니다.");
 		}
 	}
+	
+	
 
 	/** 4. 카테고리 전체 조회하는 메서드*/
 	private void printCategory() {
