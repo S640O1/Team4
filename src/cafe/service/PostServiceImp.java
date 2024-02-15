@@ -23,7 +23,6 @@ public class PostServiceImp implements PostService {
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
 			SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-//			sessionFactory.getConfiguration( ).addMapper( PostDAO.class );
 			session = sessionFactory.openSession(true);
 			postDao = session.getMapper(PostDAO.class);
 		} catch (IOException e) {
