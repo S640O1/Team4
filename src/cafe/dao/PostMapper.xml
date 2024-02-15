@@ -22,7 +22,7 @@
 			p_num = #{post.p_num}
 	</update>
 	
-	<!-- 전체조회 -->
+	<!-- 게시글 전체조회 -->
 	<select id="selectPostList" resultType="cafe.model.vo.Post">
 		SELECT 
     		post.*, c_title AS p_c_title, b_title AS p_b_title
@@ -49,6 +49,21 @@
 			p_u_id = #{u_id} 
 		order by p_date desc
 	</select>
+	<!-- 게시판 안의 게시글 가져오기 -->
+	<select id="selectBoardPostList" resultType="cafe.model.vo.Post">
+		SELECT 
+	    		post.*, c_title AS p_c_title, b_title AS p_b_title
+			FROM
+	   			post
+	        		JOIN
+					    board ON b_num = p_b_num
+					JOIN
+					    category ON c_num = b_c_num 
+			where
+				p_b_num = #{p_b_num} 
+			order by p_date desc
+	</select>
+	<!-- 게시글 1개 상세정보 불러오기 -->
 	<select id="selectPost" resultType="cafe.model.vo.Post">
 		SELECT 
 	    		post.*, c_title AS p_c_title, b_title AS p_b_title
