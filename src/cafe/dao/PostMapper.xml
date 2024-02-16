@@ -17,7 +17,7 @@
 		    	 JOIN
 					    user on u_id = p_u_id
 		order by p_date desc
-		LIMIT #{cri.page}, #{cri.perPageNum}
+		LIMIT #{cri.pageStart}, #{cri.perPageNum}
 	</select>
 
 	<!-- 삭제 -->

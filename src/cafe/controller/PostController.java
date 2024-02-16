@@ -313,22 +313,22 @@ public class PostController {
 		//게시글 없으면 조회 불가
 		ArrayList<Post> allPostList = new ArrayList<Post>();
 		allPostList = postService.getPostList();
-		if(!printPostList(allPostList)) {
+		if(allPostList.size() <= 0 ) {
 			System.out.println("조회할 게시글이 없습니다.");
 			return;
 		}
 		
 		//게시글 페이지로 목록 조회
+		ArrayList<Post> postList = new ArrayList<Post>();
 		int page = 1, menu;
 		do {
 			Criteria cri = new Criteria(page, 5);
-			ArrayList<Post> postList = new ArrayList<Post>();
 			postList = postService.getPostListPage(cri);
 			if(!printPostList(postList)) {
 				System.out.println("조회할 게시글이 없습니다.");
 				menu=3;
 			}
-			System.out.println("현재 페이지 : " + cri.getPageStart());
+			System.out.println("현재 페이지 : " + cri.getPage());
 			System.out.println("1. 이전 페이지");
 			System.out.println("2. 다음 페이지");
 			System.out.println("3. 돌아가기");
@@ -337,14 +337,14 @@ public class PostController {
 		}while(menu != 3);
 		
 		switch(menu) {
-		case 1:
+			case 1:
 				page = page ==1 ? 1 : page-1;
-			break;
-		case 2: 
-			page++;
-			break;
-		case 3: System.out.println("조회를 종료합니다."); break;
-		default : System.out.println("잘못 선택했습니다.");
+				break;
+			case 2: 
+				page++;
+				break;
+			case 3: System.out.println("조회를 종료합니다."); break;
+			default : System.out.println("잘못 선택했습니다.");
 		}
 		
 
