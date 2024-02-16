@@ -19,7 +19,7 @@ public class LectureServiceImp implements LectureService {
 	
 	Date date = new Date();
 	public static String pattern = "HH:mm";
-	public static SimpleDateFormat format1 = new SimpleDateFormat(pattern);
+	public static SimpleDateFormat format1 = new SimpleDateFormat(pattern); 
 	
 	
 	/** 강의(리스트)에 내역을 추가하는 메소드 : 심아진 */

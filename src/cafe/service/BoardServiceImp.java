@@ -58,4 +58,9 @@ public class BoardServiceImp implements BoardService {
 		return boardDao.selectCaBoardList(b_c_num);
 	}
 
+	@Override
+	public ArrayList<Board> getCBoradList(int b_c_num) {
+		return boardDao.selectCBoardList(b_c_num);
+	}
+
 }

@@ -50,6 +50,11 @@ public class ScoreServiceImp implements ScoreService {
 		System.out.print("성적을 등록할 학생을 선택하세요 : ");
 		int indexS = UniversityProgram.scan.nextInt() - 1;
 		
+		//점수입력
+		System.out.print("점수를 입력하세요(4.5점 만점) : ");
+		double score = UniversityProgram.scan.nextDouble();
+		
+
 		//전체학생 리스트에서 A학생 인덱스 찾기
 		int indexStd = -1;
 		
@@ -61,24 +66,14 @@ public class ScoreServiceImp implements ScoreService {
 		}
 		
 		//score 클래스 이용
-		Score sObj = new Score(lList.get(indexL).getLectureNum(), sList.get(indexStd).getStudentId() , 0, lList.get(indexL).getLectureName(), sList.get(indexStd).getName());
+		Score sObj = new Score(lList.get(indexL).getLectureNum(), sList.get(indexStd).getStudentId() , score, lList.get(indexL).getLectureName(), sList.get(indexStd).getName());
 		
 		//만약이미 해당 학생의 정보가 들어있다면(강의num과 학생id가 일치한 항목)
-		//contains의 경우 모든 항목이 동일해야 하므로 원하는 결과 도출이 어려움
-		//	-> for문으로 객체 하나씩 접근해 비교
-		for(int i=0; i<scoreList.size(); i++) {
-			if(scoreList.get(i).equals(sObj)) {
-				System.out.println("이미 점수를 등록했습니다.");
-				return;
-			}
-		}
-		
-		//점수입력
-		System.out.print("점수를 입력하세요(4.5점 만점) : ");
-		double score = UniversityProgram.scan.nextDouble();
-		
-		sObj.setScore(score);
-		
+		 if(scoreList.equals(sObj)) {
+			 System.out.println("이미 점수를 등록했습니다.");
+			 return;
+		 }
+		 
 		 //점수 등록
 		 scoreList.add(sObj);
 		 System.out.println("점수를 등록했습니다.");
@@ -86,20 +81,17 @@ public class ScoreServiceImp implements ScoreService {
 	
 	@Override
 	public void updateScore(List<Student> sList, List<Lecture> lList) {
+		
 		if(!lectureService.printLecture(lList)) {
 			return;
 		}
-
+		
+		//점수를 줄 강의 선택
 		System.out.print("점수를 수정할 강의를 선택하세요. : ");
 		int indexL = UniversityProgram.scan.nextInt() - 1;
 		
-		List<Student> stdList = lList.get(indexL).getStudents();
-		if(!studentService.printStudentList(stdList)) {
-			System.out.println("해당 강의를 듣는 학생이 없습니다.");
-			return;
-		}
-		
 		//해당 강의를 수강하는 학생 중 점수가 등록된 학생 리스트 출력
+//		int scoreIndex = -1;
 		for(int i =0; i<scoreList.size(); i++) {
 			if(scoreList.get(i).getLectureNum() == lList.get(indexL).getLectureNum()) {
 				System.out.println((i+1) + scoreList.toString());
@@ -113,10 +105,8 @@ public class ScoreServiceImp implements ScoreService {
 		System.out.print("수정할 점수를 입력하세요(4.5점 만점) : ");
 		double score = UniversityProgram.scan.nextDouble();
 		
-		scoreList.get(indexS).setScore(score);
 		
-		System.out.println("성적을 수정했습니다.");
-
+		scoreList.get(indexS).setScore(score);
 	}
   
 	/*
