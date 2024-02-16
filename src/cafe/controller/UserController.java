@@ -5,7 +5,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import cafe.main.Main;
 import cafe.model.vo.User;
 import cafe.service.UserService;
 import cafe.service.UserServiceImp;
