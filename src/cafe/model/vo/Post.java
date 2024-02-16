@@ -20,7 +20,7 @@ public class Post {
 	//작성시간
 	private Date p_date;
 	//카테고리, 게시판 이름
-	String p_b_title, p_c_title;
+	String p_b_title, p_c_title, p_u_nickname;
 
 
 	public Post(int p_b_num, String p_title, String p_u_id, String p_content, Date p_date) {
@@ -50,7 +50,7 @@ public class Post {
 		return  "[카테고리] " + p_c_title + "\n" +
 				"[게 시 판] " + p_b_title + "\n" +
 				"[제  　목] " + p_title + "\n" +
-				"[작 성 자] " + p_u_id + "\n" +
+				"[작 성 자] " + p_u_nickname + "(" + p_u_id + ")" + "\n" +
 				"[작 성 일] " + dateFormat + "\n" +
 				"[내  　용]\n" + p_content;
 	}
@@ -61,9 +61,9 @@ public class Post {
 		String boardTitleFormat =  String.format("%6s",boardTitleEllipsis(p_b_title)); 
 		String titleFormat = String.format("%-20s",titleEllipsis(p_title));
 		String dateFormat = setDateFormat(p_date);
-		String userIdFormat = String.format("%8s", p_u_id);
+		String userNickNameFormat = String.format("%8s", p_u_nickname);
 
-		return pNumFormat + "번 :: ["+ boardTitleFormat + "] " + titleFormat + " : " + userIdFormat + " : " + dateFormat;	
+		return pNumFormat + "번 :: ["+ boardTitleFormat + "] " + titleFormat + " : " + userNickNameFormat + " : " + dateFormat;	
 	}
 	
 	/** 현재 시간을 시간 출력 포맷을 지정해서 반환하는 메소드*/
@@ -85,7 +85,6 @@ public class Post {
 			sb.append("...");
 		}
 		printTitle = sb.toString();
-		
 		return printTitle;
 	}
 	
