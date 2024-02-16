@@ -320,40 +320,67 @@ public class PostController {
 		
 		//게시글 페이지로 목록 조회
 		ArrayList<Post> postList = new ArrayList<Post>();
-		int page = 1, menu;
+		boolean isPostList = true;
+		int allPage, page = 1;
+		char menu;
+		allPage = (allPostList.size() % 5 == 0) ? (allPostList.size() / 5) : ((allPostList.size() / 5) + 1);
 		do {
 			Criteria cri = new Criteria(page, 5);
 			postList = postService.getPostListPage(cri);
 			if(!printPostList(postList)) {
 				System.out.println("조회할 게시글이 없습니다.");
-				menu=3;
+				isPostList = false;
+				break;
 			}
-			System.out.println("현재 페이지 : " + cri.getPage());
-			System.out.println("1. 이전 페이지");
-			System.out.println("2. 다음 페이지");
-			System.out.println("3. 돌아가기");
+			System.out.println("< 이전 페이지 (" + cri.getPage() + " / " + allPage + ") 다음 페이지 >");
+			
+			System.out.println("1. 게시글 조회");			
+			System.out.println("2. 돌아가기");
 			System.out.print("메뉴 선택 : ");
-			menu = scan.nextInt();
+			menu = scan.next().charAt(0);
+			
+			switch(menu) {
+				case '<':
+					page = page == 1 ? 1 : page-1;
+					break;
+				case '>': 
+					if(page == allPage) {
+						page = allPage;
+						break;
+					}
+					page++;
+					break;
+				case '1' : 
+					selectPost(postList);
+					System.out.println("1. 목록으로 돌아가기");
+					System.out.println("2. 조회 메뉴로 돌아가기");
+					System.out.print("선택 : ");
+					int subMenu = scan.nextInt();
+					switch(subMenu) {
+						case 1 : break;
+						case 2 : return;
+					default : System.out.println("잘못 선택했습니다.");
+					}
+					break;
+				case '2': System.out.println("조회를 종료합니다."); return;
+				default : System.out.println("잘못 선택했습니다.");
+			}
+
 		}while(menu != 3);
 		
-		switch(menu) {
-			case 1:
-				page = page ==1 ? 1 : page-1;
-				break;
-			case 2: 
-				page++;
-				break;
-			case 3: System.out.println("조회를 종료합니다."); break;
-			default : System.out.println("잘못 선택했습니다.");
+		if(isPostList == false) {
+			return;
 		}
 		
-
+		
+	}
+	private void selectPost(ArrayList<Post> postList) {
 		//조회할 게시글을 선택하세요.
 		int p_num;
 		while(true) {
 			System.out.print("조회할 게시글 번호를 선택하세요 : ");
 			p_num = scan.nextInt();
-			if(allPostList.contains(new Post(p_num))) {
+			if(postList.contains(new Post(p_num))) {
 				Post post = postService.getPost(p_num);
 				if(!printPost(post)) {
 					System.out.println("조회할 게시글이 없습니다.");
@@ -362,19 +389,19 @@ public class PostController {
 			}
 			System.out.println("잘못된 번호입니다.");
 		}
+
 	}
 
-
 		/** (2) post 한개를 출력하는 메소드(상세조회)*/	
-		private boolean printPost(Post post) {
-			if(post == null) {
-				return false;
-			}
-			System.out.println(rH(110));
-			System.out.println(post.toString());
-			System.out.println(rH(110));
-			return true;
+	private boolean printPost(Post post) {
+		if(post == null) {
+			return false;
 		}
+		System.out.println(rH(110));
+		System.out.println(post.toString());
+		System.out.println(rH(110));
+		return true;
+	}
 
 		/** (1) postList 전체를 출력하는 메소드(심플)*/	
 	private boolean printPostList(List<Post> postList) {
