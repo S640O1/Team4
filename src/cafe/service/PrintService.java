@@ -9,4 +9,6 @@ public interface PrintService {
 
 	void printBoardMenu();
 
+	void MyPostMenu();
+
 }

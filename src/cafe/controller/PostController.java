@@ -5,11 +5,10 @@ import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
-import cafe.model.vo.Board;
 import cafe.model.vo.Post;
 import cafe.model.vo.User;
+import cafe.pagination.Criteria;
 import cafe.service.PostService;
 import cafe.service.PostServiceImp;
 import cafe.service.PrintService;
@@ -29,8 +28,8 @@ public class PostController {
 	
 	private static User user;
 	
-	private static final int EXIT_POST = 5;
-	private static final int EXIT_SELECT_POST = 4;
+	private static final int EXIT_POST = 4;
+	private static final int EXIT_SELECT_POST = 3;
 	
 	public PostController(Scanner scan, User user) {
 		if(scan == null) {
@@ -65,17 +64,49 @@ public class PostController {
 		case 2 : //게시글 조회
 			viewPostService();
 			break;
-		case 3 : //게시글 수정
-			setPostService();
+		case 3 : //내 게시글 관리자
+			myPostService();
 			break;
-		case 4 : //게시글 삭제
-			deletePostService();
-			break;
-		case 5 :	//로그아웃
+		case 4 :	//로그아웃
 			userController.logOut();
 			break;
 		default : throw new InputMismatchException();
 		}
+	}
+
+	/** 3. 내 게시글 관리자*/
+	private void myPostService() {
+		int menu = 0;
+		do {
+			System.out.println();
+			printService.MyPostMenu();
+			try {
+				menu = scan.nextInt();
+				runMyPostMenu(menu);
+			}
+			catch(InputMismatchException e) {
+				System.out.println("잘못된 메뉴입니다.");
+				scan.nextLine();
+			}
+		}while(menu != EXIT_POST);	
+	}
+
+	private void runMyPostMenu(int menu) {
+		switch(menu) {
+		case 1 : // 내 게시글 조회
+			viewMyPost();
+			break;
+		case 2 : //게시글 수정
+			setPostService();
+			break;
+		case 3 : //게시글 삭제
+			deletePostService();
+			break;
+		case 4 : //뒤로가기
+			break;
+		default : throw new InputMismatchException();
+		}
+		
 	}
 
 	/** 4. 게시글 삭제*/
@@ -145,7 +176,7 @@ public class PostController {
 		//게시판 선택
 		int p_b_num = -1;
 		while(true) {
-			System.out.print("게시판을 선택하세요 : ");
+			System.out.print("옮길 게시판을 선택하세요 : ");
 			p_b_num = scan.nextInt();
 			if(boardController.containsBoardServiece(p_b_num)) {
 				break;	
@@ -200,10 +231,7 @@ public class PostController {
 		case 2 : //선택 조회 (게시판 선택)
 			viewSelectPostList();
 			break;
-		case 3 : //내가 쓴 글 조회
-			viewMyPost();
-			break;
-		case 4 : //뒤로가기
+		case 3 : //뒤로가기
 			break;
 		default : throw new InputMismatchException();
 		}
@@ -218,6 +246,21 @@ public class PostController {
 			System.out.println("작성한 게시글이 없습니다.");
 			return;
 		}
+		
+		int p_num;
+		while(true) {
+			System.out.print("조회할 게시글 번호를 선택하세요 : ");
+			p_num = scan.nextInt();
+			if(myPostList.contains(new Post(p_num))) {
+				Post post = postService.getPost(p_num);
+				if(!printPost(post)) {
+					System.out.println("조회할 게시글이 없습니다.");
+				}
+				break;
+			}
+			System.out.println("잘못된 번호입니다.");
+		}
+		
 	}
 	
 	/** 2-2. 선택 글 조회*/
@@ -267,19 +310,50 @@ public class PostController {
 		/** 2-1. 전체 글 조회*/
 	private void viewPostList() {
 		//전체 글 가져오기 
-		ArrayList<Post> postList = new ArrayList<Post>();
-		postList = postService.getPostList();
-		if(!printPostList(postList)) {
+		//게시글 없으면 조회 불가
+		ArrayList<Post> allPostList = new ArrayList<Post>();
+		allPostList = postService.getPostList();
+		if(!printPostList(allPostList)) {
 			System.out.println("조회할 게시글이 없습니다.");
 			return;
 		}
 		
+		//게시글 페이지로 목록 조회
+		int page = 1, menu;
+		do {
+			Criteria cri = new Criteria(page, 5);
+			ArrayList<Post> postList = new ArrayList<Post>();
+			postList = postService.getPostListPage(cri);
+			if(!printPostList(postList)) {
+				System.out.println("조회할 게시글이 없습니다.");
+				menu=3;
+			}
+			System.out.println("현재 페이지 : " + cri.getPageStart());
+			System.out.println("1. 이전 페이지");
+			System.out.println("2. 다음 페이지");
+			System.out.println("3. 돌아가기");
+			System.out.print("메뉴 선택 : ");
+			menu = scan.nextInt();
+		}while(menu != 3);
+		
+		switch(menu) {
+		case 1:
+				page = page ==1 ? 1 : page-1;
+			break;
+		case 2: 
+			page++;
+			break;
+		case 3: System.out.println("조회를 종료합니다."); break;
+		default : System.out.println("잘못 선택했습니다.");
+		}
+		
+
 		//조회할 게시글을 선택하세요.
 		int p_num;
 		while(true) {
 			System.out.print("조회할 게시글 번호를 선택하세요 : ");
 			p_num = scan.nextInt();
-			if(postList.contains(new Post(p_num))) {
+			if(allPostList.contains(new Post(p_num))) {
 				Post post = postService.getPost(p_num);
 				if(!printPost(post)) {
 					System.out.println("조회할 게시글이 없습니다.");
@@ -398,6 +472,8 @@ public class PostController {
 		Post post = new Post(p_b_num, title, p_u_id, content, date);
 		return post;
 	}
+	
+	
 
 }
 

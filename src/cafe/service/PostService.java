@@ -3,6 +3,7 @@ package cafe.service;
 import java.util.ArrayList;
 
 import cafe.model.vo.Post;
+import cafe.pagination.Criteria;
 
 public interface PostService {
 
@@ -19,6 +20,9 @@ public interface PostService {
 	boolean deletePost(int p_num);
 
 	ArrayList<Post> getBoardPostList(int p_b_num);
+
+	ArrayList<Post> getPostListPage(Criteria cri);
+
 
 
 
