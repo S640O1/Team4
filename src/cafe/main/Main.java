@@ -18,8 +18,6 @@ public class Main {
 	
 	//컨트롤러
 	private static UserController userController = new UserController(scan);
-	private static CategoryController categoryController;
-	private static BoardController boardController;
 
 
 	//서비스

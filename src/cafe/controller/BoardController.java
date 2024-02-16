@@ -10,16 +10,18 @@ import cafe.service.BoardService;
 import cafe.service.BoardServiceImp;
 import cafe.service.CategoryService;
 import cafe.service.CategoryServiceImp;
+import cafe.service.PostService;
+import cafe.service.PostServiceImp;
 import cafe.service.PrintService;
 import cafe.service.PrintServiceImp;
 
 public class BoardController {
 	private Scanner scan;
 	private BoardService boardService;
-	private PostController postController = new PostController(scan, null);
 	private CategoryController categoryController = new CategoryController(scan);
 	private CategoryService categoryService = new CategoryServiceImp();
 	public PrintService printService = new PrintServiceImp();
+	private PostService postService = new PostServiceImp();
 	
 	private static final int EXIT_BOARD = 5;
 	
@@ -238,7 +240,12 @@ public class BoardController {
 			System.out.println("잘못된 번호입니다.");
 		}
 		//게시판의 게시글을 삭제합니다
-		postController.deleteBoardPostList(b_num);
+		if(postService.deleteBoardPostList(b_num)) {
+			System.out.println("게시판의 모든 게시글을 삭제했습니다.");
+		}else {
+			System.out.println("게시글을 삭제하지 못했습니다.");
+		}
+		
 		//게시판을 삭제합니다.
 		if(boardService.deleteBoard(b_num)) {
 			System.out.println("게시판을 삭제하였습니다.");	
@@ -247,14 +254,7 @@ public class BoardController {
 		}
 	}
 	
-	public void deleteCAllBoard(int b_c_num) {
-		//게시판을 삭제합니다.
-		if(boardService.deleteCategoryBoard(b_c_num)) {
-			System.out.println("게시판을 삭제하였습니다.");	
-		} else {
-			System.out.println("게시판을 삭제하지 못했습니다.");
-		}
-	}
+	
 	
 	public boolean containsBoardServiece(int b_num) {
 		ArrayList<Board> boardList = boardService.getBoardList();

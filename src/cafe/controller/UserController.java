@@ -18,7 +18,6 @@ public class UserController {
 	private static PostController postController;
 	
 	private static Scanner sc;
-	private Main main = new Main();
 	private UserService userService;
 	private static final int LOGOUT_ADMIN = 3;
 	private static User loginUser; //현재 로그인한 계정
