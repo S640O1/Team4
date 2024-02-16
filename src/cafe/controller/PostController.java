@@ -177,7 +177,7 @@ public class PostController {
 		//게시판 선택
 		int p_b_num = -1;
 		while(true) {
-			System.out.print("게시판을 선택하세요 : ");
+			System.out.print("옮길 게시판을 선택하세요 : ");
 			p_b_num = scan.nextInt();
 			if(boardController.containsBoardServiece(p_b_num)) {
 				break;	
