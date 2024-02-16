@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import cafe.dao.PostDAO;
 import cafe.model.vo.Post;
+import cafe.pagination.Criteria;
 
 public class PostServiceImp implements PostService {
 	
@@ -73,6 +74,14 @@ public class PostServiceImp implements PostService {
 	@Override
 	public ArrayList<Post> getBoardPostList(int p_b_num) {
 		return postDao.selectBoardPostList(p_b_num);
+	}
+
+	@Override
+	public ArrayList<Post> getPostListPage(Criteria cri) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return postDao.selectPostListPage(cri);
 	}
 
 
