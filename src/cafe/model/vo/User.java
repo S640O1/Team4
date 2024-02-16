@@ -53,7 +53,11 @@ public class User {
 	//양선진(qwer1234)님 회원가입이 완료되었습니다.
 	@Override
 	public String toString() {
-		return u_nickname+"("+u_id+")"+"님"+ " 회원가입이 완료되었습니다.";
+		return u_nickname+"("+u_id+")"+"님 회원가입이 완료되었습니다.";
+	}
+	
+	public String logInSuccess() {
+		return "("+u_id+")"+"님이 로그인했습니다.";
 	}
 
 	//로그인 시 아이디와 패스워드 일치

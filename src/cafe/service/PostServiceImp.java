@@ -23,7 +23,6 @@ public class PostServiceImp implements PostService {
 		try {
 			inputStream = Resources.getResourceAsStream(resource);
 			SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-//			sessionFactory.getConfiguration( ).addMapper( PostDAO.class );
 			session = sessionFactory.openSession(true);
 			postDao = session.getMapper(PostDAO.class);
 		} catch (IOException e) {
@@ -37,7 +36,6 @@ public class PostServiceImp implements PostService {
 			System.out.println("Null");
 			return false;
 		}
-		System.out.println("postDao호출");
 		return postDao.insertPost(post);
 	}
 
@@ -70,6 +68,11 @@ public class PostServiceImp implements PostService {
 	@Override
 	public boolean deletePost(int p_num) {
 		return postDao.deletePost(p_num);
+	}
+
+	@Override
+	public ArrayList<Post> getBoardPostList(int p_b_num) {
+		return postDao.selectBoardPostList(p_b_num);
 	}
 
 

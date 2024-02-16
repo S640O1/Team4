@@ -45,11 +45,14 @@ public class Main {
 	}
 
 	public static void printPreLogInMenu() {
-		System.out.println("[KH Cafe]");
-		System.out.println("1. 로그인");
-		System.out.println("2. 회원가입");
-		System.out.println("3. 나가기");
-		System.out.print("메뉴 선택 : ");
+		System.out.println("╔═════ °• 💻 •° ═════╗");
+		System.out.println("│    W E L C O M E  　│");
+		System.out.println("│  　 ꒰ KH Cafe ꒱    │");
+		System.out.println("╚═════ °• 💻 •° ═════╝");
+		System.out.println("[1] LogIn");
+		System.out.println("[2] Join");
+		System.out.println("[3] Out");
+		System.out.print("[메뉴 선택] ");
 		
 	}
 
@@ -59,7 +62,7 @@ public class Main {
 			break;
 		case 2 : userController.join();
 			break;
-		case 3 : System.out.println("카페를 나갑니다.");
+		case 3 : System.out.println("카페를 떠납니다.");
 			break;
 		default : throw new InputMismatchException();
 		}

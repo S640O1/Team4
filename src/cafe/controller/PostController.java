@@ -1,12 +1,13 @@
 package cafe.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
+import cafe.model.vo.Board;
 import cafe.model.vo.Post;
 import cafe.model.vo.User;
 import cafe.service.PostService;
@@ -19,7 +20,11 @@ public class PostController {
 	private Scanner scan;
 	private PostService postService;
 	private PrintService printService = new PrintServiceImp();
+	
+	// Controller 불러오기
 	private UserController userController = new UserController(scan); 
+	private CategoryController categoryController = new CategoryController(scan);
+	private BoardController boardController = new BoardController(scan);
 	
 	//게시판 리스트 불러오기
 	//ArrayList<Board> bList = boardService.get~();
@@ -27,7 +32,7 @@ public class PostController {
 	private static User user;
 	
 	private static final int EXIT_POST = 5;
-	private static final int EXIT_SELECT_POST = 3;
+	private static final int EXIT_SELECT_POST = 4;
 	
 	public PostController(Scanner scan, User user) {
 		if(scan == null) {
@@ -41,6 +46,7 @@ public class PostController {
 	public void run() {
 		int menu = 0;
 		do {
+			System.out.println();
 			printService.printPostMenu();
 			try {
 				menu = scan.nextInt();
@@ -84,12 +90,11 @@ public class PostController {
 		}
 		
 		//삭제할 글 선택
-		int p_num, index;
+		int p_num;
 		while(true) {
 			System.out.print("삭제할 게시글 번호를 선택하세요 : ");
 			p_num = scan.nextInt();
 			if(myPostList.contains(new Post(p_num))) {
-				index = myPostList.indexOf(new Post(p_num));
 				break;
 			}
 			System.out.println("잘못된 번호입니다.");
@@ -117,7 +122,6 @@ public class PostController {
 			System.out.print("수정할 게시글 번호를 선택하세요 : ");
 			p_num = scan.nextInt();
 			if(myPostList.contains(new Post(p_num))) {
-//				index = myPostList.indexOf(new Post(p_num));
 				break;
 			}
 			System.out.println("잘못된 번호입니다.");
@@ -136,18 +140,42 @@ public class PostController {
 		/** (1) 수정사항 입력받기*/
 	private Post postSetInput(int p_num) {		
 		//카테고리와 게시판 출력
+		if(!boardController.printBoardListBoolean()) {
+			return null;
+		}
 		
-		//게시판 선택 : while //조건문 : 없는 값이라면~
-		System.out.print("게시판을 선택하세요 : ");
-		int p_b_num = scan.nextInt();
+		//게시판 선택
+		int p_b_num = -1;
+		while(true) {
+			System.out.print("게시판을 선택하세요 : ");
+			p_b_num = scan.nextInt();
+			if(boardController.containsBoardServiece(p_b_num)) {
+				break;	
+			}
+			System.out.println("잘못된 게시판 번호입니다.");
+		}
 		
-		// + 정규표현식
-		//제목, 내용 입력받기 : while문으로 정규표현식 체크
-		System.out.print("제목을 입력하세요(1~20자) : ");
+		//제목, 내용 입력받기 : while문으로 체크
+		String title = null;
 		scan.nextLine();
-		String title = scan.nextLine();
-		System.out.print("내용을 입력하세요 : ");
-		String content = scan.nextLine();
+		while(true) {
+			System.out.print("제목을 입력하세요(1~50자) : ");
+			title = scan.nextLine();
+			if(title.length()<=50 && title.length()>0) {
+				break;
+			}
+			System.out.println("제목은 1~50자리만 가능합니다.");
+		}
+		String content = null;
+		while(true) {
+			System.out.print("내용을 입력하세요 : ");
+			content = scan.nextLine();
+			if(!(content == null)) {
+				break;
+			}			
+			System.out.println("내용을 입력하세요");				
+		}
+		
 				
 		Post setPost = new Post(p_num, p_b_num, title, content);
 		return setPost;
@@ -158,6 +186,7 @@ public class PostController {
 		//조회 메뉴
 		int selectMenu;
 		do {
+			System.out.println();
 			printService.printViewPostMenu();
 			selectMenu = scan.nextInt();
 			runViewPostMenu(selectMenu);
@@ -168,33 +197,77 @@ public class PostController {
 	private void runViewPostMenu(int selectMenu) {
 		switch(selectMenu) {
 		case 1 : //전체 글 조회(최신순)
-			ViewPostList();
+			viewPostList();
 			break;
-		case 2 : //내가 쓴 글 조회
-			ViewMyPost();
+		case 2 : //선택 조회 (게시판 선택)
+			viewSelectPostList();
 			break;
-		case 3 : //뒤로가기
+		case 3 : //내가 쓴 글 조회
+			viewMyPost();
+			break;
+		case 4 : //뒤로가기
 			break;
 		default : throw new InputMismatchException();
 		}
 	}
 	
-	/** 2-2. 내가 쓴 글 조회*/
-	private void ViewMyPost() {
+	
+
+	/** 2-3. 내가 쓴 글 조회*/
+	private void viewMyPost() {
 		ArrayList<Post> myPostList = postService.getMyPostList(user.getU_id());
 		if(!printPostList(myPostList)) {
 			System.out.println("작성한 게시글이 없습니다.");
 			return;
 		}
 	}
+	
+	/** 2-2. 선택 글 조회*/
+	private void viewSelectPostList() {
+		//카테고리와 게시판 출력
+		if(!boardController.printBoardListBoolean()) {
+			return;
+		}
+		
+		//게시판 선택
+		int p_b_num = -1;
+		while(true) {
+			System.out.print("게시판을 선택하세요 : ");
+			p_b_num = scan.nextInt();
+			if(boardController.containsBoardServiece(p_b_num)) {
+				break;	
+			}
+			System.out.println("잘못된 게시판 번호입니다.");
+		}
+		
+		//입력받은 게시판의 게시글 목록 가져오기
+		ArrayList<Post> boardPostList = new ArrayList<Post>();
+		boardPostList = postService.getBoardPostList(p_b_num);
+		
+		//출력
+		if(!printPostList(boardPostList)) {
+			System.out.println("조회할 게시글이 없습니다.");
+			return;
+		}
+		
+		int p_num;
+		while(true) {
+			System.out.print("조회할 게시글 번호를 선택하세요 : ");
+			p_num = scan.nextInt();
+			if(boardPostList.contains(new Post(p_num))) {
+				Post post = postService.getPost(p_num);
+				if(!printPost(post)) {
+					System.out.println("조회할 게시글이 없습니다.");
+				}
+				break;
+			}
+			System.out.println("잘못된 번호입니다.");
+		}
+	
+	}
 
 		/** 2-1. 전체 글 조회*/
-	private void ViewPostList() {
-		//카테고리 가져오기
-			//선택하기
-		//게시판 가져오기
-			//선택하기
-		
+	private void viewPostList() {
 		//전체 글 가져오기 
 		ArrayList<Post> postList = new ArrayList<Post>();
 		postList = postService.getPostList();
@@ -225,7 +298,9 @@ public class PostController {
 			if(post == null) {
 				return false;
 			}
+			System.out.println(rH(110));
 			System.out.println(post.toString());
+			System.out.println(rH(110));
 			return true;
 		}
 
@@ -234,12 +309,37 @@ public class PostController {
 		if(postList.isEmpty()) {
 			return false;
 		}
+		System.out.println(rH(110));
+		System.out.println(rS(2) + "번호" + rS(10) 
+							+ "게시판" + rS(25)
+							+ "제목" + rS(25)
+							+ "작성자" + rS(10)
+							+ "작성시간");
+		System.out.println(rH(110));
 		for(Post p : postList) {
 			System.out.println(p.simpleToString());
 		}
+		System.out.println(rH(110));
 		return true;
 	}
-
+	
+	//returnSpace
+	private String rS(int n) {
+		String str="";
+		for(int i=0; i<n; i++) {
+			str += " ";
+		}
+		return str;
+	}
+	
+	//returnHyphen
+	private String rH(int n) {
+		String str="";
+		for(int i=0; i<n; i++) {
+			str += "-";
+		}
+		return str;
+	}
 	/** 1. 게시글 등록*/
 	private void addPostService() {
 		//정보 입력받기
@@ -257,30 +357,51 @@ public class PostController {
 		String p_u_id = user.getU_id();
 		
 		//카테고리와 게시판 출력
+		if(!boardController.printBoardListBoolean()) {
+			return null;
+		}
 		
-		//게시판 선택 : while //조건문 : 없는 값이라면~
-		System.out.print("게시판을 선택하세요 : ");
-		int p_b_num = scan.nextInt();
+		//게시판 선택
+		int p_b_num = -1;
+		while(true) {
+			System.out.print("게시판을 선택하세요 : ");
+			p_b_num = scan.nextInt();
+			if(boardController.containsBoardServiece(p_b_num)) {
+				break;	
+			}
+			System.out.println("잘못된 게시판 번호입니다.");
+		}
 		
-		// + 정규표현식
-		//제목, 내용 입력받기 : while문으로 정규표현식 체크
-		System.out.print("제목을 입력하세요(1~20자) : ");
+		//제목, 내용 입력받기 : while문으로 체크
+		
+		String title = null;
 		scan.nextLine();
-		String title = scan.nextLine();
-		System.out.print("내용을 입력하세요 : ");
-		String content = scan.nextLine();
+		while(true) {
+			System.out.print("제목을 입력하세요(1~50자) : ");
+			title = scan.nextLine();
+			if(title.length()<=50 && title.length()>0) {
+				break;
+			}
+			System.out.println("제목은 1~50자리만 가능합니다.");
+		}
+		String content = null;
+		while(true) {
+			System.out.print("내용을 입력하세요 : ");
+			content = scan.nextLine();
+			if(!(content == null)) {
+				break;
+			}			
+			System.out.println("내용을 입력하세요");				
+		}
 		
 		//날짜 받아오기
 		Date date = new Date();	//날짜, 시간 다 받아오기
 		
-
 		System.out.println("시간을 받아왔습니다.");
 				
 		Post post = new Post(p_b_num, title, p_u_id, content, date);
-		System.out.println(post.toString());
 		return post;
 	}
-
 
 }
 

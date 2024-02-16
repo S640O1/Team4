@@ -1,6 +1,7 @@
 package cafe.controller;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import cafe.model.vo.Category;
@@ -27,24 +28,32 @@ public class CategoryController {
 	}
 	
 	public void run() {
-		int menu;
+		int menu = 0;
 		do {
+			System.out.println();
 			prinCategoryMenu();
-			menu = scan.nextInt();
-			runCategoryMenu(menu);
+			try {
+				menu = scan.nextInt();
+				runCategoryMenu(menu);
+			}
+			catch(InputMismatchException e) {
+				System.out.println("잘못된 메뉴입니다.");
+				scan.nextLine();
+			}
 		}while(menu != EXIT_CATEGORY);
 	}
 
 	private void prinCategoryMenu() {
-		System.out.println("카테고리 관리 메뉴");
-		System.out.println("-------------------");
-		System.out.println("1. 카테고리 등록");
-		System.out.println("2. 카테고리 수정");
-		System.out.println("3. 카테고리 삭제");
-		System.out.println("4. 카테고리 조회");
-		System.out.println("5. 뒤로가기");
-		System.out.println("-------------------");
-		System.out.println("메뉴 선택 : ");		
+
+		System.out.println("╭─────────────────╮");
+		System.out.println("│　꒰ 카테고리 관리 ꒱ │");
+		System.out.println("╰─────────────────╯");
+		System.out.println("[1] 카테고리 등록");
+		System.out.println("[2] 카테고리 수정");
+		System.out.println("[3] 카테고리 조회");
+		System.out.println("[4] 카테고리 삭제");
+		System.out.println("[5] 뒤로 가기");
+		System.out.print("[메뉴 선택] ");		
 	}
 
 	private void runCategoryMenu(int menu) {
@@ -56,21 +65,22 @@ public class CategoryController {
 			updateCategory();
 			break;
 		case 3:
-			deleteCategory();
-			break;
-		case 4:
 			printCategory();
 			break;
+		case 4:
+			deleteCategory();
+			break;
 		case 5:
-			System.out.println("뒤로 돌아갑니다.");
 			break;
 		default:
 			System.out.println("잘못된 메뉴입니다.");
 		}
 	}
+	
+	
 
 	/** 4. 카테고리 전체 조회하는 메서드*/
-	private void printCategory() {
+	public void printCategory() {
 		//번호 없이 출력
 		cList = categoryService.getCategoryList();
 		if(cList.size() == 0) {
@@ -86,7 +96,7 @@ public class CategoryController {
 	/** 3. 카테고리 삭제하는 메서드*/
 	private void deleteCategory() {
 		printNumCategory();
-		System.out.println("삭제할 카테고리 번호를 입력하세요: ");
+		System.out.print("삭제할 카테고리 번호를 입력하세요: ");
 		 int c_num = scan.nextInt();
 		 
 		 if (categoryService.deleteCategory(c_num)) {
@@ -100,10 +110,10 @@ public class CategoryController {
 	/** 2. 카테고리 수정하는 메서드*/
 	private void updateCategory() {
 		printNumCategory();
-		System.out.println("수정할 카테고리 번호를 입력하세요: ");
+		System.out.print("수정할 카테고리 번호를 입력하세요: ");
 		int c_num = scan.nextInt();
 
-        System.out.println("수정할 카테고리 이름을 입력하세요: ");
+        System.out.print("수정할 카테고리 이름을 입력하세요: ");
         String c_title = scan.next();
       
         if (categoryService.updateCategory(c_num, c_title)) {
@@ -130,7 +140,7 @@ public class CategoryController {
 		
 		//정규표현식 체크
 		
-		System.out.println("카테고리 이름 : ");
+		System.out.print("카테고리 이름 : ");
 		String c_title = scan.next();
 		
 		
@@ -147,5 +157,13 @@ public class CategoryController {
 		}else {
 			System.out.println("카테고리 등록에 실패했습니다.");
 		}
+	}
+
+	public boolean contains(int b_c_num) {
+		cList = categoryService.getCategoryList();
+		if(cList.contains(new Category(b_c_num))) {
+			return true;
+		}
+		return false;
 	}
 }
