@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Param;
 
 import cafe.model.vo.Post;
+import cafe.pagination.Criteria;
 
 
 public interface PostDAO {
@@ -22,5 +23,7 @@ public interface PostDAO {
 	boolean deletePost(@Param("p_num")int p_num);
 
 	ArrayList<Post> selectBoardPostList(@Param("p_b_num")int p_b_num);
+
+	ArrayList<Post> selectPostListPage(@Param("cri")Criteria cri);
 
 }

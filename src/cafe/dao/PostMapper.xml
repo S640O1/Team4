@@ -4,6 +4,22 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cafe.dao.PostDAO">	
 
+	<!-- 페이지 네이션 -->
+	<select id="selectPostListPage" resultType="cafe.model.vo.Post">
+		SELECT 
+    		post.*, c_title AS p_c_title, b_title AS p_b_title, u_nickname AS p_u_nickname
+		FROM
+   			post
+        		JOIN
+				    board ON b_num = p_b_num
+		        JOIN
+				    category ON b_c_num = c_num 
+		    	 JOIN
+					    user on u_id = p_u_id
+		order by p_date desc
+		LIMIT #{cri.page}, #{cri.perPageNum}
+	</select>
+
 	<!-- 삭제 -->
 	<delete id="deletePost">
 		Delete
