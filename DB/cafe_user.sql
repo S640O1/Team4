@@ -39,7 +39,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES ('admin123','admin123','관리자','010-0000-0000','000000','1'),('asdf1234','asdf1234','임꺽정','010-0202-0202','020202','4'),('qwer1234','qwer1234','홍길동','010-0101-0101','010101','3');
+INSERT INTO `user` VALUES ('admin123','admin123','관리자','010-0000-0000','000000','1'),('asdf1234','asdf1234','임꺽정','010-0202-0202','020202','4'),('qwer1234','qwer1234','홍길동','010-0101-0101','010101','3'),('zxcv9876','zxcv9876','맘모스','010-9876-5432','000000','4');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -52,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-15 20:06:32
+-- Dump completed on 2024-02-16 15:48:47

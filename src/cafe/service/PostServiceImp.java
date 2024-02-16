@@ -34,7 +34,6 @@ public class PostServiceImp implements PostService {
 	@Override
 	public boolean insertPost(Post post) {
 		if(post == null) {
-			System.out.println("Null");
 			return false;
 		}
 		return postDao.insertPost(post);
@@ -82,6 +81,22 @@ public class PostServiceImp implements PostService {
 			cri = new Criteria();
 		}
 		return postDao.selectPostListPage(cri);
+	}
+
+	@Override
+	public ArrayList<Post> getBoardPostListPage(Criteria cri, int p_b_num) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return postDao.selectBoardPostListPage(cri, p_b_num);
+	}
+
+	@Override
+	public ArrayList<Post> getMyPostListPage(Criteria cri, String u_id) {
+		if(cri == null) {
+			cri = new Criteria();
+		}
+		return postDao.selectMyPostListPage(cri, u_id);
 	}
 
 
