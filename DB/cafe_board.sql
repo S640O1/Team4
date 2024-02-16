@@ -29,7 +29,7 @@ CREATE TABLE `board` (
   PRIMARY KEY (`b_num`),
   KEY `FK_category_TO_board_1` (`b_c_num`),
   CONSTRAINT `FK_category_TO_board_1` FOREIGN KEY (`b_c_num`) REFERENCES `category` (`c_num`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `board` (
 
 LOCK TABLES `board` WRITE;
 /*!40000 ALTER TABLE `board` DISABLE KEYS */;
-INSERT INTO `board` VALUES (1,'공지사항',1),(2,'가입인사',2),(3,'자유글',2),(4,'백엔드',3),(5,'프론트엔드',3);
+INSERT INTO `board` VALUES (1,'공지사항',1),(2,'가입인사',2),(3,'자유글',2),(4,'백엔드',3),(5,'프론트엔드',3),(7,'오늘의 운세를 알려드립니다.',2);
 /*!40000 ALTER TABLE `board` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-16 15:48:47
+-- Dump completed on 2024-02-16 16:04:09
