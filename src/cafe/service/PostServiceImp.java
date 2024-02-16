@@ -71,6 +71,12 @@ public class PostServiceImp implements PostService {
 	}
 
 	@Override
+	public boolean deleteBoardPostList(int p_b_num) {
+		return postDao.deleteBoardPostList(p_b_num);
+	}
+
+	
+	@Override
 	public ArrayList<Post> getBoardPostList(int p_b_num) {
 		return postDao.selectBoardPostList(p_b_num);
 	}
@@ -99,6 +105,7 @@ public class PostServiceImp implements PostService {
 		return postDao.selectMyPostListPage(cri, u_id);
 	}
 
+	
 
 
 }

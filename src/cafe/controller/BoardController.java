@@ -2,6 +2,7 @@ package cafe.controller;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import cafe.model.vo.Board;
@@ -16,6 +17,7 @@ import cafe.service.PrintServiceImp;
 public class BoardController {
 	private Scanner scan;
 	private BoardService boardService;
+	private PostController postController = new PostController(scan, null);
 	private CategoryController categoryController = new CategoryController(scan);
 	private CategoryService categoryService = new CategoryServiceImp();
 	public PrintService printService = new PrintServiceImp();
@@ -236,8 +238,19 @@ public class BoardController {
 			}
 			System.out.println("잘못된 번호입니다.");
 		}
-		
+		//게시판의 게시글을 삭제합니다
+		postController.deleteBoardPostList(b_num);
+		//게시판을 삭제합니다.
 		if(boardService.deleteBoard(b_num)) {
+			System.out.println("게시판을 삭제하였습니다.");	
+		} else {
+			System.out.println("게시판을 삭제하지 못했습니다.");
+		}
+	}
+	
+	public void deleteCAllBoard(int b_c_num) {
+		//게시판을 삭제합니다.
+		if(boardService.deleteCategoryBoard(b_c_num)) {
 			System.out.println("게시판을 삭제하였습니다.");	
 		} else {
 			System.out.println("게시판을 삭제하지 못했습니다.");

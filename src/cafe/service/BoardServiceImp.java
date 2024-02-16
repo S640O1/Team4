@@ -52,6 +52,12 @@ public class BoardServiceImp implements BoardService {
 	public boolean deleteBoard(int b_num) {
 		return boardDao.deleteBoard(b_num);
 	}
+	
+	@Override
+	public boolean deleteCategoryBoard(int b_c_num) {
+		return boardDao.deleteCategoryBoard(b_c_num);
+	}
+
 
 	@Override
 	public ArrayList<Board> selectCaBoardList(int b_c_num) {
@@ -62,5 +68,6 @@ public class BoardServiceImp implements BoardService {
 	public ArrayList<Board> getBoardList(int b_c_num) {
 		return boardDao.selectCBoardList(b_c_num);
 	}
+
 
 }
