@@ -29,8 +29,8 @@ public class PostController {
 	
 	private static User user;
 	
-	private static final int EXIT_POST = 5;
-	private static final int EXIT_SELECT_POST = 4;
+	private static final int EXIT_POST = 4;
+	private static final int EXIT_SELECT_POST = 3;
 	
 	public PostController(Scanner scan, User user) {
 		if(scan == null) {
@@ -65,17 +65,49 @@ public class PostController {
 		case 2 : //게시글 조회
 			viewPostService();
 			break;
-		case 3 : //게시글 수정
-			setPostService();
+		case 3 : //내 게시글 관리자
+			myPostService();
 			break;
-		case 4 : //게시글 삭제
-			deletePostService();
-			break;
-		case 5 :	//로그아웃
+		case 4 :	//로그아웃
 			userController.logOut();
 			break;
 		default : throw new InputMismatchException();
 		}
+	}
+
+	/** 3. 내 게시글 관리자*/
+	private void myPostService() {
+		int menu = 0;
+		do {
+			System.out.println();
+			printService.MyPostMenu();
+			try {
+				menu = scan.nextInt();
+				runMyPostMenu(menu);
+			}
+			catch(InputMismatchException e) {
+				System.out.println("잘못된 메뉴입니다.");
+				scan.nextLine();
+			}
+		}while(menu != EXIT_POST);	
+	}
+
+	private void runMyPostMenu(int menu) {
+		switch(menu) {
+		case 1 : // 내 게시글 조회
+			viewMyPost();
+			break;
+		case 2 : //게시글 수정
+			setPostService();
+			break;
+		case 3 : //게시글 삭제
+			deletePostService();
+			break;
+		case 4 : //뒤로가기
+			break;
+		default : throw new InputMismatchException();
+		}
+		
 	}
 
 	/** 4. 게시글 삭제*/
@@ -200,10 +232,7 @@ public class PostController {
 		case 2 : //선택 조회 (게시판 선택)
 			viewSelectPostList();
 			break;
-		case 3 : //내가 쓴 글 조회
-			viewMyPost();
-			break;
-		case 4 : //뒤로가기
+		case 3 : //뒤로가기
 			break;
 		default : throw new InputMismatchException();
 		}
@@ -218,6 +247,21 @@ public class PostController {
 			System.out.println("작성한 게시글이 없습니다.");
 			return;
 		}
+		
+		int p_num;
+		while(true) {
+			System.out.print("조회할 게시글 번호를 선택하세요 : ");
+			p_num = scan.nextInt();
+			if(myPostList.contains(new Post(p_num))) {
+				Post post = postService.getPost(p_num);
+				if(!printPost(post)) {
+					System.out.println("조회할 게시글이 없습니다.");
+				}
+				break;
+			}
+			System.out.println("잘못된 번호입니다.");
+		}
+		
 	}
 	
 	/** 2-2. 선택 글 조회*/
