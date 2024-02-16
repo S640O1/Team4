@@ -18,6 +18,8 @@ public interface BoardDAO {
 
 	boolean deleteBoard(@Param("b_num")int b_num);
 
+	ArrayList<Board> selectCBoardList(int b_c_num);
+
 	
 
 }
