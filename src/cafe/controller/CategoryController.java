@@ -2,7 +2,6 @@ package cafe.controller;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 

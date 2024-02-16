@@ -22,7 +22,6 @@ public class Main {
 	private static BoardController boardController;
 
 
-	
 	//서비스
 	private PrintService printService = new PrintServiceImp();
 	
