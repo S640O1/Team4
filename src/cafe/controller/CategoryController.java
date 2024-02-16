@@ -141,7 +141,7 @@ public class CategoryController {
 		//정규표현식 체크
 		
 		System.out.print("카테고리 이름 : ");
-		String c_title = scan.next();
+		String c_title = scan.nextLine();
 		
 		
 		Category category = new Category(c_title);

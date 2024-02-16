@@ -25,9 +25,7 @@ public class PostController {
 	private UserController userController = new UserController(scan); 
 	private CategoryController categoryController = new CategoryController(scan);
 	private BoardController boardController = new BoardController(scan);
-	
-	//게시판 리스트 불러오기
-	//ArrayList<Board> bList = boardService.get~();
+
 	
 	private static User user;
 	
@@ -312,7 +310,7 @@ public class PostController {
 		System.out.println(rH(110));
 		System.out.println(rS(2) + "번호" + rS(10) 
 							+ "게시판" + rS(25)
-							+ "제목" + rS(25)
+							+ "제목" + rS(22)
 							+ "작성자" + rS(10)
 							+ "작성시간");
 		System.out.println(rH(110));

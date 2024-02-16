@@ -112,9 +112,9 @@ public class BoardController {
 		
 		for(int i=0; i<categoryList.size(); i++) {
 			System.out.println(categoryList.get(i).getC_title());
-			cBoardList = boardService.getCBoradList(categoryList.get(i).getC_num());
+			cBoardList = boardService.getBoardList(categoryList.get(i).getC_num());
 			if(!printBoardList(cBoardList)) {
-				System.out.println("게시판이 없슴니다.");
+				System.out.println("조회 가능한 게시판이 없습니다.");
 			}	
 		}
 		
@@ -253,10 +253,18 @@ public class BoardController {
 	}
 
 	public boolean printBoardListBoolean() {
+		// 카테고리 리스트 출력
 		ArrayList<Board> boardList = boardService.getBoardList();
-		if(!printBoardList(boardList)) {
-			System.out.println("입력 가능한 게시판이 없습니다.");
-			return false;
+		ArrayList<Board> cBoardList = new ArrayList<Board>();
+		ArrayList<Category> categoryList = categoryService.getCategoryList();
+		
+		for(int i=0; i<categoryList.size(); i++) {
+			System.out.println(categoryList.get(i).getC_title());
+			cBoardList = boardService.getBoardList(categoryList.get(i).getC_num());
+			if(!printBoardList(cBoardList)) {
+				System.out.println("입력 가능한 게시판이 없습니다.");
+				return false;
+			}	
 		}
 		return true;
 	}
