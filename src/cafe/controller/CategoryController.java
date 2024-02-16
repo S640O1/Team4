@@ -84,12 +84,39 @@ public class CategoryController {
 		}
 	}
 
-	/** 4. 카테고리 전체 조회하는 메서드*/
+	
+	/** 4. 카테고리 삭제하는 메서드*/
+	private void deleteCategory() {
+		printNumCategory();
+		System.out.println("카테고리 삭제 시 내부 게시판, 게시글도 삭제됩니다. \n 정말 삭제하시겠습니까? (Y/N) : ");
+		String delCategory = scan.next();
+		
+		if ("Y".equalsIgnoreCase(delCategory)) {
+			try {
+				System.out.print("삭제할 카테고리 번호를 입력하세요: ");
+			
+				int c_num = scan.nextInt();
+			 
+				if (categoryService.deleteCategory(c_num)) {
+		            System.out.println("카테고리를 삭제하였습니다.");
+		        } else {
+		            System.out.println("카테고리 삭제에 실패했습니다.");
+		        }
+			}catch (InputMismatchException e) {
+				System.out.println("오류가 발생되어 카테고리 삭제를 취소합니다.");
+	            scan.next(); // 버퍼를 비워줍니다.
+			}
+		}else {
+			System.out.println("카테고리 삭제를 취소합니다.");
+		}
+    }
+
+	/** 3. 카테고리 전체 조회하는 메서드*/
 	public void printCategory() {
 		//번호 없이 출력
 		cList = categoryService.getCategoryList();
 		if(cList.size() == 0) {
-
+			
 			System.out.println("등록된 카테고리가 없습니다.");
 			return;
 		}
@@ -98,12 +125,12 @@ public class CategoryController {
 		}
 	}
 	
-	/** 4_1. 카테고리 num 포함 전체 조회하는 메서드*/
+	/** 3_1. 카테고리 num 포함 전체 조회하는 메서드*/
 	public void printNumCategory() {
 		//번호 있도록 출력
 		cList = categoryService.getCategoryList();
 		if(cList.size() == 0) {
-
+			
 			System.out.println("등록된 카테고리가 없습니다.");
 			return;
 		}
@@ -112,27 +139,13 @@ public class CategoryController {
 		}		
 	}
 	
-	/** 3. 카테고리 삭제하는 메서드*/
-	private void deleteCategory() {
-		printNumCategory();
-		System.out.print("삭제할 카테고리 번호를 입력하세요: ");
-		 int c_num = scan.nextInt();
-		 
-		 if (categoryService.deleteCategory(c_num)) {
-	            System.out.println("카테고리를 삭제하였습니다.");
-	        } else {
-	            System.out.println("카테고리 삭제에 실패했습니다.");
-	        }
-    }
-
-	
 	/** 2. 카테고리 수정하는 메서드*/
 	private void updateCategory() {
 		printNumCategory();
-		System.out.print("수정할 카테고리 번호를 입력하세요: ");
+		System.out.print("수정할 카테고리 번호를 입력하세요 : ");
 		int c_num = scan.nextInt();
 
-        System.out.print("수정할 카테고리 이름을 입력하세요: ");
+        System.out.print("수정할 카테고리 이름을 입력하세요 : ");
         String c_title = scan.next();
       
         if (categoryService.updateCategory(c_num, c_title)) {
