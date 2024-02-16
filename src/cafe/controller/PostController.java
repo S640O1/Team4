@@ -395,8 +395,6 @@ public class PostController {
 		//날짜 받아오기
 		Date date = new Date();	//날짜, 시간 다 받아오기
 		
-		System.out.println("시간을 받아왔습니다.");
-				
 		Post post = new Post(p_b_num, title, p_u_id, content, date);
 		return post;
 	}
