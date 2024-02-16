@@ -258,6 +258,10 @@ public class BoardController {
 		ArrayList<Board> cBoardList = new ArrayList<Board>();
 		ArrayList<Category> categoryList = categoryService.getCategoryList();
 		
+		if(boardList.isEmpty()) {
+			return false;
+		}
+		
 		for(int i=0; i<categoryList.size(); i++) {
 			System.out.println(categoryList.get(i).getC_title());
 			cBoardList = boardService.getBoardList(categoryList.get(i).getC_num());

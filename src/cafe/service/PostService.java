@@ -23,6 +23,10 @@ public interface PostService {
 
 	ArrayList<Post> getPostListPage(Criteria cri);
 
+	ArrayList<Post> getBoardPostListPage(Criteria cri, int p_b_num);
+
+	ArrayList<Post> getMyPostListPage(Criteria cri, String u_id);
+
 
 
 
