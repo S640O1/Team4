@@ -79,7 +79,7 @@ public class BoardController {
 
 	private Board boardInput() {
 		// 카테고리 리스트 출력
-		categoryController.printCategory();
+		categoryController.printNumCategory();
 		
 		// 게시판 추가할 카테고리 선택
 		int b_c_num;
@@ -141,7 +141,7 @@ public class BoardController {
 	
 	private void updateBoardService() {
 		// 카테고리 리스트 출력
-		categoryController.printCategory();
+		categoryController.printNumCategory();
 		
 		// 게시판 수정할 카테고리 선택
 		int b_c_num;
@@ -204,7 +204,7 @@ public class BoardController {
 	private void deleteBoardServiece() {
 		
 		// 카테고리 리스트 출력
-		categoryController.printCategory();
+		categoryController.printNumCategory();
 		
 		// 게시판 수정할 카테고리 선택
 		int b_c_num;

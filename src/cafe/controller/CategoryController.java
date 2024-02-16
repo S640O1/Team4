@@ -3,6 +3,7 @@ package cafe.controller;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 import cafe.model.vo.Category;
 import cafe.service.CategoryService;
@@ -97,6 +98,20 @@ public class CategoryController {
 		}
 	}
 	
+	/** 4_1. 카테고리 num 포함 전체 조회하는 메서드*/
+	public void printNumCategory() {
+		//번호 있도록 출력
+		cList = categoryService.getCategoryList();
+		if(cList.size() == 0) {
+
+			System.out.println("등록된 카테고리가 없습니다.");
+			return;
+		}
+		for(Category c : cList) {
+			System.out.println(c.toNumString());
+		}		
+	}
+	
 	/** 3. 카테고리 삭제하는 메서드*/
 	private void deleteCategory() {
 		printNumCategory();
@@ -127,17 +142,7 @@ public class CategoryController {
         }
 	}
 	
-	private void printNumCategory() {
-		cList = categoryService.getCategoryList();
-		if(cList.size() == 0) {
 
-			System.out.println("등록된 카테고리가 없습니다.");
-			return;
-		}
-		for(Category c : cList) {
-			System.out.println(c.toNumString());
-		}		
-	}
 
 	/** 1. 카테고리 등록하는 메서드*/
 	private void insertCategory() {
@@ -146,13 +151,14 @@ public class CategoryController {
 		// 카테고리 이름 : 한글, 영어 대소문자, 숫자, 특수문자((!@#$%?(단, 특수문자 중 []를 제외하여 사용))
 		
 		String regex = "^[가-힣a-zA-Z0-9!@#$%?]{1,15}$";
+		String c_title;
 		do {
 			System.out.print("카테고리 이름 : ");
-			String c_title = scan.nextLine();
+			scan.nextLine();
+			c_title = scan.nextLine();
 			
 			// 정규표현식 검사
-	        if (c_title.matches(regex)) {
-	        	
+	        if (Pattern.matches(regex, c_title)) {	
 	        	//카테고리명 중복체크(중복 시 등록불가)
 	        	if (isCategoryNameDuplicate(c_title)) {
 	                System.out.println("이미 존재하는 카테고리명입니다. 다른 이름을 입력해주세요.");
@@ -171,7 +177,7 @@ public class CategoryController {
 					System.out.println("카테고리 등록에 실패했습니다.");
 				}
 	        }else {
-				System.out.println("1~15글자 이내로 한글, 영어 대소문자, 숫자, 특수문자((!@#$%?(단, []를 제외하여 사용)) 다시 입력해주세요.");
+				System.out.println("양식에 맞추어 다시 입력해주세요.\n양식: 1~15글자 이내로 한글, 영어 대소문자, 숫자, 특수문자((!@#$%?(단, []를 제외하여 사용))");
 			}
 		}while (true);
 	}
