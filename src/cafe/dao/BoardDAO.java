@@ -20,6 +20,8 @@ public interface BoardDAO {
 
 	ArrayList<Board> selectCBoardList(int b_c_num);
 
+	boolean deleteCategoryBoard(int b_c_num);
+
 	
 
 }

@@ -5,7 +5,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import cafe.model.vo.Board;
 import cafe.model.vo.Category;
+import cafe.service.BoardService;
+import cafe.service.BoardServiceImp;
 import cafe.service.CategoryService;
 import cafe.service.CategoryServiceImp;
 import cafe.service.PrintService;
@@ -16,6 +19,10 @@ public class CategoryController {
 	private Scanner scan;
 	private CategoryService categoryService;
 	public PrintService printService = new PrintServiceImp();
+	public BoardService boardService = new BoardServiceImp();
+	public BoardController boardController = new BoardController(scan);
+	public PostController postController = new PostController(scan, null);
+	
 	ArrayList<Category> cList = new ArrayList<Category>();
 	
 	private static final int EXIT_CATEGORY = 5;
@@ -94,8 +101,22 @@ public class CategoryController {
 		if ("Y".equalsIgnoreCase(delCategory)) {
 			try {
 				System.out.print("삭제할 카테고리 번호를 입력하세요: ");
-			
 				int c_num = scan.nextInt();
+				
+				//카테고리에 있는 게시판 리스트
+				ArrayList<Board> cBoardList = new ArrayList<Board>();
+				cBoardList = boardService.getBoardList(c_num);
+				
+				//게시판이 있다면 
+				if(!cBoardList.isEmpty()) {
+					//먼저 게시판의 게시글을 삭제
+					for(int i=0; i<cBoardList.size(); i++) {
+						//각각의 게시판의 번호를 가져와서 삭제 cBoardList.get(i).getB_num
+						postController.deleteBoardPostList(cBoardList.get(i).getB_num());
+					}
+					//게시판을 삭제
+					boardController.deleteCAllBoard(c_num);	
+				}
 			 
 				if (categoryService.deleteCategory(c_num)) {
 		            System.out.println("카테고리를 삭제하였습니다.");

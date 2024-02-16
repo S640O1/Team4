@@ -18,4 +18,6 @@ public interface BoardService {
 
 	ArrayList<Board> getBoardList(int i);
 
+	boolean deleteCategoryBoard(int b_c_num);
+
 }

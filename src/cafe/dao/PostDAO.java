@@ -22,6 +22,8 @@ public interface PostDAO {
 
 	boolean deletePost(@Param("p_num")int p_num);
 
+	boolean deleteBoardPostList(@Param("p_b_num")int p_b_num);
+
 	ArrayList<Post> selectBoardPostList(@Param("p_b_num")int p_b_num);
 
 	ArrayList<Post> selectBoardPostListPage(@Param("cri")Criteria cri, @Param("p_b_num")int p_b_num);
@@ -29,5 +31,6 @@ public interface PostDAO {
 	ArrayList<Post> selectPostListPage(@Param("cri")Criteria cri);
 
 	ArrayList<Post> selectMyPostListPage(@Param("cri")Criteria cri, @Param("u_id")String u_id);
+
 
 }

@@ -27,6 +27,8 @@ public interface PostService {
 
 	ArrayList<Post> getMyPostListPage(Criteria cri, String u_id);
 
+	boolean deleteBoardPostList(int p_b_num);
+
 
 
 
