@@ -22,7 +22,7 @@ public class PostController {
 	
 	// Controller 불러오기
 	private UserController userController = new UserController(scan); 
-	private CategoryController categoryController = new CategoryController(scan);
+	// -> 서비스로
 	private BoardController boardController = new BoardController(scan);
 
 	
@@ -131,15 +131,6 @@ public class PostController {
 		
 		if(postService.deletePost(p_num)) {
 			System.out.println("게시글을 삭제했습니다.");
-		}else {
-			System.out.println("게시글을 삭제하지 못했습니다.");
-		}
-	}
-	
-	//게시판안의 게시글 모두 삭제
-	public void deleteBoardPostList(int p_b_num){
-		if(postService.deleteBoardPostList(p_b_num)) {
-			System.out.println("게시판의 모든 게시글을 삭제했습니다.");
 		}else {
 			System.out.println("게시글을 삭제하지 못했습니다.");
 		}

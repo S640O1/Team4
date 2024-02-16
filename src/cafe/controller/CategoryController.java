@@ -11,6 +11,8 @@ import cafe.service.BoardService;
 import cafe.service.BoardServiceImp;
 import cafe.service.CategoryService;
 import cafe.service.CategoryServiceImp;
+import cafe.service.PostService;
+import cafe.service.PostServiceImp;
 import cafe.service.PrintService;
 import cafe.service.PrintServiceImp;
 
@@ -19,9 +21,8 @@ public class CategoryController {
 	private Scanner scan;
 	private CategoryService categoryService;
 	public PrintService printService = new PrintServiceImp();
+	public PostService postService = new PostServiceImp();
 	public BoardService boardService = new BoardServiceImp();
-	public BoardController boardController = new BoardController(scan);
-	public PostController postController = new PostController(scan, null);
 	
 	ArrayList<Category> cList = new ArrayList<Category>();
 	
@@ -107,15 +108,23 @@ public class CategoryController {
 				ArrayList<Board> cBoardList = new ArrayList<Board>();
 				cBoardList = boardService.getBoardList(c_num);
 				
-				//게시판이 있다면 
+//				게시판이 있다면 
 				if(!cBoardList.isEmpty()) {
 					//먼저 게시판의 게시글을 삭제
 					for(int i=0; i<cBoardList.size(); i++) {
 						//각각의 게시판의 번호를 가져와서 삭제 cBoardList.get(i).getB_num
-						postController.deleteBoardPostList(cBoardList.get(i).getB_num());
+						if(postService.deleteBoardPostList(cBoardList.get(i).getB_num())) {
+							System.out.println("게시판의 모든 게시글을 삭제했습니다.");
+						}else {
+							System.out.println("게시글을 삭제하지 못했습니다.");
+						}
 					}
 					//게시판을 삭제
-					boardController.deleteCAllBoard(c_num);	
+					if(boardService.deleteCategoryBoard(c_num)) {
+						System.out.println("게시판을 삭제하였습니다.");	
+					} else {
+						System.out.println("게시판을 삭제하지 못했습니다.");
+					}
 				}
 			 
 				if (categoryService.deleteCategory(c_num)) {
