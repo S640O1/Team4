@@ -16,6 +16,6 @@ public interface BoardService {
 
 	ArrayList<Board> selectCaBoardList(int b_c_num);
 
-	ArrayList<Board> getCBoradList(int i);
+	ArrayList<Board> getBoardList(int i);
 
 }
