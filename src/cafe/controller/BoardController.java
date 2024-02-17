@@ -96,10 +96,19 @@ public class BoardController {
 			System.out.println("잘못된 번호입니다.");
 		}
 		
-		// 정규 표현식 (제목 1-20자)
-		System.out.print("제목을 입력하세요(1~20자) : ");
+		// 제목 (1~20자) 입력받기
+		
+		String b_title = null;
 		scan.nextLine();
-		String b_title = scan.nextLine();
+		
+		while(true) {
+			System.out.print("제목을 입력하세요(1~20자) : ");
+			b_title = scan.nextLine();
+			if (b_title.length() <= 20 && b_title.length() >0) {
+				break;
+			}
+			System.out.println("제목은 1~20자리만 가능합니다.");
+		}
 		
 		Board board = new Board(b_c_num, b_title);
 		
@@ -109,12 +118,11 @@ public class BoardController {
 
 	private void printBoardService() {
 		// 카테고리 리스트 출력
-		ArrayList<Board> boardList = boardService.getBoardList();
 		ArrayList<Board> cBoardList = new ArrayList<Board>();
 		ArrayList<Category> categoryList = categoryService.getCategoryList();
 		
 		for(int i=0; i<categoryList.size(); i++) {
-			System.out.println(categoryList.get(i).getC_title());
+			System.out.println("[" + categoryList.get(i).getC_title() + "]");
 			cBoardList = boardService.getBoardList(categoryList.get(i).getC_num());
 			if(!printBoardList(cBoardList)) {
 				System.out.println("조회 가능한 게시판이 없습니다.");
@@ -188,15 +196,23 @@ public class BoardController {
 	}
 
 	private Board boardUpdateInput(Board board) {
-
-		// 카테고리 출력
-		// 카테고리 선택
+		
 		System.out.print("수정할 카테고리를 선택하세요 : ");
 		int b_c_num = scan.nextInt();
 		
-		System.out.print("수정할 제목을 입력하세요(1~20자) : ");
-		scan.nextLine();
-		String b_title = scan.nextLine();
+		String b_title = null;
+		
+		while(true) {
+			System.out.print("수정할 제목을 입력하세요(1~20자) : ");
+			scan.nextLine();
+			b_title = scan.nextLine();
+			if (b_title.length() <= 20 && b_title.length() >0) {
+				break;
+			}
+			System.out.println("제목은 1~20자리만 가능합니다.");
+		}
+		
+		b_title = scan.nextLine();
 		
 		Board newBoard = new Board(b_c_num, b_title);
 		return newBoard;
