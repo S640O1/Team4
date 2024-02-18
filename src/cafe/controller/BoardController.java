@@ -201,18 +201,16 @@ public class BoardController {
 		int b_c_num = scan.nextInt();
 		
 		String b_title = null;
+		scan.nextLine();
 		
 		while(true) {
 			System.out.print("수정할 제목을 입력하세요(1~20자) : ");
-			scan.nextLine();
 			b_title = scan.nextLine();
 			if (b_title.length() <= 20 && b_title.length() >0) {
 				break;
 			}
 			System.out.println("제목은 1~20자리만 가능합니다.");
 		}
-		
-		b_title = scan.nextLine();
 		
 		Board newBoard = new Board(b_c_num, b_title);
 		return newBoard;
