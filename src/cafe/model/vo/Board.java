@@ -43,13 +43,13 @@ public class Board {
 		this.b_title = b_title;
 	}
 
-	public String simpleString() { // b_num 없는 버전 조회 시
+	public String simpleString() {
 		return "\t ㄴ " + b_num + ". " + b_title;
 	}
 
 	@Override
-	public String toString() {  // b_num 있는 버전 수정 삭제 시 선택할 때
-		return "ㄴ " + b_num + ". " + b_title;
+	public String toString() {  
+		return b_num + ". " + b_title;
 	}
 	
 
