@@ -149,6 +149,17 @@ public class BoardController {
 		return true;
 	}
 
+	public boolean printCaBoardList(ArrayList<Board> boardList) {
+		if(boardList.isEmpty()) {
+			return false;
+		}
+		for (Board b : boardList) {
+			System.out.println(b.toString());
+		}
+		return true;
+	}
+
+	
 	
 	private void updateBoardService() {
 		// 카테고리 리스트 출력
@@ -168,7 +179,7 @@ public class BoardController {
 		
 		// 카테고리에 포함된 게시판 리스트 출력
 		ArrayList<Board> caBoardList = boardService.selectCaBoardList(b_c_num);
-		if(!printBoardList(caBoardList)) {
+		if(!printCaBoardList(caBoardList)) {
 			System.out.println("게시판이 없습니다.");
 			return;
 		}
@@ -237,7 +248,7 @@ public class BoardController {
 		
 		// 카테고리에 포함된 게시판 리스트 출력
 		ArrayList<Board> caBoardList = boardService.selectCaBoardList(b_c_num);
-		if(!printBoardList(caBoardList)) {
+		if(!printCaBoardList(caBoardList)) {
 			System.out.println("게시판이 없습니다.");
 			return;
 		}

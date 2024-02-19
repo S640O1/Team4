@@ -43,13 +43,16 @@ public class Board {
 		this.b_title = b_title;
 	}
 
+	//번호 없는거
 	public String simpleString() {
-		return "\t ㄴ " + b_num + ". " + b_title;
+		return  "\t ㄴ " + b_title;
 	}
 
+	
+	//번호 있는거
 	@Override
 	public String toString() {  
-		return b_num + ". " + b_title;
+		return  "\t ㄴ " + b_num + ". " + b_title;
 	}
 	
 
