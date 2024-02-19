@@ -302,7 +302,7 @@ public class BoardController {
 		for(int i=0; i<categoryList.size(); i++) {
 			System.out.println(categoryList.get(i).getC_title());
 			cBoardList = boardService.getBoardList(categoryList.get(i).getC_num());
-			if(!printBoardList(cBoardList)) {
+			if(!printCaBoardList(cBoardList)) {
 				System.out.println("입력 가능한 게시판이 없습니다.");
 				return false;
 			}	
