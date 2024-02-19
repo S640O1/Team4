@@ -144,7 +144,7 @@ public class BoardController {
 			return false;
 		}
 		for (Board b : boardList) {
-			System.out.println(b.simpleString());
+			System.out.println(b.toString());
 		}
 		return true;
 	}
