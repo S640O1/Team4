@@ -115,21 +115,29 @@ public class CategoryController {
 						//각각의 게시판의 번호를 가져와서 삭제 cBoardList.get(i).getB_num
 						if(postService.deleteBoardPostList(cBoardList.get(i).getB_num())) {
 							System.out.println("게시판의 모든 게시글을 삭제했습니다.");
-						}else {
+						}else if(!postService.deleteBoardPostList(cBoardList.get(i).getB_num())){
+							System.out.println("게시판의 모든 게시글을 삭제했습니다.");
+						} else {							
 							System.out.println("게시글을 삭제하지 못했습니다.");
 						}
 					}
+				}
 					//게시판을 삭제
 					if(boardService.deleteCategoryBoard(c_num)) {
 						System.out.println("게시판을 삭제하였습니다.");	
-					} else {
+					} else if(!boardService.deleteCategoryBoard(c_num)) {
+						System.out.println("게시판을 삭제하였습니다.");
+					}
+					else {
 						System.out.println("게시판을 삭제하지 못했습니다.");
 					}
-				}
 			 
 				if (categoryService.deleteCategory(c_num)) {
 		            System.out.println("카테고리를 삭제하였습니다.");
-		        } else {
+		        } else if(!categoryService.deleteCategory(c_num)) {
+		        	System.out.println("카테고리를 삭제하였습니다.");
+		        }
+				else {
 		            System.out.println("카테고리 삭제에 실패했습니다.");
 		        }
 			}catch (InputMismatchException e) {
@@ -195,13 +203,13 @@ public class CategoryController {
 		
 		String regex = "^[가-힣a-zA-Z0-9!@#$%?]{1,15}$";
 		String c_title;
+		scan.nextLine();
 		do {
 			System.out.print("카테고리 이름 : ");
-			scan.nextLine();
 			c_title = scan.nextLine();
 			
 			// 정규표현식 검사
-	        if (Pattern.matches(regex, c_title)) {	
+	        if (Pattern.matches(regex, c_title)) {
 	        	//카테고리명 중복체크(중복 시 등록불가)
 	        	if (isCategoryNameDuplicate(c_title)) {
 	                System.out.println("이미 존재하는 카테고리명입니다. 다른 이름을 입력해주세요.");

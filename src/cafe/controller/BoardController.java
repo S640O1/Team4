@@ -267,7 +267,10 @@ public class BoardController {
 		//게시판의 게시글을 삭제합니다
 		if(postService.deleteBoardPostList(b_num)) {
 			System.out.println("게시판의 모든 게시글을 삭제했습니다.");
-		}else {
+		}else if(!postService.deleteBoardPostList(b_num)) {
+			System.out.println("게시판의 모든 게시글을 삭제했습니다.");
+		}
+		else {
 			System.out.println("게시글을 삭제하지 못했습니다.");
 		}
 		
